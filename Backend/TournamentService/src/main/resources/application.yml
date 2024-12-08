@@ -1,0 +1,19 @@
+server:
+  port: 9006
+  servlet:
+    context-path: /tournament-service
+
+spring:
+  application:
+    name: tournament-service
+  config:
+    import: configserver:http://localhost:9296
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/tournamentdb
+    username: root
+    password:
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update

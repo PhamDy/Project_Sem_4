@@ -1,0 +1,19 @@
+server:
+  port: 9005
+  servlet:
+    context-path: /order-service
+
+spring:
+  application:
+    name: order-service
+  config:
+    import: configserver:http://localhost:9296
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/orderdb
+    username: root
+    password:
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update

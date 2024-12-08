@@ -17,3 +17,66 @@ spring:
           uri: lb://stadium-service
           predicates:
             - Path=/stadium-service/private/api/v1/**
+
+        - id: booking-service-public
+          uri: lb://booking-service
+          predicates:
+            - Path=/booking-service/public/api/v1/**
+        - id: booking-service-private
+          uri: lb://booking-service
+          predicates:
+            - Path=/booking-service/private/api/v1/**
+
+        - id: users-service-public
+          uri: lb://users-service
+          predicates:
+            - Path=/users-service/public/api/v1/**
+        - id: users-service-private
+          uri: lb://users-service
+          predicates:
+            - Path=/users-service/private/api/v1/**
+
+        - id: product-service-public
+          uri: lb://product-service
+          predicates:
+            - Path=/product-service/public/api/v1/**
+        - id: product-service-private
+          uri: lb://product-service
+          predicates:
+            - Path=/product-service/private/api/v1/**
+
+        - id: order-service-public
+          uri: lb://order-service
+          predicates:
+            - Path=/order-service/public/api/v1/**
+        - id: order-service-private
+          uri: lb://order-service
+          predicates:
+            - Path=/order-service/private/api/v1/**
+
+        - id: tournament-service-public
+          uri: lb://tournament-service
+          predicates:
+            - Path=/tournament-service/public/api/v1/**
+        - id: tournament-service-private
+          uri: lb://tournament-service
+          predicates:
+            - Path=/tournament-service/private/api/v1/**
+
+        - id: payment-service-public
+          uri: lb://payment-service
+          predicates:
+            - Path=/payment-service/public/api/v1/**
+        - id: payment-service-private
+          uri: lb://payment-service
+          predicates:
+            - Path=/payment-service/private/api/v1/**
+
+        - id: notification-service-public
+          uri: lb://notification-service
+          predicates:
+            - Path=/notification-service/public/api/v1/**
+        - id: notification-service-private
+          uri: lb://notification-service
+          predicates:
+            - Path=/notification-service/private/api/v1/**

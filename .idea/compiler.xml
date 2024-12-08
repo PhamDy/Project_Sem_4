@@ -8,17 +8,25 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Config-server" />
         <module name="Gateway-server" />
+        <module name="UsersService" />
+        <module name="TournamentService" />
+        <module name="ProductService" />
         <module name="Service-registry" />
+        <module name="NotificationService" />
+        <module name="BookingService" />
+        <module name="OrderService" />
+        <module name="PaymentService" />
       </profile>
-      <profile name="Annotation profile for StadiumService" enabled="true">
+      <profile name="Annotation profile for common-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
-        <module name="StadiumService" />
         <module name="common-service" />
+        <module name="StadiumService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -27,11 +35,18 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="BookingService" options="-parameters" />
       <module name="Config-server" options="-parameters" />
       <module name="Gateway-server" options="-parameters" />
+      <module name="NotificationService" options="-parameters" />
+      <module name="OrderService" options="-parameters" />
+      <module name="PaymentService" options="-parameters" />
+      <module name="ProductService" options="-parameters" />
       <module name="Service-registry" options="-parameters" />
       <module name="StadiumService" options="-parameters" />
       <module name="StadumService" options="-parameters" />
+      <module name="TournamentService" options="-parameters" />
+      <module name="UsersService" options="-parameters" />
       <module name="common-service" options="-parameters" />
     </option>
   </component>

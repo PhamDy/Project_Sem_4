@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Backend/BookingService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Backend/Config-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Backend/Gateway-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Backend/NotificationService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Backend/OrderService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Backend/PaymentService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Backend/ProductService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Backend/Service-registry/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Backend/StadiumService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Backend/TournamentService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Backend/UsersService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Backend/common-service/src/main/java" charset="UTF-8" />
   </component>
 </project>

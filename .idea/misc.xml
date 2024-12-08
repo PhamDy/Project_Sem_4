@@ -9,6 +9,13 @@
         <option value="$PROJECT_DIR$/Backend/Gateway-server/pom.xml" />
         <option value="$PROJECT_DIR$/Backend/StadiumService/pom.xml" />
         <option value="$PROJECT_DIR$/Backend/common-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Backend/BookingService/pom.xml" />
+        <option value="$PROJECT_DIR$/Backend/NotificationService/pom.xml" />
+        <option value="$PROJECT_DIR$/Backend/OrderService/pom.xml" />
+        <option value="$PROJECT_DIR$/Backend/PaymentService/pom.xml" />
+        <option value="$PROJECT_DIR$/Backend/ProductService/pom.xml" />
+        <option value="$PROJECT_DIR$/Backend/TournamentService/pom.xml" />
+        <option value="$PROJECT_DIR$/Backend/UsersService/pom.xml" />
       </list>
     </option>
   </component>

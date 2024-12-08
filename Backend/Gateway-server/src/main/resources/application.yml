@@ -1,0 +1,19 @@
+server:
+  port: 9094
+
+spring:
+  application:
+    name: API-GATEWAY
+  config:
+    import: configserver:http://localhost:9296
+  cloud:
+    gateway:
+      routes:
+        - id: stadium-service-public
+          uri: lb://stadium-service
+          predicates:
+            - Path=/stadium-service/public/api/v1/**
+        - id: stadium-service-private
+          uri: lb://stadium-service
+          predicates:
+            - Path=/stadium-service/private/api/v1/**

@@ -3,7 +3,6 @@ package com.projectsem4.StadiumService.controller;
 import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.service.AreaService;
 
-import com.projectsem4.common_service.dto.response.ResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

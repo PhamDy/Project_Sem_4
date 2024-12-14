@@ -1,7 +1,6 @@
 package com.projectsem4.StadiumService.controller;
 
 import com.projectsem4.StadiumService.service.AreaService;
-import com.projectsem4.common_service.dto.response.ResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

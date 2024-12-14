@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Feedback extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feedback_id")
-    private String feedbackId;
+    private Long feedbackId;
 
     @Basic
     @Column(name = "name")
@@ -21,5 +21,5 @@ public class Feedback extends BaseEntity {
 
     @Basic
     @Column(name = "parent_id")
-    private String parentId;
+    private Long parentId;
 }

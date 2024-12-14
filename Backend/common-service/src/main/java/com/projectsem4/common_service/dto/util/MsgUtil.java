@@ -1,4 +1,4 @@
-package com.projectsem4.common_service.util;
+package com.projectsem4.common_service.dto.util;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

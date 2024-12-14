@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Entity
 public class File {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_id")
-    private String fileId;
+    private Long fileId;
 
     @Basic
     @Column(name = "file_name")
@@ -25,17 +25,17 @@ public class File {
 
     @Basic
     @Column(name = "accessory_id")
-    private String accessoryId;
+    private Long accessoryId;
 
     @Basic
     @Column(name = "area_id")
-    private String areaId;
+    private Long areaId;
 
     @Basic
     @Column(name = "category_accessory_id")
-    private String categoryAccessoryId;
+    private Long categoryAccessoryId;
 
     @Basic
     @Column(name = "feedback_id")
-    private String feedbackId;
+    private Long feedbackId;
 }

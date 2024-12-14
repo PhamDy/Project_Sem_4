@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Field extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "field_id")
-    private String fieldId;
+    private Long fieldId;
 
     @Basic
     @Column(name = "name")
@@ -41,5 +41,5 @@ public class Field extends BaseEntity {
 
     @Basic
     @Column(name = "area_id")
-    private String areaId;
+    private Long areaId;
 }

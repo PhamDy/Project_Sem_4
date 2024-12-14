@@ -1,4 +1,4 @@
-package com.projectsem4.common_service.entity;
+package com.projectsem4.common_service.dto.entity;
 
 
 import java.time.LocalDateTime;

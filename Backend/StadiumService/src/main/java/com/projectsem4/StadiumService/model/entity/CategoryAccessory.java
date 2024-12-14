@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Entity
 public class CategoryAccessory extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_accessory_id")
-    private String categoryAccessoryId;
+    private Long categoryAccessoryId;
 
     @Basic
     @Column(name = "name")
@@ -21,5 +21,5 @@ public class CategoryAccessory extends BaseEntity {
 
     @Basic
     @Column(name = "parent_id")
-    private String parentId;
+    private Long parentId;
 }

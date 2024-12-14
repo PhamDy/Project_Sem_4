@@ -15,9 +15,9 @@ import java.time.LocalTime;
 @Entity
 public class Price extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "price_id")
-    private String priceId;
+    private Long priceId;
 
     @Basic
     @Column(name = "price_from")
@@ -33,5 +33,5 @@ public class Price extends BaseEntity {
 
     @Basic
     @Column(name = "field_id")
-    private String fieldId;
+    private Long fieldId;
 }

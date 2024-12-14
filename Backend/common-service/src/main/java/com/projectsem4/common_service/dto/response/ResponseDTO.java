@@ -1,9 +1,7 @@
-package com.projectsem4.common_service.response;
+package com.projectsem4.common_service.dto.response;
 
-import com.projectsem4.common_service.util.MsgUtil;
+import com.projectsem4.common_service.dto.util.MsgUtil;
 import lombok.*;
-
-import static com.projectsem4.common_service.util.MsgUtil.SPLIT;
 
 @Getter
 @Setter
@@ -67,7 +65,7 @@ public class ResponseDTO<T> {
     }
 
     private static <T> ResponseDTO<T> msgExtract(ResponseDTO<T> response) {
-        String[] extract = response.data.msg_content.split(SPLIT);
+        String[] extract = response.data.msg_content.split(MsgUtil.SPLIT);
         if (extract.length == 2) {
             response.data.msg_code = extract[0];
             response.data.msg_content = extract[1];

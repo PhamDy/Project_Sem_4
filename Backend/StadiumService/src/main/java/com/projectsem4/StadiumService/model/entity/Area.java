@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Area extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "area_id")
-    private String areaId;
+    private Long areaId;
 
     @Basic
     @Column(name = "name")

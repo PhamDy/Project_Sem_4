@@ -13,9 +13,9 @@ import java.math.BigDecimal;
 @Entity
 public class Accessory extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accessory_id")
-    private String accessoryId;
+    private Long accessoryId;
 
     @Basic
     @Column(name = "name")
@@ -31,7 +31,7 @@ public class Accessory extends BaseEntity {
 
     @Basic
     @Column(name = "area_id")
-    private String areaId;
+    private Long areaId;
 
     @Basic
     @Column(name = "type")

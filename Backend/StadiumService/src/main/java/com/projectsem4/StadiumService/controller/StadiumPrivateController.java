@@ -15,11 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class StadiumPrivateController {
     private final AreaService areaService;
 
-    @PostMapping
-    public ResponseDTO<Boolean> createArea(AreaCreateRequest areaCreateRequest) {
-        return ResponseDTO.ok(areaService.createArea(areaCreateRequest));
-    }
-
     @GetMapping
     public String test(){
         return "test";

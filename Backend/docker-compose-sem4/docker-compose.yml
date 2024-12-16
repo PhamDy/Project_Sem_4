@@ -1,0 +1,8 @@
+---
+version: '3.8'
+services:
+  serviceregistry:
+    image: 'phamdy/sem4-service-registry:14-12-2024'
+    container_name: serviceregistry-sem4
+    ports:
+      - '8761:8761'

@@ -10,9 +10,4 @@ import org.springframework.web.bind.annotation.*;
 public class StadiumPublicController {
     private final AreaService areaService;
 
-    @GetMapping
-    public ResponseDTO<Object> getStadium(@RequestParam Long id) {
-        return ResponseDTO.ok(areaService.findById(id));
-    }
-
 }

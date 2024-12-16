@@ -9,9 +9,9 @@ spring:
   config:
     import: configserver:http://localhost:9296
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/stadiumdb
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/project
     username: root
-    password:
+    password: quangthai3110
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect

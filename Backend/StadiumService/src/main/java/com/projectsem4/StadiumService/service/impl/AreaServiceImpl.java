@@ -11,6 +11,7 @@ import com.projectsem4.StadiumService.repository.AreaRepository;
 import com.projectsem4.StadiumService.repository.FieldRepository;
 import com.projectsem4.StadiumService.repository.PriceRepository;
 import com.projectsem4.StadiumService.service.AreaService;
+import com.projectsem4.common_service.dto.util.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -95,7 +96,7 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Page<Area> findAllAreas(Pageable pageable) {
-        return null;
+        return areaRepository.findAll(pageable);
     }
 
     @Override
@@ -109,7 +110,19 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public Area deleteArea(String id) {
-        return null;
+    public void deleteArea(Long id) {
+        Area area = areaRepository.findById(id).orElse(null);
+        area.setStatus(Constants.Status.DELETE);
+        areaRepository.save(area);
+        List<Field> fields = fieldRepository.findByAreaId(id);
+        fields.forEach(field -> {
+            field.setStatus(Constants.Status.DELETE);
+            fieldRepository.save(field);
+            List<Price> prices = priceRepository.findByFieldId(field.getFieldId());
+            prices.forEach(price -> {
+                price.setStatus(Constants.Status.DELETE);
+                priceRepository.save(price);
+            });
+        });
     }
 }

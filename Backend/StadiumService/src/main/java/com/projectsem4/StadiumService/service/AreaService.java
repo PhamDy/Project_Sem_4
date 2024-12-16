@@ -12,5 +12,5 @@ public interface AreaService {
     Page<Area> findAllAreas(Pageable pageable);
     Page<Area> findAreas(Pageable pageable, FindAreaRequest findAreaRequest);
     Area updateArea(Area area);
-    Area deleteArea(String id);
+    void deleteArea(Long id);
 }

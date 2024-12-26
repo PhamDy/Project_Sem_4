@@ -45,11 +45,11 @@ class _AreaScreenState extends State<AreaScreen> {
                 ? const Center(child: Text('Không tìm thấy.'))
                 : AreaListWidget(
               areas: areaProvider.filteredAreas,
-              onAreaTap: (id) {
+              onAreaTap: (areaId) {
                 Navigator.pushNamed(
                   context,
                   '/field_screen',
-                  arguments: id,
+                  arguments: areaId,
                 );
               },
             ),

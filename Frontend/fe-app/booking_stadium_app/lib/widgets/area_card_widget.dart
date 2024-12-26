@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 
 class AreaCardWidget extends StatelessWidget {
+  final int areaId; // Added to navigate to the correct fields
   final String name;
   final String? address;
   final double? rating;
-  final VoidCallback onTap;
+  final VoidCallback? onTap; // Marked nullable for flexibility
 
   const AreaCardWidget({
     Key? key,
+    required this.areaId,
     required this.name,
     this.address,
     this.rating,
-    required this.onTap,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap ??
+              () {
+            // Navigate to FieldScreen with the selected areaId
+            Navigator.pushNamed(
+              context,
+              '/fields',
+              arguments: areaId,
+            );
+          },
       child: Card(
         margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         elevation: 4.0,

@@ -7,6 +7,7 @@ import '../providers/accessory_provider.dart';
 import '../providers/booking_provider.dart';
 import '../providers/user_provider.dart';
 import '../screens/area_screen.dart';
+import '../screens/field_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +32,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: AreaScreen(), // Set the initial screen to HomeScreen
+        initialRoute: '/',
+        routes: {
+          '/': (context) => AreaScreen(),
+          '/field_screen': (context) => FieldScreen(
+            areaId: ModalRoute.of(context)!.settings.arguments as int,
+          ),
+        },
       ),
     );
   }

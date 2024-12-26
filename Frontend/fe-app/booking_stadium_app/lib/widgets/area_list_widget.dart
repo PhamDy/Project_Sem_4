@@ -19,10 +19,11 @@ class AreaListWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         final area = areas[index];
         return AreaCardWidget(
+          areaId: area.areaId,
           name: area.name,
           address: area.address,
           rating: area.rating,
-          onTap: () => onAreaTap(area.id),
+          onTap: () => onAreaTap(area.areaId),
         );
       },
     );

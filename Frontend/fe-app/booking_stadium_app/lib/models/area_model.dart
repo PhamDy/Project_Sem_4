@@ -1,7 +1,7 @@
 import 'field_model.dart';
 
 class Area {
-  final int id;
+  final int areaId;
   final String name;
   final String? address;
   final double? rating;
@@ -12,7 +12,7 @@ class Area {
   final List<Field>? fields;
 
   Area({
-    required this.id,
+    required this.areaId,
     required this.name,
     this.address,
     this.rating,
@@ -26,7 +26,7 @@ class Area {
   // Factory method to parse JSON data
   factory Area.fromJson(Map<String, dynamic> json) {
     return Area(
-      id: json['area_id'] ?? 0,
+      areaId: json['area_id'] ?? 0,
       name: json['name'] ?? '',
       address: json['address'],
       rating: json['rating']?.toDouble(),
@@ -45,7 +45,7 @@ class Area {
   // Convert object to JSON
   Map<String, dynamic> toJson() {
     return {
-      'area_id': id,
+      'area_id': areaId,
       'name': name,
       'address': address,
       'rating': rating,

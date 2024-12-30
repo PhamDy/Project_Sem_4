@@ -23,9 +23,5 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.createArea(areaCreateRequest));
     }
 
-    @PostMapping
-    public String test(){
-        return "test";
-    }
 
 }

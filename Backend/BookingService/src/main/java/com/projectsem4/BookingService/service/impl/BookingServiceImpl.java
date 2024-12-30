@@ -1,9 +1,7 @@
 package com.projectsem4.BookingService.service.impl;
 
 import com.projectsem4.BookingService.entity.Booking;
-import com.projectsem4.BookingService.entity.BookingAccessory;
-import com.projectsem4.BookingService.entity.BookingReferee;
-import com.projectsem4.BookingService.model.CreateBookingRequest;
+import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.repository.BookingAccessoryRepository;
 import com.projectsem4.BookingService.repository.BookingRefereeRepository;
 import com.projectsem4.BookingService.repository.BookingRepository;
@@ -30,5 +28,10 @@ public class BookingServiceImpl implements BookingService {
         bookingAccessoryRepository.saveAll(request.getBookingAccessory());
         bookingRefereeRepository.saveAll(request.getBookingReferees());
         return true;
+    }
+
+    @Override
+    public Object findBookingById(Long id) {
+        return bookingRepository.findById(id).get();
     }
 }

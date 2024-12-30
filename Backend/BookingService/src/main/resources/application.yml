@@ -11,7 +11,7 @@ spring:
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:3306/project
     username: root
-    password:
+    password: quangthai3110
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -21,4 +21,4 @@ spring:
 #doamin service-client
 config:
   url:
-    payment-service-url: "${endpoint_payment_service:http://localhost:9007/payment-service}"
+    payment-service-url: "${endpoint_payment_service:http://localhost:9002/booking-service}"

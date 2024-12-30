@@ -1,28 +1,35 @@
-package com.projectsem4.BookingService.model;
+package com.projectsem4.common_service.dto.entity;
 
-import com.projectsem4.BookingService.entity.BookingAccessory;
-import com.projectsem4.BookingService.entity.BookingReferee;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
-public class CreateBookingRequest {
+@AllArgsConstructor
+public class Booking extends BaseEntity {
+    private Long id;
+
     private Long fieldId;
+
     private Long userId;
+
     private LocalDate bookingDate;
+
     private LocalTime startTime;
+
     private LocalTime endTime;
+
     private BigDecimal totalPrice;
+
     private String paymentStatus;
+
     private Integer paymentMethod;
-    private List<BookingAccessory> bookingAccessory;
-    private List<BookingReferee> bookingReferees;
+
 }

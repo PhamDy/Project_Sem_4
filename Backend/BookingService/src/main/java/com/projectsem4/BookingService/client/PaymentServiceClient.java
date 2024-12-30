@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface PaymentServiceClient {
 
     @GetMapping(value = "/public/api/v1", consumes = "application/json")
-    String linkThanhToan();
+    String  linkThanhToan();
 
 }

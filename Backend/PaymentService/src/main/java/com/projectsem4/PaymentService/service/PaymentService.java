@@ -29,9 +29,6 @@ public class PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final BookingServiceClient bookingServiceClient;
-//    private final RestTemplate restTemplate;
-//    KafkaTemplate<Long, PaymentCreatedEvent> kafkaTemplate;
-//    private final KafkaProducer kafkaProducer;
 
     public String creatPayment( String urlReturn, Long orderId) throws UnsupportedEncodingException {
         Booking booking = bookingServiceClient.findById(orderId);
@@ -104,6 +101,7 @@ public class PaymentService {
                 hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = ConfigVnPay.vnp_PayUrl + "?" + queryUrl;
+        savePayment(orderId);
         return paymentUrl;
     }
 
@@ -113,8 +111,6 @@ public class PaymentService {
 
     public void savePayment(Long orderId){
         Booking booking = bookingServiceClient.findById(orderId);
-
-
         Payment payment = new Payment();
         payment.setUserId(booking.getUserId());
         payment.setPaidAt(now());

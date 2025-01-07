@@ -36,8 +36,12 @@ public class Field extends BaseEntity {
     private String email;
 
     @Basic
+    @Column(name = "quantity")
+    private Long quantity;
+
+    @Basic
     @Column(name = "size")
-    private Integer size;
+    private Long size;
 
     @Basic
     @Column(name = "area_id")

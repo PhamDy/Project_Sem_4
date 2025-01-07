@@ -1,5 +1,6 @@
 package com.projectsem4.StadiumService.service.impl;
 
+import com.projectsem4.StadiumService.model.entity.Accessory;
 import com.projectsem4.StadiumService.model.entity.Area;
 import com.projectsem4.StadiumService.model.entity.Field;
 import com.projectsem4.StadiumService.model.entity.Price;
@@ -7,6 +8,7 @@ import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.model.request.FieldRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.model.request.PriceRequest;
+import com.projectsem4.StadiumService.repository.AccessoryRepository;
 import com.projectsem4.StadiumService.repository.AreaRepository;
 import com.projectsem4.StadiumService.repository.FieldRepository;
 import com.projectsem4.StadiumService.repository.PriceRepository;
@@ -26,6 +28,7 @@ public class AreaServiceImpl implements AreaService {
     private final AreaRepository areaRepository;
     private final FieldRepository fieldRepository;
     private final PriceRepository priceRepository;
+    private final AccessoryRepository accessoryRepository;
 
     @Override
     public Boolean createArea(AreaCreateRequest createRequest) {
@@ -72,6 +75,7 @@ public class AreaServiceImpl implements AreaService {
         List<Field> fields= fieldRepository.findByAreaId(id);
         fields.forEach(field -> {
             FieldRequest fieldRequest = new FieldRequest();
+            fieldRequest.setFieldId(field.getFieldId());
             fieldRequest.setName(field.getName());
             fieldRequest.setDescription(field.getDescription());
             fieldRequest.setEmail(field.getEmail());
@@ -95,8 +99,9 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public Page<Area> findAllAreas(Pageable pageable) {
-        return areaRepository.findAll(pageable);
+    public Page<AreaCreateRequest> findAllAreas(Pageable pageable) {
+        Page<Area> areas =  areaRepository.findAll(pageable);
+        return areas.map(area -> findById(area.getAreaId()));
     }
 
     @Override
@@ -124,5 +129,11 @@ public class AreaServiceImpl implements AreaService {
                 priceRepository.save(price);
             });
         });
+    }
+
+    @Override
+    public Boolean createAccessory(Accessory requestAccessory) {
+        accessoryRepository.save(requestAccessory);
+        return true;
     }
 }

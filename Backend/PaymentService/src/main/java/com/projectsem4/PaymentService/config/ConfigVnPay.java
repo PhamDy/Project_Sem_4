@@ -24,7 +24,7 @@ import java.util.Random;
 public class ConfigVnPay {
 
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String urlReturn = "/api/v1/payment/vnPayReturn";
+    public static String urlReturn = "/api/v1/payment-service/vnPayReturn";
     public static String vnp_TmnCode = "JMOWFM4X";
     public static String vnp_Version = "2.1.0";
     public static String vnp_Command = "pay";

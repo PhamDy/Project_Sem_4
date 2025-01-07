@@ -1,6 +1,8 @@
 package com.projectsem4.PaymentService.controller;
 
+import com.projectsem4.PaymentService.config.client.BookingServiceClient;
 import com.projectsem4.PaymentService.service.PaymentService;
+import com.projectsem4.common_service.dto.constant.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 @RequestMapping("/private/api/v1")
 public class PaymentPrivateController {
     private final PaymentService paymentService;
+    private final BookingServiceClient bookingServiceClient;
 
     @PostMapping("/vn-pay/{id}")
     public String createLink(@PathVariable Long id) throws UnsupportedEncodingException {
@@ -26,13 +29,13 @@ public class PaymentPrivateController {
         if ("00".equals(responseCode)) {
             // Giao dịch thành công
             paymentService.updateStatusPayment(true, orderId);
-//            paymentService.UpdateStatusOrder(true, orderId);
+            bookingServiceClient.updateStatusByPayment(Constant.OrderStatus.paid, orderId);
 
             return ResponseEntity.ok("Giao dịch thành công");
         } else {
             // Giao dịch không thành công
             paymentService.updateStatusPayment(false,orderId);
-//            paymentService.UpdateStatusOrder(false,orderId);
+            bookingServiceClient.updateStatusByPayment(Constant.OrderStatus.fail, orderId);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Giao dịch không thành công");
         }
     }

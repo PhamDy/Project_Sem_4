@@ -28,4 +28,9 @@ public class BookingPrivateController {
         return bookingService.findBookingById(id);
     }
 
+    @GetMapping("/update-status-by-payment")
+    public Object updateStatusByPayment(@RequestParam(name = "status") Integer status,
+                                        @RequestParam(name= "orderId")  Long id) {
+        return bookingService.updateStatusOderByPayment(status,id);
+    }
 }

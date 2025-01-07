@@ -17,4 +17,5 @@ public interface AreaService {
     Area updateArea(Area area);
     void deleteArea(Long id);
     Boolean createAccessory(Accessory requestAccessory);
+    Accessory findAccessoryById(Long id);
 }

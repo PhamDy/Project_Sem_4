@@ -34,4 +34,11 @@ public class BookingServiceImpl implements BookingService {
     public Object findBookingById(Long id) {
         return bookingRepository.findById(id).get();
     }
+
+    @Override
+    public Object updateStatusOderByPayment(Integer status, Long orderId) {
+        Booking booking = bookingRepository.findById(orderId).get();
+        booking.setStatus(status);
+        return null;
+    }
 }

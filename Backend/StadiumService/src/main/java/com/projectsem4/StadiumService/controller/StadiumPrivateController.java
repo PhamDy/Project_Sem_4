@@ -36,4 +36,9 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findAllAreas(pageable));
     }
 
+    @GetMapping("/accessory/{id}")
+    public ResponseEntity<Object> getAccessoryById(@PathVariable Long id) {
+        return ResponseEntity.ok(areaService.findAccessoryById(id));
+    }
+
 }

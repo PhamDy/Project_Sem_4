@@ -136,4 +136,9 @@ public class AreaServiceImpl implements AreaService {
         accessoryRepository.save(requestAccessory);
         return true;
     }
+
+    @Override
+    public Accessory findAccessoryById(Long id) {
+        return accessoryRepository.findById(id).get();
+    }
 }

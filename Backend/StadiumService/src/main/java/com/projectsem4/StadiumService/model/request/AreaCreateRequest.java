@@ -17,8 +17,8 @@ public class AreaCreateRequest {
     Double rating;
     String description;
     String phoneNumber;
-    String longitude;
-    String latitude;
+    Double longitude;
+    Double latitude;
     String path;
     String email;
     List<FieldRequest> fields;

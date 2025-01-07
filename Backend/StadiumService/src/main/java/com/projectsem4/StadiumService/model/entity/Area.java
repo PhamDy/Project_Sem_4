@@ -41,11 +41,11 @@ public class Area extends BaseEntity {
 
     @Basic
     @Column(name = "longitude")
-    private String longitude;
+    private Double longitude;
 
     @Basic
     @Column(name = "latitude")
-    private String latitude;
+    private Double latitude;
 
     @Basic
     @Column(name = "path")

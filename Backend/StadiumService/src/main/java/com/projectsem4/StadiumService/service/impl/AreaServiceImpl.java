@@ -179,68 +179,9 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object search(FindAreaRequest findAreaRequest, Pageable pageable) {
-        Specification<Field> specification = (root, query, criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-            if (findAreaRequest.getLatitude() != null && findAreaRequest.getLongitude() != null && findAreaRequest.getDistance() != null) {
-                Double latitude = findAreaRequest.getLatitude();
-                Double longitude = findAreaRequest.getLongitude();
-
-                // Hàm tính khoảng cách dựa trên công thức Haversine
-                Expression<Double> distanceExpression = criteriaBuilder.function(
-                        "6371 * ACOS", // Hàm tính khoảng cách dựa trên SQL
-                        Double.class,
-                        criteriaBuilder.sum(
-                                criteriaBuilder.prod(
-                                        criteriaBuilder.function("COS", Double.class, criteriaBuilder.function("RADIANS", Double.class, criteriaBuilder.literal(latitude))),
-                                        criteriaBuilder.prod(
-                                                criteriaBuilder.function("COS", Double.class, criteriaBuilder.function("RADIANS", Double.class, root.get("latitude"))),
-                                                criteriaBuilder.function(
-                                                        "COS",
-                                                        Double.class,
-                                                        criteriaBuilder.diff(
-                                                                criteriaBuilder.function("RADIANS", Double.class, root.get("longitude")),
-                                                                criteriaBuilder.function("RADIANS", Double.class, criteriaBuilder.literal(longitude))
-                                                        )
-                                                )
-                                        )
-                                ),
-                                criteriaBuilder.prod(
-                                        criteriaBuilder.function("SIN", Double.class, criteriaBuilder.function("RADIANS", Double.class, criteriaBuilder.literal(latitude))),
-                                        criteriaBuilder.function("SIN", Double.class, criteriaBuilder.function("RADIANS", Double.class, root.get("latitude")))
-                                )
-                        )
-                );
-
-                // Áp dụng điều kiện khoảng cách
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(distanceExpression, (double) findAreaRequest.getDistance()));
-            }
-
-            // Thêm các điều kiện khác nếu cần
-            if (findAreaRequest.getPrice() != null) {
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("price"), findAreaRequest.getPrice()));
-            }
-            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-        };
-        return fieldRepository.findAll(pageable,specification);
+        return fieldRepository.searchField(findAreaRequest.getLatitude(),findAreaRequest.getLongitude(),
+                findAreaRequest.getDistance(),findAreaRequest.getSize(),findAreaRequest.getTimeStart(),
+                findAreaRequest.getTimeEnd(),findAreaRequest.getPrice());
     }
-//
-//    @Override
-//    public Page<KeyListResponse> keyList(KeySearchForm form, Pageable pageable) {
-//
-//
-//        Specification<ProxyKeys> spec = (root, criteriaQuery, cb) -> cb.and(
-//                form.getKeyword() != null ? cb.like(root.get("myKey"), "%" + form.getKeyword() + "%") : cb.conjunction(),
-//                form.getKeyType() != null ? cb.equal(root.get("packageId"), form.getKeyType()) : cb.conjunction(),
-//                Objects.equals(form.getStatus(), "VALID") ? cb.greaterThanOrEqualTo(root.get("expireDate"), LocalDateTime.now()) : cb.conjunction(),
-//                Objects.equals(form.getStatus(), "INVALID") ? cb.lessThan(root.get("expireDate"), LocalDateTime.now()) : cb.conjunction()
-//        );
-//
-//        Page<ProxyKeys> proxyKeys = proxyKeysRepository.findAll(spec, pageable);
-//
-//        if (proxyKeys.isEmpty()) {
-//            return Page.empty();
-//        }
-//
-//        return KeyMapper.INSTANCE.keyResponse(proxyKeys);
-//    }
+
 }

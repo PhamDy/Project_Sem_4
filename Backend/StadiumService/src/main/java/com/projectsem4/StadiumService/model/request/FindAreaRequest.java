@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 
@@ -11,9 +12,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FindAreaRequest {
-    private BigDecimal price;
-    private Double longitude;
-    private Double latitude;
-    private Integer distance = 5;
-    private Long size;
+    Double latitude;
+    Double longitude;
+    Integer distance;
+    Long size;
+    String timeStart;
+    String timeEnd;
+    BigDecimal price;
 }

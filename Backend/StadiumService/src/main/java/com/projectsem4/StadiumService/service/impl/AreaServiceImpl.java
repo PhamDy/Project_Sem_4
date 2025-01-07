@@ -166,4 +166,9 @@ public class AreaServiceImpl implements AreaService {
     public Object findFieldById(Long id) {
         return fieldRepository.findById(id).get();
     }
+
+    @Override
+    public Object findAllField(Pageable pageable) {
+        return fieldRepository.findAll(pageable);
+    }
 }

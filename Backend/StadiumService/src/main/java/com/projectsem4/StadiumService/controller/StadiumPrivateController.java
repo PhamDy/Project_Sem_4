@@ -45,4 +45,9 @@ public class StadiumPrivateController {
     public ResponseEntity<Object> getFieldById(@PathVariable Long id) {
         return ResponseEntity.ok(areaService.findFieldById(id));
     }
+
+    @GetMapping("/all-field")
+    public ResponseEntity<Object> getAllField(Pageable pageable) {
+        return ResponseEntity.ok(areaService.findAllField(pageable));
+    }
 }

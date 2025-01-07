@@ -1,0 +1,111 @@
+.slider {
+  position: relative;
+  overflow: hidden;
+  width: 40%; /* Điều chỉnh theo kích thước bạn muốn */
+  height: 500px; /* Chiều cao của slider */
+  border-radius: 30px;
+  margin: 40px;
+  background-size: 120% 120%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.5s ease;
+}
+
+.slide{
+  border-radius: 40px;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 140% auto;
+  animation: slide-animation 2s ease;
+}
+
+@keyframes slide-animation{
+  0%{
+  background-size: 170% auto;
+  }
+  100%{
+  background-size: 140% auto;
+  }
+}
+
+
+.slide-container{
+  display: flex;
+  font-family: Arial, sans-serif;;
+}
+
+.slides {
+  display: flex; /* Sắp xếp các slide theo hàng ngang */
+  transition: transform 0.5s ease; /* Hiệu ứng chuyển tiếp */
+}
+
+.slide {
+  min-width: 100%; /* Đảm bảo mỗi slide chiếm toàn bộ chiều rộng */
+  height: 100%; /* Đảm bảo mỗi slide chiếm toàn bộ chiều cao */
+}
+
+.slide-image {
+  width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng */
+  height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao */
+  object-fit: cover; /* Giữ tỷ lệ hình ảnh */
+  transition: transform 0.5s ease; /* Thêm hiệu ứng chuyển tiếp cho phóng to */
+}
+
+.zoom {
+  transform: scale(1.2); /* Thay đổi giá trị phóng to về 1.2 */
+  z-index: 1; /* Đảm bảo ảnh phóng to nằm trên các phần khác */
+}
+
+.slide-content{
+  margin: 40px;
+  color: rgb(66, 66, 66);
+}
+
+.slide-content1{
+  margin: 40px;
+  color: rgb(255, 255, 255);
+}
+
+
+.slide-content h2{
+  font-size: 50px;
+  font-weight: 100;
+}
+
+
+.slide-content1 h2{
+  font-size: 50px;
+  font-weight: 100;
+}
+
+.goal{
+  display: flex;
+}
+
+.content-right{
+  margin-top: 3%;
+  max-width: 50%;
+}
+
+.content-right h1{
+  font-size: 50px;
+  font-weight: 100;
+  color: rgb(83, 83, 83);
+}
+
+.content-right p{
+  font-size: 20px;
+  font-weight: 100;
+  color: rgb(48, 48, 48);
+}
+
+.content-right h2{
+  font-weight: 100;
+  color: rgb(79, 79, 79);
+}
+
+img{
+  width: 80px;
+}

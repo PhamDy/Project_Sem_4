@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header.component';
@@ -13,6 +13,12 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ProductComponent } from './pages/product/product.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { LoginComponent } from './pages/login/login.component';
+import { MapComponent } from './pages/map/map.component';
+import { Content1Component } from './pages/home-page/content-1/content-1.component';
+import { Content2Component } from './pages/home-page/content-2/content-2.component';
+import { Content3Component } from './pages/home-page/content-3/content-3.component';
+import { Content4Component } from './pages/home-page/content-4/content-4.component';
+import { Content5Component } from './pages/home-page/content-5/content-5.component';
 
 @NgModule({
   declarations: [
@@ -27,12 +33,19 @@ import { LoginComponent } from './pages/login/login.component';
     ProductComponent,
     AuthComponent,
     LoginComponent,
+    MapComponent,
+    Content1Component,
+    Content2Component,
+    Content3Component,
+    Content4Component,
+    Content5Component,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [provideHttpClient()],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,61 @@
+.video-background {
+  position: relative;
+  width: 100%;
+  height: 800px; /* Chiều cao của video */
+  overflow: hidden;
+  background-image: url('/assets/img/mainImg.png'); /* Đường dẫn tới ảnh của bạn */
+  background-size: cover; /* Đảm bảo ảnh bao phủ hết chiều rộng */
+  background-position: center; /* Căn giữa ảnh */
+  background-repeat: no-repeat; /* Không lặp lại ảnh */
+}
+
+.container-video{
+  margin-top: 80px;
+}
+
+.video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Giữ tỷ lệ hình ảnh */
+  z-index: -1; /* Đặt video dưới nội dung */
+}
+
+.overlay-content {
+  position: relative;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5); /* Nền mờ cho nội dung */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button{
+  margin-top: 30px;
+  color: rgb(0, 0, 0);
+  background-color: rgb(233, 213, 0);
+  padding: 30px 130px 30px 130px;
+  border: 0px solid;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+
+button:hover{
+  background-color: rgb(255, 238, 55);
+  transform: translateY(-10px);
+  transition: transform 0.6s ease;
+}
+
+h1{
+  font-size: 60px;
+  font-weight: 100;
+}
+

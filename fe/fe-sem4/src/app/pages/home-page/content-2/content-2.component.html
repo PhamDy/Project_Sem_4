@@ -1,0 +1,60 @@
+<div class="slide-container" data-aos="fade-up">
+  <div class="slider" data-aos="fade-right">
+    <div
+      class="slide"
+      *ngIf="currentSlide === 0"
+      style="background-image: url('assets/img/slide111.png')">
+      <div class="slide-content1" data-aos="fade-down">
+        <h2>Always Support</h2>
+        <p>Help customers perform correct techniques</p>
+      </div>
+    </div>
+    <div
+      class="slide"
+      *ngIf="currentSlide === 1"
+      style="background-image: url('assets/img/slide2.png')">
+      <div class="slide-content" data-aos="fade-down">
+        <h2>Improve health</h2>
+        <p>Personal trainers help improve customers' physical and mental health</p>
+      </div>
+    </div>
+    <div
+      class="slide"
+      *ngIf="currentSlide === 2"
+      style="background-image: url('assets/img/slide333.png')">
+      <div class="slide-content1" data-aos="fade-down">
+        <h2>Any time,Any where</h2>
+        <p>PTs can practice with clients anywhere</p>
+      </div>
+    </div>
+
+    <button class="nav-button left" (click)="prevSlide()">&#10094;</button>
+    <button class="nav-button right" (click)="nextSlide()">&#10095;</button>
+  </div>
+  <div class="content-right" data-aos="fade-left">
+    <div>
+      <h1>Sport League brings leading health solutions to you</h1>
+       <p>
+      Sport League is always the top choice for your health, with a nationwide system and a team of experienced,
+       in-depth knowledge and dedicated PTs who will help you achieve your goals as quickly as possible.</p>
+    </div>
+
+    <div class="goal" data-aos="fade-up">
+      <img src="/assets/img/archero.png" alt="dfd">
+        <h2>Highly specialized</h2>
+    </div>
+    <div class="goal" data-aos="fade-up">
+      <img src="/assets/img/archero.png" alt="">
+      <h2>Any time,any where</h2>
+    </div>
+    <div class="goal" data-aos="fade-up">
+      <img src="/assets/img/archero.png" alt="">
+    <h2>Your goal, our responsibility</h2>
+    </div>
+  </div>
+
+
+  </div>
+
+
+

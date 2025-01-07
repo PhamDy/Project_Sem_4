@@ -37,6 +37,9 @@ public class AreaServiceImpl implements AreaService {
         area.setName(createRequest.getName());
         area.setDescription(createRequest.getDescription());
         area.setEmail(createRequest.getEmail());
+        area.setLongitude(createRequest.getLongitude());
+        area.setLatitude(createRequest.getLatitude());
+        area.setPath(createRequest.getPath());
         area.setPhoneNumber(createRequest.getPhoneNumber());
         areaRepository.save(area);
         createRequest.getFields().forEach(fieldRequest -> {
@@ -44,6 +47,7 @@ public class AreaServiceImpl implements AreaService {
             field.setName(fieldRequest.getName());
             field.setDescription(fieldRequest.getDescription());
             field.setEmail(fieldRequest.getEmail());
+            field.setQuantity(fieldRequest.getQuantity());
             field.setPhoneNumber(fieldRequest.getPhoneNumber());
             field.setSize(fieldRequest.getSize());
             field.setAreaId(area.getAreaId());
@@ -140,5 +144,26 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public Accessory findAccessoryById(Long id) {
         return accessoryRepository.findById(id).get();
+    }
+
+    @Override
+    public Accessory updateQuantity(Integer type, Long accessoryId, Long quantity) throws Exception {
+        Accessory accessory = accessoryRepository.findById(accessoryId).orElse(null);
+        switch (type) {
+            case 1: accessory.setQuantity(accessory.getQuantity() + quantity);
+            break;
+            case 2:
+                if(quantity > accessory.getQuantity()) {
+                    throw new Exception("Số lượng không hợp lệ");
+                }
+                accessory.setQuantity(accessory.getQuantity() - quantity);
+            break;
+        }
+        return accessory;
+    }
+
+    @Override
+    public Object findFieldById(Long id) {
+        return fieldRepository.findById(id).get();
     }
 }

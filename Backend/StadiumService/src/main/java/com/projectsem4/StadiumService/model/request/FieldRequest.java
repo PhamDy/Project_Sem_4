@@ -15,7 +15,8 @@ public class FieldRequest {
     private String description;
     private String phoneNumber;
     private String email;
-    private Integer size;
+    private Long size;
+    private Long quantity;
     private Long areaId;
     private List<PriceRequest> prices;
 }

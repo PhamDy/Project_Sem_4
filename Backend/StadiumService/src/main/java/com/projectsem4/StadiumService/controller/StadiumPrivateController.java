@@ -41,4 +41,8 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findAccessoryById(id));
     }
 
+    @GetMapping("/field/{id}")
+    public ResponseEntity<Object> getFieldById(@PathVariable Long id) {
+        return ResponseEntity.ok(areaService.findFieldById(id));
+    }
 }

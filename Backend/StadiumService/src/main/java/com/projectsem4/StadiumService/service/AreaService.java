@@ -18,4 +18,6 @@ public interface AreaService {
     void deleteArea(Long id);
     Boolean createAccessory(Accessory requestAccessory);
     Accessory findAccessoryById(Long id);
+    Accessory updateQuantity(Integer type, Long accessoryId, Long quantity) throws Exception;
+    Object findFieldById(Long id);
 }

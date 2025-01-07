@@ -43,7 +43,7 @@ public class Accessory extends BaseEntity {
 
     @Basic
     @Column(name = "quantity")
-    private String quantity;
+    private Long quantity;
 
     @Basic
     @Column(name = "price")

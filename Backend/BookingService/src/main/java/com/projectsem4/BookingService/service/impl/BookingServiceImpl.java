@@ -1,6 +1,8 @@
 package com.projectsem4.BookingService.service.impl;
 
 import com.projectsem4.BookingService.entity.Booking;
+import com.projectsem4.BookingService.entity.BookingAccessory;
+import com.projectsem4.BookingService.entity.BookingReferee;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.repository.BookingAccessoryRepository;
 import com.projectsem4.BookingService.repository.BookingRefereeRepository;
@@ -8,6 +10,8 @@ import com.projectsem4.BookingService.repository.BookingRepository;
 import com.projectsem4.BookingService.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +36,19 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Object findBookingById(Long id) {
-        return bookingRepository.findById(id).get();
+        Booking booking = bookingRepository.findById(id).get();
+        List<BookingAccessory> bookingAccessory = bookingAccessoryRepository.findByBookingId(id);
+        List<BookingReferee> bookingReferee = bookingRefereeRepository.findByBookingId(id);
+        CreateBookingRequest createBookingRequest = new CreateBookingRequest();
+        createBookingRequest.setBookingId(booking.getId());
+        createBookingRequest.setFieldId(booking.getFieldId());
+        createBookingRequest.setUserId(booking.getUserId());
+        createBookingRequest.setBookingDate(booking.getBookingDate());
+        createBookingRequest.setStartTime(booking.getStartTime());
+        createBookingRequest.setEndTime(booking.getEndTime());
+        createBookingRequest.setBookingAccessory(bookingAccessory);
+        createBookingRequest.setBookingReferees(bookingReferee);
+        return createBookingRequest;
     }
 
     @Override

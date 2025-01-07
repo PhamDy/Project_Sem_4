@@ -14,4 +14,14 @@ public class Constant {
         public static Integer fail = 4;
         public static Integer refund = 5;
     }
+
+    public static class TypeAccessory {
+        public static Integer Pay = 1;
+        public static Integer Rent = 2;
+    }
+
+    public static class TypeUpdate {
+        public static Integer Add = 1;
+        public static Integer Subtract = 2;
+    }
 }

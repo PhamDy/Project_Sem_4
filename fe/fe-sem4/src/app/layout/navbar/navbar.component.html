@@ -1,0 +1,61 @@
+<div class="container-main">
+  <div class="header-main">
+    <p>Satisfy your sports needs to have the best experience!!!! Booking now ⚽️ ⚽️ ⚽️</p>
+  </div>
+
+  <nav class="navbar">
+    <ul class="navbar-content">
+
+      <!-- Logo và thanh tìm kiếm -->
+      <div class="navbar-left">
+        <li class="navbar-logo">
+          <a [routerLink]="['/']">
+            <img src="assets/img/logo-main.png" alt="logo" />
+          </a>
+        </li>
+
+        <div class="search-bar">
+          <input
+            type="text"
+            [(ngModel)]="searchQuery"
+            (input)="onSearch()"
+            placeholder="Tìm kiếm địa điểm..."
+            autocomplete="off" />
+          <button (click)="search()"><i class="fas fa-search"></i></button>
+        </div>
+
+        <!-- Gợi ý tìm kiếm -->
+        <div *ngIf="filteredResults.length > 0" class="suggestions">
+          <ul>
+            <li *ngFor="let place of filteredResults" (click)="selectPlace(place)">
+              {{ place.name }} - {{ place.address }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Các mục điều hướng -->
+      <div class="navbar-right">
+        <li>
+          <i class="fas fa-star icon"></i>
+        </li>
+        <li>
+          <a [routerLink]="['/booking']">BOOKING</a>
+        </li>
+        <li>
+          <a [routerLink]="['/tournament']">TOURNAMENT</a>
+        </li>
+        <li>
+          <a [routerLink]="['/aboutUs']">ABOUT US</a>
+        </li>
+        <li>
+          <a [routerLink]="['/auth']">AUTH</a>
+        </li>
+        <li>
+          <a [routerLink]="['/login']">LOGIN</a>
+        </li>
+      </div>
+
+    </ul>
+  </nav>
+</div>

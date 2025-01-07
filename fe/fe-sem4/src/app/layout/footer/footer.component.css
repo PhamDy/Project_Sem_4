@@ -1,0 +1,82 @@
+.footer{
+  /* background-image: linear-gradient(to right, #ffffff, #e7feff, #d8f9fc, #69b3fd); */
+}
+.footer {
+  display: flex; /* Sử dụng Flexbox để căn chỉnh các phần tử theo hàng ngang */
+  flex-wrap: wrap; /* Cho phép phần tử xuống dòng nếu không đủ không gian */
+  justify-content: space-between; /* Tạo khoảng cách giữa các phần tử */
+  background-color: #ffffff; /* Màu nền của footer */
+  padding: 20px; /* Khoảng cách bên trong footer */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Tạo bóng cho footer */
+  font-family: "Gilroy", Sans-serif;
+}
+
+.footer > div {
+  flex: 1; /* Đảm bảo các phần tử có chiều rộng bằng nhau */
+  padding: 10px; /* Khoảng cách bên trong mỗi phần tử */
+  box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước phần tử */
+}
+
+/* Định dạng tiêu đề */
+.footer h1,
+.footer h2 {
+  margin: 0 0 10px; /* Khoảng cách dưới cùng */
+}
+
+/* Định dạng cho các thẻ p */
+.footer p {
+  margin: 5px 0; /* Khoảng cách giữa các thẻ p */
+}
+
+/* Định dạng cho các biểu tượng mạng xã hội */
+.footer i {
+  margin-right: 10px; /* Khoảng cách giữa các biểu tượng */
+  font-size: 24px; /* Kích thước của biểu tượng */
+  color: #000000; /* Màu sắc của biểu tượng */
+}
+
+/* Định dạng cho phần bản quyền */
+.footer {
+
+  width: 100%; /* Đảm bảo phần bản quyền chiếm toàn bộ chiều rộng */
+  font-size: 14px; /* Kích thước font nhỏ hơn */
+  color: #000000; /* Màu sắc văn bản bản quyền */
+}
+
+.footer h2{
+  font-weight: 700;
+  font-size: 20px;
+}
+
+img{
+  height: 150px;
+}
+
+.footer-11 h2{
+  margin-left: 26px;
+}
+
+.footer-1 h3{
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.p-0{
+  background-color: #3f3f3f;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.footer-2{
+  margin-top: 40px;
+}
+.footer-3{
+  margin-top: 40px;
+}
+.footer-4{
+  margin-top: 40px;
+}
+.footer-5{
+  margin-top: 40px;
+}
+

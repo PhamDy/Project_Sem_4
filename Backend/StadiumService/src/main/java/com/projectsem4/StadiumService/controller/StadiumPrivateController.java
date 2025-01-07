@@ -2,6 +2,7 @@ package com.projectsem4.StadiumService.controller;
 
 import com.projectsem4.StadiumService.model.entity.Accessory;
 import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
+import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.service.AreaService;
 
 import com.projectsem4.common_service.dto.response.ResponseData;
@@ -49,5 +50,10 @@ public class StadiumPrivateController {
     @GetMapping("/all-field")
     public ResponseEntity<Object> getAllField(Pageable pageable) {
         return ResponseEntity.ok(areaService.findAllField(pageable));
+    }
+
+    @PostMapping("/search-field")
+    public ResponseEntity<Object> searchField(Pageable pageable, @RequestBody FindAreaRequest findAreaRequest) {
+        return ResponseEntity.ok(areaService.search(findAreaRequest,pageable));
     }
 }

@@ -21,4 +21,5 @@ public interface AreaService {
     Accessory updateQuantity(Integer type, Long accessoryId, Long quantity) throws Exception;
     Object findFieldById(Long id);
     Object findAllField(Pageable pageable);
+    Object search(FindAreaRequest findAreaRequest,Pageable pageable);
 }

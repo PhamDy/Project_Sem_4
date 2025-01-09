@@ -81,6 +81,8 @@ public class AreaServiceImpl implements AreaService {
         response.setEmail(area.getEmail());
         response.setPhoneNumber(area.getPhoneNumber());
         response.setDescription(area.getDescription());
+        response.setLatitude(area.getLatitude());
+        response.setLongitude(area.getLongitude());
         response.setAreaId(area.getAreaId());
         List<FieldRequest> fieldRequests = new ArrayList<>();
         List<Field> fields = fieldRepository.findByAreaId(id);
@@ -196,6 +198,8 @@ public class AreaServiceImpl implements AreaService {
             response.setEmail(area.getEmail());
             response.setPhoneNumber(area.getPhoneNumber());
             response.setDescription(area.getDescription());
+            response.setLatitude(area.getLatitude());
+            response.setLongitude(area.getLongitude());
             response.setAreaId(area.getAreaId());
             List<FieldRequest> fieldRequests = new ArrayList<>();
             List<Field> field1 = map.get(areaId);

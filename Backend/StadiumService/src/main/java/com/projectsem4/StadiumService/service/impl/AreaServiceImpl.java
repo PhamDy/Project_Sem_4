@@ -24,7 +24,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -179,9 +182,48 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object search(FindAreaRequest findAreaRequest, Pageable pageable) {
-        return fieldRepository.searchField(findAreaRequest.getLatitude(),findAreaRequest.getLongitude(),
+        List<Field> fields = fieldRepository.searchField(findAreaRequest.getLatitude(),findAreaRequest.getLongitude(),
                 findAreaRequest.getDistance(),findAreaRequest.getSize(),findAreaRequest.getTimeStart(),
                 findAreaRequest.getTimeEnd(),findAreaRequest.getPrice());
+        Map<Long,List<Field>> map = fields.stream().collect(Collectors.groupingBy(Field::getAreaId));
+        List<AreaCreateRequest> result = new ArrayList<>();
+        for (Long areaId : map.keySet()) {
+            AreaCreateRequest response = new AreaCreateRequest();
+            Area area = areaRepository.findById(areaId).get();
+            response.setAddress(area.getAddress());
+            response.setName(area.getName());
+            response.setDescription(area.getDescription());
+            response.setEmail(area.getEmail());
+            response.setPhoneNumber(area.getPhoneNumber());
+            response.setDescription(area.getDescription());
+            response.setAreaId(area.getAreaId());
+            List<FieldRequest> fieldRequests = new ArrayList<>();
+            List<Field> field1 = map.get(areaId);
+            field1.forEach(field -> {
+                FieldRequest fieldRequest = new FieldRequest();
+                fieldRequest.setFieldId(field.getFieldId());
+                fieldRequest.setName(field.getName());
+                fieldRequest.setDescription(field.getDescription());
+                fieldRequest.setEmail(field.getEmail());
+                fieldRequest.setPhoneNumber(field.getPhoneNumber());
+                fieldRequest.setSize(field.getSize());
+                List<PriceRequest> priceRequests = new ArrayList<>();
+                List<Price> prices = priceRepository.findByFieldId(field.getFieldId());
+                prices.forEach(price -> {
+                    PriceRequest priceRequest = new PriceRequest();
+                    priceRequest.setPriceFrom(price.getPriceFrom());
+                    priceRequest.setPriceTo(price.getPriceTo());
+                    priceRequest.setPrice(price.getPrice());
+                    priceRequest.setFieldId(price.getFieldId());
+                    priceRequests.add(priceRequest);
+                });
+                fieldRequest.setPrices(priceRequests);
+                fieldRequests.add(fieldRequest);
+            });
+            response.setFields(fieldRequests);
+            result.add(response);
+        }
+        return result;
     }
 
 }

@@ -1,0 +1,32 @@
+const List<Map<String, dynamic>> areaMockData = [
+  {
+    "id": 1,
+    "name": "Downtown",
+    "address": "123 Main St",
+    "rating": 4.5,
+    "description": "A bustling area with several stadiums.",
+    "status": 1,
+    "phone_number": "123-456-7890",
+    "email": "contact@downtown.com",
+  },
+  {
+    "id": 2,
+    "name": "City Center",
+    "address": "456 Elm St",
+    "rating": 4.7,
+    "description": "Conveniently located in the city center.",
+    "status": 1,
+    "phone_number": "234-567-8901",
+    "email": "info@citycenter.com",
+  },
+  {
+    "id": 3,
+    "name": "West End",
+    "address": "789 Pine Ave",
+    "rating": 4.3,
+    "description": "Popular for local sports events.",
+    "status": 1,
+    "phone_number": "345-678-9012",
+    "email": "hello@westend.com",
+  },
+];

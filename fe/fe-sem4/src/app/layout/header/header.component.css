@@ -1,0 +1,10 @@
+.header-main{
+  background: linear-gradient(to right, #00abd1, #4fffd3);
+  text-align: center;
+  color: aliceblue;
+  margin: 0;
+}
+p{
+  padding: 10px;
+  font-weight: 600;
+}

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentPublicController {
 
     @GetMapping
-    public String test() {
-        return "Payment Service";
+    public String linkThanhToan() {
+        return "https://www.google.com/";
     }
 
 }

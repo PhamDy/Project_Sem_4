@@ -9,11 +9,18 @@ spring:
   config:
     import: configserver:http://localhost:9296
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/paymentdb
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/project
     username: root
-    password:
+    password: quangthai3110
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
+#doamin service-client
+config:
+  url:
+    payment-service-url: "${endpoint_payment_service:http://localhost:9007/payment-service}"
+    booking-service-url: "${endpoint_booking_service:http://localhost:9002/booking-service}"
+
+

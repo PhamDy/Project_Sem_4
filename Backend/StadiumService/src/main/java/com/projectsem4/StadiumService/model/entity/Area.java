@@ -38,4 +38,16 @@ public class Area extends BaseEntity {
     @Basic
     @Column(name = "email")
     private String email;
+
+    @Basic
+    @Column(name = "longitude")
+    private Double longitude;
+
+    @Basic
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Basic
+    @Column(name = "path")
+    private String path;
 }

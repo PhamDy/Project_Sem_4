@@ -9,7 +9,7 @@ spring:
   config:
     import: configserver:http://localhost:9296
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/orderdb
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/project
     username: root
     password:
     driverClassName: com.mysql.cj.jdbc.Driver

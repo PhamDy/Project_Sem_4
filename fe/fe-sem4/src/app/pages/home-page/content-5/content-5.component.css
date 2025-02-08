@@ -1,0 +1,112 @@
+.main-container {
+  display: flex;
+  justify-content: center; /* Căn giữa các phần tử ngang */
+  align-items: center;    /* Căn giữa các phần tử dọc */
+  height: 100vh;          /* Chiều cao toàn màn hình */
+  background-image: url('/assets/img/backgroundContent.png');
+  background-size: cover; /* Đảm bảo ảnh bao phủ hết chiều rộng */
+  background-position: center; /* Căn giữa ảnh */
+  background-repeat: no-repeat; /* Không lặp lại ảnh */
+}
+
+.content {
+  display: flex;          /* Sử dụng Flexbox */
+  gap: 20px;              /* Khoảng cách giữa các phần tử */
+  width: 80%;             /* Chiều rộng của content */
+  justify-content: space-between; /* Cách đều các phần tử */
+}
+
+
+.card-child-1 {
+  flex: 1;
+  max-width: 300px;
+  height: 600px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #ffffff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: 0.3s ease;
+  z-index: 4;
+}
+
+.card-child-1:hover{
+ transform: scale(1.1);
+}
+
+.card-child-2 {
+  background-color: rgb(23, 157, 59);
+  height: 15%;
+  width: 35%;
+  border-radius: 0px 200px 0px 30px;
+  margin-top: auto; /* Đẩy xuống đáy */
+}
+
+.card-child-3 {
+  background-color:rgb(0, 93, 34);
+  opacity: 0.3;
+  border-radius: 0px 200px 0px 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.card-child-1:hover .card-child-3 {
+  animation: expand 0.5s forwards ease-in-out;
+}
+
+.card-child-1:not(:hover) .card-child-3 {
+  animation: shrink 0.5s forwards ease-in-out;
+}
+
+@keyframes expand {
+  0% {
+    opacity: 0.3;
+    height: 28%;
+    width: 61%;
+    border-radius: 0px 200px 0px 20px;
+  }
+  100% {
+    opacity: 1;
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    background-color: rgb(66, 250, 115);
+  }
+}
+
+@keyframes shrink {
+  0% {
+    opacity: 1;
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+  }
+  100% {
+    opacity: 0.3;
+    height: 18%;
+    width: 41%;
+    border-radius: 0px 200px 0px 20px;
+  }
+}
+
+.text-content{
+  z-index: 5;
+  transition: 0.5s all;
+}
+
+.text-content:hover{
+  color: aliceblue;
+}
+
+.card-child-1:hover .text-content{
+  color: #ffffff;
+}
+
+img{
+  width: 90%;
+}

@@ -3,15 +3,16 @@ package com.projectsem4.BookingService.controller;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.service.BookingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/private/api/v1")
 public class BookingPrivateController {
-    private final BookingService bookingService;
+    @Autowired
+    private BookingService bookingService;
 
     @GetMapping
     public String test() {

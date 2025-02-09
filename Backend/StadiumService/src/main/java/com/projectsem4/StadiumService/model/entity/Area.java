@@ -48,6 +48,10 @@ public class Area extends BaseEntity {
     private Double latitude;
 
     @Basic
+    @Column(name = "district")
+    private Integer district;
+
+    @Basic
     @Column(name = "path")
     private String path;
 }

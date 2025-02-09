@@ -49,7 +49,11 @@ public class AreaServiceImpl implements AreaService {
         area.setPath(createRequest.getPath());
         area.setPhoneNumber(createRequest.getPhoneNumber());
         areaRepository.save(area);
-        createRequest.getFields().forEach(fieldRequest -> {
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public Boolean createField(FieldRequest fieldRequest, Long areaId) {
             Field field = new Field();
             field.setName(fieldRequest.getName());
             field.setDescription(fieldRequest.getDescription());
@@ -57,7 +61,7 @@ public class AreaServiceImpl implements AreaService {
             field.setQuantity(fieldRequest.getQuantity());
             field.setPhoneNumber(fieldRequest.getPhoneNumber());
             field.setSize(fieldRequest.getSize());
-            field.setAreaId(area.getAreaId());
+            field.setAreaId(areaId);
             fieldRepository.save(field);
             fieldRequest.getPrices().forEach(priceRequest -> {
                 Price price = new Price();
@@ -67,8 +71,7 @@ public class AreaServiceImpl implements AreaService {
                 price.setFieldId(field.getFieldId());
                 priceRepository.save(price);
             });
-        });
-        return Boolean.TRUE;
+        return true;
     }
 
     @Override
@@ -186,7 +189,7 @@ public class AreaServiceImpl implements AreaService {
     public Object search(FindAreaRequest findAreaRequest, Pageable pageable) {
         List<Field> fields = fieldRepository.searchField(findAreaRequest.getLatitude(),findAreaRequest.getLongitude(),
                 findAreaRequest.getDistance(),findAreaRequest.getSize(),findAreaRequest.getTimeStart(),
-                findAreaRequest.getTimeEnd(),findAreaRequest.getPrice());
+                findAreaRequest.getTimeEnd(),findAreaRequest.getDistrict(),findAreaRequest.getPrice());
         Map<Long,List<Field>> map = fields.stream().collect(Collectors.groupingBy(Field::getAreaId));
         List<AreaCreateRequest> result = new ArrayList<>();
         for (Long areaId : map.keySet()) {

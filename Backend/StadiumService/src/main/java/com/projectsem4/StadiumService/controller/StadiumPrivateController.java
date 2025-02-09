@@ -2,6 +2,7 @@ package com.projectsem4.StadiumService.controller;
 
 import com.projectsem4.StadiumService.model.entity.Accessory;
 import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
+import com.projectsem4.StadiumService.model.request.FieldRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.service.AreaService;
 
@@ -20,6 +21,11 @@ public class StadiumPrivateController {
     @PostMapping("/area")
     public ResponseEntity<Boolean> createArea(@RequestBody AreaCreateRequest areaCreateRequest) {
         return ResponseEntity.ok(areaService.createArea(areaCreateRequest));
+    }
+
+    @PostMapping("/field")
+    public ResponseEntity<Boolean> createField(@RequestBody FieldRequest areaCreateRequest, @RequestParam Long areaId) {
+        return ResponseEntity.ok(areaService.createField(areaCreateRequest,areaId));
     }
 
     @PostMapping("/accessory")

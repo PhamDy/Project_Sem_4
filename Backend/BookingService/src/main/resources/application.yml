@@ -22,4 +22,5 @@ spring:
 config:
   url:
     booking-service-url: "${endpoint_booking_service:http://localhost:9002/booking-service}"
+    stadium-service-url: "${endpoint_stadium_service:http://localhost:9001/stadium-service}"
     payment-service-url: "${endpoint_payment_service:http://localhost:9007/payment-service}"

@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface FieldRepository extends JpaRepository<Field, Long>, JpaSpecificationExecutor<Field> {
     List<Field> findByAreaId(Long id);
-    @Query(value = "CALL search_field(:latitude, :longitude, :distance, :size, :timeStart, :timeEnd, :price)", nativeQuery = true)
+    @Query(value = "CALL search_field(:latitude, :longitude, :distance, :size, :timeStart, :timeEnd, :district, :price)", nativeQuery = true)
     List<Field> searchField(
             @Param("latitude") Double latitude,
             @Param("longitude") Double longitude,
@@ -24,6 +24,7 @@ public interface FieldRepository extends JpaRepository<Field, Long>, JpaSpecific
             @Param("size") Long size,
             @Param("timeStart") String timeStart,
             @Param("timeEnd") String timeEnd,
+            @Param("district") Integer district,
             @Param("price") BigDecimal price
     );
 }

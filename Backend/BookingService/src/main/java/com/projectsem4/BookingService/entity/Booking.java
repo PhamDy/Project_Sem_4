@@ -35,6 +35,9 @@ public class Booking extends BaseEntity {
     @Column(name = "end_time")
     private LocalTime endTime;
 
+    @Column(name = "quantity")
+    private Long quantity;
+
     @Column(name = "total_price", precision = 10)
     private BigDecimal totalPrice;
 

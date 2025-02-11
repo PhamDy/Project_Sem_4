@@ -1,0 +1,66 @@
+
+.background-container {
+  margin-top: 20px;
+  width: 100%;
+  height: 100vh; /* Chiều cao toàn màn hình, hoặc bạn có thể dùng 100% */
+  background-image: url('/assets/img/booking.png'); /* Đường dẫn tới ảnh của bạn */
+  background-size: cover; /* Đảm bảo ảnh bao phủ hết chiều rộng */
+  background-position: center; /* Căn giữa ảnh */
+  background-repeat: no-repeat; /* Không lặp lại ảnh */
+  opacity: 1;
+}
+
+.filter{
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.441);
+}
+
+.main-content{
+  display: flex;
+}
+
+button{
+  background-color: rgb(214, 225, 0);
+  padding: 30px 130px 30px 130px;
+  border: 0px white;
+  text-align: center;
+  margin: 20px;
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+}
+
+button:hover{
+  background-color: rgb(237, 255, 70);
+}
+
+.filter{
+  background-color: rgba(0, 0, 0, 0.43);
+}
+
+.main-content-pt h1 p{
+  text-align: center;
+}
+
+.content-pt1 h1{
+  padding-top: 200px;
+  text-align: center;
+  width: 100%;
+  font-size: 60px;
+  color: rgb(255, 255, 255);
+}
+
+.content-pt1 p{
+  margin-top: 30px;
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+  width: 100%;
+  text-align: center;
+  font-weight: 100;
+}
+
+

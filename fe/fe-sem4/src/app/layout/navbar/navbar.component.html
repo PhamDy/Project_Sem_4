@@ -19,43 +19,51 @@
             type="text"
             [(ngModel)]="searchQuery"
             (input)="onSearch()"
-            placeholder="Tìm kiếm địa điểm..."
+            placeholder="Search for football fields..."
             autocomplete="off" />
-          <button (click)="search()"><i class="fas fa-search"></i></button>
+          <button (click)="search()">.<i class="fas fa-search"></i></button>
+          <button class="buttonMap" style="border-radius: 40px;margin: 10px;" (click)="openMap()">
+            <i class="fas fa-map-marker-alt"></i>
+          </button>
         </div>
 
-        <!-- Gợi ý tìm kiếm -->
-        <div *ngIf="filteredResults.length > 0" class="suggestions">
-          <ul>
-            <li *ngFor="let place of filteredResults" (click)="selectPlace(place)">
-              {{ place.name }} - {{ place.address }}
-            </li>
-          </ul>
-        </div>
       </div>
 
-      <!-- Các mục điều hướng -->
       <div class="navbar-right">
         <li>
           <i class="fas fa-star icon"></i>
         </li>
-        <li>
-          <a [routerLink]="['/booking']">BOOKING</a>
+        <li class="page">
+          <a  [routerLink]="['/booking']" style="font-weight: 700;color: rgb(2, 83, 99);">BOOKING</a>
         </li>
-        <li>
-          <a [routerLink]="['/tournament']">TOURNAMENT</a>
+        <li class="page">
+          <a  [routerLink]="['/tournament']" style="font-weight: 700;color: rgb(2, 83, 99);">TOURNAMENT</a>
         </li>
-        <li>
-          <a [routerLink]="['/aboutUs']">ABOUT US</a>
+        <li class="page">
+          <a  [routerLink]="['/aboutUs']" style="font-weight: 700;color: rgb(2, 83, 99);">ABOUT US</a>
         </li>
-        <li>
-          <a [routerLink]="['/auth']">AUTH</a>
+        <li class="page">
+          <a  [routerLink]="['/auth']" style="font-weight: 700;color: rgb(2, 83, 99);">MANAGEMENT</a>
         </li>
-        <li>
-          <a [routerLink]="['/login']">LOGIN</a>
+        <li class="page">
+          <a  [routerLink]="['/login']" style="font-weight: 700;color: rgb(2, 83, 99);">LOGIN</a>
         </li>
       </div>
 
     </ul>
   </nav>
+
+  <!-- Bản đồ Modal -->
+  <div *ngIf="showMap" class="modal">
+    <div class="modal-content" data-aos="fade-up">
+      <span class="close" (click)="closeMap()">&times;</span>
+      <div id="map-navbar" style="height: 400px; width: 100%;" (click)="onMapClick($event)"></div>
+
+      <!-- Nút chuyển đến booking -->
+      <button style="background-color: rgb(104, 92, 0);
+                    border: 0px;
+                    color: aliceblue;" [disabled]="!isCoordinatesSelected" (click)="goToBooking()">Chọn địa điểm này</button>
+    </div>
+  </div>
+
 </div>

@@ -1,66 +1,120 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import * as L from 'leaflet';
+import * as AOS from 'aos';
+import { LocationService } from '../../services/location-service.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'] // sửa styleUrl thành styleUrls
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
   searchQuery: string = '';
   filteredResults: any[] = [];
   finalSearch: string = '';
+  showMap: boolean = false;
+  map: any;
+  selectedLatLng: { lat: number, lng: number } | null = null;
+
+  latitude: number = 21.0285;
+  longitude: number = 105.8542;
+
+  selectedCoordinates: { lat: number, lng: number } = { lat: 0, lng: 0 };
+  isCoordinatesSelected: boolean = false;
 
   fakeData: any[] = [
     { name: 'Sân bóng Thanh Xuân', address: 'Thanh Xuân, Hà Nội' },
-    { name: 'Sân bóng Mỹ Đình', address: 'Mỹ Đình, Hà Nội' },
-    { name: 'Sân bóng Cầu Giấy', address: 'Cầu Giấy, Hà Nội' },
-    { name: 'Sân bóng Hai Bà Trưng', address: 'Hai Bà Trưng, Hà Nội' },
-    { name: 'Sân bóng Hoàng Mai', address: 'Hoàng Mai, Hà Nội' },
-    { name: 'Sân bóng Long Biên', address: 'Long Biên, Hà Nội' },
-    { name: 'Sân bóng Tây Hồ', address: 'Tây Hồ, Hà Nội' },
-    { name: 'Sân bóng Đống Đa', address: 'Đống Đa, Hà Nội' },
-    { name: 'Sân bóng Ba Đình', address: 'Ba Đình, Hà Nội' },
-    { name: 'Sân bóng Hoàn Kiếm', address: 'Hoàn Kiếm, Hà Nội' },
-    { name: 'Sân bóng Hà Đông', address: 'Hà Đông, Hà Nội' },
-    { name: 'Sân bóng Bắc Từ Liêm', address: 'Bắc Từ Liêm, Hà Nội' },
-    { name: 'Sân bóng Nam Từ Liêm', address: 'Nam Từ Liêm, Hà Nội' },
-    { name: 'Sân bóng Gia Lâm', address: 'Gia Lâm, Hà Nội' },
-    { name: 'Sân bóng Thanh Trì', address: 'Thanh Trì, Hà Nội' },
-    { name: 'Sân bóng Sơn Tây', address: 'Sơn Tây, Hà Nội' },
-    { name: 'Sân bóng Đông Anh', address: 'Đông Anh, Hà Nội' },
-    { name: 'Sân bóng Chương Mỹ', address: 'Chương Mỹ, Hà Nội' },
-    { name: 'Sân bóng Mê Linh', address: 'Mê Linh, Hà Nội' },
-    { name: 'Sân bóng Thạch Thất', address: 'Thạch Thất, Hà Nội' }
   ];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private locationService: LocationService) {
     this.filteredResults = this.fakeData;
+  }
+
+  ngOnInit(): void {
+    AOS.init({
+      duration: 2000,
+      easing: 'ease-in-out',
+      once: false
+    });
+
+    window.addEventListener('scroll', () => {
+      AOS.refresh();
+    });
+
+    this.map = L.map('map-navbar').setView([this.latitude, this.longitude], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
+
+    this.map.on('click', (e: any) => {
+      const { lat, lng } = e.latlng;
+      console.log(`Tọa độ được chọn: ${lat}, ${lng}`);
+      this.selectedCoordinates = { lat, lng };
+      this.isCoordinatesSelected = true;
+
+      L.marker([lat, lng])
+        .addTo(this.map)
+        .bindPopup(`Tọa độ: ${lat}, ${lng}`)
+        .openPopup();
+    });
+  }
+
+  openMap(): void {
+    this.showMap = true;
+    console.log("tọa độ bản đồ")
+    setTimeout(() => {
+      if (this.map) {
+        this.map.invalidateSize();
+      }
+    }, 0);
+  }
+
+  closeMap(): void {
+    this.showMap = false;
+  }
+
+  onMapClick(event: any): void {
+    const { lat, lng } = event.latlng;
+    console.log(`Tọa độ được chọn: ${lat}, ${lng}`);
+    this.selectedLatLng = { lat, lng };
+    this.isCoordinatesSelected = true;
+    L.marker([lat, lng])
+      .addTo(this.map)
+      .bindPopup(`Tọa độ: ${lat}, ${lng}`)
+      .openPopup();
   }
 
   // Hàm tìm kiếm
   onSearch() {
     if (this.searchQuery.trim() === '') {
-      this.filteredResults = []; // Không hiển thị gợi ý khi không nhập gì
+      this.filteredResults = [];
     } else {
       this.filteredResults = this.fakeData.filter(item =>
         item.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         item.address.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
-    // console.log("fillter",this.fakeData)
   }
 
-  // Hàm chọn gợi ý
   selectPlace(place: any) {
-    this.searchQuery = place.name; // Gán tên sân bóng vào ô tìm kiếm
-    this.filteredResults = []; // Ẩn gợi ý sau khi chọn
+    this.searchQuery = place.name;
+    this.filteredResults = [];
   }
 
   search() {
     this.finalSearch = this.searchQuery.trim();
     if (this.finalSearch !== '') {
       this.router.navigate(['/booking'], { queryParams: { query: this.finalSearch } });
+    }
+  }
+
+  goToBooking() {
+    if (this.isCoordinatesSelected) {
+      this.router.navigate(['/booking'], { queryParams: { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng } });
+      this.showMap = false;
+    } else {
+      alert('Vui lòng chọn một địa điểm trên bản đồ.');
     }
   }
 }

@@ -38,7 +38,7 @@
 }
 
 .card-child-2 {
-  background-color: rgb(23, 157, 59);
+  background-color: rgb(6, 96, 30);
   height: 15%;
   width: 35%;
   border-radius: 0px 200px 0px 30px;
@@ -75,7 +75,7 @@
     height: 100%;
     width: 100%;
     border-radius: 20px;
-    background-color: rgb(66, 250, 115);
+    background-color: rgb(7, 88, 29);
   }
 }
 
@@ -100,7 +100,7 @@
 }
 
 .text-content:hover{
-  color: aliceblue;
+  color: rgb(242, 235, 44);
 }
 
 .card-child-1:hover .text-content{

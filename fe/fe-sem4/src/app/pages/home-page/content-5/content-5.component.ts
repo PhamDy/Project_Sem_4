@@ -8,9 +8,6 @@ import * as AOS from 'aos';
 })
 export class Content5Component {
  ngOnInit(): void {
-    // setInterval(() => {
-    //   this.nextSlide();
-    // }, 5000);
 
     AOS.init({
       duration: 1000,

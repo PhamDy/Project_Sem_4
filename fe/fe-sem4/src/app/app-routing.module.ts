@@ -13,6 +13,10 @@ const routes: Routes = [
     component: HomePageComponent
   },
   {
+    path: 'booking',
+    component: BookingComponent
+  },
+  {
     path: 'aboutUs',
     component: AboutUsComponent
   },
@@ -24,10 +28,7 @@ const routes: Routes = [
     path: 'auth',
     component: AuthComponent
   },
-  {
-    path: 'booking',
-    component: BookingComponent
-  },
+
   {
     path: 'tournament',
     component: TournamentComponent

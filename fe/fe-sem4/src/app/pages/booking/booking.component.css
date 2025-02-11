@@ -1,0 +1,261 @@
+/* navbar.component.css */
+.stadium-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  width: 100%; /* Full width of the parent container */
+}
+
+.stadium-card {
+  width: 48%; /* Each card takes up around 48% of the container width, leaving space for two cards per row */
+  max-width: 400px; /* Optional: Limit the max width of each card */
+  margin: 10px; /* Adds space between cards */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stadium-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stadium-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.stadium-info {
+  padding: 15px;
+}
+
+.stadium-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.stadium-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0 15px;
+}
+
+.rating {
+  display: flex;
+  justify-content: start;
+  color: gold;
+}
+
+.rating span {
+  font-size: 16px;
+  margin-right: 3px;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+}
+
+
+.stadium-detail-popup {
+  margin-top: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);  /* Dark overlay with slight transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 1000px;
+  height: 70%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  overflow: hidden;
+  position: relative;
+  transform: translateY(20px); /* Small lift effect on opening */
+  transition: transform 0.3s ease-in-out;
+}
+
+.popup-content:hover {
+  transform: translateY(0); /* Smooth transition when popup appears */
+}
+
+.popup-image {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 2px solid #f0f0f0; /* Subtle separation between image and details */
+}
+
+.popup-image img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for the image */
+}
+
+.popup-details {
+  flex: 1.5;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.popup-details .close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 35px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.popup-details .close:hover {
+  color: #ff4747; /* Change color on hover for the close button */
+}
+
+.popup-details h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: 600;
+}
+
+.popup-details p {
+  font-size: 1rem;
+  margin: 15px 0;
+  line-height: 1.5;
+  color: #555;
+}
+
+.rating {
+  font-size: 1.4rem;
+  margin-top: 10px;
+  color: #f39c12; /* Gold color for rating */
+}
+
+.popup-details p:last-child {
+  margin-bottom: 0;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+}
+
+.close:hover {
+  color: #f00;  /* Change color on hover */
+}
+
+
+
+.btn-map {
+  background-color: #275e28; /* Màu nền xanh */
+  color: white;
+  border: 2px solid #275e28;
+}
+
+.btn-map i {
+  margin-right: 5px; /* Khoảng cách giữa icon và chữ */
+}
+
+/* Hiệu ứng hover cho nút Xem bản đồ */
+.btn-map:hover {
+  background-color: #45a049;
+  border: 2px solid #45a049;
+}
+
+/* Nút Xem chi tiết */
+.btn-detail {
+  background-color: #015cbe; /* Màu nền xanh dương */
+  color: white;
+  border: 2px solid #015cbe;
+}
+
+.btn-detail i {
+  margin-right: 5px;
+}
+
+/* Hiệu ứng hover cho nút Xem chi tiết */
+.btn-detail:hover {
+  background-color: #2c90ff;
+  border-color: #2c90ff;
+}
+
+/* Hiệu ứng cho nút khi bị nhấn */
+button:active {
+  transform: scale(0.98);
+}
+.button-popup{
+  height: 60px;
+  width: 400px;
+  border-radius: 20px;
+  border: 0px;
+  background-color: #2195a4;
+  color: #ddd;
+  transition: ease 0.3s all;
+}
+.button-popup:hover{
+  transform: scale(1.1);
+  background-color: #00c7e1;
+  color: #ffffff;
+}

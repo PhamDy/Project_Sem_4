@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +20,8 @@ import { Content2Component } from './pages/home-page/content-2/content-2.compone
 import { Content3Component } from './pages/home-page/content-3/content-3.component';
 import { Content4Component } from './pages/home-page/content-4/content-4.component';
 import { Content5Component } from './pages/home-page/content-5/content-5.component';
+import { RouterModule } from '@angular/router';
+import { ContentBooking1Component } from './pages/booking/content-booking1/content-booking1.component';
 
 @NgModule({
   declarations: [
@@ -39,13 +42,15 @@ import { Content5Component } from './pages/home-page/content-5/content-5.compone
     Content3Component,
     Content4Component,
     Content5Component,
+    ContentBooking1Component,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -46,4 +46,5 @@ public class Field extends BaseEntity {
     @Basic
     @Column(name = "area_id")
     private Long areaId;
+    
 }

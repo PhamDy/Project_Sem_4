@@ -38,6 +38,7 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findById(id));
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all-area")
     public ResponseEntity<Object> getAllArea(Pageable pageable) {
         return ResponseEntity.ok(areaService.findAllAreas(pageable));
@@ -58,6 +59,7 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findAllField(pageable));
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/search-field")
     public ResponseEntity<Object> searchField(Pageable pageable, @RequestBody FindAreaRequest findAreaRequest) {
         return ResponseEntity.ok(areaService.search(findAreaRequest,pageable));

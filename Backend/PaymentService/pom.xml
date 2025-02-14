@@ -98,12 +98,14 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.projectsem4</groupId>
-			<artifactId>BookingService</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>com.projectsem4</groupId>-->
+<!--			<artifactId>BookingService</artifactId>-->
+<!--			<version>0.0.1-SNAPSHOT</version>-->
+<!--			<scope>compile</scope>-->
+<!--		</dependency>-->
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -122,6 +124,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.1</version>
+				<configuration>
+					<to>
+						<image>phamdy/sem4-payment-service</image>
+					</to>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

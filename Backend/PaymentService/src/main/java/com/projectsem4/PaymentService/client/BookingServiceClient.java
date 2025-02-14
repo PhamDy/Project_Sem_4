@@ -1,6 +1,6 @@
-package com.projectsem4.PaymentService.config.client;
+package com.projectsem4.PaymentService.client;
 
-import com.projectsem4.BookingService.client.config.FeignConfig;
+import com.projectsem4.PaymentService.config.FeignConfig;
 import com.projectsem4.common_service.dto.entity.Booking;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
 package com.projectsem4.PaymentService.controller;
 
-import com.projectsem4.PaymentService.config.client.BookingServiceClient;
+import com.projectsem4.PaymentService.client.BookingServiceClient;
 import com.projectsem4.PaymentService.service.PaymentService;
 import com.projectsem4.common_service.dto.constant.Constant;
 import lombok.RequiredArgsConstructor;

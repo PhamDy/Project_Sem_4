@@ -2,16 +2,15 @@ package com.projectsem4.BookingService.model.request;
 
 import com.projectsem4.BookingService.entity.BookingAccessory;
 import com.projectsem4.BookingService.entity.BookingReferee;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateBookingRequest {

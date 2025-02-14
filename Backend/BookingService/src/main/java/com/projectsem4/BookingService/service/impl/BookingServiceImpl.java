@@ -1,6 +1,6 @@
 package com.projectsem4.BookingService.service.impl;
 
-import com.projectsem4.BookingService.client.config.StadiumServiceClient;
+import com.projectsem4.BookingService.client.StadiumServiceClient;
 import com.projectsem4.BookingService.entity.Booking;
 import com.projectsem4.BookingService.entity.BookingAccessory;
 import com.projectsem4.BookingService.entity.BookingReferee;

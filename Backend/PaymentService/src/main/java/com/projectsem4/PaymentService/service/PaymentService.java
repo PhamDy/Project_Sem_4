@@ -1,17 +1,14 @@
 package com.projectsem4.PaymentService.service;
 
-import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.PaymentService.config.ConfigVnPay;
-import com.projectsem4.PaymentService.config.client.BookingServiceClient;
+import com.projectsem4.PaymentService.client.BookingServiceClient;
 import com.projectsem4.PaymentService.entity.Payment;
 import com.projectsem4.PaymentService.repository.PaymentRepository;
 import com.projectsem4.common_service.dto.constant.Constant;
 import com.projectsem4.common_service.dto.entity.Booking;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;

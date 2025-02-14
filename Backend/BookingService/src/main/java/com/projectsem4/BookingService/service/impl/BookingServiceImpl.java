@@ -11,9 +11,11 @@ import com.projectsem4.BookingService.repository.BookingRepository;
 import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.constant.Constant;
 import com.projectsem4.common_service.dto.entity.Field;
+import com.projectsem4.common_service.dto.entity.Price;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -90,5 +92,14 @@ public class BookingServiceImpl implements BookingService {
             }
         }
         return true;
+    }
+
+    @Override
+    public List<Price> findTimeAvailable(List<Price> price, LocalDate date) {
+        for (Price p : price) {
+            long quantityBook = bookingRepository.checkTimeAvailable(date,p.getPriceTo(),p.getPriceFrom()).size();
+            p.setQuantity(quantityBook);
+        }
+        return price;
     }
 }

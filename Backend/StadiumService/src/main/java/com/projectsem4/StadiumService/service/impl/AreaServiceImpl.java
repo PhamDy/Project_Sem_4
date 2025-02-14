@@ -1,5 +1,6 @@
 package com.projectsem4.StadiumService.service.impl;
 
+import com.projectsem4.StadiumService.config.client.BookingServiceClient;
 import com.projectsem4.StadiumService.model.entity.Accessory;
 import com.projectsem4.StadiumService.model.entity.Area;
 import com.projectsem4.StadiumService.model.entity.Field;
@@ -14,17 +15,16 @@ import com.projectsem4.StadiumService.repository.FieldRepository;
 import com.projectsem4.StadiumService.repository.PriceRepository;
 import com.projectsem4.StadiumService.service.AreaService;
 import com.projectsem4.common_service.dto.util.Constants;
-import jakarta.persistence.criteria.Expression;
-import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.atn.SemanticContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,6 +36,7 @@ public class AreaServiceImpl implements AreaService {
     private final FieldRepository fieldRepository;
     private final PriceRepository priceRepository;
     private final AccessoryRepository accessoryRepository;
+    private final BookingServiceClient bookingServiceClient;
 
     @Override
     public Boolean createArea(AreaCreateRequest createRequest) {
@@ -86,6 +87,7 @@ public class AreaServiceImpl implements AreaService {
         response.setDescription(area.getDescription());
         response.setLatitude(area.getLatitude());
         response.setLongitude(area.getLongitude());
+        response.setPath(area.getPath());
         response.setAreaId(area.getAreaId());
         List<FieldRequest> fieldRequests = new ArrayList<>();
         List<Field> fields = fieldRepository.findByAreaId(id);
@@ -203,6 +205,7 @@ public class AreaServiceImpl implements AreaService {
             response.setDescription(area.getDescription());
             response.setLatitude(area.getLatitude());
             response.setLongitude(area.getLongitude());
+            response.setPath(area.getPath());
             response.setAreaId(area.getAreaId());
             List<FieldRequest> fieldRequests = new ArrayList<>();
             List<Field> field1 = map.get(areaId);
@@ -233,4 +236,19 @@ public class AreaServiceImpl implements AreaService {
         return result;
     }
 
+    @Override
+    public Object findTimeAvailable(LocalDate date, Long fieldId) {
+        List<com.projectsem4.common_service.dto.entity.Price> prices = priceRepository.findByFieldId(fieldId).stream().map(this ::mapPrice).toList();
+        return bookingServiceClient.findTimeAvailable(date,prices);
+    }
+
+    public com.projectsem4.common_service.dto.entity.Price mapPrice(Price price){
+        com.projectsem4.common_service.dto.entity.Price price1 = new com.projectsem4.common_service.dto.entity.Price();
+        price1.setPrice(price.getPrice());
+        price1.setPriceId(price.getPriceId());
+        price1.setPriceFrom(price.getPriceFrom());
+        price1.setPriceTo(price.getPriceTo());
+        price1.setFieldId(price.getFieldId());
+        return price1;
+    }
 }

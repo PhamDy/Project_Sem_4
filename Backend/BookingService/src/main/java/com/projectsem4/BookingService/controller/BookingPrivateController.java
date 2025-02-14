@@ -2,10 +2,12 @@ package com.projectsem4.BookingService.controller;
 
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.service.BookingService;
+import com.projectsem4.common_service.dto.entity.Price;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -33,5 +35,10 @@ public class BookingPrivateController {
     public Object updateStatusByPayment(@RequestParam(name = "status") Integer status,
                                         @RequestParam(name= "orderId")  Long id) {
         return bookingService.updateStatusOderByPayment(status,id);
+    }
+
+    @PostMapping("/check-valid-time")
+    public List<Price> validTime(@RequestParam LocalDate date, @RequestBody List<Price> price) {
+        return bookingService.findTimeAvailable(price, date);
     }
 }

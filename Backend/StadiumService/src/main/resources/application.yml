@@ -17,3 +17,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
+config:
+  url:
+    payment-service-url: "${endpoint_payment_service:http://localhost:9007/payment-service}"
+    booking-service-url: "${endpoint_booking_service:http://localhost:9002/booking-service}"

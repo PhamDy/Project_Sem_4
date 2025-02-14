@@ -9,8 +9,11 @@ import com.projectsem4.StadiumService.service.AreaService;
 import com.projectsem4.common_service.dto.response.ResponseData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
@@ -63,5 +66,10 @@ public class StadiumPrivateController {
     @PostMapping("/search-field")
     public ResponseEntity<Object> searchField(Pageable pageable, @RequestBody FindAreaRequest findAreaRequest) {
         return ResponseEntity.ok(areaService.search(findAreaRequest,pageable));
+    }
+
+    @PostMapping("/time-available")
+    public ResponseEntity<Object> findTimeAvailable(@RequestParam(name = "date") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate date, @RequestParam(name = "fieldId") Long fieldId) {
+        return ResponseEntity.ok(areaService.findTimeAvailable(date,fieldId));
     }
 }

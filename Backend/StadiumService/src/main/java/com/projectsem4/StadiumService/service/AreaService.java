@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.projectsem4.StadiumService.model.entity.Area;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface AreaService {
@@ -24,4 +25,5 @@ public interface AreaService {
     Object findFieldById(Long id);
     Object findAllField(Pageable pageable);
     Object search(FindAreaRequest findAreaRequest,Pageable pageable);
+    Object findTimeAvailable(LocalDate date, Long fieldId);
 }

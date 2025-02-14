@@ -22,4 +22,12 @@ public interface BookingAccessoryRepository extends JpaRepository<BookingAccesso
     List<BookingAccessory> checkBookingAccessory(@Param("bookingId") Long bookingId,
                                                  @Param("accessoryId") Long accessoryId,
                                                  @Param("quantity") Integer quantity);
+
+    @Query("SELECT b FROM BookingAccessory b WHERE "
+            +"(:bookingId IS NULL OR :bookingId = b.bookingId) "
+            +"AND (:accessoryId IS NULL OR :accessoryId = b.accessoryId)"
+            +"AND (:quantity IS NULL OR :quantity = b.quantity)")
+    List<BookingAccessory> checkTimeAvailable(@Param("bookingId") Long bookingId,
+                                                 @Param("accessoryId") Long accessoryId,
+                                                 @Param("quantity") Integer quantity);
 }

@@ -194,48 +194,49 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object findFieldByIdAndCalender(Long id, Long index) {
-        List<Field> fields = fieldRepository.findByFieldTypeId(id);
-        List<Long> fieldIds = fields.stream().map(Field::getFieldId).toList();
-        Map<TimeFrameDate,Boolean> schedule = bookingServiceClient.calenderSchedule(LocalDate.now().plusDays(7 * index), fieldIds);
-        FieldType fieldType = fieldTypeRepository.findById(id).orElse(null);
-
-        ResponseSchedule list = new ResponseSchedule();
-        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        List<String> calender = new ArrayList<>();
-        for (int i = 0; i <= 6; i++) {
-            LocalDate ngay = LocalDate.now().plusDays(i * index);
-            DayOfWeek thu = ngay.getDayOfWeek();
-            String thuTiengViet = thu.getDisplayName(java.time.format.TextStyle.FULL, new Locale("vi", "VN"));
-            String result = ngay.format(dinhDang) + " - " + thuTiengViet;
-            calender.add(result);
-        }
-        list.setCalender(calender);
-        Constant.TimeFrameEnum.getAllTimeFrames().forEach(item->{
-            TimeFrameSchedule timeFrameSchedule = new TimeFrameSchedule();
-            timeFrameSchedule.setTimeFrame(item.getKey());
-            List<FieldSchedule> fieldSchedules = new ArrayList<>();
-            fields.forEach(field->{
-                FieldSchedule obj = new FieldSchedule();
-                obj.setFieldId(field.getFieldId());
-                obj.setFieldName(field.getName());
-                List<FieldDateSchedule> fieldDateSchedules = new ArrayList<>();
-                for (int i = 0; i <= 6; i++) {
-                    FieldDateSchedule fieldDateSchedule = new FieldDateSchedule();
-                    fieldDateSchedule.setDate(LocalDate.now().plusDays(i + index * 7));
-                    fieldDateSchedule.setPrice((long) (fieldType.getPrice() * item.getScale()));
-                    TimeFrameDate timeFrameDate = new TimeFrameDate();
-                    timeFrameDate.setTimeFrame(item.getKey());
-                    timeFrameDate.setDate(LocalDate.now().plusDays(i + index * 7));
-                    timeFrameDate.setFieldId(field.getFieldId());
-                    fieldDateSchedule.setIsBooking(schedule.get(timeFrameDate));
-                    fieldDateSchedules.add(fieldDateSchedule);
-                }
-                obj.setFieldDateScheduleList(fieldDateSchedules);
-                fieldSchedules.add(obj);
-            });
-            timeFrameSchedule.setFieldSchedules(fieldSchedules);
-        });
-        return list;
+//        List<Field> fields = fieldRepository.findByFieldTypeId(id);
+//        List<Long> fieldIds = fields.stream().map(Field::getFieldId).toList();
+//        Map<TimeFrameDate,Boolean> schedule = bookingServiceClient.calenderSchedule(LocalDate.now().plusDays(7 * index), fieldIds);
+//        FieldType fieldType = fieldTypeRepository.findById(id).orElse(null);
+//
+//        ResponseSchedule list = new ResponseSchedule();
+//        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        List<String> calender = new ArrayList<>();
+//        for (int i = 0; i <= 6; i++) {
+//            LocalDate ngay = LocalDate.now().plusDays(i * index);
+//            DayOfWeek thu = ngay.getDayOfWeek();
+//            String thuTiengViet = thu.getDisplayName(java.time.format.TextStyle.FULL, new Locale("vi", "VN"));
+//            String result = ngay.format(dinhDang) + " - " + thuTiengViet;
+//            calender.add(result);
+//        }
+//        list.setCalender(calender);
+//        Constant.TimeFrameEnum.getAllTimeFrames().forEach(item->{
+//            TimeFrameSchedule timeFrameSchedule = new TimeFrameSchedule();
+//            timeFrameSchedule.setTimeFrame(item.getKey());
+//            List<FieldSchedule> fieldSchedules = new ArrayList<>();
+//            fields.forEach(field->{
+//                FieldSchedule obj = new FieldSchedule();
+//                obj.setFieldId(field.getFieldId());
+//                obj.setFieldName(field.getName());
+//                List<FieldDateSchedule> fieldDateSchedules = new ArrayList<>();
+//                for (int i = 0; i <= 6; i++) {
+//                    FieldDateSchedule fieldDateSchedule = new FieldDateSchedule();
+//                    fieldDateSchedule.setDate(LocalDate.now().plusDays(i + index * 7));
+//                    fieldDateSchedule.setPrice((long) (fieldType.getPrice() * item.getScale()));
+//                    TimeFrameDate timeFrameDate = new TimeFrameDate();
+//                    timeFrameDate.setTimeFrame(item.getKey());
+//                    timeFrameDate.setDate(LocalDate.now().plusDays(i + index * 7));
+//                    timeFrameDate.setFieldId(field.getFieldId());
+//                    fieldDateSchedule.setIsBooking(schedule.get(timeFrameDate));
+//                    fieldDateSchedules.add(fieldDateSchedule);
+//                }
+//                obj.setFieldDateScheduleList(fieldDateSchedules);
+//                fieldSchedules.add(obj);
+//            });
+//            timeFrameSchedule.setFieldSchedules(fieldSchedules);
+//        });
+//        return list;
+        return true;
     }
 
     @Override
@@ -294,25 +295,26 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object findAllFieldInArea(Long areaId) {
-        Area area = areaRepository.findById(areaId).get();
-        if (area.getAreaId()==null){
-            throw new NotFoundException("Area not found");
-        }
-        AreaResponse areaResponse = modelMapper.map(area, AreaResponse.class);
-        List<FieldType> fieldTypes = fieldTypeRepository.findByAreaId(areaId);
-        List<FieldTypeResponse> fieldTypeResponses = new ArrayList<>();
-        fieldTypes.forEach(fieldType -> {
-            FieldTypeResponse fieldTypeResponse = modelMapper.map(fieldType, FieldTypeResponse.class);
-            List<Field> fields = fieldRepository.findByFieldTypeId(fieldType.getFieldTypeId());
-            List<FieldResponse> fieldResponses = new ArrayList<>();
-            fields.forEach(item->{
-                FieldResponse fieldResponse = modelMapper.map(item, FieldResponse.class);
-                fieldResponses.add(fieldResponse);
-            });
-        fieldTypeResponses.add(fieldTypeResponse);
-        });
-        areaResponse.setFieldTypeResponseList(fieldTypeResponses);
-        return areaResponse;
+//        Area area = areaRepository.findById(areaId).get();
+//        if (area.getAreaId()==null){
+//            throw new NotFoundException("Area not found");
+//        }
+//        AreaResponse areaResponse = modelMapper.map(area, AreaResponse.class);
+//        List<FieldType> fieldTypes = fieldTypeRepository.findByAreaId(areaId);
+//        List<FieldTypeResponse> fieldTypeResponses = new ArrayList<>();
+//        fieldTypes.forEach(fieldType -> {
+//            FieldTypeResponse fieldTypeResponse = modelMapper.map(fieldType, FieldTypeResponse.class);
+//            List<Field> fields = fieldRepository.findByFieldTypeId(fieldType.getFieldTypeId());
+//            List<FieldResponse> fieldResponses = new ArrayList<>();
+//            fields.forEach(item->{
+//                FieldResponse fieldResponse = modelMapper.map(item, FieldResponse.class);
+//                fieldResponses.add(fieldResponse);
+//            });
+//        fieldTypeResponses.add(fieldTypeResponse);
+//        });
+//        areaResponse.setFieldTypeResponseList(fieldTypeResponses);
+//        return areaResponse;
+        return true;
     }
 
 

@@ -95,10 +95,10 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Price> findTimeAvailable(List<Price> price, LocalDate date) {
+    public List<Price> findTimeAvailable(List<Price> price, LocalDate date, Long quantity) {
         for (Price p : price) {
             long quantityBook = bookingRepository.checkTimeAvailable(date,p.getPriceTo(),p.getPriceFrom()).size();
-            p.setQuantity(quantityBook);
+            p.setQuantity(quantity - quantityBook);
         }
         return price;
     }

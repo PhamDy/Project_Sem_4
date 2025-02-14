@@ -238,8 +238,9 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object findTimeAvailable(LocalDate date, Long fieldId) {
+        Field field = fieldRepository.findById(fieldId).orElse(null);
         List<com.projectsem4.common_service.dto.entity.Price> prices = priceRepository.findByFieldId(fieldId).stream().map(this ::mapPrice).toList();
-        return bookingServiceClient.findTimeAvailable(date,prices);
+        return bookingServiceClient.findTimeAvailable(date,prices, field.getQuantity());
     }
 
     public com.projectsem4.common_service.dto.entity.Price mapPrice(Price price){

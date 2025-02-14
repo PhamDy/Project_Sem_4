@@ -38,7 +38,7 @@ public class BookingPrivateController {
     }
 
     @PostMapping("/check-valid-time")
-    public List<Price> validTime(@RequestParam LocalDate date, @RequestBody List<Price> price) {
-        return bookingService.findTimeAvailable(price, date);
+    public List<Price> validTime(@RequestParam LocalDate date, @RequestBody List<Price> price,@RequestParam Long quantity) {
+        return bookingService.findTimeAvailable(price, date, quantity);
     }
 }

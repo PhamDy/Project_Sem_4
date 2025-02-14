@@ -14,5 +14,5 @@ import java.util.List;
 public interface BookingServiceClient {
 
     @PostMapping(value = "/private/api/v1/check-valid-time", consumes = "application/json")
-    List<Price> findTimeAvailable(@RequestParam("date") LocalDate date, @RequestBody List<Price> price);
+    List<Price> findTimeAvailable(@RequestParam("date") LocalDate date, @RequestBody List<Price> price, @RequestParam("quantity") Long quantity);
 }

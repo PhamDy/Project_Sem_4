@@ -10,5 +10,5 @@ public interface BookingService {
     void createBooking(CreateBookingRequest request);
     CreateBookingRequest findBookingById(Long id);
     Object updateStatusOderByPayment(Integer status, Long orderId);
-    List<Price> findTimeAvailable(List<Price> price, LocalDate date);
+    List<Price> findTimeAvailable(List<Price> price, LocalDate date, Long quantity);
 }

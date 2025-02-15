@@ -1,7 +1,5 @@
 package com.projectsem4.StadiumService.model.request;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +20,4 @@ public class AreaCreateRequest {
     String path;
     String email;
     List<FieldRequest> fields;
-
 }

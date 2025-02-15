@@ -15,15 +15,12 @@ import com.projectsem4.StadiumService.repository.FieldRepository;
 import com.projectsem4.StadiumService.repository.PriceRepository;
 import com.projectsem4.StadiumService.service.AreaService;
 import com.projectsem4.common_service.dto.util.Constants;
-import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,18 +36,9 @@ public class AreaServiceImpl implements AreaService {
     private final BookingServiceClient bookingServiceClient;
 
     @Override
-    public Boolean createArea(AreaCreateRequest createRequest) {
-        Area area = new Area();
-        area.setAddress(createRequest.getAddress());
-        area.setName(createRequest.getName());
-        area.setDescription(createRequest.getDescription());
-        area.setEmail(createRequest.getEmail());
-        area.setLongitude(createRequest.getLongitude());
-        area.setLatitude(createRequest.getLatitude());
-        area.setPath(createRequest.getPath());
-        area.setPhoneNumber(createRequest.getPhoneNumber());
-        areaRepository.save(area);
-        return Boolean.TRUE;
+    public Long createArea(Area createRequest) {
+        Area area = areaRepository.save(createRequest);
+        return area.getAreaId();
     }
 
     @Override

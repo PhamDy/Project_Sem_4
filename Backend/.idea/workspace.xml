@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e2c17d2-66c5-4a10-8c8b-3a8f706a88e4" name="Changes" comment="Quang Thái phong bat" />
+    <list default="true" id="1e2c17d2-66c5-4a10-8c8b-3a8f706a88e4" name="Changes" comment="tao exception common" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,9 +20,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {}
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
   <component name="GitLabDefaultAccount">
     <option name="defaultAccountId" value="219724f2-0666-45c3-b4ac-d0ab93d42205" />
   </component>
@@ -61,9 +61,9 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.BookingServiceApplication.executor": "Run",
-    "Spring Boot.ConfigServerApplication.executor": "Run",
+    "Spring Boot.ConfigServerApplication.executor": "Debug",
     "Spring Boot.PaymentServiceApplication.executor": "Run",
-    "Spring Boot.ServiceRegistryApplication.executor": "Run",
+    "Spring Boot.ServiceRegistryApplication.executor": "Debug",
     "Spring Boot.StadiumServiceApplication.executor": "Run",
     "Spring Boot.TournamentServiceApplication.executor": "Run",
     "dart.analysis.tool.window.visible": "false",
@@ -79,11 +79,14 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.4770115",
     "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "vcs.Git",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
     "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\FPT Aptech\projectSem4\Backend\PaymentService\src\main\java\com\projectsem4\PaymentService\config" />
@@ -105,7 +108,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.PaymentServiceApplication">
+  <component name="RunManager" selected="Spring Boot.ServiceRegistryApplication">
     <configuration name="BookingServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="BookingService" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.projectsem4.BookingService.BookingServiceApplication" />
@@ -196,7 +199,9 @@
       </method>
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration name="common-service/Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
@@ -207,11 +212,25 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Docker.common-service/Dockerfile" />
+      <item itemvalue="Spring Boot.BookingServiceApplication" />
+      <item itemvalue="Spring Boot.GatewayServerApplication" />
+      <item itemvalue="Spring Boot.NotificationServiceApplication" />
+      <item itemvalue="Spring Boot.OrderServiceApplication" />
+      <item itemvalue="Spring Boot.PaymentServiceApplication" />
+      <item itemvalue="Spring Boot.ProductServiceApplication" />
+      <item itemvalue="Spring Boot.StadiumServiceApplication" />
+      <item itemvalue="Spring Boot.TournamentServiceApplication" />
+      <item itemvalue="Spring Boot.UsersServiceApplication" />
+      <item itemvalue="Spring Boot.ConfigServerApplication" />
+      <item itemvalue="Spring Boot.ServiceRegistryApplication" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.common-service/Dockerfile" />
         <item itemvalue="Spring Boot.ConfigServerApplication" />
         <item itemvalue="Spring Boot.ServiceRegistryApplication" />
+        <item itemvalue="Docker.common-service/Dockerfile" />
       </list>
     </recent_temporary>
   </component>
@@ -244,7 +263,8 @@
       <workItem from="1739276022085" duration="1210000" />
       <workItem from="1739321615226" duration="29000" />
       <workItem from="1739321981064" duration="11000" />
-      <workItem from="1739533558110" duration="6604000" />
+      <workItem from="1739533558110" duration="7846000" />
+      <workItem from="1739588770872" duration="5230000" />
     </task>
     <task id="LOCAL-00001" summary="Quang Thái phong bat">
       <option name="closed" value="true" />
@@ -294,7 +314,23 @@
       <option name="project" value="LOCAL" />
       <updated>1734228177567</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="tao exception common">
+      <option name="closed" value="true" />
+      <created>1739593830087</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1739593830087</updated>
+    </task>
+    <task id="LOCAL-00008" summary="tao exception common">
+      <option name="closed" value="true" />
+      <created>1739593867787</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1739593867787</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,6 +338,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Quang Thái phong bat" />
-    <option name="LAST_COMMIT_MESSAGE" value="Quang Thái phong bat" />
+    <MESSAGE value="plugin_build" />
+    <MESSAGE value="tao exception common" />
+    <option name="LAST_COMMIT_MESSAGE" value="tao exception common" />
   </component>
 </project>

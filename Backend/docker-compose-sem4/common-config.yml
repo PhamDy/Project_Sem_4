@@ -6,7 +6,7 @@ services:
   microservice-base-config:
     extends:
       service: network-deploy-service
-    deloy:
+    deploy:
       resources:
         limits:
           memory: 700m
@@ -17,6 +17,8 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: quangthai3110
 
   microservice-eureka-config:
     extends:

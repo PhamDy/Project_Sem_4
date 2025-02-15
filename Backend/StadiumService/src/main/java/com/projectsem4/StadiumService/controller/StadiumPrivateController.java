@@ -1,6 +1,7 @@
 package com.projectsem4.StadiumService.controller;
 
 import com.projectsem4.StadiumService.model.entity.Accessory;
+import com.projectsem4.StadiumService.model.entity.Area;
 import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.model.request.FieldRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
@@ -12,18 +13,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*",maxAge = 3600)
 @RequestMapping("/private/api/v1")
 public class StadiumPrivateController {
+
     private final AreaService areaService;
 
     @PostMapping("/area")
-    public ResponseEntity<Boolean> createArea(@RequestBody AreaCreateRequest areaCreateRequest) {
-        return ResponseEntity.ok(areaService.createArea(areaCreateRequest));
+    public ResponseEntity<?> createArea(@ModelAttribute Area area,
+                                        @RequestParam(value = "img") MultipartFile img) {
+        return ResponseEntity.ok(areaService.createArea(area));
     }
 
     @PostMapping("/field")

@@ -9,10 +9,9 @@ import org.springframework.data.domain.Pageable;
 import com.projectsem4.StadiumService.model.entity.Area;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public interface AreaService {
-    Boolean createArea(AreaCreateRequest areaCreateRequest);
+    Long createArea(Area areaCreateRequest);
     Boolean createField(FieldRequest areaCreateRequest, Long areaId);
     AreaCreateRequest findById(Long id);
     Page<AreaCreateRequest> findAllAreas(Pageable pageable);

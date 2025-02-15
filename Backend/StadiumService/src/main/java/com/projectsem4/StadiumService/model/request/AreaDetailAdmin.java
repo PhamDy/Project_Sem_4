@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AreaCreateRequest {
+public class AreaDetailAdmin {
     Long areaId;
     String name;
     String address;
@@ -17,7 +17,9 @@ public class AreaCreateRequest {
     String phoneNumber;
     Double longitude;
     Double latitude;
+    Integer district;
     String path;
     String email;
     List<FieldTypeRequest> fields;
+
 }

@@ -10,7 +10,7 @@ import com.projectsem4.BookingService.repository.BookingRefereeRepository;
 import com.projectsem4.BookingService.repository.BookingRepository;
 import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.constant.Constant;
-import com.projectsem4.common_service.dto.entity.Field;
+import com.projectsem4.common_service.dto.entity.FieldType;
 import com.projectsem4.common_service.dto.entity.Price;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,10 +32,7 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = new Booking();
         booking.setFieldId(request.getFieldId());
         booking.setUserId(request.getUserId());
-        booking.setBookingDate(request.getBookingDate());
         booking.setQuantity(request.getQuantity());
-        booking.setStartTime(request.getStartTime());
-        booking.setEndTime(request.getEndTime());
         bookingRepository.save(booking);
         bookingAccessoryRepository.saveAll(request.getBookingAccessory());
         bookingRefereeRepository.saveAll(request.getBookingReferees());
@@ -51,9 +48,6 @@ public class BookingServiceImpl implements BookingService {
         createBookingRequest.setFieldId(booking.getFieldId());
         createBookingRequest.setQuantity(booking.getQuantity());
         createBookingRequest.setUserId(booking.getUserId());
-        createBookingRequest.setBookingDate(booking.getBookingDate());
-        createBookingRequest.setStartTime(booking.getStartTime());
-        createBookingRequest.setEndTime(booking.getEndTime());
         createBookingRequest.setBookingAccessory(bookingAccessory);
         createBookingRequest.setBookingReferees(bookingReferee);
         return createBookingRequest;
@@ -74,8 +68,8 @@ public class BookingServiceImpl implements BookingService {
     public Boolean checkQuantityBooking(CreateBookingRequest booking) {
         List<Booking> bookingDup = bookingRepository.checkBookingField(booking.getFieldId(), booking.getBookingDate(), booking.getEndTime(), booking.getStartTime());
         int quantity = bookingDup.size();
-        Field field = stadiumServiceClient.findFieldById(booking.getFieldId());
-        if (booking.getQuantity() + quantity > field.getQuantity()) {
+        FieldType fieldType = stadiumServiceClient.findFieldById(booking.getFieldId());
+        if (booking.getQuantity() + quantity > fieldType.getQuantity()) {
             return false;
         }
         for (BookingAccessory bookingAccessory : booking.getBookingAccessory()) {
@@ -87,7 +81,7 @@ public class BookingServiceImpl implements BookingService {
                 }
                 quantityAccessory = quantityAccessory + list.get(0).getQuantity();
             }
-            if (quantityAccessory > field.getQuantity()) {
+            if (quantityAccessory > fieldType.getQuantity()) {
                 return false;
             }
         }

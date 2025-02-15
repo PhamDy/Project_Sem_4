@@ -26,15 +26,6 @@ public class Booking extends BaseEntity {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "booking_date")
-    private LocalDate bookingDate;
-
-    @Column(name = "start_time")
-    private LocalTime startTime;
-
-    @Column(name = "end_time")
-    private LocalTime endTime;
-
     @Column(name = "quantity")
     private Long quantity;
 

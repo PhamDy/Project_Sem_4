@@ -28,10 +28,7 @@ public class Price extends BaseEntity {
     private LocalTime priceTo;
 
     @Basic
-    @Column(name = "price")
-    private BigDecimal price;
+    @Column(name = "type")
+    private Boolean type;
 
-    @Basic
-    @Column(name = "field_id")
-    private Long fieldId;
 }

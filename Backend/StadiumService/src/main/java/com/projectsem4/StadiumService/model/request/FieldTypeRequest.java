@@ -1,31 +1,22 @@
-package com.projectsem4.common_service.dto.entity;
+package com.projectsem4.StadiumService.model.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
+import java.util.List;
+@Data
 @AllArgsConstructor
-public class Field extends BaseEntity {
-
-    private Long fieldId;
-
+@NoArgsConstructor
+public class FieldTypeRequest {
+    private Long fieldTypeId;
     private String name;
-
     private Double rating;
-
     private String description;
-
     private String phoneNumber;
-
     private String email;
-
-    private Long quantity;
-
     private Long size;
-
+    private Long quantity;
     private Long areaId;
+    private List<PriceRequest> prices;
 }

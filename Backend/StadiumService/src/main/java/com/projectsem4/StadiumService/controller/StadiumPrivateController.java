@@ -2,12 +2,10 @@ package com.projectsem4.StadiumService.controller;
 
 import com.projectsem4.StadiumService.model.entity.Accessory;
 import com.projectsem4.StadiumService.model.entity.Area;
-import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
-import com.projectsem4.StadiumService.model.request.FieldRequest;
+import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.service.AreaService;
 
-import com.projectsem4.common_service.dto.response.ResponseData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,7 +30,7 @@ public class StadiumPrivateController {
     }
 
     @PostMapping("/field")
-    public ResponseEntity<Boolean> createField(@RequestBody FieldRequest areaCreateRequest, @RequestParam Long areaId) {
+    public ResponseEntity<Boolean> createField(@RequestBody FieldTypeRequest areaCreateRequest, @RequestParam Long areaId) {
         return ResponseEntity.ok(areaService.createField(areaCreateRequest,areaId));
     }
 
@@ -76,5 +74,17 @@ public class StadiumPrivateController {
     @PostMapping("/time-available")
     public ResponseEntity<Object> findTimeAvailable(@RequestParam(name = "date") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate date, @RequestParam(name = "fieldId") Long fieldId) {
         return ResponseEntity.ok(areaService.findTimeAvailable(date,fieldId));
+    }
+
+    @PostMapping("/update-area")
+    public ResponseEntity<Object> updateArea(@ModelAttribute Area area,
+                                             @RequestParam(value = "img") MultipartFile img) {
+        return ResponseEntity.ok(areaService.updateArea(area));
+    }
+
+    @PostMapping("/delete-area")
+    public ResponseEntity<?> deleteArea(@RequestParam Long id) {
+        areaService.deleteArea(id);
+        return ResponseEntity.ok(ResponseEntity.noContent());
     }
 }

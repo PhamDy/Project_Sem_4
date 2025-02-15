@@ -3,10 +3,10 @@ package com.projectsem4.StadiumService.service.impl;
 import com.projectsem4.StadiumService.config.client.BookingServiceClient;
 import com.projectsem4.StadiumService.model.entity.Accessory;
 import com.projectsem4.StadiumService.model.entity.Area;
-import com.projectsem4.StadiumService.model.entity.Field;
+import com.projectsem4.StadiumService.model.entity.FieldType;
 import com.projectsem4.StadiumService.model.entity.Price;
-import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
-import com.projectsem4.StadiumService.model.request.FieldRequest;
+import com.projectsem4.StadiumService.model.request.AreaDetailAdmin;
+import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.model.request.PriceRequest;
 import com.projectsem4.StadiumService.repository.AccessoryRepository;
@@ -42,30 +42,30 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public Boolean createField(FieldRequest fieldRequest, Long areaId) {
-            Field field = new Field();
-            field.setName(fieldRequest.getName());
-            field.setDescription(fieldRequest.getDescription());
-            field.setEmail(fieldRequest.getEmail());
-            field.setQuantity(fieldRequest.getQuantity());
-            field.setPhoneNumber(fieldRequest.getPhoneNumber());
-            field.setSize(fieldRequest.getSize());
-            field.setAreaId(areaId);
-            fieldRepository.save(field);
-            fieldRequest.getPrices().forEach(priceRequest -> {
+    public Boolean createField(FieldTypeRequest fieldTypeRequest, Long areaId) {
+            FieldType fieldType = new FieldType();
+            fieldType.setName(fieldTypeRequest.getName());
+            fieldType.setDescription(fieldTypeRequest.getDescription());
+            fieldType.setEmail(fieldTypeRequest.getEmail());
+            fieldType.setQuantity(fieldTypeRequest.getQuantity());
+            fieldType.setPhoneNumber(fieldTypeRequest.getPhoneNumber());
+            fieldType.setSize(fieldTypeRequest.getSize());
+            fieldType.setAreaId(areaId);
+            fieldRepository.save(fieldType);
+            fieldTypeRequest.getPrices().forEach(priceRequest -> {
                 Price price = new Price();
                 price.setPriceFrom(priceRequest.getPriceFrom());
                 price.setPriceTo(priceRequest.getPriceTo());
                 price.setPrice(priceRequest.getPrice());
-                price.setFieldId(field.getFieldId());
+                price.setFieldId(fieldType.getFieldTypeId());
                 priceRepository.save(price);
             });
         return true;
     }
 
     @Override
-    public AreaCreateRequest findById(Long id) {
-        AreaCreateRequest response = new AreaCreateRequest();
+    public AreaDetailAdmin findById(Long id) {
+        AreaDetailAdmin response = new AreaDetailAdmin();
         Area area = areaRepository.findById(id).get();
         response.setAddress(area.getAddress());
         response.setName(area.getName());
@@ -75,20 +75,21 @@ public class AreaServiceImpl implements AreaService {
         response.setDescription(area.getDescription());
         response.setLatitude(area.getLatitude());
         response.setLongitude(area.getLongitude());
+        response.setDistrict(area.getDistrict());
         response.setPath(area.getPath());
         response.setAreaId(area.getAreaId());
-        List<FieldRequest> fieldRequests = new ArrayList<>();
-        List<Field> fields = fieldRepository.findByAreaId(id);
-        fields.forEach(field -> {
-            FieldRequest fieldRequest = new FieldRequest();
-            fieldRequest.setFieldId(field.getFieldId());
-            fieldRequest.setName(field.getName());
-            fieldRequest.setDescription(field.getDescription());
-            fieldRequest.setEmail(field.getEmail());
-            fieldRequest.setPhoneNumber(field.getPhoneNumber());
-            fieldRequest.setSize(field.getSize());
+        List<FieldTypeRequest> fieldTypeRequests = new ArrayList<>();
+        List<FieldType> fieldTypes = fieldRepository.findByAreaId(id);
+        fieldTypes.forEach(fieldType -> {
+            FieldTypeRequest fieldTypeRequest = new FieldTypeRequest();
+            fieldTypeRequest.setFieldTypeId(fieldType.getFieldTypeId());
+            fieldTypeRequest.setName(fieldType.getName());
+            fieldTypeRequest.setDescription(fieldType.getDescription());
+            fieldTypeRequest.setEmail(fieldType.getEmail());
+            fieldTypeRequest.setPhoneNumber(fieldType.getPhoneNumber());
+            fieldTypeRequest.setSize(fieldType.getSize());
             List<PriceRequest> priceRequests = new ArrayList<>();
-            List<Price> prices = priceRepository.findByFieldId(field.getFieldId());
+            List<Price> prices = priceRepository.findByFieldId(fieldType.getFieldTypeId());
             prices.forEach(price -> {
                 PriceRequest priceRequest = new PriceRequest();
                 priceRequest.setPriceFrom(price.getPriceFrom());
@@ -97,15 +98,15 @@ public class AreaServiceImpl implements AreaService {
                 priceRequest.setFieldId(price.getFieldId());
                 priceRequests.add(priceRequest);
             });
-            fieldRequest.setPrices(priceRequests);
-            fieldRequests.add(fieldRequest);
+            fieldTypeRequest.setPrices(priceRequests);
+            fieldTypeRequests.add(fieldTypeRequest);
         });
-        response.setFields(fieldRequests);
+        response.setFields(fieldTypeRequests);
         return response;
     }
 
     @Override
-    public Page<AreaCreateRequest> findAllAreas(Pageable pageable) {
+    public Page<AreaDetailAdmin> findAllAreas(Pageable pageable) {
         Page<Area> areas = areaRepository.findAll(pageable);
         return areas.map(area -> findById(area.getAreaId()));
     }
@@ -116,8 +117,8 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public Area updateArea(Area area) {
-        return null;
+    public Object updateArea(Area area) {
+        return area.getAreaId();
     }
 
     @Override
@@ -125,11 +126,11 @@ public class AreaServiceImpl implements AreaService {
         Area area = areaRepository.findById(id).orElse(null);
         area.setStatus(Constants.Status.DELETE);
         areaRepository.save(area);
-        List<Field> fields = fieldRepository.findByAreaId(id);
-        fields.forEach(field -> {
-            field.setStatus(Constants.Status.DELETE);
-            fieldRepository.save(field);
-            List<Price> prices = priceRepository.findByFieldId(field.getFieldId());
+        List<FieldType> fieldTypes = fieldRepository.findByAreaId(id);
+        fieldTypes.forEach(fieldType -> {
+            fieldType.setStatus(Constants.Status.DELETE);
+            fieldRepository.save(fieldType);
+            List<Price> prices = priceRepository.findByFieldId(fieldType.getFieldTypeId());
             prices.forEach(price -> {
                 price.setStatus(Constants.Status.DELETE);
                 priceRepository.save(price);
@@ -177,13 +178,13 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object search(FindAreaRequest findAreaRequest, Pageable pageable) {
-        List<Field> fields = fieldRepository.searchField(findAreaRequest.getLatitude(),findAreaRequest.getLongitude(),
+        List<FieldType> fieldTypes = fieldRepository.searchField(findAreaRequest.getLatitude(),findAreaRequest.getLongitude(),
                 findAreaRequest.getDistance(),findAreaRequest.getSize(),findAreaRequest.getTimeStart(),
                 findAreaRequest.getTimeEnd(),findAreaRequest.getDistrict(),findAreaRequest.getPrice());
-        Map<Long,List<Field>> map = fields.stream().collect(Collectors.groupingBy(Field::getAreaId));
-        List<AreaCreateRequest> result = new ArrayList<>();
+        Map<Long,List<FieldType>> map = fieldTypes.stream().collect(Collectors.groupingBy(FieldType::getAreaId));
+        List<AreaDetailAdmin> result = new ArrayList<>();
         for (Long areaId : map.keySet()) {
-            AreaCreateRequest response = new AreaCreateRequest();
+            AreaDetailAdmin response = new AreaDetailAdmin();
             Area area = areaRepository.findById(areaId).get();
             response.setAddress(area.getAddress());
             response.setName(area.getName());
@@ -191,22 +192,23 @@ public class AreaServiceImpl implements AreaService {
             response.setEmail(area.getEmail());
             response.setPhoneNumber(area.getPhoneNumber());
             response.setDescription(area.getDescription());
+            response.setDistrict(area.getDistrict());
             response.setLatitude(area.getLatitude());
             response.setLongitude(area.getLongitude());
             response.setPath(area.getPath());
             response.setAreaId(area.getAreaId());
-            List<FieldRequest> fieldRequests = new ArrayList<>();
-            List<Field> field1 = map.get(areaId);
-            field1.forEach(field -> {
-                FieldRequest fieldRequest = new FieldRequest();
-                fieldRequest.setFieldId(field.getFieldId());
-                fieldRequest.setName(field.getName());
-                fieldRequest.setDescription(field.getDescription());
-                fieldRequest.setEmail(field.getEmail());
-                fieldRequest.setPhoneNumber(field.getPhoneNumber());
-                fieldRequest.setSize(field.getSize());
+            List<FieldTypeRequest> fieldTypeRequests = new ArrayList<>();
+            List<FieldType> fieldType1 = map.get(areaId);
+            fieldType1.forEach(fieldType -> {
+                FieldTypeRequest fieldTypeRequest = new FieldTypeRequest();
+                fieldTypeRequest.setFieldTypeId(fieldType.getFieldTypeId());
+                fieldTypeRequest.setName(fieldType.getName());
+                fieldTypeRequest.setDescription(fieldType.getDescription());
+                fieldTypeRequest.setEmail(fieldType.getEmail());
+                fieldTypeRequest.setPhoneNumber(fieldType.getPhoneNumber());
+                fieldTypeRequest.setSize(fieldType.getSize());
                 List<PriceRequest> priceRequests = new ArrayList<>();
-                List<Price> prices = priceRepository.findByFieldId(field.getFieldId());
+                List<Price> prices = priceRepository.findByFieldId(fieldType.getFieldTypeId());
                 prices.forEach(price -> {
                     PriceRequest priceRequest = new PriceRequest();
                     priceRequest.setPriceFrom(price.getPriceFrom());
@@ -215,10 +217,10 @@ public class AreaServiceImpl implements AreaService {
                     priceRequest.setFieldId(price.getFieldId());
                     priceRequests.add(priceRequest);
                 });
-                fieldRequest.setPrices(priceRequests);
-                fieldRequests.add(fieldRequest);
+                fieldTypeRequest.setPrices(priceRequests);
+                fieldTypeRequests.add(fieldTypeRequest);
             });
-            response.setFields(fieldRequests);
+            response.setFields(fieldTypeRequests);
             result.add(response);
         }
         return result;
@@ -226,9 +228,9 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object findTimeAvailable(LocalDate date, Long fieldId) {
-        Field field = fieldRepository.findById(fieldId).orElse(null);
+        FieldType fieldType = fieldRepository.findById(fieldId).orElse(null);
         List<com.projectsem4.common_service.dto.entity.Price> prices = priceRepository.findByFieldId(fieldId).stream().map(this ::mapPrice).toList();
-        return bookingServiceClient.findTimeAvailable(date,prices, field.getQuantity());
+        return bookingServiceClient.findTimeAvailable(date,prices, fieldType.getQuantity());
     }
 
     public com.projectsem4.common_service.dto.entity.Price mapPrice(Price price){

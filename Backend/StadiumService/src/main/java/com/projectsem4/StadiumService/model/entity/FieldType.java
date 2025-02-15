@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Field extends BaseEntity {
+public class FieldType extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "field_id")
-    private Long fieldId;
+    private Long fieldTypeId;
 
     @Basic
     @Column(name = "name")
@@ -24,12 +24,18 @@ public class Field extends BaseEntity {
     private String description;
 
     @Basic
-    @Column(name = "field_type_id")
-    private Long fieldTypeId;
+    @Column(name = "quantity")
+    private Long quantity;
 
     @Basic
-    @Column(name = "rating")
-    private Double rating;
+    @Column(name = "size")
+    private Long size;
 
+    @Basic
+    @Column(name = "area_id")
+    private Long areaId;
+
+    @Basic
+    @Column(name = "price")
+    private Long price;
 }
-

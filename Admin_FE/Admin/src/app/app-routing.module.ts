@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AreaListComponent } from './pages/area/area-list/area-list.component';
 
 const routes: Routes = [
   {
     path: "",
     component: DashboardComponent
   },
-  // {
-  //   path: "product",
-  //   component: ProductListComponent
-  // },
+  {
+    path: "area",
+    component: AreaListComponent
+  },
   // {
   //   path: "product/:id",
   //   component: ProductFormComponent

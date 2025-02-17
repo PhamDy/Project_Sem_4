@@ -8,5 +8,7 @@ export class Area {
     email: string = "";
     longitude: number = 0;
     latitude: number = 0;
+    district: number = 0;
     path: string = "";
 }
+             

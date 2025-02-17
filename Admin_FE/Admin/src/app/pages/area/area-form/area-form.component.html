@@ -1,3 +1,224 @@
-<p>
-  area-form works!
-</p>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>General Form</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Product manager</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Infor product</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+              <div class="card-body row justify-content-between">
+                <div class="form-group mb-3 col-6">
+                  <label class="form-label">Product Name</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    formControlName="product_name"
+                  />
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      productForm.get('product_name')?.invalid &&
+                      productForm.get('product_name')?.touched
+                    "
+                  >
+                    Product Name is required.
+                  </small>
+                </div>
+
+                <div class="form-group mb-3 col-6">
+                  <label>Category</label>
+                  <select class="form-control" formControlName="category_id">
+                    <option
+                      *ngFor="let category of categories"
+                      [value]="category.category_id"
+                    >
+                      {{ category.name }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group mb-3 col-6">
+                  <label for="avatar">Avatar</label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input
+                        type="file"
+                        (change)="onChangeFile($event, 'avatar')"
+                        id="avatar"
+                        formControlName="avatar"
+                      />
+                      <!-- <label class="custom-file-label" for="avatar">Choose file</label> -->
+                    </div>
+                    <div *ngIf="avatarPreview">
+                      <img
+                        [src]="avatarPreview"
+                        alt="Avatar Preview"
+                        style="width: 100px; height: 100px"
+                      />
+                    </div>
+                    <div *ngIf="avatarById">
+                      <img
+                        [src]="avatarById"
+                        alt="Avatar By Id"
+                        style="width: 100px; height: 100px"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group mb-3 col-6">
+                  <label class="form-label">Description</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    formControlName="description"
+                  />
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      productForm.get('description')?.invalid &&
+                      productForm.get('description')?.touched
+                    "
+                  >
+                    Description is required.
+                  </small>
+                </div>
+
+                <div class="form-group mb-3 col-6">
+                  <label class="form-label">Price</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    formControlName="price"
+                  />
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      productForm.get('price')?.invalid &&
+                      productForm.get('price')?.touched
+                    "
+                  >
+                    Price is min = 0 and required
+                  </small>
+                </div>
+
+                <div class="form-group mb-3 col-6">
+                  <label class="form-label">Discount</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    formControlName="discount"
+                  />
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      productForm.get('discount')?.invalid &&
+                      productForm.get('discount')?.touched
+                    "
+                  >
+                    Discount must be between 0 and 100 and required
+                  </small>
+                </div>
+
+                <div class="form-group mb-3 col-6">
+                  <label class="form-label">Quantity</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    formControlName="quantity"
+                  />
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      productForm.get('quantity')?.invalid &&
+                      productForm.get('quantity')?.touched
+                    "
+                  >
+                  Quantity is required
+                  </small>
+                </div>
+
+                <div class="form-group mb-3 col-6">
+                  <label class="form-label">Created by</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="created_by"
+                  />
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      productForm.get('created_by')?.invalid &&
+                      productForm.get('created_by')?.touched
+                    "
+                  >
+                    Created by is required
+                  </small>
+                </div>
+
+                <div class="form-group mb-3 col-6">
+                  <label class="form-label">Updated by</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="updated_by"
+                  />
+                  <small
+                    class="text-danger"
+                    *ngIf="
+                      productForm.get('updated_by')?.invalid &&
+                      productForm.get('updated_by')?.touched
+                    "
+                  >
+                    Updated by is required
+                  </small>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer row">
+                <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Submit</button>
+                <div *ngIf="isLoading" class="loading-spinner mx-3">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+            
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>

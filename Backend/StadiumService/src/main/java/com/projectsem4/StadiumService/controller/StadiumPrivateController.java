@@ -1,7 +1,7 @@
 package com.projectsem4.StadiumService.controller;
 
-import com.projectsem4.StadiumService.model.entity.Accessory;
-import com.projectsem4.StadiumService.model.entity.Area;
+import com.projectsem4.StadiumService.entity.Accessory;
+import com.projectsem4.StadiumService.entity.Area;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.service.AreaService;

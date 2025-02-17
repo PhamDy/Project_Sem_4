@@ -1,6 +1,6 @@
 package com.projectsem4.StadiumService.repository;
 
-import com.projectsem4.StadiumService.model.entity.CategoryAccessory;
+import com.projectsem4.StadiumService.entity.CategoryAccessory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

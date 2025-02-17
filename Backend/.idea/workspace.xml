@@ -5,16 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e2c17d2-66c5-4a10-8c8b-3a8f706a88e4" name="Changes" comment="tao exception common">
+      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/TypeTimeFrameEnum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/client/StadiumServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/client/StadiumServiceClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/entity/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/entity/Booking.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/service/impl/BookingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/service/impl/BookingServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/StadiumPrivateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/StadiumPrivateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Field.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Price.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Price.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Accessory.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Accessory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Area.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/CategoryAccessory.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/CategoryAccessory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Feedback.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Feedback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Field.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/File.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Price.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/TimeFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/AreaCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/AreaCreateRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/FieldRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/AccessoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/AccessoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/AreaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/AreaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/CategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FeedbackRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FeedbackRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FieldRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FieldRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FileRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/PriceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/PriceRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/AreaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/AreaService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/impl/AreaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/impl/AreaServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common-service/src/main/java/com/projectsem4/common_service/dto/entity/Field.java" beforeDir="false" />
@@ -28,10 +41,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -279,6 +298,7 @@
       <workItem from="1739321981064" duration="11000" />
       <workItem from="1739533558110" duration="7846000" />
       <workItem from="1739588770872" duration="5230000" />
+      <workItem from="1739753334525" duration="1029000" />
     </task>
     <task id="LOCAL-00001" summary="Quang Thái phong bat">
       <option name="closed" value="true" />

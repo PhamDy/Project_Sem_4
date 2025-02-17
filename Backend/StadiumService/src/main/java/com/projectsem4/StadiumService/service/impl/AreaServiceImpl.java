@@ -1,10 +1,10 @@
 package com.projectsem4.StadiumService.service.impl;
 
 import com.projectsem4.StadiumService.config.client.BookingServiceClient;
-import com.projectsem4.StadiumService.model.entity.Accessory;
-import com.projectsem4.StadiumService.model.entity.Area;
-import com.projectsem4.StadiumService.model.entity.FieldType;
-import com.projectsem4.StadiumService.model.entity.Price;
+import com.projectsem4.StadiumService.entity.Accessory;
+import com.projectsem4.StadiumService.entity.Area;
+import com.projectsem4.StadiumService.entity.FieldType;
+import com.projectsem4.StadiumService.entity.TimeFrame;
 import com.projectsem4.StadiumService.model.request.AreaDetailAdmin;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
@@ -53,12 +53,12 @@ public class AreaServiceImpl implements AreaService {
             fieldType.setAreaId(areaId);
             fieldRepository.save(fieldType);
             fieldTypeRequest.getPrices().forEach(priceRequest -> {
-                Price price = new Price();
-                price.setPriceFrom(priceRequest.getPriceFrom());
-                price.setPriceTo(priceRequest.getPriceTo());
-                price.setPrice(priceRequest.getPrice());
-                price.setFieldId(fieldType.getFieldTypeId());
-                priceRepository.save(price);
+                TimeFrame timeFrame = new TimeFrame();
+                timeFrame.setTimeFrom(priceRequest.getPriceFrom());
+                timeFrame.setTimeTo(priceRequest.getPriceTo());
+                timeFrame.setPrice(priceRequest.getPrice());
+                timeFrame.setFieldId(fieldType.getFieldTypeId());
+                priceRepository.save(timeFrame);
             });
         return true;
     }
@@ -89,13 +89,13 @@ public class AreaServiceImpl implements AreaService {
             fieldTypeRequest.setPhoneNumber(fieldType.getPhoneNumber());
             fieldTypeRequest.setSize(fieldType.getSize());
             List<PriceRequest> priceRequests = new ArrayList<>();
-            List<Price> prices = priceRepository.findByFieldId(fieldType.getFieldTypeId());
-            prices.forEach(price -> {
+            List<TimeFrame> timeFrames = priceRepository.findByFieldId(fieldType.getFieldTypeId());
+            timeFrames.forEach(timeFrame -> {
                 PriceRequest priceRequest = new PriceRequest();
-                priceRequest.setPriceFrom(price.getPriceFrom());
-                priceRequest.setPriceTo(price.getPriceTo());
-                priceRequest.setPrice(price.getPrice());
-                priceRequest.setFieldId(price.getFieldId());
+                priceRequest.setPriceFrom(timeFrame.getTimeFrom());
+                priceRequest.setPriceTo(timeFrame.getTimeTo());
+                priceRequest.setPrice(timeFrame.getPrice());
+                priceRequest.setFieldId(timeFrame.getFieldId());
                 priceRequests.add(priceRequest);
             });
             fieldTypeRequest.setPrices(priceRequests);
@@ -130,10 +130,10 @@ public class AreaServiceImpl implements AreaService {
         fieldTypes.forEach(fieldType -> {
             fieldType.setStatus(Constants.Status.DELETE);
             fieldRepository.save(fieldType);
-            List<Price> prices = priceRepository.findByFieldId(fieldType.getFieldTypeId());
-            prices.forEach(price -> {
-                price.setStatus(Constants.Status.DELETE);
-                priceRepository.save(price);
+            List<TimeFrame> timeFrames = priceRepository.findByFieldId(fieldType.getFieldTypeId());
+            timeFrames.forEach(timeFrame -> {
+                timeFrame.setStatus(Constants.Status.DELETE);
+                priceRepository.save(timeFrame);
             });
         });
     }
@@ -208,13 +208,13 @@ public class AreaServiceImpl implements AreaService {
                 fieldTypeRequest.setPhoneNumber(fieldType.getPhoneNumber());
                 fieldTypeRequest.setSize(fieldType.getSize());
                 List<PriceRequest> priceRequests = new ArrayList<>();
-                List<Price> prices = priceRepository.findByFieldId(fieldType.getFieldTypeId());
-                prices.forEach(price -> {
+                List<TimeFrame> timeFrames = priceRepository.findByFieldId(fieldType.getFieldTypeId());
+                timeFrames.forEach(timeFrame -> {
                     PriceRequest priceRequest = new PriceRequest();
-                    priceRequest.setPriceFrom(price.getPriceFrom());
-                    priceRequest.setPriceTo(price.getPriceTo());
-                    priceRequest.setPrice(price.getPrice());
-                    priceRequest.setFieldId(price.getFieldId());
+                    priceRequest.setPriceFrom(timeFrame.getTimeFrom());
+                    priceRequest.setPriceTo(timeFrame.getTimeTo());
+                    priceRequest.setPrice(timeFrame.getPrice());
+                    priceRequest.setFieldId(timeFrame.getFieldId());
                     priceRequests.add(priceRequest);
                 });
                 fieldTypeRequest.setPrices(priceRequests);
@@ -233,13 +233,13 @@ public class AreaServiceImpl implements AreaService {
         return bookingServiceClient.findTimeAvailable(date,prices, fieldType.getQuantity());
     }
 
-    public com.projectsem4.common_service.dto.entity.Price mapPrice(Price price){
+    public com.projectsem4.common_service.dto.entity.Price mapPrice(TimeFrame timeFrame){
         com.projectsem4.common_service.dto.entity.Price price1 = new com.projectsem4.common_service.dto.entity.Price();
-        price1.setPrice(price.getPrice());
-        price1.setPriceId(price.getPriceId());
-        price1.setPriceFrom(price.getPriceFrom());
-        price1.setPriceTo(price.getPriceTo());
-        price1.setFieldId(price.getFieldId());
+        price1.setPrice(timeFrame.getPrice());
+        price1.setPriceId(timeFrame.getTimeFrameId());
+        price1.setPriceFrom(timeFrame.getTimeFrom());
+        price1.setPriceTo(timeFrame.getTimeTo());
+        price1.setFieldId(timeFrame.getFieldId());
         return price1;
     }
 }

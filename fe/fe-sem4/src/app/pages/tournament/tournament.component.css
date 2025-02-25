@@ -1,0 +1,39 @@
+.container {
+  width: 400px;
+  margin: auto;
+  text-align: center;
+}
+
+.time-inputs {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.time-inputs input {
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+}
+
+.time-list {
+  list-style: none;
+  padding: 0;
+}
+
+.time-list li {
+  background: #f3f3f3;
+  margin: 5px 0;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time-list button {
+  background: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

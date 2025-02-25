@@ -1,7 +1,10 @@
 <app-content-booking1></app-content-booking1>
 <div>
   <div>
-    <p>Kết quả tìm kiếm: {{ searchQuery }}</p>
+    <h2>Kết quả tìm kiếm cho:</h2>
+      <p><strong>Kích thước sân:</strong> {{ fieldSize }}</p>
+      <p><strong>Tỉnh/Thành phố:</strong> {{ city }}</p>
+      <p><strong>Quận/Huyện:</strong> {{ district }}</p>
     <div>
       <h1 *ngIf="latitude !== null && longitude !== null" style="text-align: center">Football fields for you</h1>
       <div class="stadium-list">
@@ -27,8 +30,6 @@
             </button>
           </div>
         </div>
-<!--        <p>Latitude: {{ latitude }}</p>-->
-<!--        <p>Longitude: {{ longitude }}</p>-->
       </div>
     </div>
   </div>
@@ -81,7 +82,7 @@
           <span>{{ '★★★★' }}</span>
         </div>
         <p>More details...</p>
-        <button class="button-popup">Booking now</button>
+        <button class="button-popup" (click)="onClickBooking(stadiumDetail?.areaId)">Booking now</button>
       </div>
     </div>
   </div>

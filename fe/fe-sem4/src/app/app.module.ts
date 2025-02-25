@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header.component';
@@ -22,6 +22,7 @@ import { Content4Component } from './pages/home-page/content-4/content-4.compone
 import { Content5Component } from './pages/home-page/content-5/content-5.component';
 import { RouterModule } from '@angular/router';
 import { ContentBooking1Component } from './pages/booking/content-booking1/content-booking1.component';
+import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/booking-detail-area.component';
 
 @NgModule({
   declarations: [
@@ -43,12 +44,14 @@ import { ContentBooking1Component } from './pages/booking/content-booking1/conte
     Content4Component,
     Content5Component,
     ContentBooking1Component,
+    BookingDetailAreaComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { BookingComponent } from './pages/booking/booking.component';
 import { TournamentComponent } from './pages/tournament/tournament.component';
 import { LoginComponent } from './pages/login/login.component';
+import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/booking-detail-area.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'booking',
     component: BookingComponent
+  },
+  {
+    path: 'booking-area',
+    component: BookingDetailAreaComponent
   },
   {
     path: 'aboutUs',

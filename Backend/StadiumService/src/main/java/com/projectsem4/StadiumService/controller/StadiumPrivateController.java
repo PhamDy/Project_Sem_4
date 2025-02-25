@@ -7,6 +7,7 @@ import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.service.AreaService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +40,8 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.createAccessory(accessory));
     }
 
-    @GetMapping("/area/{id}")
-    public ResponseEntity<Object> getAreaById(@PathVariable Long id) {
+    @GetMapping("/area")
+    public ResponseEntity<Object> getAreaById(@RequestParam Long id) {
         return ResponseEntity.ok(areaService.findById(id));
     }
 

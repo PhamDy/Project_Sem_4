@@ -7,6 +7,7 @@
   background-size: cover; /* Đảm bảo ảnh bao phủ hết chiều rộng */
   background-position: center; /* Căn giữa ảnh */
   background-repeat: no-repeat; /* Không lặp lại ảnh */
+  font-family: "Montserrat", sans-serif;
 }
 
 .container-video{
@@ -56,6 +57,97 @@ button:hover{
 
 h1{
   font-size: 60px;
-  font-weight: 100;
+  font-weight: 600;
+  margin: 0;
 }
 
+/* Định dạng form tìm kiếm */
+.search-form {
+  display: flex;
+  align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+  gap: 10px; /* Khoảng cách giữa các phần */
+  background: rgba(179, 179, 179, 0.5); /* Nền trong suốt nhẹ */
+  padding: 15px;
+  border-radius: 15px;
+  max-width: 80%;
+  height: 70px;
+  gap: 0;
+}
+
+/* Dropdown chọn */
+.search-form select {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  background: white;
+  cursor: pointer;
+}
+
+/* Nút tìm kiếm */
+.search-form button {
+  padding: 10px 15px;
+  font-size: 18px;
+  background-color: #00b4d0;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: ease 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 60px;
+  margin-bottom: 30px;
+  border-radius: 0px 10px 10px 0px;
+  transition: ease 0.5s ;
+}
+
+.search-form button:hover {
+  background-color: #00e2da;
+
+}
+
+/* Icon tìm kiếm */
+.search-form button i {
+  font-size: 18px;
+}
+
+.select-option1{
+   height: 60px;
+   width: 350px;
+   margin: 0;
+   color: #11626e;
+   font-weight: 700;
+}
+
+.select-option2{
+  height: 60px;
+  width: 350px;
+  margin: 0;
+  color: #11626e;
+   font-weight: 700;
+}
+
+.select-option3{
+  height: 60px;
+  width: 350px;
+  margin: 0;
+  border-radius: 10px 0px 0px 10px;
+  color: #11626e;
+   font-weight: 700;
+}
+
+.divider {
+  border: none;
+  height: 10px;
+  width: 200px;
+  border-radius: 5px;
+  background-color: #b5f5ff; /* Màu của vạch */
+  margin: 20px auto; /* Khoảng cách trên dưới */
+}
+
+.overlay-content p{
+  font-size: 20px;
+  margin-bottom: 50px
+}

@@ -1,0 +1,47 @@
+<p>booking-detail-area works!</p>
+<p>booking-detail-area works!</p>
+<p>booking-detail-area works!</p>
+<p>booking-detail-area works!</p>
+<p>booking-detail-area works!</p>
+<p>booking-detail-area works!</p>
+<p>booking-detail-area works!</p>
+
+<p>booking-detail-area works!</p>
+<p>booking-detail-area csdcdccccccccccccccc!</p>
+<div class="field-list">
+   <div *ngFor="let item of allFieldArea">
+        <div class="field-detail">
+           <p>AREA{{item.fieldId}}</p>
+        </div>
+   </div>
+</div>
+
+
+
+
+
+<p>Các sân bóng gần đây</p>
+<div class="stadium-list">
+          <div *ngFor="let stadium of dataStadium | slice:0:8" class="stadium-card">
+            <img [src]="img" alt="ok" />
+            <div class="stadium-info">
+              <h3>{{ stadium.name }}</h3>
+              <p>{{ stadium.address }}</p>
+              <div class="rating">
+                <span *ngFor="let star of [].constructor(stadium.rating)">{{ '★★★★' }}</span>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <!-- Action 1: Mở bản đồ -->
+              <button class="btn-map" (click)="openMapWithCoordinates(stadium.latitude, stadium.longitude)">
+                <i class="fas fa-eye"></i> Xem bản đồ
+              </button>
+
+              <!-- Action 2: Xem chi tiết sân -->
+              <button class="btn-detail" (click)="viewDetail(stadium.areaId)">
+                <i class="fas fa-info-circle"></i> Xem chi tiết
+              </button>
+            </div>
+          </div>
+        </div>
+<p></p>

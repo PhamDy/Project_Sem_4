@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StadiumService } from '../../services/stadium-service.service';
+import { Router } from '@angular/router';
 import * as L from 'leaflet';
 
 @Component({
@@ -9,6 +10,9 @@ import * as L from 'leaflet';
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent implements OnInit {
+  fieldSize: string = '';
+  city: string = '';
+  district: string = '';
   searchQuery: string = '';
   dataStadium: any[] = [];
   dataStadiumSearch: any[] = [];
@@ -27,11 +31,15 @@ export class BookingComponent implements OnInit {
   marker: any;
 
   constructor(private route: ActivatedRoute,
-              private stadiumService: StadiumService
+              private stadiumService: StadiumService,
+              private router: Router
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
+      this.fieldSize = params['fieldSize'] || 'Chưa chọn';
+      this.city = params['city'] || 'Chưa chọn';
+      this.district = params['district'] || 'Chưa chọn';
       this.searchQuery = params['query'] || '';
       console.log('Received search query:', this.searchQuery);
       this.performSearch(this.searchQuery);
@@ -142,4 +150,9 @@ export class BookingComponent implements OnInit {
   closeMap(): void {
     this.showMap = false;
   }
+
+  onClickBooking(id: any) {
+    this.router.navigate(['/booking-area'], { queryParams: { id: id } });
+  }
+
 }

@@ -2,13 +2,42 @@
   <div class="video-background">
     <div class="overlay-content">
       <div data-aos="fade-down">
-        <h1>SPORTS ACTIVITIES PROVIDE GREAT EXPERIENCES</h1>
-        <h2>RESERVE THE FOOTBALL COURSE ANYTIME, ANYWHERE FOR YOU</h2>
+        <p>★★★★★</p>
+        <h1>HỆ THỐNG HỖ TRỢ TÌM KIẾM SÂN BÃI NHANH</h1>
+        <hr class="divider">
+        <p>Dữ liệu được cập nhật thường xuyên giúp cho người dùng tìm được sân một cách nhanh nhất</p>
       </div>
-      <button data-aos="fade-up">Start Now</button>
+
+      <!-- Form tìm kiếm -->
+      <form [formGroup]="searchForm" class="search-form">
+        <!-- Kích thước sân -->
+        <select formControlName="fieldSize" aria-label="Kích thước sân" class="select-option3">
+          <option value="" disabled selected>Loại sân</option>
+          <option value="5">Sân 5</option>
+          <option value="7">Sân 7</option>
+          <option value="11">Sân 11</option>
+        </select>
+
+        <!-- Tỉnh/Thành phố -->
+        <select formControlName="city" (change)="onCityChange()" aria-label="Tỉnh/Thành phố" class="select-option1">
+          <option value="" disabled selected>Tỉnh/Thành phố</option>
+          <option value="Hà Nội">Hà Nội</option>
+          <option value="Đà Nẵng">Đà Nẵng</option>
+          <option value="TP.Hồ Chí Minh">TP.Hồ Chí Minh</option>
+        </select>
+
+        <!-- Quận/Huyện -->
+        <select formControlName="district" [disabled]="!districts.length" aria-label="Quận/Huyện" class="select-option2">
+          <option value="" disabled selected>Chọn Quận/Huyện</option>
+          <option *ngFor="let district of districts" [value]="district">{{ district }}</option>
+        </select>
+
+        <!-- Nút tìm kiếm với FontAwesome -->
+        <button type="button" (click)="search()" data-aos="fade-up" aria-label="Tìm kiếm" class="button-search">
+          <i class="fas fa-search">Tìm kiếm</i>
+        </button>
+      </form>
+
     </div>
   </div>
 </div>
-
-
-

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,15 +16,15 @@ public class TimeFrame extends BaseEntity {
     private Long timeFrameId;
 
     @Basic
-    @Column(name = "time_from")
-    private Integer timeFrom;
-
-    @Basic
-    @Column(name = "time_to")
-    private Integer timeTo;
+    @Column(name = "time_fr")
+    private Integer timeFr;
 
     @Basic
     @Column(name = "type")
     private Integer type;
+
+    @Basic
+    @Column(name = "peak_day")
+    private Integer peakDay;
 
 }

@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e2c17d2-66c5-4a10-8c8b-3a8f706a88e4" name="Changes" comment="tao exception common">
+      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/PeekDayEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/TimeFrameEnum.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/TypeTimeFrameEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Field.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/OpenDayArea.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/client/StadiumServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/client/StadiumServiceClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/entity/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/entity/Booking.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/service/impl/BookingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/service/impl/BookingServiceImpl.java" afterDir="false" />
@@ -16,7 +21,7 @@
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/BaseEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/CategoryAccessory.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/CategoryAccessory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Feedback.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Feedback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Field.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/FieldType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/File.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Price.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/TimeFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/AreaCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/AreaCreateRequest.java" afterDir="false" />
@@ -129,6 +134,7 @@
       <recent name="D:\FPT Aptech\projectSem4\Backend\common-service\src\main\java\com\projectsem4\common_service\dto\response" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.projectsem4.StadiumService.constant" />
       <recent name="com.projectsem4.common_service.dto.constant" />
     </key>
   </component>
@@ -298,7 +304,10 @@
       <workItem from="1739321981064" duration="11000" />
       <workItem from="1739533558110" duration="7846000" />
       <workItem from="1739588770872" duration="5230000" />
-      <workItem from="1739753334525" duration="1029000" />
+      <workItem from="1739753334525" duration="2172000" />
+      <workItem from="1739879264367" duration="4534000" />
+      <workItem from="1739927780655" duration="9000" />
+      <workItem from="1740815720639" duration="4205000" />
     </task>
     <task id="LOCAL-00001" summary="Quang Thái phong bat">
       <option name="closed" value="true" />

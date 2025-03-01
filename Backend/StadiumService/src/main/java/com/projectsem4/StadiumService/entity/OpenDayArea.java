@@ -1,4 +1,4 @@
-package com.projectsem4.StadiumService.model.entity;
+package com.projectsem4.StadiumService.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

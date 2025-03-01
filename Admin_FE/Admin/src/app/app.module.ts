@@ -7,6 +7,9 @@ import { SliderComponent } from './layout/slider/slider.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
+import { AreaModule } from './pages/area/area.module';
+import { ProductModule } from './pages/products/product.module';
+import { TimeFrameModule } from './pages/timeFrame/timeFrame.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    // AreaModule,
+    // ProductModule,
+    TimeFrameModule
   ],
   providers: [],
   bootstrap: [AppComponent]

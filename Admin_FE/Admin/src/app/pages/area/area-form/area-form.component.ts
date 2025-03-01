@@ -30,12 +30,12 @@ export class AreaFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  prepareFormData(area: Area): FormData {
-      const formData = new FormData();
-      formData.append('img', this.img);
-      formData.append('name', )
+  // prepareFormData(area: Area): FormData {
+  //     const formData = new FormData();
+  //     formData.append('img', this.img);
+  //     formData.append('name', )
 
-  }
+  // }
 
   reloadComponent() {
     this.router

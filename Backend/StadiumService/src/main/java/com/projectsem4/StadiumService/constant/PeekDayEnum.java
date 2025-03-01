@@ -5,19 +5,19 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum TypeTimeFrameEnum {
+public enum PeekDayEnum {
 
-    NORMAL_TIME(1, "Giờ bình thường", 1),
-    PEAK_TIME(2, "Giờ cao điểm", 1.5);
+    PD_1(1, "ngày thường", 1),
+    PD_2(2,"ngày lễ", 1.5);
 
     private int key;
     private String description;
-    private double multiplier;
+    private double value;
 
-    public static double fromMultiplier(int key) {
-        for (TypeTimeFrameEnum type : TypeTimeFrameEnum.values()) {
+    public static double fromValue(int key) {
+        for (PeekDayEnum type : PeekDayEnum.values()) {
             if (type.getKey() == key) {
-                return type.getMultiplier();
+                return type.getValue();
             }
         }
         throw new IllegalArgumentException("Không tìm thấy loại khung giờ với key: " + key);

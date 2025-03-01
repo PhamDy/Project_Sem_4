@@ -1,0 +1,62 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Time frame management</h1>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Infor</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="timeFrom" class="form-label">Time From</label>
+                  <input type="text" id="timeFrom" class="form-control" placeholder="Enter start time">
+                </div>
+
+                <!-- Time To -->
+                <div class="mb-3">
+                  <label for="timeTo" class="form-label">Time To</label>
+                  <input type="text" id="timeTo" class="form-control" placeholder="Enter end time">
+                </div>
+
+                <div class="form-group">
+                  <label for="type" class="form-label">Type</label>
+                  <select id="type" class="form-select">
+                    <option *ngFor="let item of keyValue" [value]="item.key">{{item.value}}</option>
+                  </select>
+                </div>
+
+
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button>click</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>

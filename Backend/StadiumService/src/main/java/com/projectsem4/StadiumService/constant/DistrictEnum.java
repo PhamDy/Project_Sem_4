@@ -7,8 +7,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum DistrictEnum {
 
-    BA_DINH(1, "Giờ bình thường"),
-    h(2, "Giờ cao điểm");
+    BA_DINH(1, "Quận Ba Đình"),
+    HOAM_KIEM(2, "Quận Hoàn kiếm"),
+
+    ;
 
     private int key;
     private String value;

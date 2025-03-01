@@ -43,66 +43,14 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Boolean createField(FieldTypeRequest fieldTypeRequest, Long areaId) {
-            FieldType fieldType = new FieldType();
-            fieldType.setName(fieldTypeRequest.getName());
-            fieldType.setDescription(fieldTypeRequest.getDescription());
-            fieldType.setEmail(fieldTypeRequest.getEmail());
-            fieldType.setQuantity(fieldTypeRequest.getQuantity());
-            fieldType.setPhoneNumber(fieldTypeRequest.getPhoneNumber());
-            fieldType.setSize(fieldTypeRequest.getSize());
-            fieldType.setAreaId(areaId);
-            fieldRepository.save(fieldType);
-            fieldTypeRequest.getPrices().forEach(priceRequest -> {
-                TimeFrame timeFrame = new TimeFrame();
-                timeFrame.setTimeFrom(priceRequest.getPriceFrom());
-                timeFrame.setTimeTo(priceRequest.getPriceTo());
-                timeFrame.setPrice(priceRequest.getPrice());
-                timeFrame.setFieldId(fieldType.getFieldTypeId());
-                priceRepository.save(timeFrame);
-            });
+
         return true;
     }
 
     @Override
     public AreaDetailAdmin findById(Long id) {
-        AreaDetailAdmin response = new AreaDetailAdmin();
-        Area area = areaRepository.findById(id).get();
-        response.setAddress(area.getAddress());
-        response.setName(area.getName());
-        response.setDescription(area.getDescription());
-        response.setEmail(area.getEmail());
-        response.setPhoneNumber(area.getPhoneNumber());
-        response.setDescription(area.getDescription());
-        response.setLatitude(area.getLatitude());
-        response.setLongitude(area.getLongitude());
-        response.setDistrict(area.getDistrict());
-        response.setPath(area.getPath());
-        response.setAreaId(area.getAreaId());
-        List<FieldTypeRequest> fieldTypeRequests = new ArrayList<>();
-        List<FieldType> fieldTypes = fieldRepository.findByAreaId(id);
-        fieldTypes.forEach(fieldType -> {
-            FieldTypeRequest fieldTypeRequest = new FieldTypeRequest();
-            fieldTypeRequest.setFieldTypeId(fieldType.getFieldTypeId());
-            fieldTypeRequest.setName(fieldType.getName());
-            fieldTypeRequest.setDescription(fieldType.getDescription());
-            fieldTypeRequest.setEmail(fieldType.getEmail());
-            fieldTypeRequest.setPhoneNumber(fieldType.getPhoneNumber());
-            fieldTypeRequest.setSize(fieldType.getSize());
-            List<PriceRequest> priceRequests = new ArrayList<>();
-            List<TimeFrame> timeFrames = priceRepository.findByFieldId(fieldType.getFieldTypeId());
-            timeFrames.forEach(timeFrame -> {
-                PriceRequest priceRequest = new PriceRequest();
-                priceRequest.setPriceFrom(timeFrame.getTimeFrom());
-                priceRequest.setPriceTo(timeFrame.getTimeTo());
-                priceRequest.setPrice(timeFrame.getPrice());
-                priceRequest.setFieldId(timeFrame.getFieldId());
-                priceRequests.add(priceRequest);
-            });
-            fieldTypeRequest.setPrices(priceRequests);
-            fieldTypeRequests.add(fieldTypeRequest);
-        });
-        response.setFields(fieldTypeRequests);
-        return response;
+
+        return null;
     }
 
     @Override
@@ -204,17 +152,17 @@ public class AreaServiceImpl implements AreaService {
                 fieldTypeRequest.setFieldTypeId(fieldType.getFieldTypeId());
                 fieldTypeRequest.setName(fieldType.getName());
                 fieldTypeRequest.setDescription(fieldType.getDescription());
-                fieldTypeRequest.setEmail(fieldType.getEmail());
-                fieldTypeRequest.setPhoneNumber(fieldType.getPhoneNumber());
+//                fieldTypeRequest.setEmail(fieldType.getEmail());
+//                fieldTypeRequest.setPhoneNumber(fieldType.getPhoneNumber());
                 fieldTypeRequest.setSize(fieldType.getSize());
                 List<PriceRequest> priceRequests = new ArrayList<>();
                 List<TimeFrame> timeFrames = priceRepository.findByFieldId(fieldType.getFieldTypeId());
                 timeFrames.forEach(timeFrame -> {
                     PriceRequest priceRequest = new PriceRequest();
-                    priceRequest.setPriceFrom(timeFrame.getTimeFrom());
-                    priceRequest.setPriceTo(timeFrame.getTimeTo());
-                    priceRequest.setPrice(timeFrame.getPrice());
-                    priceRequest.setFieldId(timeFrame.getFieldId());
+//                    priceRequest.setPriceFrom(timeFrame.getTimeFrom());
+//                    priceRequest.setPriceTo(timeFrame.getTimeTo());
+//                    priceRequest.setPrice(timeFrame.getPrice());
+//                    priceRequest.setFieldId(timeFrame.getFieldId());
                     priceRequests.add(priceRequest);
                 });
                 fieldTypeRequest.setPrices(priceRequests);
@@ -234,12 +182,12 @@ public class AreaServiceImpl implements AreaService {
     }
 
     public com.projectsem4.common_service.dto.entity.Price mapPrice(TimeFrame timeFrame){
-        com.projectsem4.common_service.dto.entity.Price price1 = new com.projectsem4.common_service.dto.entity.Price();
-        price1.setPrice(timeFrame.getPrice());
-        price1.setPriceId(timeFrame.getTimeFrameId());
-        price1.setPriceFrom(timeFrame.getTimeFrom());
-        price1.setPriceTo(timeFrame.getTimeTo());
-        price1.setFieldId(timeFrame.getFieldId());
-        return price1;
+//        com.projectsem4.common_service.dto.entity.Price price1 = new com.projectsem4.common_service.dto.entity.Price();
+//        price1.setPrice(timeFrame.getPrice());
+//        price1.setPriceId(timeFrame.getTimeFrameId());
+//        price1.setPriceFrom(timeFrame.getTimeFrom());
+//        price1.setPriceTo(timeFrame.getTimeTo());
+//        price1.setFieldId(timeFrame.getFieldId());
+        return null;
     }
 }

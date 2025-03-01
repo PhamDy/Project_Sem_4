@@ -4,38 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e2c17d2-66c5-4a10-8c8b-3a8f706a88e4" name="Changes" comment="tao exception common">
-      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/PeekDayEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/TimeFrameEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/TypeTimeFrameEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Field.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/OpenDayArea.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/client/StadiumServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/client/StadiumServiceClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/entity/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/entity/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/service/impl/BookingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/service/impl/BookingServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/StadiumPrivateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/StadiumPrivateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Accessory.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Accessory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Area.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/BaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/CategoryAccessory.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/CategoryAccessory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Feedback.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Feedback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/FieldType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/File.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/entity/Price.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/TimeFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/AreaCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/AreaCreateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/FieldRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/AccessoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/AccessoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/AreaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/AreaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/CategoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FeedbackRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FeedbackRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FieldRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FieldRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FileRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FileRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/PriceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/PriceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/AreaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/AreaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/impl/AreaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/impl/AreaServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common-service/src/main/java/com/projectsem4/common_service/dto/entity/Field.java" beforeDir="false" />
+    <list default="true" id="1e2c17d2-66c5-4a10-8c8b-3a8f706a88e4" name="Changes" comment="DistrictEnum">
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/DistrictEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/DistrictEnum.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +15,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -307,7 +277,7 @@
       <workItem from="1739753334525" duration="2172000" />
       <workItem from="1739879264367" duration="4534000" />
       <workItem from="1739927780655" duration="9000" />
-      <workItem from="1740815720639" duration="4205000" />
+      <workItem from="1740815720639" duration="4510000" />
     </task>
     <task id="LOCAL-00001" summary="Quang Thái phong bat">
       <option name="closed" value="true" />
@@ -373,7 +343,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739593867787</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="DistrictEnum">
+      <option name="closed" value="true" />
+      <created>1740822371943</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1740822371943</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,6 +361,7 @@
     <MESSAGE value="Quang Thái phong bat" />
     <MESSAGE value="plugin_build" />
     <MESSAGE value="tao exception common" />
-    <option name="LAST_COMMIT_MESSAGE" value="tao exception common" />
+    <MESSAGE value="DistrictEnum" />
+    <option name="LAST_COMMIT_MESSAGE" value="DistrictEnum" />
   </component>
 </project>

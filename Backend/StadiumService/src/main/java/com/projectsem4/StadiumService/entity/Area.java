@@ -51,7 +51,4 @@ public class Area extends BaseEntity {
     @Column(name = "district")
     private Integer district;
 
-    @Basic
-    @Column(name = "path")
-    private String path;
 }

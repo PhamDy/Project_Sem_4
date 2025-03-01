@@ -3,6 +3,7 @@ package com.projectsem4.StadiumService.controller;
 import com.projectsem4.StadiumService.constant.DistrictEnum;
 import com.projectsem4.StadiumService.entity.Accessory;
 import com.projectsem4.StadiumService.entity.Area;
+import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.service.AreaService;
@@ -29,9 +30,14 @@ public class StadiumPrivateController {
     private final AreaService areaService;
 
     @PostMapping("/area")
-    public ResponseEntity<?> createArea(@ModelAttribute Area area,
-                                        @RequestParam(value = "files") List<MultipartFile> files) {
+    public ResponseEntity<?> createArea(@ModelAttribute AreaCreateRequest area,
+                                        @RequestParam(value = "files", required = false) List<MultipartFile> files) {
         return ResponseEntity.ok(areaService.createArea(area, files));
+    }
+
+    @GetMapping("/area/{areaId}")
+    public ResponseEntity<?> createArea(@PathVariable Long areaId) {
+        return ResponseEntity.ok(areaService.getAreaById(areaId));
     }
 
     @PostMapping("/field")

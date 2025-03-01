@@ -6,6 +6,7 @@ import com.projectsem4.StadiumService.entity.Accessory;
 import com.projectsem4.StadiumService.entity.Area;
 import com.projectsem4.StadiumService.entity.FieldType;
 import com.projectsem4.StadiumService.entity.FileDb;
+import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.model.request.AreaDetailAdmin;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
@@ -15,16 +16,18 @@ import com.projectsem4.StadiumService.repository.FieldRepository;
 import com.projectsem4.StadiumService.repository.FileRepository;
 import com.projectsem4.StadiumService.service.AreaService;
 import com.projectsem4.StadiumService.util.FileUtil;
+import com.projectsem4.common_service.dto.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,24 +37,80 @@ public class AreaServiceImpl implements AreaService {
     private final FieldRepository fieldRepository;
     private final AccessoryRepository accessoryRepository;
     private final FileRepository fileRepository;
+    private final ModelMapper modelMapper;
     private final BookingServiceClient bookingServiceClient;
 
     @Override
-    public Long createArea(Area createRequest, List<MultipartFile> files) {
+    public Long createArea(AreaCreateRequest createRequest,
+                           List<MultipartFile> files) {
         Area area = areaRepository.save(createRequest);
-
+        Long areaId = area.getAreaId();
         List<FileDb> fileDbs = new ArrayList<>();
-        for (MultipartFile file : files) {
-            FileDb fileDb = new FileDb();
-            fileDb.setObjectId(area.getAreaId());
-            fileDb.setFileName(file.getOriginalFilename());
-            fileDb.setTypeFile(TypeFileEnum.TYPE_FILE_1.getKey());
-            fileDb.setFilePath(FileUtil.uploadImage(file));
-            fileDbs.add(fileDb);
+        if (createRequest.getAreaId()!=null &&
+                createRequest.getFileList()!=null &&
+                !createRequest.getFileList().isEmpty()){
+            fileRepository.deleteAll(createRequest.getFileList());
         }
-        fileRepository.saveAll(fileDbs);
-        return area.getAreaId();
+
+        if (files!=null&& !files.isEmpty()){
+            for (MultipartFile file : files) {
+                FileDb fileDb = new FileDb();
+                fileDb.setObjectId(areaId);
+                fileDb.setFileName(file.getOriginalFilename());
+                fileDb.setTypeFile(TypeFileEnum.TYPE_FILE_1.getKey());
+                fileDb.setFilePath(FileUtil.uploadImage(file));
+                fileDbs.add(fileDb);
+            }
+        }
+
+        if (!fileDbs.isEmpty()){
+            fileRepository.saveAll(fileDbs);
+        }
+        return areaId;
     }
+
+    @Override
+    public AreaCreateRequest getAreaById(Long areaId) {
+        Area area = areaRepository.getById(areaId);
+        if (area.getAreaId()==null){
+            throw new NotFoundException("Area not found");
+        }
+        AreaCreateRequest areaCreateRequest = modelMapper.map(area, AreaCreateRequest.class);
+        List<FileDb> fileDbs = fileRepository.findByObjectIdAndTypeFile(areaId, TypeFileEnum.TYPE_FILE_1.getKey());
+        areaCreateRequest.setFileList(fileDbs);
+        return areaCreateRequest;
+    }
+
+    @Override
+    public Page<AreaCreateRequest> getListArea(Pageable pageable) {
+        Page<Area> areas = areaRepository.findAll(pageable);
+
+        // Lấy danh sách ID của các Area để lấy FileDb tương ứng
+        List<Long> areaIds = areas.getContent().stream()
+                .map(Area::getAreaId)
+                .collect(Collectors.toList());
+
+        // Lấy danh sách file tương ứng với các areaId
+        Map<Long, List<FileDb>> fileMap = Optional.ofNullable(
+                        fileRepository.findByObjectIdInAndTypeFile(areaIds, TypeFileEnum.TYPE_FILE_1.getKey())
+                ).orElse(Collections.emptyList())
+                .stream()
+                .collect(Collectors.groupingBy(FileDb::getObjectId));
+
+
+        // Chuyển đổi dữ liệu từ Area -> AreaCreateRequest
+        List<AreaCreateRequest> areaCreateRequests = areas.getContent().stream()
+                .map(area -> {
+                    AreaCreateRequest dto = new AreaCreateRequest();
+                    BeanUtils.copyProperties(area, dto);
+                    dto.setFileList(fileMap.getOrDefault(area.getAreaId(), new ArrayList<>()));
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(areaCreateRequests, pageable, areas.getTotalElements());
+    }
+
 
     @Override
     public Boolean createField(FieldTypeRequest fieldTypeRequest, Long areaId) {
@@ -68,6 +127,8 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public Page<AreaDetailAdmin> findAllAreas(Pageable pageable) {
         Page<Area> areas = areaRepository.findAll(pageable);
+
+
         return areas.map(area -> findById(area.getAreaId()));
     }
 
@@ -143,7 +204,6 @@ public class AreaServiceImpl implements AreaService {
             response.setDistrict(area.getDistrict());
             response.setLatitude(area.getLatitude());
             response.setLongitude(area.getLongitude());
-            response.setPath(area.getPath());
             response.setAreaId(area.getAreaId());
             List<FieldTypeRequest> fieldTypeRequests = new ArrayList<>();
             List<FieldType> fieldType1 = map.get(areaId);

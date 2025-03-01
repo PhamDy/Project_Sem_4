@@ -1,23 +1,16 @@
 package com.projectsem4.StadiumService.model.request;
 
+import com.projectsem4.StadiumService.entity.Area;
+import com.projectsem4.StadiumService.entity.FileDb;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AreaCreateRequest {
-    Long areaId;
-    String name;
-    String address;
-    Double rating;
-    String description;
-    String phoneNumber;
-    Double longitude;
-    Double latitude;
-    String path;
-    String email;
-    List<FieldTypeRequest> fields;
+public class AreaCreateRequest extends Area {
+    private List<FileDb> fileList;
 }

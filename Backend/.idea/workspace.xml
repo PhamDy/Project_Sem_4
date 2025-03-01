@@ -276,7 +276,7 @@
       <workItem from="1739753334525" duration="2172000" />
       <workItem from="1739879264367" duration="4534000" />
       <workItem from="1739927780655" duration="9000" />
-      <workItem from="1740815720639" duration="11755000" />
+      <workItem from="1740815720639" duration="15722000" />
     </task>
     <task id="LOCAL-00001" summary="Quang Thái phong bat">
       <option name="closed" value="true" />
@@ -366,11 +366,30 @@
       <option name="project" value="LOCAL" />
       <updated>1740829759314</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="DistrictEnum">
+      <option name="closed" value="true" />
+      <created>1740833922583</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1740833922583</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Quang Thái phong bat" />

@@ -9,11 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class File {
+@Table(name = "File")
+public class FileDb {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_id")
     private Long fileId;
+
+    @Basic
+    @Column(name = "object_id")
+    private Long objectId;
 
     @Basic
     @Column(name = "file_name")
@@ -24,18 +29,7 @@ public class File {
     private String filePath;
 
     @Basic
-    @Column(name = "accessory_id")
-    private Long accessoryId;
+    @Column(name = "type_file")
+    private Integer typeFile;
 
-    @Basic
-    @Column(name = "area_id")
-    private Long areaId;
-
-    @Basic
-    @Column(name = "category_accessory_id")
-    private Long categoryAccessoryId;
-
-    @Basic
-    @Column(name = "feedback_id")
-    private Long feedbackId;
 }

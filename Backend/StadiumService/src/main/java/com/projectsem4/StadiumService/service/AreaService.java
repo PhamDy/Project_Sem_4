@@ -7,11 +7,14 @@ import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.projectsem4.StadiumService.entity.Area;
+import org.springframework.data.util.Pair;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface AreaService {
-    Long createArea(Area areaCreateRequest);
+    Long createArea(Area areaCreateRequest, List<MultipartFile> files);
     Boolean createField(FieldTypeRequest areaCreateRequest, Long areaId);
     AreaDetailAdmin findById(Long id);
     Page<AreaDetailAdmin> findAllAreas(Pageable pageable);
@@ -25,4 +28,5 @@ public interface AreaService {
     Object findAllField(Pageable pageable);
     Object search(FindAreaRequest findAreaRequest,Pageable pageable);
     Object findTimeAvailable(LocalDate date, Long fieldId);
+
 }

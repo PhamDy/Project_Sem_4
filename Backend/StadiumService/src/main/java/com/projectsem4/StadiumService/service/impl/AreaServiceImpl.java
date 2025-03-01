@@ -1,24 +1,25 @@
 package com.projectsem4.StadiumService.service.impl;
 
 import com.projectsem4.StadiumService.config.client.BookingServiceClient;
+import com.projectsem4.StadiumService.constant.TypeFileEnum;
 import com.projectsem4.StadiumService.entity.Accessory;
 import com.projectsem4.StadiumService.entity.Area;
 import com.projectsem4.StadiumService.entity.FieldType;
-import com.projectsem4.StadiumService.entity.TimeFrame;
+import com.projectsem4.StadiumService.entity.FileDb;
 import com.projectsem4.StadiumService.model.request.AreaDetailAdmin;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
-import com.projectsem4.StadiumService.model.request.PriceRequest;
 import com.projectsem4.StadiumService.repository.AccessoryRepository;
 import com.projectsem4.StadiumService.repository.AreaRepository;
 import com.projectsem4.StadiumService.repository.FieldRepository;
-import com.projectsem4.StadiumService.repository.PriceRepository;
+import com.projectsem4.StadiumService.repository.FileRepository;
 import com.projectsem4.StadiumService.service.AreaService;
-import com.projectsem4.common_service.dto.util.Constants;
+import com.projectsem4.StadiumService.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,13 +32,24 @@ import java.util.stream.Collectors;
 public class AreaServiceImpl implements AreaService {
     private final AreaRepository areaRepository;
     private final FieldRepository fieldRepository;
-    private final PriceRepository priceRepository;
     private final AccessoryRepository accessoryRepository;
+    private final FileRepository fileRepository;
     private final BookingServiceClient bookingServiceClient;
 
     @Override
-    public Long createArea(Area createRequest) {
+    public Long createArea(Area createRequest, List<MultipartFile> files) {
         Area area = areaRepository.save(createRequest);
+
+        List<FileDb> fileDbs = new ArrayList<>();
+        for (MultipartFile file : files) {
+            FileDb fileDb = new FileDb();
+            fileDb.setObjectId(area.getAreaId());
+            fileDb.setFileName(file.getOriginalFilename());
+            fileDb.setTypeFile(TypeFileEnum.TYPE_FILE_1.getKey());
+            fileDb.setFilePath(FileUtil.uploadImage(file));
+            fileDbs.add(fileDb);
+        }
+        fileRepository.saveAll(fileDbs);
         return area.getAreaId();
     }
 
@@ -71,19 +83,7 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public void deleteArea(Long id) {
-        Area area = areaRepository.findById(id).orElse(null);
-        area.setStatus(Constants.Status.DELETE);
-        areaRepository.save(area);
-        List<FieldType> fieldTypes = fieldRepository.findByAreaId(id);
-        fieldTypes.forEach(fieldType -> {
-            fieldType.setStatus(Constants.Status.DELETE);
-            fieldRepository.save(fieldType);
-            List<TimeFrame> timeFrames = priceRepository.findByFieldId(fieldType.getFieldTypeId());
-            timeFrames.forEach(timeFrame -> {
-                timeFrame.setStatus(Constants.Status.DELETE);
-                priceRepository.save(timeFrame);
-            });
-        });
+
     }
 
     @Override
@@ -155,18 +155,18 @@ public class AreaServiceImpl implements AreaService {
 //                fieldTypeRequest.setEmail(fieldType.getEmail());
 //                fieldTypeRequest.setPhoneNumber(fieldType.getPhoneNumber());
                 fieldTypeRequest.setSize(fieldType.getSize());
-                List<PriceRequest> priceRequests = new ArrayList<>();
-                List<TimeFrame> timeFrames = priceRepository.findByFieldId(fieldType.getFieldTypeId());
-                timeFrames.forEach(timeFrame -> {
-                    PriceRequest priceRequest = new PriceRequest();
+//                List<PriceRequest> priceRequests = new ArrayList<>();
+//                List<TimeFrame> timeFrames = priceRepository.findByFieldId(fieldType.getFieldTypeId());
+//                timeFrames.forEach(timeFrame -> {
+//                    PriceRequest priceRequest = new PriceRequest();
 //                    priceRequest.setPriceFrom(timeFrame.getTimeFrom());
 //                    priceRequest.setPriceTo(timeFrame.getTimeTo());
 //                    priceRequest.setPrice(timeFrame.getPrice());
 //                    priceRequest.setFieldId(timeFrame.getFieldId());
-                    priceRequests.add(priceRequest);
-                });
-                fieldTypeRequest.setPrices(priceRequests);
-                fieldTypeRequests.add(fieldTypeRequest);
+//                    priceRequests.add(priceRequest);
+//                });
+//                fieldTypeRequest.setPrices(priceRequests);
+//                fieldTypeRequests.add(fieldTypeRequest);
             });
             response.setFields(fieldTypeRequests);
             result.add(response);
@@ -177,17 +177,8 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public Object findTimeAvailable(LocalDate date, Long fieldId) {
         FieldType fieldType = fieldRepository.findById(fieldId).orElse(null);
-        List<com.projectsem4.common_service.dto.entity.Price> prices = priceRepository.findByFieldId(fieldId).stream().map(this ::mapPrice).toList();
-        return bookingServiceClient.findTimeAvailable(date,prices, fieldType.getQuantity());
+        return null;
+//        return bookingServiceClient.findTimeAvailable(date,prices, fieldType.getQuantity());
     }
 
-    public com.projectsem4.common_service.dto.entity.Price mapPrice(TimeFrame timeFrame){
-//        com.projectsem4.common_service.dto.entity.Price price1 = new com.projectsem4.common_service.dto.entity.Price();
-//        price1.setPrice(timeFrame.getPrice());
-//        price1.setPriceId(timeFrame.getTimeFrameId());
-//        price1.setPriceFrom(timeFrame.getTimeFrom());
-//        price1.setPriceTo(timeFrame.getTimeTo());
-//        price1.setFieldId(timeFrame.getFieldId());
-        return null;
-    }
 }

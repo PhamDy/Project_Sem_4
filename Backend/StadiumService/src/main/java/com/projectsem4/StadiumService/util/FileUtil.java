@@ -15,7 +15,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.Instant;
+import java.util.Objects;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -31,6 +34,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 @UtilityClass
 public class FileUtil {
+
+    public static final String STORAGE_DIRECTORY = "D:\\Storage";
+
+    public void saveFile(MultipartFile fileToSave) throws IOException {
+        if (fileToSave == null) {
+            throw new NullPointerException("fileToSave is null");
+        }
+        var targetFile = new File(STORAGE_DIRECTORY + File.separator + fileToSave.getOriginalFilename());
+        if (!Objects.equals(targetFile.getParent(), STORAGE_DIRECTORY)) {
+            throw new SecurityException("Unsupported filename!");
+        }
+        Files.copy(fileToSave.getInputStream(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+    }
 
     public String uploadImage(MultipartFile file) {
         CloseableHttpClient httpClient = HttpClients.createDefault();

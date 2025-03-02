@@ -21,3 +21,10 @@ config:
   url:
     payment-service-url: "${endpoint_payment_service:http://localhost:9007/payment-service}"
     booking-service-url: "${endpoint_booking_service:http://localhost:9002/booking-service}"
+
+aws:
+  s3:
+    bucketName: projectsem4
+    accessKey: AKIAYSWVGI4FTSIJFW5O
+    secretKey: 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
+

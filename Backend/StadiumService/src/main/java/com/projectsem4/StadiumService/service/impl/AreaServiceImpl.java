@@ -24,6 +24,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
@@ -41,9 +42,11 @@ public class AreaServiceImpl implements AreaService {
     private final BookingServiceClient bookingServiceClient;
 
     @Override
+    @Transactional
     public Long createArea(AreaCreateRequest createRequest,
                            List<MultipartFile> files) {
-        Area area = areaRepository.save(createRequest);
+        Area area = modelMapper.map(createRequest, Area.class);
+        area = areaRepository.save(area);
         Long areaId = area.getAreaId();
         List<FileDb> fileDbs = new ArrayList<>();
         if (createRequest.getAreaId()!=null &&

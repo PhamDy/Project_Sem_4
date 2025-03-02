@@ -11,6 +11,17 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AreaCreateRequest extends Area {
+public class AreaCreateRequest {
+
+    private Long areaId;
+    private String name;
+    private String address;
+    private Double rating;
+    private String description;
+    private String phoneNumber;
+    private String email;
+    private Double longitude;
+    private Double latitude;
+    private Integer district;
     private List<FileDb> fileList;
 }

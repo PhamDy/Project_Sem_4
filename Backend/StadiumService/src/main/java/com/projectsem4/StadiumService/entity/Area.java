@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "area")
 public class Area extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

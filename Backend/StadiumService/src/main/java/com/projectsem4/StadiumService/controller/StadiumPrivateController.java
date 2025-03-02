@@ -40,6 +40,12 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.getAreaById(areaId));
     }
 
+    @GetMapping("/area/list")
+    public ResponseEntity<Object> getListArea(Pageable pageable) {
+        return ResponseEntity.ok(areaService.getListArea(pageable));
+    }
+
+
     @PostMapping("/field")
     public ResponseEntity<Boolean> createField(@RequestBody FieldTypeRequest areaCreateRequest, @RequestParam Long areaId) {
         return ResponseEntity.ok(areaService.createField(areaCreateRequest,areaId));

@@ -1,6 +1,5 @@
 package com.projectsem4.StadiumService.controller;
 
-import com.projectsem4.StadiumService.constant.DistrictEnum;
 import com.projectsem4.StadiumService.entity.Accessory;
 import com.projectsem4.StadiumService.entity.Area;
 import com.projectsem4.StadiumService.model.request.AreaCreateRequest;

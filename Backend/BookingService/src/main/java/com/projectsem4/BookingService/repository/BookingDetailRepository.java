@@ -19,5 +19,5 @@ public interface BookingDetailRepository extends JpaRepository<BookingDetail, Lo
             + "AND (:timeFrame IS NULL OR :timeFrame = b.timeFrame)")
     List<BookingDetail> checkBookingField(@Param("fieldId") Long fieldId,
                                     @Param("bookingDate") LocalDate bookingDate,
-                                    @Param("endTime") Long timeFrame);
+                                    @Param("timeFrame") Integer timeFrame);
 }

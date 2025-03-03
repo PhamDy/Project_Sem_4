@@ -2,10 +2,9 @@ package com.projectsem4.StadiumService.service.impl;
 
 import com.projectsem4.StadiumService.config.client.BookingServiceClient;
 import com.projectsem4.StadiumService.constant.TypeFileEnum;
+import com.projectsem4.StadiumService.entity.*;
 import com.projectsem4.StadiumService.entity.Accessory;
-import com.projectsem4.StadiumService.entity.Area;
 import com.projectsem4.StadiumService.entity.FieldType;
-import com.projectsem4.StadiumService.entity.FileDb;
 import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.model.request.AreaDetailAdmin;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
@@ -15,10 +14,7 @@ import com.projectsem4.StadiumService.service.AreaService;
 import com.projectsem4.StadiumService.service.FileService;
 import com.projectsem4.StadiumService.util.FileUtil;
 import com.projectsem4.common_service.dto.constant.Constant;
-import com.projectsem4.common_service.dto.entity.FieldDateSchedule;
-import com.projectsem4.common_service.dto.entity.FieldSchedule;
-import com.projectsem4.common_service.dto.entity.ResponseSchedule;
-import com.projectsem4.common_service.dto.entity.TimeFrameSchedule;
+import com.projectsem4.common_service.dto.entity.*;
 import com.projectsem4.common_service.dto.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -207,6 +203,9 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object findFieldByIdAndCalender(Long id, Long index) {
+        List<Field> fields = fieldRepository.findByFieldTypeId(id);
+        List<Long> fieldIds = fields.stream().map(Field::getFieldId).toList();
+        Map<TimeFrameDate,Boolean> schedule = bookingServiceClient.calenderSchedule(LocalDate.now().plusDays(7 * index), fieldIds);
         FieldType fieldType = fieldTypeRepository.findById(id).orElse(null);
 
         ResponseSchedule list = new ResponseSchedule();
@@ -224,15 +223,16 @@ public class AreaServiceImpl implements AreaService {
             TimeFrameSchedule timeFrameSchedule = new TimeFrameSchedule();
             timeFrameSchedule.setTimeFrame(item.getKey());
             List<FieldSchedule> fieldSchedules = new ArrayList<>();
-            fieldRepository.findByFieldTypeId(id).forEach(field->{
+            fields.forEach(field->{
                 FieldSchedule obj = new FieldSchedule();
                 obj.setFieldId(field.getFieldId());
                 obj.setFieldName(field.getName());
                 List<FieldDateSchedule> fieldDateSchedules = new ArrayList<>();
                 for (int i = 0; i <= 6; i++) {
                     FieldDateSchedule fieldDateSchedule = new FieldDateSchedule();
-                    fieldDateSchedule.setDate(LocalDate.now().plusDays(i * index));
+                    fieldDateSchedule.setDate(LocalDate.now().plusDays(i + index * 7));
                     fieldDateSchedule.setPrice((long) (fieldType.getPrice() * item.getScale()));
+                    fieldDateSchedule.setIsBooking(schedule.get(new TimeFrameDate(field.getFieldId(),item.getKey(),LocalDate.now().plusDays(i + index * 7))));
                     fieldDateSchedules.add(fieldDateSchedule);
                 }
                 obj.setFieldDateScheduleList(fieldDateSchedules);

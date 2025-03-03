@@ -12,6 +12,7 @@ import com.projectsem4.BookingService.repository.BookingRefereeRepository;
 import com.projectsem4.BookingService.repository.BookingRepository;
 import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.constant.Constant;
+import com.projectsem4.common_service.dto.entity.FieldDateSchedule;
 import com.projectsem4.common_service.dto.entity.FieldType;
 import com.projectsem4.common_service.dto.entity.Price;
 import com.projectsem4.common_service.dto.entity.TimeFrameDate;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -29,7 +31,7 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final BookingAccessoryRepository bookingAccessoryRepository;
     private final BookingRefereeRepository bookingRefereeRepository;
-    private final StadiumServiceClient stadiumServiceClient;
+//    private final StadiumServiceClient stadiumServiceClient;
     private final BookingDetailRepository bookingDetailRepository;
 
     @Override
@@ -92,17 +94,20 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Price> findTimeAvailable(List<Price> price, LocalDate date, Long quantity) {
-        for (Price p : price) {
-            long quantityBook = bookingRepository.checkTimeAvailable(date,p.getPriceTo(),p.getPriceFrom()).size();
-            p.setQuantity(quantity - quantityBook);
+    public Map<TimeFrameDate,Boolean> scheduleClient(List<Long> fieldIds, LocalDate date) {
+        Map<TimeFrameDate,Boolean> result = new HashMap<>();
+        for (Long fieldId : fieldIds) {
+            for(int i = 0; i < 7; i++){
+                LocalDate date1 = LocalDate.now().plusDays(i);
+                Constant.TimeFrameEnum.getAllTimeFrames().forEach(item->{
+                    TimeFrameDate timeFrameDate = new TimeFrameDate();
+                    timeFrameDate.setFieldId(fieldId);
+                    timeFrameDate.setDate(date1);
+                    timeFrameDate.setTimeFrame(item.getKey());
+                    result.put(timeFrameDate,bookingDetailRepository.checkBookingField(fieldId,date1,item.getKey()).isEmpty());
+                });
+            }
         }
-        return price;
-    }
-
-    @Override
-    public Object scheduleClient(List<Long> fieldIds, LocalDate date) {
-        Map<TimeFrameDate,Boolean> result;
-        return null;
+        return result;
     }
 }

@@ -19,7 +19,7 @@ public class CreateBookingRequest {
     private Long fieldId;
     private Long userId;
     private LocalDate bookingDate;
-    private Long timeFrameId;
+    private Integer timeFrameId;
     private BigDecimal totalPrice;
     private String paymentStatus;
     private Integer paymentMethod;

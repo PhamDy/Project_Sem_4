@@ -1,17 +1,14 @@
 package com.projectsem4.common_service.dto.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class TimeFrameDate {
+    private Long fieldId;
     private Integer timeFrame;
     private LocalDate date;
 }

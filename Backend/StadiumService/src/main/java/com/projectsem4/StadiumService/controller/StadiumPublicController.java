@@ -1,7 +1,7 @@
 package com.projectsem4.StadiumService.controller;
 
-import com.projectsem4.StadiumService.constant.DistrictEnum;
 import com.projectsem4.StadiumService.service.AreaService;
+import com.projectsem4.common_service.dto.constant.Constant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class StadiumPublicController {
 
     @GetMapping("/danhMucQuanHuyen")
     public ResponseEntity<List<Map<String, Object>>> danhMucQuanHuyen() {
-        List<Map<String, Object>> danhMuc = Arrays.stream(DistrictEnum.values())
+        List<Map<String, Object>> danhMuc = Arrays.stream(Constant.DistrictEnum.values())
                 .map(district -> {
                     Map<String, Object> map = new HashMap<>();
                     map.put("key", district.getKey());

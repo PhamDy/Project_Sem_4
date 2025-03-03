@@ -2,14 +2,15 @@ package com.projectsem4.BookingService.service;
 
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.common_service.dto.entity.Price;
+import com.projectsem4.common_service.dto.entity.TimeFrameDate;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface BookingService {
     void createBooking(CreateBookingRequest request);
     CreateBookingRequest findBookingById(Long id);
     Object updateStatusOderByPayment(Integer status, Long orderId);
-    List<Price> findTimeAvailable(List<Price> price, LocalDate date, Long quantity);
-    Object scheduleClient(List<Long> fieldIds, LocalDate date);
+    Map<TimeFrameDate,Boolean> scheduleClient(List<Long> fieldIds, LocalDate date);
 }

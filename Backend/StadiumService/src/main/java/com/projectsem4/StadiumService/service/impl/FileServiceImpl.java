@@ -13,6 +13,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.projectsem4.StadiumService.service.FileService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,22 +32,8 @@ public class FileServiceImpl implements FileService {
     @Value("${aws.s3.bucketName}")
     private String bucketName;
 
-    @Value("${aws.s3.accessKey}")
-    private String accessKey;
-
-    @Value("${aws.s3.secretKey}")
-    private String secretKey;
-
+    @Autowired
     private AmazonS3 s3Client;
-
-    @PostConstruct
-    private void initialize() {
-        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-        s3Client = AmazonS3ClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .withRegion(Regions.AP_SOUTHEAST_2)
-                .build();
-    }
 
     @Override
     public String uploadFile(MultipartFile multipartFile) {
@@ -84,11 +71,15 @@ public class FileServiceImpl implements FileService {
     @Override
     public void deleteFile(String filePath) {
         try {
-            s3Client.deleteObject(bucketName, filePath);
-            log.info("File deleted successfully from S3: {}", filePath);
+            // Trích xuất key từ URL (bỏ phần domain)
+            String fileKey = filePath.replace("https://projectsem4.s3.ap-southeast-2.amazonaws.com/", "");
+
+            s3Client.deleteObject(bucketName, fileKey);
+            log.info("File deleted successfully from S3: {}", fileKey);
         } catch (Exception e) {
             log.error("Failed to delete file from S3: {}", e.getMessage());
             throw new RuntimeException("Error occurred while deleting file ==> " + e.getMessage());
         }
     }
+
 }

@@ -17,6 +17,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 config:
   url:
     payment-service-url: "${endpoint_payment_service:http://localhost:9007/payment-service}"

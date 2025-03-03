@@ -15,6 +15,7 @@ import com.projectsem4.StadiumService.repository.AreaRepository;
 import com.projectsem4.StadiumService.repository.FieldRepository;
 import com.projectsem4.StadiumService.repository.FileRepository;
 import com.projectsem4.StadiumService.service.AreaService;
+import com.projectsem4.StadiumService.service.FileService;
 import com.projectsem4.StadiumService.util.FileUtil;
 import com.projectsem4.common_service.dto.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,7 @@ public class AreaServiceImpl implements AreaService {
     private final FileRepository fileRepository;
     private final ModelMapper modelMapper;
     private final BookingServiceClient bookingServiceClient;
+    private final FileService fileService;
 
     @Override
     @Transactional
@@ -52,6 +54,13 @@ public class AreaServiceImpl implements AreaService {
         if (createRequest.getAreaId()!=null &&
                 createRequest.getFileList()!=null &&
                 !createRequest.getFileList().isEmpty()){
+
+            for (FileDb fileDb : createRequest.getFileList()) {
+                if (fileDb.getFilePath()!=null && !fileDb.getFilePath().isEmpty()) {
+                    fileService.deleteFile(fileDb.getFilePath());
+                }
+            }
+
             fileRepository.deleteAll(createRequest.getFileList());
         }
 
@@ -61,7 +70,7 @@ public class AreaServiceImpl implements AreaService {
                 fileDb.setObjectId(areaId);
                 fileDb.setFileName(file.getOriginalFilename());
                 fileDb.setTypeFile(TypeFileEnum.TYPE_FILE_1.getKey());
-                fileDb.setFilePath(FileUtil.uploadImage(file));
+                fileDb.setFilePath(fileService.uploadFile(file));
                 fileDbs.add(fileDb);
             }
         }

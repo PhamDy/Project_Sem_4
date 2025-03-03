@@ -17,6 +17,7 @@ public interface AreaService {
     Long createArea(AreaCreateRequest areaCreateRequest, List<MultipartFile> files);
     AreaCreateRequest getAreaById(Long areaId);
     Page<AreaCreateRequest> getListArea(Pageable pageable);
+    void deleteAreaById(Long areaId);
 
 
 
@@ -25,7 +26,7 @@ public interface AreaService {
     Page<AreaDetailAdmin> findAllAreas(Pageable pageable);
     Page<Area> findAreas(Pageable pageable, FindAreaRequest findAreaRequest);
     Object updateArea(Area area);
-    void deleteArea(Long id);
+
     Boolean createAccessory(Accessory requestAccessory);
     Accessory findAccessoryById(Long id);
     Accessory updateQuantity(Integer type, Long accessoryId, Long quantity) throws Exception;

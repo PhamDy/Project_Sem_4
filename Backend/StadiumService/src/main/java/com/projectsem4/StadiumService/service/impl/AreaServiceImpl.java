@@ -114,6 +114,14 @@ public class AreaServiceImpl implements AreaService {
         return new PageImpl<>(areaCreateRequests, pageable, areas.getTotalElements());
     }
 
+    @Override
+    public void deleteAreaById(Long areaId) {
+        Area area = areaRepository.getById(areaId);
+        if (area.getAreaId()!=null){
+            areaRepository.delete(area);
+        }
+    }
+
 
     @Override
     public Boolean createField(FieldTypeRequest fieldTypeRequest, Long areaId) {
@@ -145,10 +153,6 @@ public class AreaServiceImpl implements AreaService {
         return area.getAreaId();
     }
 
-    @Override
-    public void deleteArea(Long id) {
-
-    }
 
     @Override
     public Boolean createAccessory(Accessory requestAccessory) {

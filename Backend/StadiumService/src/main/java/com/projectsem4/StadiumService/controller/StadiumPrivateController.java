@@ -45,6 +45,12 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.getListArea(pageable));
     }
 
+    @DeleteMapping("/area/{areaId}")
+    public ResponseEntity<?> deleteArea(@PathVariable Long areaId) {
+        areaService.deleteAreaById(areaId);
+        return ResponseEntity.ok("Area deleted");
+    }
+
 
     @PostMapping("/field")
     public ResponseEntity<Boolean> createField(@RequestBody FieldTypeRequest areaCreateRequest, @RequestParam Long areaId) {
@@ -99,9 +105,5 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.updateArea(area));
     }
 
-    @PostMapping("/delete-area")
-    public ResponseEntity<?> deleteArea(@RequestParam Long id) {
-        areaService.deleteArea(id);
-        return ResponseEntity.ok(ResponseEntity.noContent());
-    }
+
 }

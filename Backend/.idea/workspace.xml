@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e2c17d2-66c5-4a10-8c8b-3a8f706a88e4" name="Changes" comment="DistrictEnum" />
+    <list default="true" id="1e2c17d2-66c5-4a10-8c8b-3a8f706a88e4" name="Changes" comment="DistrictEnum">
+      <change afterPath="$PROJECT_DIR$/Gateway-server/src/main/java/com/projectsem4/Gateway_server/config/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/FileService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/impl/FileServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/StadiumPrivateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/StadiumPrivateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Area.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/AreaCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/AreaCreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/impl/AreaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/impl/AreaServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/util/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/util/FileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/resources/application.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +27,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -53,44 +67,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.common-service/Dockerfile.executor": "Run",
-    "Maven.BookingService [clean,install].executor": "Run",
-    "Maven.Config-server [clean,install].executor": "Run",
-    "Maven.Service-registry [clean,install].executor": "Run",
-    "Maven.StadiumService [clean,install].executor": "Run",
-    "Maven.common-service [clean,install].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.BookingServiceApplication.executor": "Run",
-    "Spring Boot.ConfigServerApplication.executor": "Run",
-    "Spring Boot.GatewayServerApplication.executor": "Run",
-    "Spring Boot.PaymentServiceApplication.executor": "Run",
-    "Spring Boot.ServiceRegistryApplication.executor": "Run",
-    "Spring Boot.StadiumServiceApplication.executor": "Run",
-    "Spring Boot.TournamentServiceApplication.executor": "Run",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/FPT Aptech/projectSem4/Backend/PaymentService/src/main/java/com/projectsem4/PaymentService/config",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.4770115",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.common-service/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BookingService [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Config-server [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Service-registry [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.StadiumService [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.common-service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BookingServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ConfigServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ServiceRegistryApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.StadiumServiceApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.TournamentServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/FPT Aptech/projectSem4/Backend/PaymentService/src/main/java/com/projectsem4/PaymentService/config&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4770115&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -276,7 +290,10 @@
       <workItem from="1739753334525" duration="2172000" />
       <workItem from="1739879264367" duration="4534000" />
       <workItem from="1739927780655" duration="9000" />
-      <workItem from="1740815720639" duration="15722000" />
+      <workItem from="1740815720639" duration="16057000" />
+      <workItem from="1740908471936" duration="5100000" />
+      <workItem from="1740922065148" duration="3098000" />
+      <workItem from="1740963827352" duration="16000" />
     </task>
     <task id="LOCAL-00001" summary="Quang Thái phong bat">
       <option name="closed" value="true" />
@@ -374,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740833922583</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="DistrictEnum">
+      <option name="closed" value="true" />
+      <created>1740909484374</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1740909484374</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -397,5 +422,16 @@
     <MESSAGE value="tao exception common" />
     <MESSAGE value="DistrictEnum" />
     <option name="LAST_COMMIT_MESSAGE" value="DistrictEnum" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/util/FileUtil.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

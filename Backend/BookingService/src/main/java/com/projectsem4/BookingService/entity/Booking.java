@@ -20,20 +20,13 @@ public class Booking extends BaseEntity {
     @Column(name = "booking_id", nullable = false)
     private Long id;
 
-    @Column(name = "field_id")
-    private Long fieldId;
-
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "quantity")
-    private Long quantity;
+    @Column(name = "total_price")
+    private Long totalPrice;
 
-    @Column(name = "total_price", precision = 10)
-    private BigDecimal totalPrice;
-
-    @Size(max = 100)
-    @Column(name = "payment_status", length = 100)
+    @Column(name = "payment_status")
     private String paymentStatus;
 
     @Column(name = "payment_method")

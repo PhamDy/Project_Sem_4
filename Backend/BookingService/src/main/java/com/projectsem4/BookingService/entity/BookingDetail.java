@@ -19,7 +19,10 @@ public class BookingDetail {
     @Column(name = "booking_date")
     private LocalDate bookingDate;
 
-    @Column(name = "price_id")
-    private Long priceId;
+    @Column(name = "time_frame")
+    private Long timeFrame;
+
+    @Column(name = "field_id")
+    private Long fieldId;
 
 }

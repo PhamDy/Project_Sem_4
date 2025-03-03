@@ -31,8 +31,7 @@ public interface AreaService {
     Accessory findAccessoryById(Long id);
     Accessory updateQuantity(Integer type, Long accessoryId, Long quantity) throws Exception;
     Object findFieldById(Long id);
+    Object findFieldByIdAndCalender(Long id, Long index);
     Object findAllField(Pageable pageable);
     Object search(FindAreaRequest findAreaRequest,Pageable pageable);
-    Object findTimeAvailable(LocalDate date, Long fieldId);
-
 }

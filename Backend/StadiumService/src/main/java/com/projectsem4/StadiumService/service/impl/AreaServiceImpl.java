@@ -10,13 +10,15 @@ import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.model.request.AreaDetailAdmin;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
-import com.projectsem4.StadiumService.repository.AccessoryRepository;
-import com.projectsem4.StadiumService.repository.AreaRepository;
-import com.projectsem4.StadiumService.repository.FieldRepository;
-import com.projectsem4.StadiumService.repository.FileRepository;
+import com.projectsem4.StadiumService.repository.*;
 import com.projectsem4.StadiumService.service.AreaService;
 import com.projectsem4.StadiumService.service.FileService;
 import com.projectsem4.StadiumService.util.FileUtil;
+import com.projectsem4.common_service.dto.constant.Constant;
+import com.projectsem4.common_service.dto.entity.FieldDateSchedule;
+import com.projectsem4.common_service.dto.entity.FieldSchedule;
+import com.projectsem4.common_service.dto.entity.ResponseSchedule;
+import com.projectsem4.common_service.dto.entity.TimeFrameSchedule;
 import com.projectsem4.common_service.dto.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -28,7 +30,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,6 +45,7 @@ import java.util.stream.Collectors;
 public class AreaServiceImpl implements AreaService {
     private final AreaRepository areaRepository;
     private final FieldRepository fieldRepository;
+    private final FieldTypeRepository fieldTypeRepository;
     private final AccessoryRepository accessoryRepository;
     private final FileRepository fileRepository;
     private final ModelMapper modelMapper;
@@ -193,17 +202,55 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object findFieldById(Long id) {
-        return fieldRepository.findById(id).get();
+        return fieldTypeRepository.findById(id).get();
+    }
+
+    @Override
+    public Object findFieldByIdAndCalender(Long id, Long index) {
+        FieldType fieldType = fieldTypeRepository.findById(id).orElse(null);
+
+        ResponseSchedule list = new ResponseSchedule();
+        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        List<String> calender = new ArrayList<>();
+        for (int i = 0; i <= 6; i++) {
+            LocalDate ngay = LocalDate.now().plusDays(i * index);
+            DayOfWeek thu = ngay.getDayOfWeek();
+            String thuTiengViet = thu.getDisplayName(java.time.format.TextStyle.FULL, new Locale("vi", "VN"));
+            String result = ngay.format(dinhDang) + " - " + thuTiengViet;
+            calender.add(result);
+        }
+        list.setCalender(calender);
+        Constant.TimeFrameEnum.getAllTimeFrames().forEach(item->{
+            TimeFrameSchedule timeFrameSchedule = new TimeFrameSchedule();
+            timeFrameSchedule.setTimeFrame(item.getKey());
+            List<FieldSchedule> fieldSchedules = new ArrayList<>();
+            fieldRepository.findByFieldTypeId(id).forEach(field->{
+                FieldSchedule obj = new FieldSchedule();
+                obj.setFieldId(field.getFieldId());
+                obj.setFieldName(field.getName());
+                List<FieldDateSchedule> fieldDateSchedules = new ArrayList<>();
+                for (int i = 0; i <= 6; i++) {
+                    FieldDateSchedule fieldDateSchedule = new FieldDateSchedule();
+                    fieldDateSchedule.setDate(LocalDate.now().plusDays(i * index));
+                    fieldDateSchedule.setPrice((long) (fieldType.getPrice() * item.getScale()));
+                    fieldDateSchedules.add(fieldDateSchedule);
+                }
+                obj.setFieldDateScheduleList(fieldDateSchedules);
+                fieldSchedules.add(obj);
+            });
+            timeFrameSchedule.setFieldSchedules(fieldSchedules);
+        });
+        return list;
     }
 
     @Override
     public Object findAllField(Pageable pageable) {
-        return fieldRepository.findAll(pageable);
+        return fieldTypeRepository.findAll(pageable);
     }
 
     @Override
     public Object search(FindAreaRequest findAreaRequest, Pageable pageable) {
-        List<FieldType> fieldTypes = fieldRepository.searchField(findAreaRequest.getLatitude(),findAreaRequest.getLongitude(),
+        List<FieldType> fieldTypes = fieldTypeRepository.searchField(findAreaRequest.getLatitude(),findAreaRequest.getLongitude(),
                 findAreaRequest.getDistance(),findAreaRequest.getSize(),findAreaRequest.getTimeStart(),
                 findAreaRequest.getTimeEnd(),findAreaRequest.getDistrict(),findAreaRequest.getPrice());
         Map<Long,List<FieldType>> map = fieldTypes.stream().collect(Collectors.groupingBy(FieldType::getAreaId));
@@ -250,11 +297,5 @@ public class AreaServiceImpl implements AreaService {
         return result;
     }
 
-    @Override
-    public Object findTimeAvailable(LocalDate date, Long fieldId) {
-        FieldType fieldType = fieldRepository.findById(fieldId).orElse(null);
-        return null;
-//        return bookingServiceClient.findTimeAvailable(date,prices, fieldType.getQuantity());
-    }
 
 }

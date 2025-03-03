@@ -3,6 +3,7 @@ package com.projectsem4.common_service.dto.constant;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Arrays;
@@ -34,18 +35,17 @@ public class Constant {
     }
 
     @Getter
-    @AllArgsConstructor
-    @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public enum PeekDayEnum {
 
-        PD_1(1, "ngày thường", 1),
+        PD_1(1, "ngày thường", 1.0),
         PD_2(2,"ngày lễ", 1.5);
 
-        private int key;
-        private String description;
-        private double value;
+        Integer key;
+        String description;
+        Double value;
 
-        public static double fromValue(int key) {
+        public static Double fromValue(int key) {
             for (PeekDayEnum type : PeekDayEnum.values()) {
                 if (type.getKey() == key) {
                     return type.getValue();
@@ -113,7 +113,7 @@ public class Constant {
         TF_5(5, "19h00 - 20h30",1.0),
         TF_6(6, "21h00 - 22h30",1.0);
 
-        private int key;
+        private Integer key;
         private String value;
         private Double scale;
 

@@ -149,7 +149,7 @@ public class AreaServiceImpl implements AreaService {
         return null;
     }
 
-    
+
     @Override
     public Boolean createAccessory(Accessory requestAccessory) {
         accessoryRepository.save(requestAccessory);

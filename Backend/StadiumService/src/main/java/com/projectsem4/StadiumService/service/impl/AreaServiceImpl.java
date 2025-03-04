@@ -46,6 +46,12 @@ public class AreaServiceImpl implements AreaService {
     private final FileRepository fileRepository;
     private final ModelMapper modelMapper;
     private final BookingServiceClient bookingServiceClient;
+
+    @Override
+    public Page<AreaDetailAdmin> findAllAreas(Pageable pageable) {
+        return null;
+    }
+
     private final FileService fileService;
 
     @Override
@@ -214,7 +220,11 @@ public class AreaServiceImpl implements AreaService {
                     FieldDateSchedule fieldDateSchedule = new FieldDateSchedule();
                     fieldDateSchedule.setDate(LocalDate.now().plusDays(i + index * 7));
                     fieldDateSchedule.setPrice((long) (fieldType.getPrice() * item.getScale()));
-                    fieldDateSchedule.setIsBooking(schedule.get(new TimeFrameDate(field.getFieldId(),item.getKey(),LocalDate.now().plusDays(i + index * 7))));
+                    TimeFrameDate timeFrameDate = new TimeFrameDate();
+                    timeFrameDate.setTimeFrame(item.getKey());
+                    timeFrameDate.setDate(LocalDate.now().plusDays(i + index * 7));
+                    timeFrameDate.setFieldId(field.getFieldId());
+                    fieldDateSchedule.setIsBooking(schedule.get(timeFrameDate));
                     fieldDateSchedules.add(fieldDateSchedule);
                 }
                 obj.setFieldDateScheduleList(fieldDateSchedules);
@@ -277,6 +287,29 @@ public class AreaServiceImpl implements AreaService {
             result.add(response);
         }
         return result;
+    }
+
+    @Override
+    public Object findAllFieldInArea(Long areaId) {
+        Area area = areaRepository.findById(areaId).get();
+        if (area.getAreaId()==null){
+            throw new NotFoundException("Area not found");
+        }
+        AreaResponse areaResponse = modelMapper.map(area, AreaResponse.class);
+        List<FieldType> fieldTypes = fieldTypeRepository.findByAreaId(areaId);
+        List<FieldTypeResponse> fieldTypeResponses = new ArrayList<>();
+        fieldTypes.forEach(fieldType -> {
+            FieldTypeResponse fieldTypeResponse = modelMapper.map(fieldType, FieldTypeResponse.class);
+            List<Field> fields = fieldRepository.findByFieldTypeId(fieldType.getFieldTypeId());
+            List<FieldResponse> fieldResponses = new ArrayList<>();
+            fields.forEach(item->{
+                FieldResponse fieldResponse = modelMapper.map(item, FieldResponse.class);
+                fieldResponses.add(fieldResponse);
+            });
+        fieldTypeResponses.add(fieldTypeResponse);
+        });
+        areaResponse.setFieldTypeResponseList(fieldTypeResponses);
+        return areaResponse;
     }
 
 

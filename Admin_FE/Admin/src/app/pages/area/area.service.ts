@@ -11,8 +11,6 @@ const endPoint = '';
   providedIn: 'root'
 })
 export class AreaService {
-  private apiUrlPublic = `${environment.apiUrlPublic}`;
-  private apiUrlPrivate = `${environment.apiUrlPrivate}`;
 
   constructor(private http:HttpClient) { }
 
@@ -22,20 +20,5 @@ export class AreaService {
     );
   }
 
-  getDistricts(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrlPublic + '/danhMucQuanHuyen');
-  }
-
-  getAllArea(param: any): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrlPrivate + '/all-area', { params: param });
-  }
-
-  createArea(data: any): Observable<any> {
-    return this.http.post<any>(this.apiUrlPrivate + '/area', data)
-  }
-
-  deleteArea(areaId : any): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrlPrivate}/area/${areaId}`)
-  }
 
 }

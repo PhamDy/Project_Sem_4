@@ -149,25 +149,7 @@ public class AreaServiceImpl implements AreaService {
         return null;
     }
 
-    @Override
-    public Page<AreaDetailAdmin> findAllAreas(Pageable pageable) {
-        Page<Area> areas = areaRepository.findAll(pageable);
-
-
-        return areas.map(area -> findById(area.getAreaId()));
-    }
-
-    @Override
-    public Page<Area> findAreas(Pageable pageable, FindAreaRequest findAreaRequest) {
-        return null;
-    }
-
-    @Override
-    public Object updateArea(Area area) {
-        return area.getAreaId();
-    }
-
-
+    
     @Override
     public Boolean createAccessory(Accessory requestAccessory) {
         accessoryRepository.save(requestAccessory);

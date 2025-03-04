@@ -23,9 +23,7 @@ public interface AreaService {
 
     Boolean createField(FieldTypeRequest areaCreateRequest, Long areaId);
     AreaDetailAdmin findById(Long id);
-    Page<AreaDetailAdmin> findAllAreas(Pageable pageable);
-    Page<Area> findAreas(Pageable pageable, FindAreaRequest findAreaRequest);
-    Object updateArea(Area area);
+
 
     Boolean createAccessory(Accessory requestAccessory);
     Accessory findAccessoryById(Long id);

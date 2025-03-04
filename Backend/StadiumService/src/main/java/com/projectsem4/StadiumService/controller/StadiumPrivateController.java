@@ -66,11 +66,6 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findById(id));
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/all-area")
-    public ResponseEntity<Object> getAllArea(Pageable pageable) {
-        return ResponseEntity.ok(areaService.findAllAreas(pageable));
-    }
 
     @GetMapping("/accessory/{id}")
     public ResponseEntity<Object> getAccessoryById(@PathVariable Long id) {
@@ -98,11 +93,7 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findFieldByIdAndCalender(id,index));
     }
 
-    @PostMapping("/update-area")
-    public ResponseEntity<Object> updateArea(@ModelAttribute Area area,
-                                             @RequestParam(value = "img") MultipartFile img) {
-        return ResponseEntity.ok(areaService.updateArea(area));
-    }
+
 
 
 }

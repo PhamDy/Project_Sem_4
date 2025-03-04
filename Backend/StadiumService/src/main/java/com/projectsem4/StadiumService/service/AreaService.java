@@ -18,13 +18,9 @@ public interface AreaService {
     AreaCreateRequest getAreaById(Long areaId);
     Page<AreaCreateRequest> getListArea(Pageable pageable);
     void deleteAreaById(Long areaId);
-
-
-
     Boolean createField(FieldTypeRequest areaCreateRequest, Long areaId);
     AreaDetailAdmin findById(Long id);
-
-
+    Page<AreaDetailAdmin> findAllAreas(Pageable pageable);
     Boolean createAccessory(Accessory requestAccessory);
     Accessory findAccessoryById(Long id);
     Accessory updateQuantity(Integer type, Long accessoryId, Long quantity) throws Exception;
@@ -32,4 +28,5 @@ public interface AreaService {
     Object findFieldByIdAndCalender(Long id, Long index);
     Object findAllField(Pageable pageable);
     Object search(FindAreaRequest findAreaRequest,Pageable pageable);
+    Object findAllFieldInArea(Long areaId);
 }

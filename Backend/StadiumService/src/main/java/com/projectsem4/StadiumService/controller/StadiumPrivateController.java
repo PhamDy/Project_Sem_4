@@ -66,6 +66,16 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findById(id));
     }
 
+    @GetMapping("/area/{id}/field")
+    public ResponseEntity<Object> getFieldByAreaId(@PathVariable Long id) {
+        return ResponseEntity.ok(areaService.findAllFieldInArea(id));
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/all-area")
+    public ResponseEntity<Object> getAllArea(Pageable pageable) {
+        return ResponseEntity.ok(areaService.findAllAreas(pageable));
+    }
 
     @GetMapping("/accessory/{id}")
     public ResponseEntity<Object> getAccessoryById(@PathVariable Long id) {

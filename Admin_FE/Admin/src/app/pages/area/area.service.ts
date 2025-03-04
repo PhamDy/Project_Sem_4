@@ -26,7 +26,7 @@ export class AreaService {
     return this.http.get<any[]>(this.apiUrlPublic + '/danhMucQuanHuyen');
   }
 
-  getAllArea(param: any): Observable<any[]> {
+  getAllArea(param: any): Observable<any> {
     return this.http.get<any[]>(this.apiUrlPrivate + '/area/list', { params: param });
   }
 

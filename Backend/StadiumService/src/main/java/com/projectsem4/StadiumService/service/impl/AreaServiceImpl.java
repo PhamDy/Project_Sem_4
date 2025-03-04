@@ -19,9 +19,7 @@ import com.projectsem4.common_service.dto.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -106,7 +104,12 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Page<AreaCreateRequest> getListArea(Pageable pageable) {
-        Page<Area> areas = areaRepository.findAll(pageable);
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by("areaId").descending() // Sắp xếp giảm dần theo areaId
+        );
+        Page<Area> areas = areaRepository.findAll(sortedPageable);
 
         // Lấy danh sách ID của các Area để lấy FileDb tương ứng
         List<Long> areaIds = areas.getContent().stream()

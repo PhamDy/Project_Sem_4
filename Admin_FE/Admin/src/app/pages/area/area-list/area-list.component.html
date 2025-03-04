@@ -46,6 +46,7 @@
                       <th>Name</th>
                       <th>Address</th>
                       <th>Description</th>
+                      <th>File</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -56,6 +57,9 @@
                       <td>{{area.name}}</td>
                       <td>{{area.address}}</td>
                       <td>{{area.description}}</td>
+                      <td>
+                        <img style="width: 90px; height: 90px;" [src]="area?.fileList[0]?.filePath"/>
+                      </td>
                       <td>
                         <button [routerLink]="['/editArea']" class="btn btn-warning mx-3">Edit</button>
                         <button class="btn btn-danger">Delete</button>

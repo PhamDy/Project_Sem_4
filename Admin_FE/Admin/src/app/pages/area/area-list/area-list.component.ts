@@ -26,11 +26,11 @@ export class AreaListComponent implements OnInit {
     this.areaService
       .getAllArea({
         page: 1,
-        size: 10,
+        size: 6,
       })
       .subscribe(
         (data) => {
-          this.areas = data;
+          this.areas = data.content;
         },
         (error) => {
           console.error('Error fetching districts', error);

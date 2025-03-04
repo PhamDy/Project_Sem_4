@@ -22,7 +22,7 @@ import { TimeFrameModule } from './pages/timeFrame/timeFrame.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // AreaModule,
+    AreaModule,
     // ProductModule,
     TimeFrameModule
   ],

@@ -51,9 +51,15 @@ public class StadiumPrivateController {
     }
 
 
-    @PostMapping("/field")
-    public ResponseEntity<Boolean> createField(@RequestBody FieldTypeRequest areaCreateRequest, @RequestParam Long areaId) {
-        return ResponseEntity.ok(areaService.createField(areaCreateRequest));
+    @GetMapping("/fieldType")
+    public ResponseEntity<?> getListFieldType(Pageable pageable) {
+        return ResponseEntity.ok(areaService.getListFieldType(pageable));
+    }
+
+    @DeleteMapping("/fieldType/{fieldTypeId}")
+    public ResponseEntity<?> deleteFieldType(@PathVariable Long fieldTypeId) {
+        areaService.deleteFieldTypeById(fieldTypeId);
+        return ResponseEntity.ok("FieldType deleted");
     }
 
     @PostMapping("/accessory")

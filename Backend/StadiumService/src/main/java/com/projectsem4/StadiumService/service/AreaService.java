@@ -20,9 +20,9 @@ public interface AreaService {
 
 
     Long createFieldType(FieldType fieldType);
+    Page<FieldType> getListFieldType(Pageable pageable);
+    void deleteFieldTypeById(Long fieldTypeId);
 
-
-    Long createField(FieldTypeRequest areaCreateRequest);
     AreaDetailAdmin findById(Long id);
     Page<AreaDetailAdmin> findAllAreas(Pageable pageable);
     Boolean createAccessory(Accessory requestAccessory);

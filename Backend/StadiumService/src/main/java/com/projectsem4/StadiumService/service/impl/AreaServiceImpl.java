@@ -104,7 +104,7 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public Page<AreaCreateRequest> getListArea(Pageable pageable) {
         Pageable sortedPageable = PageRequest.of(
-                pageable.getPageNumber(),
+                pageable.getPageNumber() + 1,
                 pageable.getPageSize(),
                 Sort.by("areaId").descending()
         );
@@ -149,25 +149,38 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public Long createFieldType(FieldType fieldType) {
-        if (fieldType.getFieldTypeId()!=null){
-            FieldType fieldType1 = fieldTypeRepository.findById(fieldType.getFieldTypeId()).get();
+    public Long createFieldType(FieldType fieldTypeRequest) {
+        if (fieldTypeRequest.getFieldTypeId()!=null){
+            FieldType fieldType1 = fieldTypeRepository.findById(fieldTypeRequest.getFieldTypeId()).get();
             if (fieldType1.getFieldTypeId()!=null){
-                modelMapper.map(fieldType1, fieldType);
+                modelMapper.map(fieldType1, fieldTypeRequest);
             }
+            return fieldType1.getFieldTypeId();
         }else {
-            return fieldTypeRepository.save(fieldType).getFieldTypeId();
+            return fieldTypeRepository.save(fieldTypeRequest).getFieldTypeId();
+        }
+    }
+
+    @Override
+    public Page<FieldType> getListFieldType(Pageable pageable) {
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber() + 1,
+                pageable.getPageSize(),
+                Sort.by("fieldTypeId").descending()
+        );
+        return fieldTypeRepository.findAll(sortedPageable);
+    }
+
+    @Override
+    public void deleteFieldTypeById(Long fieldTypeId) {
+        FieldType fieldType = fieldTypeRepository.getById(fieldTypeId);
+        if (fieldType.getAreaId()!=null){
+            fieldTypeRepository.delete(fieldType);
         }
     }
 
 
-    @Override
-    public Long createField(FieldTypeRequest fieldTypeRequest) {
 
-
-
-        return null;
-    }
 
     @Override
     public AreaDetailAdmin findById(Long id) {

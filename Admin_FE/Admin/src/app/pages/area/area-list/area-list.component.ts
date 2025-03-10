@@ -25,8 +25,8 @@ export class AreaListComponent implements OnInit {
 
     this.areaService
       .getAllArea({
-        page: 1,
-        size: 6,
+        page: 0,
+        size: 10,
       })
       .subscribe(
         (data) => {

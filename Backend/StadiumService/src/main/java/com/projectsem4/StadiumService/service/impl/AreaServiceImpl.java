@@ -12,7 +12,6 @@ import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.repository.*;
 import com.projectsem4.StadiumService.service.AreaService;
 import com.projectsem4.StadiumService.service.FileService;
-import com.projectsem4.StadiumService.util.FileUtil;
 import com.projectsem4.common_service.dto.constant.Constant;
 import com.projectsem4.common_service.dto.entity.*;
 import com.projectsem4.common_service.dto.exception.NotFoundException;
@@ -107,7 +106,7 @@ public class AreaServiceImpl implements AreaService {
         Pageable sortedPageable = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
-                Sort.by("areaId").descending() // Sắp xếp giảm dần theo areaId
+                Sort.by("areaId").descending()
         );
         Page<Area> areas = areaRepository.findAll(sortedPageable);
 
@@ -142,14 +141,32 @@ public class AreaServiceImpl implements AreaService {
         Area area = areaRepository.getById(areaId);
         if (area.getAreaId()!=null){
             areaRepository.delete(area);
+            List<FileDb> fileDb = fileRepository.findByObjectIdAndTypeFile(areaId, TypeFileEnum.TYPE_FILE_1.getKey());
+            if (fileDb!=null && !fileDb.isEmpty()){
+                fileRepository.deleteAll(fileDb);
+            }
+        }
+    }
+
+    @Override
+    public Long createFieldType(FieldType fieldType) {
+        if (fieldType.getFieldTypeId()!=null){
+            FieldType fieldType1 = fieldTypeRepository.findById(fieldType.getFieldTypeId()).get();
+            if (fieldType1.getFieldTypeId()!=null){
+                modelMapper.map(fieldType1, fieldType);
+            }
+        }else {
+            return fieldTypeRepository.save(fieldType).getFieldTypeId();
         }
     }
 
 
     @Override
-    public Boolean createField(FieldTypeRequest fieldTypeRequest, Long areaId) {
+    public Long createField(FieldTypeRequest fieldTypeRequest) {
 
-        return true;
+
+
+        return null;
     }
 
     @Override

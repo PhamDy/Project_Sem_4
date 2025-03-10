@@ -19,10 +19,10 @@ const routes: Routes = [
     path: "editArea",
     component: AreaFormComponent
   },
-  // {
-  //   path: "product/:id",
-  //   component: ProductFormComponent
-  // },
+  {
+    path: "area/:areaId",
+    component: AreaFormComponent
+  },
   // {
   //   path: "newProduct",
   //   component: ProductFormComponent

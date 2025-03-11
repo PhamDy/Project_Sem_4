@@ -104,7 +104,7 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public Page<AreaCreateRequest> getListArea(Pageable pageable) {
         Pageable sortedPageable = PageRequest.of(
-                pageable.getPageNumber() + 1,
+                pageable.getPageNumber() - 1,
                 pageable.getPageSize(),
                 Sort.by("areaId").descending()
         );
@@ -164,7 +164,7 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public Page<FieldType> getListFieldType(Pageable pageable) {
         Pageable sortedPageable = PageRequest.of(
-                pageable.getPageNumber() + 1,
+                pageable.getPageNumber() - 1,
                 pageable.getPageSize(),
                 Sort.by("fieldTypeId").descending()
         );

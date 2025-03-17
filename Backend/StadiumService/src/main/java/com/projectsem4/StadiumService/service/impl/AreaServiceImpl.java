@@ -224,49 +224,47 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object findFieldByIdAndCalender(Long id, Long index) {
-//        List<Field> fields = fieldRepository.findByFieldTypeId(id);
-//        List<Long> fieldIds = fields.stream().map(Field::getFieldId).toList();
-//        Map<TimeFrameDate,Boolean> schedule = bookingServiceClient.calenderSchedule(LocalDate.now().plusDays(7 * index), fieldIds);
-//        FieldType fieldType = fieldTypeRepository.findById(id).orElse(null);
-//
-//        ResponseSchedule list = new ResponseSchedule();
-//        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        List<String> calender = new ArrayList<>();
-//        for (int i = 0; i <= 6; i++) {
-//            LocalDate ngay = LocalDate.now().plusDays(i * index);
-//            DayOfWeek thu = ngay.getDayOfWeek();
-//            String thuTiengViet = thu.getDisplayName(java.time.format.TextStyle.FULL, new Locale("vi", "VN"));
-//            String result = ngay.format(dinhDang) + " - " + thuTiengViet;
-//            calender.add(result);
-//        }
-//        list.setCalender(calender);
-//        Constant.TimeFrameEnum.getAllTimeFrames().forEach(item->{
-//            TimeFrameSchedule timeFrameSchedule = new TimeFrameSchedule();
-//            timeFrameSchedule.setTimeFrame(item.getKey());
-//            List<FieldSchedule> fieldSchedules = new ArrayList<>();
-//            fields.forEach(field->{
-//                FieldSchedule obj = new FieldSchedule();
-//                obj.setFieldId(field.getFieldId());
-//                obj.setFieldName(field.getName());
-//                List<FieldDateSchedule> fieldDateSchedules = new ArrayList<>();
-//                for (int i = 0; i <= 6; i++) {
-//                    FieldDateSchedule fieldDateSchedule = new FieldDateSchedule();
-//                    fieldDateSchedule.setDate(LocalDate.now().plusDays(i + index * 7));
-//                    fieldDateSchedule.setPrice((long) (fieldType.getPrice() * item.getScale()));
-//                    TimeFrameDate timeFrameDate = new TimeFrameDate();
-//                    timeFrameDate.setTimeFrame(item.getKey());
-//                    timeFrameDate.setDate(LocalDate.now().plusDays(i + index * 7));
-//                    timeFrameDate.setFieldId(field.getFieldId());
-//                    fieldDateSchedule.setIsBooking(schedule.get(timeFrameDate));
-//                    fieldDateSchedules.add(fieldDateSchedule);
-//                }
-//                obj.setFieldDateScheduleList(fieldDateSchedules);
-//                fieldSchedules.add(obj);
-//            });
-//            timeFrameSchedule.setFieldSchedules(fieldSchedules);
-//        });
-//        return list;
-        return true;
+        List<FieldType> fields = fieldRepository.findByFieldTypeId(id);
+        Map<TimeFrameDate,Boolean> schedule = bookingServiceClient.calenderSchedule(LocalDate.now().plusDays(7 * index), fields.stream().map(FieldType::getFieldTypeId).toList());
+        FieldType fieldType = fieldTypeRepository.findById(id).orElse(null);
+
+        ResponseSchedule list = new ResponseSchedule();
+        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        List<String> calender = new ArrayList<>();
+        for (int i = 0; i <= 6; i++) {
+            LocalDate ngay = LocalDate.now().plusDays(i * index);
+            DayOfWeek thu = ngay.getDayOfWeek();
+            String thuTiengViet = thu.getDisplayName(java.time.format.TextStyle.FULL, new Locale("vi", "VN"));
+            String result = ngay.format(dinhDang) + " - " + thuTiengViet;
+            calender.add(result);
+        }
+        list.setCalender(calender);
+        Constant.TimeFrameEnum.getAllTimeFrames().forEach(item->{
+            TimeFrameSchedule timeFrameSchedule = new TimeFrameSchedule();
+            timeFrameSchedule.setTimeFrame(item.getKey());
+            List<FieldSchedule> fieldSchedules = new ArrayList<>();
+            fields.forEach(field->{
+                FieldSchedule obj = new FieldSchedule();
+                obj.setFieldId(field.getFieldTypeId());
+                obj.setFieldName(field.getName());
+                List<FieldDateSchedule> fieldDateSchedules = new ArrayList<>();
+                for (int i = 0; i <= 6; i++) {
+                    FieldDateSchedule fieldDateSchedule = new FieldDateSchedule();
+                    fieldDateSchedule.setDate(LocalDate.now().plusDays(i + index * 7));
+                    fieldDateSchedule.setPrice((long) (fieldType.getPrice() * item.getScale()));
+                    TimeFrameDate timeFrameDate = new TimeFrameDate();
+                    timeFrameDate.setTimeFrame(item.getKey());
+                    timeFrameDate.setDate(LocalDate.now().plusDays(i + index * 7));
+                    timeFrameDate.setFieldId(field.getFieldTypeId());
+                    fieldDateSchedule.setIsBooking(schedule.get(timeFrameDate));
+                    fieldDateSchedules.add(fieldDateSchedule);
+                }
+                obj.setFieldDateScheduleList(fieldDateSchedules);
+                fieldSchedules.add(obj);
+            });
+            timeFrameSchedule.setFieldSchedules(fieldSchedules);
+        });
+        return list;
     }
 
     @Override
@@ -301,21 +299,7 @@ public class AreaServiceImpl implements AreaService {
                 fieldTypeRequest.setFieldTypeId(fieldType.getFieldTypeId());
                 fieldTypeRequest.setName(fieldType.getName());
                 fieldTypeRequest.setDescription(fieldType.getDescription());
-//                fieldTypeRequest.setEmail(fieldType.getEmail());
-//                fieldTypeRequest.setPhoneNumber(fieldType.getPhoneNumber());
                 fieldTypeRequest.setSize(fieldType.getSize());
-//                List<PriceRequest> priceRequests = new ArrayList<>();
-//                List<TimeFrame> timeFrames = priceRepository.findByFieldId(fieldType.getFieldTypeId());
-//                timeFrames.forEach(timeFrame -> {
-//                    PriceRequest priceRequest = new PriceRequest();
-//                    priceRequest.setPriceFrom(timeFrame.getTimeFrom());
-//                    priceRequest.setPriceTo(timeFrame.getTimeTo());
-//                    priceRequest.setPrice(timeFrame.getPrice());
-//                    priceRequest.setFieldId(timeFrame.getFieldId());
-//                    priceRequests.add(priceRequest);
-//                });
-//                fieldTypeRequest.setPrices(priceRequests);
-//                fieldTypeRequests.add(fieldTypeRequest);
             });
             response.setFields(fieldTypeRequests);
             result.add(response);

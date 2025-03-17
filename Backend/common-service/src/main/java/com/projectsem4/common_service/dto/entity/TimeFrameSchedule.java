@@ -12,6 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TimeFrameSchedule {
-    Integer timeFrame;
+    Long timeFrame;
     List<FieldSchedule> fieldSchedules;
 }

@@ -7,11 +7,11 @@ spring:
   application:
     name: stadium-service
   config:
-    import: configserver:http://localhost:9296
+    import:
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/project
-    username: root
-    password: root
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/${MYSQL_DATABASE:project}
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect

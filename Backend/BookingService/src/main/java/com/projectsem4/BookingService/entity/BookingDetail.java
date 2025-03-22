@@ -22,7 +22,10 @@ public class BookingDetail {
     @Column(name = "time_frame")
     private Long timeFrame;
 
-    @Column(name = "field_id")
-    private Long fieldId;
+    @Column(name = "field_type_id")
+    private Long fieldTypeId;
+
+    @Column(name = "quantity")
+    private Long quantity;
 
 }

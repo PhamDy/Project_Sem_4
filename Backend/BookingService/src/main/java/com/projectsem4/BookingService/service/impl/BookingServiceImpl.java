@@ -72,8 +72,13 @@ public class BookingServiceImpl implements BookingService {
 
     public Boolean checkQuantityBooking(CreateBookingRequest booking) {
         for (BookingDetail bookingDetail : booking.getBookingDetails()) {
-            List<BookingDetail> bookingDup = bookingDetailRepository.checkBookingField(bookingDetail.getFieldId(), bookingDetail.getTimeFrame());
-            if(!bookingDup.isEmpty()){
+            List<BookingDetail> bookingDup = bookingDetailRepository.checkBookingField(bookingDetail.getFieldTypeId(), bookingDetail.getTimeFrame());
+            Long quantityBooked = 0L;
+            for (BookingDetail bookingDetail1 : bookingDup) {
+                quantityBooked = quantityBooked + bookingDetail1.getQuantity();
+            }
+            FieldType fieldType = stadiumServiceClient.findFieldById(bookingDetail.getFieldTypeId());
+            if(bookingDetail.getQuantity() + quantityBooked > fieldType.getQuantity()){
                 return false;
             }
         }

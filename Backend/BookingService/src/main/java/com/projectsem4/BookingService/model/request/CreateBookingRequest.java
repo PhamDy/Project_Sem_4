@@ -18,9 +18,7 @@ public class CreateBookingRequest {
     private Long bookingId;
     private Long fieldId;
     private Long userId;
-    private LocalDate bookingDate;
-    private Integer timeFrameId;
-    private BigDecimal totalPrice;
+    private Long totalPrice;
     private String paymentStatus;
     private Integer paymentMethod;
     private List<BookingAccessory> bookingAccessory;

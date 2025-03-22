@@ -15,9 +15,7 @@ import java.util.List;
 public interface BookingDetailRepository extends JpaRepository<BookingDetail, Long> {
     @Query("SELECT b FROM BookingDetail b WHERE "
             + "(:fieldId IS NULL OR :fieldId = b.fieldId) "
-            + "AND (:bookingDate IS NULL OR :bookingDate = b.bookingDate)"
             + "AND (:timeFrame IS NULL OR :timeFrame = b.timeFrame)")
     List<BookingDetail> checkBookingField(@Param("fieldId") Long fieldId,
-                                    @Param("bookingDate") LocalDate bookingDate,
-                                    @Param("timeFrame") Integer timeFrame);
+                                    @Param("timeFrame") Long timeFrame);
 }

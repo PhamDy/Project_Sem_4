@@ -4,6 +4,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AreaListComponent } from './pages/area/area-list/area-list.component';
 import { TimeFrameListComponent } from './pages/timeFrame/time-frame-list/time-frame-list.component';
 import { TimeFrameFormComponent } from './pages/timeFrame/time-frame-form/time-frame-form.component';
+import { AreaFormComponent } from './pages/area/area-form/area-form.component';
 
 const routes: Routes = [
   {
@@ -14,10 +15,14 @@ const routes: Routes = [
     path: "area",
     component: AreaListComponent
   },
-  // {
-  //   path: "product/:id",
-  //   component: ProductFormComponent
-  // },
+  {
+    path: "editArea",
+    component: AreaFormComponent
+  },
+  {
+    path: "area/:areaId",
+    component: AreaFormComponent
+  },
   // {
   //   path: "newProduct",
   //   component: ProductFormComponent

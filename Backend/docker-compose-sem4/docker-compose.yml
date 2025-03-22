@@ -1,60 +1,116 @@
 ---
 version: '3.8'
 services:
+  mysql-db:
+    image: mysql:8
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: project
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mynetwork
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
   serviceregistry:
     image: 'phamdy/sem4-service-registry'
     container_name: service-registry
     ports:
       - '8761:8761'
+    networks:
+      - mynetwork
   configserver:
     image: 'phamdy/sem4-config-service'
     container_name: config-server
     ports:
       - '9296:9296'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://configserver:9296/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - serviceregistry
+    networks:
+      - mynetwork
   cloudgateway:
     image: 'phamdy/sem4-gateway-server'
     container_name: gateway-server
     ports:
       - '9094:9094'
-  bookingservice:
-    image: 'phamdy/sem4-booking-service'
-    container_name: booking-service
-    ports:
-      - '9002:9002'
-  notificationservice:
-    image: 'phamdy/sem4-notification-service'
-    container_name: notification-service
-    ports:
-      - '9008:9008'
-  orderservice:
-    image: 'phamdy/sem4-order-service'
-    container_name: order-service
-    ports:
-      - '9005:9005'
-  paymentservice:
-    image: 'phamdy/sem4-payment-service'
-    container_name: payment-service
-    ports:
-      - '9007:9007'
-  productservice:
-    image: 'phamdy/sem4-product-service'
-    container_name: product-service
-    ports:
-      - '9004:9004'
+    environment:
+      - CONFIG_SERVER_URL=configserver
+    depends_on:
+      configserver:
+        condition: service_healthy
+    networks:
+      - mynetwork
   stadiumservice:
     image: 'phamdy/sem4-stadium-service'
     container_name: stadium-service
     ports:
       - '9001:9001'
-  tournamentservice:
-    image: 'phamdy/sem4-tournament-service'
-    container_name: tournament-service
-    ports:
-      - '9006:9006'
-  usersservice:
-    image: 'phamdy/sem4-users-service'
-    container_name: users-service
-    ports:
-      - '9003:9003'
+    environment:
+      - CONFIG_SERVER_URL=configserver
+      - DB_HOST=mysql-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=project
+    depends_on:
+      configserver:
+        condition: service_healthy
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - mynetwork
+#  bookingservice:
+#    image: 'phamdy/sem4-booking-service'
+#    container_name: booking-service
+#    ports:
+#      - '9002:9002'
+#  notificationservice:
+#    image: 'phamdy/sem4-notification-service'
+#    container_name: notification-service
+#    ports:
+#      - '9008:9008'
+#  orderservice:
+#    image: 'phamdy/sem4-order-service'
+#    container_name: order-service
+#    ports:
+#      - '9005:9005'
+#  paymentservice:
+#    image: 'phamdy/sem4-payment-service'
+#    container_name: payment-service
+#    ports:
+#      - '9007:9007'
+#  productservice:
+#    image: 'phamdy/sem4-product-service'
+#    container_name: product-service
+#    ports:
+#      - '9004:9004'
+#  tournamentservice:
+#    image: 'phamdy/sem4-tournament-service'
+#    container_name: tournament-service
+#    ports:
+#      - '9006:9006'
+#  usersservice:
+#    image: 'phamdy/sem4-users-service'
+#    container_name: users-service
+#    ports:
+#      - '9003:9003'
+networks:
+  mynetwork:
 
-
+volumes:
+  mysql_data:

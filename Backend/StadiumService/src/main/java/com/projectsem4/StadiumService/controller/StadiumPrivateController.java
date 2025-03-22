@@ -1,7 +1,7 @@
 package com.projectsem4.StadiumService.controller;
 
 import com.projectsem4.StadiumService.entity.Accessory;
-import com.projectsem4.StadiumService.entity.Area;
+import com.projectsem4.StadiumService.entity.FieldType;
 import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
@@ -9,16 +9,11 @@ import com.projectsem4.StadiumService.service.AreaService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.util.Pair;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,10 +45,21 @@ public class StadiumPrivateController {
         return ResponseEntity.ok("Area deleted");
     }
 
+    @PostMapping("/fieldType")
+    public ResponseEntity<?> createFieldType(@RequestBody FieldType fieldType, @RequestParam Long areaId) {
+        return ResponseEntity.ok(areaService.createFieldType(fieldType));
+    }
 
-    @PostMapping("/field")
-    public ResponseEntity<Boolean> createField(@RequestBody FieldTypeRequest areaCreateRequest, @RequestParam Long areaId) {
-        return ResponseEntity.ok(areaService.createField(areaCreateRequest,areaId));
+
+    @GetMapping("/fieldType")
+    public ResponseEntity<?> getListFieldType(Pageable pageable) {
+        return ResponseEntity.ok(areaService.getListFieldType(pageable));
+    }
+
+    @DeleteMapping("/fieldType/{fieldTypeId}")
+    public ResponseEntity<?> deleteFieldType(@PathVariable Long fieldTypeId) {
+        areaService.deleteFieldTypeById(fieldTypeId);
+        return ResponseEntity.ok("FieldType deleted");
     }
 
     @PostMapping("/accessory")

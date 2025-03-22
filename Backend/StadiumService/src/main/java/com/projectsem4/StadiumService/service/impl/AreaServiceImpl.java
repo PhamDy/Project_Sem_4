@@ -12,16 +12,13 @@ import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.repository.*;
 import com.projectsem4.StadiumService.service.AreaService;
 import com.projectsem4.StadiumService.service.FileService;
-import com.projectsem4.StadiumService.util.FileUtil;
 import com.projectsem4.common_service.dto.constant.Constant;
 import com.projectsem4.common_service.dto.entity.*;
 import com.projectsem4.common_service.dto.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -106,7 +103,12 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Page<AreaCreateRequest> getListArea(Pageable pageable) {
-        Page<Area> areas = areaRepository.findAll(pageable);
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber() - 1,
+                pageable.getPageSize(),
+                Sort.by("areaId").descending()
+        );
+        Page<Area> areas = areaRepository.findAll(sortedPageable);
 
         // Lấy danh sách ID của các Area để lấy FileDb tương ứng
         List<Long> areaIds = areas.getContent().stream()
@@ -139,15 +141,46 @@ public class AreaServiceImpl implements AreaService {
         Area area = areaRepository.getById(areaId);
         if (area.getAreaId()!=null){
             areaRepository.delete(area);
+            List<FileDb> fileDb = fileRepository.findByObjectIdAndTypeFile(areaId, TypeFileEnum.TYPE_FILE_1.getKey());
+            if (fileDb!=null && !fileDb.isEmpty()){
+                fileRepository.deleteAll(fileDb);
+            }
+        }
+    }
+
+    @Override
+    public Long createFieldType(FieldType fieldTypeRequest) {
+        if (fieldTypeRequest.getFieldTypeId()!=null){
+            FieldType fieldType1 = fieldTypeRepository.findById(fieldTypeRequest.getFieldTypeId()).get();
+            if (fieldType1.getFieldTypeId()!=null){
+                modelMapper.map(fieldType1, fieldTypeRequest);
+            }
+            return fieldType1.getFieldTypeId();
+        }else {
+            return fieldTypeRepository.save(fieldTypeRequest).getFieldTypeId();
+        }
+    }
+
+    @Override
+    public Page<FieldType> getListFieldType(Pageable pageable) {
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber() - 1,
+                pageable.getPageSize(),
+                Sort.by("fieldTypeId").descending()
+        );
+        return fieldTypeRepository.findAll(sortedPageable);
+    }
+
+    @Override
+    public void deleteFieldTypeById(Long fieldTypeId) {
+        FieldType fieldType = fieldTypeRepository.getById(fieldTypeId);
+        if (fieldType.getAreaId()!=null){
+            fieldTypeRepository.delete(fieldType);
         }
     }
 
 
-    @Override
-    public Boolean createField(FieldTypeRequest fieldTypeRequest, Long areaId) {
 
-        return true;
-    }
 
     @Override
     public AreaDetailAdmin findById(Long id) {
@@ -155,7 +188,7 @@ public class AreaServiceImpl implements AreaService {
         return null;
     }
 
-    
+
     @Override
     public Boolean createAccessory(Accessory requestAccessory) {
         accessoryRepository.save(requestAccessory);
@@ -191,9 +224,8 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object findFieldByIdAndCalender(Long id, Long index) {
-        List<Field> fields = fieldRepository.findByFieldTypeId(id);
-        List<Long> fieldIds = fields.stream().map(Field::getFieldId).toList();
-        Map<TimeFrameDate,Boolean> schedule = bookingServiceClient.calenderSchedule(LocalDate.now().plusDays(7 * index), fieldIds);
+        List<FieldType> fields = fieldRepository.findByFieldTypeId(id);
+        Map<TimeFrameDate,Boolean> schedule = bookingServiceClient.calenderSchedule(LocalDate.now().plusDays(7 * index), fields.stream().map(FieldType::getFieldTypeId).toList());
         FieldType fieldType = fieldTypeRepository.findById(id).orElse(null);
 
         ResponseSchedule list = new ResponseSchedule();
@@ -213,7 +245,7 @@ public class AreaServiceImpl implements AreaService {
             List<FieldSchedule> fieldSchedules = new ArrayList<>();
             fields.forEach(field->{
                 FieldSchedule obj = new FieldSchedule();
-                obj.setFieldId(field.getFieldId());
+                obj.setFieldId(field.getFieldTypeId());
                 obj.setFieldName(field.getName());
                 List<FieldDateSchedule> fieldDateSchedules = new ArrayList<>();
                 for (int i = 0; i <= 6; i++) {
@@ -223,7 +255,7 @@ public class AreaServiceImpl implements AreaService {
                     TimeFrameDate timeFrameDate = new TimeFrameDate();
                     timeFrameDate.setTimeFrame(item.getKey());
                     timeFrameDate.setDate(LocalDate.now().plusDays(i + index * 7));
-                    timeFrameDate.setFieldId(field.getFieldId());
+                    timeFrameDate.setFieldId(field.getFieldTypeId());
                     fieldDateSchedule.setIsBooking(schedule.get(timeFrameDate));
                     fieldDateSchedules.add(fieldDateSchedule);
                 }
@@ -267,21 +299,7 @@ public class AreaServiceImpl implements AreaService {
                 fieldTypeRequest.setFieldTypeId(fieldType.getFieldTypeId());
                 fieldTypeRequest.setName(fieldType.getName());
                 fieldTypeRequest.setDescription(fieldType.getDescription());
-//                fieldTypeRequest.setEmail(fieldType.getEmail());
-//                fieldTypeRequest.setPhoneNumber(fieldType.getPhoneNumber());
                 fieldTypeRequest.setSize(fieldType.getSize());
-//                List<PriceRequest> priceRequests = new ArrayList<>();
-//                List<TimeFrame> timeFrames = priceRepository.findByFieldId(fieldType.getFieldTypeId());
-//                timeFrames.forEach(timeFrame -> {
-//                    PriceRequest priceRequest = new PriceRequest();
-//                    priceRequest.setPriceFrom(timeFrame.getTimeFrom());
-//                    priceRequest.setPriceTo(timeFrame.getTimeTo());
-//                    priceRequest.setPrice(timeFrame.getPrice());
-//                    priceRequest.setFieldId(timeFrame.getFieldId());
-//                    priceRequests.add(priceRequest);
-//                });
-//                fieldTypeRequest.setPrices(priceRequests);
-//                fieldTypeRequests.add(fieldTypeRequest);
             });
             response.setFields(fieldTypeRequests);
             result.add(response);
@@ -291,25 +309,26 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object findAllFieldInArea(Long areaId) {
-        Area area = areaRepository.findById(areaId).get();
-        if (area.getAreaId()==null){
-            throw new NotFoundException("Area not found");
-        }
-        AreaResponse areaResponse = modelMapper.map(area, AreaResponse.class);
-        List<FieldType> fieldTypes = fieldTypeRepository.findByAreaId(areaId);
-        List<FieldTypeResponse> fieldTypeResponses = new ArrayList<>();
-        fieldTypes.forEach(fieldType -> {
-            FieldTypeResponse fieldTypeResponse = modelMapper.map(fieldType, FieldTypeResponse.class);
-            List<Field> fields = fieldRepository.findByFieldTypeId(fieldType.getFieldTypeId());
-            List<FieldResponse> fieldResponses = new ArrayList<>();
-            fields.forEach(item->{
-                FieldResponse fieldResponse = modelMapper.map(item, FieldResponse.class);
-                fieldResponses.add(fieldResponse);
-            });
-        fieldTypeResponses.add(fieldTypeResponse);
-        });
-        areaResponse.setFieldTypeResponseList(fieldTypeResponses);
-        return areaResponse;
+//        Area area = areaRepository.findById(areaId).get();
+//        if (area.getAreaId()==null){
+//            throw new NotFoundException("Area not found");
+//        }
+//        AreaResponse areaResponse = modelMapper.map(area, AreaResponse.class);
+//        List<FieldType> fieldTypes = fieldTypeRepository.findByAreaId(areaId);
+//        List<FieldTypeResponse> fieldTypeResponses = new ArrayList<>();
+//        fieldTypes.forEach(fieldType -> {
+//            FieldTypeResponse fieldTypeResponse = modelMapper.map(fieldType, FieldTypeResponse.class);
+//            List<Field> fields = fieldRepository.findByFieldTypeId(fieldType.getFieldTypeId());
+//            List<FieldResponse> fieldResponses = new ArrayList<>();
+//            fields.forEach(item->{
+//                FieldResponse fieldResponse = modelMapper.map(item, FieldResponse.class);
+//                fieldResponses.add(fieldResponse);
+//            });
+//        fieldTypeResponses.add(fieldTypeResponse);
+//        });
+//        areaResponse.setFieldTypeResponseList(fieldTypeResponses);
+//        return areaResponse;
+        return true;
     }
 
 

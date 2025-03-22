@@ -6,17 +6,34 @@
   <component name="ChangeListManager">
     <list default="true" id="1e2c17d2-66c5-4a10-8c8b-3a8f706a88e4" name="Changes" comment="DistrictEnum">
       <change afterPath="$PROJECT_DIR$/Gateway-server/src/main/java/com/projectsem4/Gateway_server/config/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/config/AmazonS3Config.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/TestController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/FileService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/impl/FileServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/controller/BookingPrivateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/controller/BookingPrivateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/entity/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/entity/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/model/request/CreateBookingRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/model/request/CreateBookingRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/repository/BookingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/repository/BookingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/service/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/service/BookingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/service/impl/BookingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/java/com/projectsem4/BookingService/service/impl/BookingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BookingService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/BookingService/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/config/client/BookingServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/config/client/BookingServiceClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/DistrictEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/DistrictEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/PeekDayEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/TimeFrameEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/constant/TypeTimeFrameEnum.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/StadiumPrivateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/StadiumPrivateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/StadiumPublicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/controller/StadiumPublicController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/entity/Area.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/AreaCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/model/request/AreaCreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FieldRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/repository/FieldRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/AreaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/AreaService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/impl/AreaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/service/impl/AreaServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/util/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/java/com/projectsem4/StadiumService/util/FileUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StadiumService/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/StadiumService/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-service/src/main/java/com/projectsem4/common_service/dto/constant/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/common-service/src/main/java/com/projectsem4/common_service/dto/constant/Constant.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,18 +252,18 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Docker.common-service/Dockerfile" />
       <item itemvalue="Spring Boot.BookingServiceApplication" />
+      <item itemvalue="Spring Boot.ConfigServerApplication" />
       <item itemvalue="Spring Boot.GatewayServerApplication" />
       <item itemvalue="Spring Boot.NotificationServiceApplication" />
       <item itemvalue="Spring Boot.OrderServiceApplication" />
       <item itemvalue="Spring Boot.PaymentServiceApplication" />
       <item itemvalue="Spring Boot.ProductServiceApplication" />
+      <item itemvalue="Spring Boot.ServiceRegistryApplication" />
       <item itemvalue="Spring Boot.StadiumServiceApplication" />
       <item itemvalue="Spring Boot.TournamentServiceApplication" />
       <item itemvalue="Spring Boot.UsersServiceApplication" />
-      <item itemvalue="Spring Boot.ConfigServerApplication" />
-      <item itemvalue="Spring Boot.ServiceRegistryApplication" />
+      <item itemvalue="Docker.common-service/Dockerfile" />
     </list>
     <recent_temporary>
       <list>
@@ -294,6 +311,13 @@
       <workItem from="1740908471936" duration="5100000" />
       <workItem from="1740922065148" duration="3098000" />
       <workItem from="1740963827352" duration="16000" />
+      <workItem from="1740999504790" duration="731000" />
+      <workItem from="1741014944038" duration="1597000" />
+      <workItem from="1741049153199" duration="713000" />
+      <workItem from="1741053928087" duration="18000" />
+      <workItem from="1741082629375" duration="1317000" />
+      <workItem from="1741087013084" duration="6131000" />
+      <workItem from="1741136173165" duration="5000" />
     </task>
     <task id="LOCAL-00001" summary="Quang Thái phong bat">
       <option name="closed" value="true" />

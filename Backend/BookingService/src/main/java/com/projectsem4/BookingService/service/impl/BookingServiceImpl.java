@@ -31,13 +31,14 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final BookingAccessoryRepository bookingAccessoryRepository;
     private final BookingRefereeRepository bookingRefereeRepository;
-//    private final StadiumServiceClient stadiumServiceClient;
+    private final StadiumServiceClient stadiumServiceClient;
     private final BookingDetailRepository bookingDetailRepository;
 
     @Override
     public void createBooking(CreateBookingRequest request) {
         Booking booking = new Booking();
         booking.setUserId(request.getUserId());
+        booking.setTotalPrice(request.getTotalPrice());
         bookingRepository.save(booking);
         bookingDetailRepository.saveAll(request.getBookingDetails());
         bookingAccessoryRepository.saveAll(request.getBookingAccessory());
@@ -71,7 +72,7 @@ public class BookingServiceImpl implements BookingService {
 
     public Boolean checkQuantityBooking(CreateBookingRequest booking) {
         for (BookingDetail bookingDetail : booking.getBookingDetails()) {
-            List<BookingDetail> bookingDup = bookingDetailRepository.checkBookingField(bookingDetail.getFieldId(), booking.getBookingDate(), booking.getTimeFrameId());
+            List<BookingDetail> bookingDup = bookingDetailRepository.checkBookingField(bookingDetail.getFieldId(), bookingDetail.getTimeFrame());
             if(!bookingDup.isEmpty()){
                 return false;
             }
@@ -104,7 +105,7 @@ public class BookingServiceImpl implements BookingService {
                     timeFrameDate.setFieldId(fieldId);
                     timeFrameDate.setDate(date1);
                     timeFrameDate.setTimeFrame(item.getKey());
-                    result.put(timeFrameDate,bookingDetailRepository.checkBookingField(fieldId,date1,item.getKey()).isEmpty());
+                    result.put(timeFrameDate,bookingDetailRepository.checkBookingField(fieldId,item.getKey()).isEmpty());
                 });
             }
         }

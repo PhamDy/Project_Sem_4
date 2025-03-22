@@ -9,6 +9,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class TimeFrameDate {
     private Long fieldId;
-    private Integer timeFrame;
+    private Long timeFrame;
     private LocalDate date;
 }

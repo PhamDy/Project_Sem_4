@@ -106,14 +106,14 @@ public class Constant {
     @AllArgsConstructor
     public enum TimeFrameEnum {
 
-        TF_1(1, "10h00 - 11h30",1.0),
-        TF_2(2, "15h00 - 16h30",1.0),
-        TF_3(3, "15h00 - 16h30",1.0),
-        TF_4(4, "17h00 - 18h30",1.0),
-        TF_5(5, "19h00 - 20h30",1.0),
-        TF_6(6, "21h00 - 22h30",1.0);
+        TF_1(1L, "10h00 - 11h30",1.0),
+        TF_2(2L, "15h00 - 16h30",1.0),
+        TF_3(3L, "15h00 - 16h30",1.0),
+        TF_4(4L, "17h00 - 18h30",1.0),
+        TF_5(5L, "19h00 - 20h30",1.0),
+        TF_6(6L, "21h00 - 22h30",1.0);
 
-        private Integer key;
+        private Long key;
         private String value;
         private Double scale;
 

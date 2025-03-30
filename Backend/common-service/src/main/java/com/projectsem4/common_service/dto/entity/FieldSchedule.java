@@ -14,6 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 public class FieldSchedule {
     Long fieldId;
-    String fieldName;
-    List<FieldDateSchedule> fieldDateScheduleList;
+    Long timeFrame;
+//    String fieldName;
+    Long quantity;
+//    LocalDate date;
+    Long price;
 }

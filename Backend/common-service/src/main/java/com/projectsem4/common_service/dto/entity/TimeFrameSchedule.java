@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -12,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TimeFrameSchedule {
-    Long timeFrame;
+    LocalDate date;
+    String dateString;
     List<FieldSchedule> fieldSchedules;
 }

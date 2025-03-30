@@ -4,6 +4,7 @@ import com.projectsem4.StadiumService.config.FeignConfig;
 
 import com.projectsem4.common_service.dto.entity.Price;
 import com.projectsem4.common_service.dto.entity.TimeFrameDate;
+import com.projectsem4.common_service.dto.entity.TimeFrameSchedule;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,5 +17,5 @@ import java.util.Map;
 public interface BookingServiceClient {
 
     @PostMapping(value = "/private/api/v1/calender", consumes = "application/json")
-    Map<TimeFrameDate,Boolean> calenderSchedule(@RequestParam("date") LocalDate date, @RequestBody List<Long> fieldId);
+    List<TimeFrameSchedule> calenderSchedule(@RequestParam("date") LocalDate date, @RequestParam Long fieldId);
 }

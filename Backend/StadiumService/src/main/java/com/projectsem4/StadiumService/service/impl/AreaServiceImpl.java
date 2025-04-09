@@ -45,8 +45,30 @@ public class AreaServiceImpl implements AreaService {
     private final BookingServiceClient bookingServiceClient;
 
     @Override
-    public Page<AreaDetailAdmin> findAllAreas(Pageable pageable) {
-        return null;
+    public List<AreaResponse> findAllAreas(Pageable pageable) {
+        List<Area> areas = areaRepository.findAll();
+//        if (area.getAreaId()==null){
+//            throw new NotFoundException("Area not found");
+//        }
+        List<AreaResponse> result = new ArrayList<>();
+        areas.forEach(area->{
+            AreaResponse areaResponse = modelMapper.map(area, AreaResponse.class);
+            List<FieldType> fieldTypes = fieldTypeRepository.findByAreaId(area.getAreaId());
+            List<FieldTypeResponse> fieldTypeResponses = new ArrayList<>();
+            fieldTypes.forEach(fieldType -> {
+                FieldTypeResponse fieldTypeResponse = modelMapper.map(fieldType, FieldTypeResponse.class);
+                List<FieldType> fields = fieldRepository.findByFieldTypeId(fieldType.getFieldTypeId());
+                List<FieldResponse> fieldResponses = new ArrayList<>();
+                fields.forEach(item->{
+                    FieldResponse fieldResponse = modelMapper.map(item, FieldResponse.class);
+                    fieldResponses.add(fieldResponse);
+                });
+                fieldTypeResponses.add(fieldTypeResponse);
+            });
+            areaResponse.setFieldTypeResponseList(fieldTypeResponses);
+            result.add(areaResponse);
+        });
+        return result;
     }
 
     private final FileService fileService;
@@ -146,6 +168,12 @@ public class AreaServiceImpl implements AreaService {
                 fileRepository.deleteAll(fileDb);
             }
         }
+    }
+
+    @Override
+    public Area findAreaById(Long areaId) {
+        Area area = areaRepository.findAreaByAreaId(areaId);
+        return area;
     }
 
     @Override

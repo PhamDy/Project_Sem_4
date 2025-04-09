@@ -1,0 +1,67 @@
+<div class="info-title">
+  <h1>Thông tin thanh toán</h1>
+</div>
+<div class="payment-container">
+  <!-- Phần 1: Nhập thông tin người dùng -->
+  <div class="payment-section user-info">
+    <h3>Thông tin người dùng</h3>
+    <label>Họ và Tên:</label>
+    <input type="text" [(ngModel)]="userInfo.name" placeholder="Nhập họ và tên">
+
+    <label>Số điện thoại:</label>
+    <input type="text" [(ngModel)]="userInfo.phone" placeholder="Nhập số điện thoại">
+
+    <label>Email:</label>
+    <input type="email" [(ngModel)]="userInfo.email" placeholder="Nhập email">
+  </div>
+
+  <!-- Phần 2: Chọn phương thức thanh toán -->
+  <div class="payment-section payment-methods">
+    <h3>Phương thức thanh toán</h3>
+    <label class="pay-card">
+      <input type="radio" name="paymentMethod" value="VNPay" [(ngModel)]="paymentMethod"> VNPay
+    </label >
+    <label class="pay-card">
+      <input type="radio" name="paymentMethod" value="PayOS" [(ngModel)]="paymentMethod"> PayOS
+    </label>
+    <label class="pay-card">
+      <input type="radio" name="paymentMethod" value="MoMo" [(ngModel)]="paymentMethod"> MoMo
+    </label>
+  </div>
+
+  <!-- Phần 3: Danh sách sân đã đặt -->
+  <div class="payment-section booked-fields">
+    <h3>Danh sách sân đã đặt</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>Ngày</th>
+        <th>Giờ</th>
+        <th>Sân</th>
+        <th>Giá</th>
+        <th>Hủy</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let field of selectedFields; let i = index">
+        <td>{{ field.day }}</td>
+        <td>{{ field.time }}</td>
+        <td>{{ field.name }}</td>
+        <td>{{ field.price }}</td>
+        <td>
+          <button class="cancel-button" (click)="removeField(i)">❌</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="total">Tổng tiền đặt cọc: {{ getTotalPrice() | currency:'VND' }}</p>
+    <p class="total">50% còn lại sẽ thanh toán tại sân,đọc điều khoản :<a href="#">Tại đây</a></p>
+  </div>
+</div>
+
+
+<!-- Nút xác nhận thanh toán -->
+<div class="button-container">
+  <button class="confirm-button" (click)="confirmPayment()">Xác nhận thanh toán</button>
+</div>
+<button class="back-button" (click)="goBack()">⬅ Trở về</button>

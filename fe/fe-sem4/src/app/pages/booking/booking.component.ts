@@ -54,6 +54,7 @@ export class BookingComponent implements OnInit {
       // }
       // this.getAreaByCondition(findAreaRequest);
     });
+    this.getAllStadiums();
     const findAreaRequest: any = {
       distance: 3,
       // latitude:  this.latitude,
@@ -62,7 +63,6 @@ export class BookingComponent implements OnInit {
       longitude: 105.784673,
     }
     this.getAreaByCondition(findAreaRequest);
-    this.getAllStadiums();
   }
 
   performSearch(query: string): void {
@@ -76,7 +76,7 @@ export class BookingComponent implements OnInit {
   getAllStadiums(): void {
     this.stadiumService.getAllStadiumPageable().subscribe(
       (res) => {
-        this.dataStadium = res.content;
+        this.dataStadium = res;
         console.log("data is:", this.dataStadium);
       },
       (error) => {
@@ -119,9 +119,11 @@ export class BookingComponent implements OnInit {
   // Hàm xem chi tiết sân bóng
   viewDetail(stadiumId: number): void {
     this.stadiumDetail = this.dataStadium.find(stadium => stadium.areaId === stadiumId);
-    console.log("detail area", this.stadiumDetail);
     this.showDetailPopup = true;
-    console.log('Detail of Stadium:', this.stadiumDetail);
+  }
+
+  onClickBooking(id: any) {
+    this.router.navigate(['/booking-area'], { queryParams: { id: id } });
   }
 
   initMap(): void {
@@ -151,8 +153,6 @@ export class BookingComponent implements OnInit {
     this.showMap = false;
   }
 
-  onClickBooking(id: any) {
-    this.router.navigate(['/booking-area'], { queryParams: { id: id } });
-  }
+
 
 }

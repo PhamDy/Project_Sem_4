@@ -23,6 +23,7 @@ import { Content5Component } from './pages/home-page/content-5/content-5.compone
 import { RouterModule } from '@angular/router';
 import { ContentBooking1Component } from './pages/booking/content-booking1/content-booking1.component';
 import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/booking-detail-area.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/
     Content5Component,
     ContentBooking1Component,
     BookingDetailAreaComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,

@@ -285,6 +285,17 @@ button:active {
 .field-detail:hover {
   transform: scale(1.05);
 }
+.main-containers{
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  margin-top: 150px;
+}
+.buttonBook{
+  padding: 40px 100px 40px 100px;
+  background-color: #00abd1;
+  color: #ffffff;
+  border: 0 solid ;
+  border-radius: 10px;
+}
 
 .field-detail p{
   margin-top: 80px;
@@ -294,3 +305,316 @@ button:active {
   font-size: 60px;
   text-align: center;
 }
+
+.stadium-container{
+
+  background-color: #e8e8e8;
+  display: flex;
+}
+
+.stadium-image img{
+  width:1000px;
+}
+
+
+.stadium-infor {
+  width: 100%;
+  padding: 80px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.stadium-info h1 {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.stadium-info p {
+  font-size: 18px;
+  color: #555;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.stadium-info .address {
+  font-weight: bold;
+  color: #007BFF;
+}
+
+.stadium-info strong {
+  color: #2c3e50;
+}
+
+/* Hiệu ứng hover */
+.stadium-info p:hover {
+  color: #007BFF;
+  transition: 0.3s;
+}
+
+.container {
+  width: 400px;
+  margin: auto;
+  text-align: center;
+}
+
+.time-inputs {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.main-container{
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  margin-top: 100px;
+}
+.disabled {
+  background-color: #e4e4e4 !important; /* Màu xám */
+  color: #666;
+  pointer-events: none; /* Chặn click */
+  cursor: not-allowed; /* Đổi con trỏ chuột */
+  text-align: center;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.time-inputs input {
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+}
+
+.time-list {
+  list-style: none;
+  padding: 0;
+}
+
+.time-list li {
+  background: #f3f3f3;
+  margin: 5px 0;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time-list button {
+  background: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+th {
+  background-color: #f2f2f2;
+}
+.choose-field:hover{
+  background-color: rgb(237, 237, 237);
+  border-radius: 7px;
+}
+
+.choose-field {
+  cursor: pointer;
+  padding: 8px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ffffff;
+  text-align: center;
+  transition: 0.5s all ease;
+}
+
+.choose-field:hover {
+  background-color: rgb(0, 209, 232);
+  color: #ffffff;
+  transform: scale(1.01);
+}
+
+.choose-field.selected {
+  background-color: rgb(150, 255, 150); /* Màu xanh khi được chọn */
+  font-weight: bold;
+}
+
+.payment-btn {
+  bottom: 20px;
+  left: 20px;
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: auto;
+}
+
+.payment-btn:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.selected-fields-container {
+  margin-top: 20px;
+  width: 50%;
+}
+
+.booking-options label {
+  margin-right: 20px;
+}
+
+.booking-options{
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+
+
+
+.selected-fields-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.selected-fields-table th, .selected-fields-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.selected-fields-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.selected-fields-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.selected-fields-table tr:hover {
+  background-color: #ddd;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Hiệu ứng mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Khung popup */
+.popup {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+/* Tiêu đề popup */
+.popup h2 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Các label và input */
+.popup label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.popup input,
+.popup select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Checkboxes ngày đá */
+.popup .checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.popup .checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+/* Nút bấm */
+.popup button {
+  width: 48%;
+  padding: 10px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.popup button:first-of-type {
+  background: #28a745;
+  color: white;
+}
+
+.popup button:last-of-type {
+  background: #dc3545;
+  color: white;
+}
+
+.popup button:hover {
+  opacity: 0.8;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  height: auto;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+

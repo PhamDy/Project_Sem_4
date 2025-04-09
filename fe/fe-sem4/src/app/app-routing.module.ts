@@ -7,6 +7,7 @@ import { BookingComponent } from './pages/booking/booking.component';
 import { TournamentComponent } from './pages/tournament/tournament.component';
 import { LoginComponent } from './pages/login/login.component';
 import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/booking-detail-area.component';
+import {PaymentComponent} from './pages/payment/payment.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'booking',
     component: BookingComponent
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent
   },
   {
     path: 'booking-area',

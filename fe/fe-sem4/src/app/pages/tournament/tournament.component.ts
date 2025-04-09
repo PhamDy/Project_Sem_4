@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { weekSchedule} from './schedule-data';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-tournament',
@@ -7,29 +9,30 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrl: './tournament.component.css'
 })
 export class TournamentComponent {
-  timeForm: FormGroup;
-  timeSlots: string[] = [];
+  weekSchedule = weekSchedule;
+  selectedFields: { time: string; name: string; price: string; day: string }[] = [];
 
-  constructor(private fb: FormBuilder) {
-    this.timeForm = this.fb.group({
-      fromHour: [''],
-      fromMinute: [''],
-      toHour: [''],
-      toMinute: ['']
-    });
-  }
+  constructor(private router: Router) {}
 
-  addTimeSlot() {
-    const { fromHour, fromMinute, toHour, toMinute } = this.timeForm.value;
+  choose(time: string, name: string, price: string, day: string) {
+    const index = this.selectedFields.findIndex(
+      field => field.time === time && field.name === name && field.day === day
+    );
 
-    if (fromHour !== '' && fromMinute !== '' && toHour !== '' && toMinute !== '') {
-      const timeSlot = `${fromHour}h${fromMinute} - ${toHour}h${toMinute}`;
-      this.timeSlots.push(timeSlot);
-      this.timeForm.reset();
+    if (index === -1) {
+      this.selectedFields.push({ time, name, price, day }); // Chọn sân
+    } else {
+      this.selectedFields.splice(index, 1); // Bỏ chọn nếu đã chọn trước đó
     }
   }
 
-  removeTimeSlot(index: number) {
-    this.timeSlots.splice(index, 1);
+  isSelected(time: string, name: string, day: string): boolean {
+    return this.selectedFields.some(field => field.time === time && field.name === name && field.day === day);
+  }
+
+  goToPayment() {
+    this.router.navigate(['/payment'], {
+      queryParams: { selectedFields: JSON.stringify(this.selectedFields) }
+    });
   }
 }

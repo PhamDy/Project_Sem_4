@@ -6,6 +6,7 @@ import com.projectsem4.common_service.dto.entity.Price;
 import com.projectsem4.common_service.dto.entity.TimeFrameDate;
 import com.projectsem4.common_service.dto.entity.TimeFrameSchedule;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -17,5 +18,9 @@ import java.util.Map;
 public interface BookingServiceClient {
 
     @PostMapping(value = "/private/api/v1/calender", consumes = "application/json")
+<<<<<<< Updated upstream
     List<TimeFrameSchedule> calenderSchedule(@RequestParam("date") LocalDate date, @RequestParam Long fieldId);
+=======
+    ResponseEntity<List<TimeFrameDate>> calenderSchedule(@RequestParam("date") LocalDate date, @RequestBody List<Long> fieldId);
+>>>>>>> Stashed changes
 }

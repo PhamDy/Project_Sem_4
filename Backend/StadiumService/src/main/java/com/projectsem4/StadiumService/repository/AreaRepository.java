@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AreaRepository extends JpaRepository<Area, Long> {
     Page<Area> findAllByOrderByNameAsc(Pageable pageable);
+    Area findAreaByAreaId(Long areaId);
 }

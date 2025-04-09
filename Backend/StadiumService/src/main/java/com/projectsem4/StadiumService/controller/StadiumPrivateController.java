@@ -8,6 +8,7 @@ import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.service.AreaService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -109,7 +110,17 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findFieldByIdAndCalender(id,index));
     }
 
+    @GetMapping("/find-area-by-id")
+    public ResponseEntity<?> findAreaById(@RequestParam Long id) {
+        return ResponseEntity.ok(areaService.findAreaById(id));
+    }
 
+
+//    @PostMapping("/update-area")
+//    public ResponseEntity<Object> updateArea(@ModelAttribute Area area,
+//                                             @RequestParam(value = "img") MultipartFile img) {
+//        return ResponseEntity.ok(areaService.updateArea(area));
+//    }
 
 
 }

@@ -7,7 +7,7 @@ spring:
   application:
     name: stadium-service
   config:
-    import:
+    import: configserver:http://localhost:9296
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:3306/${MYSQL_DATABASE:project}
     username: ${MYSQL_USER:root}

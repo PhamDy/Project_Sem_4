@@ -4,6 +4,7 @@ import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.entity.Price;
 import com.projectsem4.common_service.dto.entity.TimeFrameDate;
+import com.projectsem4.common_service.dto.entity.TimeFrameSchedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ public class BookingPrivateController {
     }
 
     @PostMapping("/calender")
-    public Map<TimeFrameDate,Boolean> calenderSchedule(@RequestBody List<Long> fieldId, @RequestParam LocalDate date) {
+    public List<TimeFrameSchedule> calenderSchedule(@RequestParam Long fieldId, @RequestParam LocalDate date) {
         return bookingService.scheduleClient(fieldId, date);
     }
 }

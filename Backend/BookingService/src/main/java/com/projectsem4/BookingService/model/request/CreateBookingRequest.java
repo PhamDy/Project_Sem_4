@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 public class CreateBookingRequest {
     private Long bookingId;
-    private Long fieldId;
     private Long userId;
     private Long totalPrice;
     private String paymentStatus;

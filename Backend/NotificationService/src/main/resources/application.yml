@@ -9,11 +9,22 @@ spring:
   config:
     import: configserver:http://localhost:9296
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/notificationdb
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/project
     username: root
-    password:
+    password: root
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: phamdacdy@gmail.com
+    password: xtycolcbhgjodvym
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

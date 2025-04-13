@@ -263,7 +263,7 @@ public class AreaServiceImpl implements AreaService {
         calender.add(firstDate);
         calender.add(firstDate.plusDays(6));
         for (int i = 0; i < schedule.size(); i++) {
-            LocalDate ngay = LocalDate.now().plusDays(i * index);
+            LocalDate ngay = LocalDate.now().plusDays(i + (index * 7));
             DayOfWeek thu = ngay.getDayOfWeek();
             schedule.get(i).setDate(ngay);
             String thuTiengViet = thu.getDisplayName(java.time.format.TextStyle.FULL, new Locale("vi", "VN"));
@@ -273,6 +273,7 @@ public class AreaServiceImpl implements AreaService {
             for(Constant.TimeFrameEnum item : Constant.TimeFrameEnum.getAllTimeFrames()){
                 FieldSchedule fieldSchedule = new FieldSchedule();
                 fieldSchedule.setTimeFrame(item.getKey());
+                fieldSchedule.setTimeFrameStr(item.getValue());
                 fieldSchedule.setFieldId(field.getFieldTypeId());
                 fieldSchedule.setPrice((long) (fieldType.getPrice() != null ? fieldType.getPrice() * item.getScale() : 0.0));
                 fieldSchedule.setTimeFrame(item.getKey());

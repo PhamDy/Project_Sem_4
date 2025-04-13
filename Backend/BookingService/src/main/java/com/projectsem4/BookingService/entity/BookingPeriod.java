@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Entity
@@ -13,6 +15,9 @@ public class BookingPeriod {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_period_id", nullable = false)
     private Long id;
+
+    @Column(name = "booking_id")
+    private Long bookingId;
 
     @Column(name = "user_id")
     private Long userId;
@@ -25,4 +30,7 @@ public class BookingPeriod {
 
     @Column(name = "week_day")
     private Long weekDay;
+
+    @Column(name = "month")
+    private LocalDate month;
 }

@@ -1,10 +1,12 @@
 package com.projectsem4.UsersService.service.impl;
 
+import com.projectsem4.UsersService.client.NotificationServiceClient;
 import com.projectsem4.UsersService.dto.UserDTO;
 import com.projectsem4.UsersService.entity.User;
 import com.projectsem4.UsersService.exception.BadRequestException;
 import com.projectsem4.UsersService.repository.UserRepository;
 import com.projectsem4.UsersService.service.UserService;
+import com.projectsem4.common_service.dto.UserInfor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -20,6 +22,7 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final NotificationServiceClient notificationServiceClient;
     private final ModelMapper modelMapper;
 
     @Override
@@ -28,7 +31,7 @@ public class UserServiceImpl implements UserService {
         if (user==null) {
             user = userRepository.findByEmail(userDTO.getEmail());
         }
-        if(user==null){
+        if(user!=null){
             throw new BadRequestException("Username already exists");
         }
         user = modelMapper.map(userDTO, User.class);
@@ -45,7 +48,8 @@ public class UserServiceImpl implements UserService {
         String otp = UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
         user.setOtp(otp);
         userRepository.save(user);
-
+        UserInfor userInfor = modelMapper.map(user, UserInfor.class);
+        notificationServiceClient.sendOtpMail(userInfor);
     }
 
     @Override

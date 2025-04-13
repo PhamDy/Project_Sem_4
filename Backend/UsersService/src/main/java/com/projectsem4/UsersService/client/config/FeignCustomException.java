@@ -4,6 +4,10 @@ public class FeignCustomException extends RuntimeException {
     private int statusCode;
     private String message;
 
+    public FeignCustomException(String message) {
+        super(message);
+    }
+
     public FeignCustomException(int statusCode, String message) {
         super(message);
         this.statusCode = statusCode;

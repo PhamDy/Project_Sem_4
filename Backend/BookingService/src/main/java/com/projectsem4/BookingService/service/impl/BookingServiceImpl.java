@@ -69,10 +69,10 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingRepository.findById(orderId).get();
         if(Objects.equals(status, Constant.OrderStatus.fail)){
             booking.setStatus(status);
-        }
-        else if (checkQuantityBooking(findBookingById(orderId))) {
-            booking.setStatus(Constant.OrderStatus.completed);
-        } else booking.setStatus(Constant.OrderStatus.refund);
+        } else booking.setStatus(Constant.OrderStatus.completed);
+//        else if (checkQuantityBooking(findBookingById(orderId))) {
+//            booking.setStatus(Constant.OrderStatus.completed);
+//        } else booking.setStatus(Constant.OrderStatus.refund);
         return null;
     }
 

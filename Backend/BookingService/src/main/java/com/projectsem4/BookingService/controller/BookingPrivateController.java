@@ -28,6 +28,7 @@ public class BookingPrivateController {
     }
 
     @PostMapping("/create")
+        @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> create(@RequestBody CreateBookingRequest booking) {
         return ResponseEntity.ok(bookingService.createBooking(booking));
     }

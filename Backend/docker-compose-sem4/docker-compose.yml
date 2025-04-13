@@ -11,50 +11,56 @@ services:
     container_name: config-server
     ports:
       - '9296:9296'
+    depends_on:
+      - serviceregistry
   cloudgateway:
     image: 'phamdy/sem4-gateway-server'
     container_name: gateway-server
     ports:
       - '9094:9094'
-  bookingservice:
-    image: 'phamdy/sem4-booking-service'
-    container_name: booking-service
-    ports:
-      - '9002:9002'
-  notificationservice:
-    image: 'phamdy/sem4-notification-service'
-    container_name: notification-service
-    ports:
-      - '9008:9008'
-  orderservice:
-    image: 'phamdy/sem4-order-service'
-    container_name: order-service
-    ports:
-      - '9005:9005'
-  paymentservice:
-    image: 'phamdy/sem4-payment-service'
-    container_name: payment-service
-    ports:
-      - '9007:9007'
-  productservice:
-    image: 'phamdy/sem4-product-service'
-    container_name: product-service
-    ports:
-      - '9004:9004'
+    depends_on:
+      - configserver
   stadiumservice:
     image: 'phamdy/sem4-stadium-service'
     container_name: stadium-service
     ports:
       - '9001:9001'
-  tournamentservice:
-    image: 'phamdy/sem4-tournament-service'
-    container_name: tournament-service
-    ports:
-      - '9006:9006'
-  usersservice:
-    image: 'phamdy/sem4-users-service'
-    container_name: users-service
-    ports:
-      - '9003:9003'
+    depends_on:
+      - configserver
+#  bookingservice:
+#    image: 'phamdy/sem4-booking-service'
+#    container_name: booking-service
+#    ports:
+#      - '9002:9002'
+#  notificationservice:
+#    image: 'phamdy/sem4-notification-service'
+#    container_name: notification-service
+#    ports:
+#      - '9008:9008'
+#  orderservice:
+#    image: 'phamdy/sem4-order-service'
+#    container_name: order-service
+#    ports:
+#      - '9005:9005'
+#  paymentservice:
+#    image: 'phamdy/sem4-payment-service'
+#    container_name: payment-service
+#    ports:
+#      - '9007:9007'
+#  productservice:
+#    image: 'phamdy/sem4-product-service'
+#    container_name: product-service
+#    ports:
+#      - '9004:9004'
+#  tournamentservice:
+#    image: 'phamdy/sem4-tournament-service'
+#    container_name: tournament-service
+#    ports:
+#      - '9006:9006'
+#  usersservice:
+#    image: 'phamdy/sem4-users-service'
+#    container_name: users-service
+#    ports:
+#      - '9003:9003'
 
 

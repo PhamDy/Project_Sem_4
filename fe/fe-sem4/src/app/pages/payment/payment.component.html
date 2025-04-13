@@ -20,12 +20,15 @@
     <h3>Phương thức thanh toán</h3>
     <label class="pay-card">
       <input type="radio" name="paymentMethod" value="VNPay" [(ngModel)]="paymentMethod"> VNPay
+      <img class="imgPay" src="/assets/img/imgPayment/vnpay.png" alt="">
     </label >
     <label class="pay-card">
       <input type="radio" name="paymentMethod" value="PayOS" [(ngModel)]="paymentMethod"> PayOS
+      <img class="imgPay" src="/assets/img/imgPayment/payos.png" alt="">
     </label>
     <label class="pay-card">
-      <input type="radio" name="paymentMethod" value="MoMo" [(ngModel)]="paymentMethod"> MoMo
+      <input type="radio" name="paymentMethod" value="MoMo" [(ngModel)]="paymentMethod"> MoMoo
+      <img class="imgPay" src="/assets/img/imgPayment/momo.png" alt="">
     </label>
   </div>
 
@@ -43,7 +46,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let field of selectedFields; let i = index">
+      <tr *ngFor="let field of bookingDetails; let i = index">
         <td>{{ field.day }}</td>
         <td>{{ field.time }}</td>
         <td>{{ field.name }}</td>

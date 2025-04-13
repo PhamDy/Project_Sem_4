@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,EventEmitter, Output } from '@angular/core';
 import * as L from 'leaflet';
 import { LocationService } from '../../services/location-service.service';
 
@@ -10,6 +10,8 @@ import { LocationService } from '../../services/location-service.service';
 export class MapComponent implements OnInit {
   @Input() latitude: number = 21.0285;
   @Input() longitude: number = 105.8542;
+
+  @Output() coordinatesSelected = new EventEmitter<{ lat: number, lng: number }>();
 
   map: any;
   selectedLatLng: { lat: number, lng: number } | null = null;
@@ -40,9 +42,11 @@ export class MapComponent implements OnInit {
     const latlng = event.latlng;
     if (latlng) {
       const { lat, lng } = latlng;
+      console.log("đây")
       console.log(`Tọa độ được chọn: ${lat}, ${lng}`);
       this.selectedLatLng = { lat, lng };
       this.isCoordinatesSelected = true;
+      this.coordinatesSelected.emit({ lat, lng });
 
       // Thêm marker tại vị trí đã click
       L.marker([lat, lng])

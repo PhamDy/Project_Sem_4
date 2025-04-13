@@ -54,13 +54,12 @@ export class BookingComponent implements OnInit {
       // }
       // this.getAreaByCondition(findAreaRequest);
     });
+    console.log("long lat", this.latitude,this.longitude);
     this.getAllStadiums();
     const findAreaRequest: any = {
       distance: 3,
-      // latitude:  this.latitude,
-      // longitude: this.longitude,
-      latitude:  21.027022,
-      longitude: 105.784673,
+      latitude:  this.latitude,
+      longitude: this.longitude,
     }
     this.getAreaByCondition(findAreaRequest);
   }

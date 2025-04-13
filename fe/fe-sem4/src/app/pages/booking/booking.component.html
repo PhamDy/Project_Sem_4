@@ -6,7 +6,7 @@
       <p><strong>Tỉnh/Thành phố:</strong> {{ city }}</p>
       <p><strong>Quận/Huyện:</strong> {{ district }}</p>
     <div>
-      <h1 *ngIf="latitude !== null && longitude !== null" style="text-align: center">Football fields for you</h1>
+      <h1 style="text-align: center">Football fields for you</h1>
       <div class="stadium-list">
 <!--        <div *ngIf="latitude !== null && longitude !== null" class="stadium-list">-->
         <div *ngFor="let stadium of dataStadiumSearch" class="stadium-card">

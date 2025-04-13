@@ -176,6 +176,7 @@
 <!-- Popup đặt giải đấu -->
 <div *ngIf="showTournamentPopup" class="popup-overlay" data-aos="fade-up">
   <div class="popup">
+    <div class="popup-main">
     <h2>Đặt giải đấu</h2>
 
     <label>Tên giải đấu:
@@ -214,5 +215,6 @@
     </div>
     <button (click)="confirmTournament()">Xác nhận</button>
     <button (click)="closePopup()">Đóng</button>
+    </div>
   </div>
 </div>

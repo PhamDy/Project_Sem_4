@@ -30,6 +30,12 @@
 .pay-card{
   background: #f9f9f9;
   padding: 40px;
+  transition: ease 0.3s;
+  border-radius: 20px;
+}
+
+.pay-card:hover{
+  transform: scale(1.05);
 }
 
 h3 {
@@ -147,4 +153,9 @@ th {
 .confirm-button:hover {
   transform: scale(1.1);
   background: #0fc335;
+}
+
+.imgPay{
+  width: 350px;
+  margin-left: 50px;
 }

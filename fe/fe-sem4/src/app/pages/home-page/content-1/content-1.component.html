@@ -36,8 +36,22 @@
         <button type="button" (click)="search()" data-aos="fade-up" aria-label="Tìm kiếm" class="button-search">
           <i class="fas fa-search">Tìm kiếm</i>
         </button>
+        <button class="buttonMap" style="border-radius: 40px;margin: 10px;" (click)="openMap()">
+          <i class="fas fa-map-marker-alt"></i>
+        </button>
       </form>
 
+    </div>
+  </div>
+
+  <div *ngIf="showMap" class="modal">
+    <div class="modal-content" data-aos="fade-up">
+      <span class="close" (click)="closeMap()">&times;</span>
+      <app-map (coordinatesSelected)="onCoordinatesSelected($event)"></app-map>
+      <!-- Nút chuyển đến booking -->
+      <button style="background-color: rgb(104, 92, 0);
+                    border: 0px;
+                    color: aliceblue;" (click)="goToBooking()">Chọn địa điểm này</button>
     </div>
   </div>
 </div>

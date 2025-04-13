@@ -17,8 +17,8 @@ export class NavbarComponent {
   map: any;
   selectedLatLng: { lat: number, lng: number } | null = null;
 
-  latitude: number = 21.0285;
-  longitude: number = 105.8542;
+  latitude: any | null = null;
+  longitude: any | null = null;
 
   selectedCoordinates: { lat: number, lng: number } = { lat: 0, lng: 0 };
   isCoordinatesSelected: boolean = false;
@@ -42,47 +42,6 @@ export class NavbarComponent {
       AOS.refresh();
     });
 
-    this.map = L.map('map-navbar').setView([this.latitude, this.longitude], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(this.map);
-
-    this.map.on('click', (e: any) => {
-      const { lat, lng } = e.latlng;
-      console.log(`Tọa độ được chọn: ${lat}, ${lng}`);
-      this.selectedCoordinates = { lat, lng };
-      this.isCoordinatesSelected = true;
-
-      L.marker([lat, lng])
-        .addTo(this.map)
-        .bindPopup(`Tọa độ: ${lat}, ${lng}`)
-        .openPopup();
-    });
-  }
-
-  openMap(): void {
-    this.showMap = true;
-    console.log("tọa độ bản đồ")
-    setTimeout(() => {
-      if (this.map) {
-        this.map.invalidateSize();
-      }
-    }, 0);
-  }
-
-  closeMap(): void {
-    this.showMap = false;
-  }
-
-  onMapClick(event: any): void {
-    const { lat, lng } = event.latlng;
-    console.log(`Tọa độ được chọn: ${lat}, ${lng}`);
-    this.selectedLatLng = { lat, lng };
-    this.isCoordinatesSelected = true;
-    L.marker([lat, lng])
-      .addTo(this.map)
-      .bindPopup(`Tọa độ: ${lat}, ${lng}`)
-      .openPopup();
   }
 
   // Hàm tìm kiếm
@@ -109,12 +68,4 @@ export class NavbarComponent {
     }
   }
 
-  goToBooking() {
-    if (this.isCoordinatesSelected) {
-      this.router.navigate(['/booking'], { queryParams: { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng } });
-      this.showMap = false;
-    } else {
-      alert('Vui lòng chọn một địa điểm trên bản đồ.');
-    }
-  }
 }

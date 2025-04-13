@@ -295,8 +295,16 @@ button:active {
   color: #ffffff;
   border: 0 solid ;
   border-radius: 10px;
+  transition: ease 0.3s;
 }
 
+.buttonBook:hover{
+  transform: scale(1.05);
+}
+
+.popup-main{
+  padding: 20px;
+}
 .field-detail p{
   margin-top: 80px;
   color: #ffffff;

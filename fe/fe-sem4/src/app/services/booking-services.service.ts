@@ -7,10 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class BookingServicesService {
   private getAreaById = "http://localhost:9001/stadium-service/private/api/v1/area"
-
+  private createBookingApi = "http://localhost:9002/booking-service/private/api/v1/create"
   constructor(private http: HttpClient) { }
 
   bookingGetAreaById(id: any): Observable<any> {
     return this.http.get<any>(`${this.getAreaById}?id=${id}`);
   }
+
+  createBooking(CreateBookingRequest: any): Observable<any> {
+    return this.http.post<any>(`${this.createBookingApi}`,CreateBookingRequest);
+  }
+
 }

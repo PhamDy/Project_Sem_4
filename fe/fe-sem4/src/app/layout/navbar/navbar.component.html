@@ -22,11 +22,7 @@
             placeholder="Search for football fields..."
             autocomplete="off" />
           <button (click)="search()">.<i class="fas fa-search"></i></button>
-          <button class="buttonMap" style="border-radius: 40px;margin: 10px;" (click)="openMap()">
-            <i class="fas fa-map-marker-alt"></i>
-          </button>
         </div>
-
       </div>
 
       <div class="navbar-right">
@@ -52,18 +48,4 @@
 
     </ul>
   </nav>
-
-  <!-- Bản đồ Modal -->
-  <div *ngIf="showMap" class="modal">
-    <div class="modal-content" data-aos="fade-up">
-      <span class="close" (click)="closeMap()">&times;</span>
-      <div id="map-navbar" style="height: 400px; width: 100%;" (click)="onMapClick($event)"></div>
-
-      <!-- Nút chuyển đến booking -->
-      <button style="background-color: rgb(104, 92, 0);
-                    border: 0px;
-                    color: aliceblue;" [disabled]="!isCoordinatesSelected" (click)="goToBooking()">Chọn địa điểm này</button>
-    </div>
-  </div>
-
 </div>

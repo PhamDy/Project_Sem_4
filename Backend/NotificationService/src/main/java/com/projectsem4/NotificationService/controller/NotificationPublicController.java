@@ -22,9 +22,8 @@ public class NotificationPublicController {
     }
 
     @GetMapping("/sen-otp-mail")
-    public ResponseEntity<?> sendOtpMail(@RequestBody UserInfor userInfor) {
+    public void sendOtpMail(@RequestBody UserInfor userInfor) {
         emailService.sendOtpMail(userInfor);
-        return ResponseEntity.ok().build();
     }
 
 }

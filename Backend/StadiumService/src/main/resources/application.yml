@@ -10,9 +10,9 @@ spring:
     import: configserver:http://localhost:9296
   datasource:
 
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/project_s4
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/project
     username: root
-    password: 12345
+    password: root
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect

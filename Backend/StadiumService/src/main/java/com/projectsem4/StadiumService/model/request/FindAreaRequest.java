@@ -19,5 +19,5 @@ public class FindAreaRequest {
     String timeStart;
     String timeEnd;
     Integer district;
-    BigDecimal price;
+    Long price;
 }

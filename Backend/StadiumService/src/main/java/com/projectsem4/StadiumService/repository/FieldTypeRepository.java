@@ -22,7 +22,7 @@ public interface FieldTypeRepository extends JpaRepository<FieldType, Long>, Jpa
             @Param("timeStart") String timeStart,
             @Param("timeEnd") String timeEnd,
             @Param("district") Integer district,
-            @Param("price") BigDecimal price
+            @Param("price") Long price
     );
     
 }

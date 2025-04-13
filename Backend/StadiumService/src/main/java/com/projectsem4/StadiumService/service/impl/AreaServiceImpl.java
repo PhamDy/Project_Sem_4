@@ -320,6 +320,7 @@ public class AreaServiceImpl implements AreaService {
                 fieldTypeRequest.setName(fieldType.getName());
                 fieldTypeRequest.setDescription(fieldType.getDescription());
                 fieldTypeRequest.setSize(fieldType.getSize());
+                fieldTypeRequests.add(fieldTypeRequest);
             });
             response.setFields(fieldTypeRequests);
             result.add(response);

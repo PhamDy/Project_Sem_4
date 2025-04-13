@@ -3,6 +3,7 @@ package com.projectsem4.StadiumService.controller;
 import com.projectsem4.StadiumService.service.AreaService;
 import com.projectsem4.common_service.dto.constant.Constant;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/public/api/v1")
 public class StadiumPublicController {
     private final AreaService areaService;
+
+    @Autowired
+    public StadiumPublicController(AreaService areaService) {
+        this.areaService = areaService;
+    }
 
     @GetMapping("/danhMucQuanHuyen")
     public ResponseEntity<List<Map<String, Object>>> danhMucQuanHuyen() {

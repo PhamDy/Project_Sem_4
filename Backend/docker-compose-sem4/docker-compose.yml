@@ -1,32 +1,79 @@
 ---
 version: '3.8'
 services:
+  mysql-db:
+    image: mysql:8
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: project
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mynetwork
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
   serviceregistry:
     image: 'phamdy/sem4-service-registry'
     container_name: service-registry
     ports:
       - '8761:8761'
+    networks:
+      - mynetwork
   configserver:
     image: 'phamdy/sem4-config-service'
     container_name: config-server
     ports:
       - '9296:9296'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://configserver:9296/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     depends_on:
       - serviceregistry
+    networks:
+      - mynetwork
   cloudgateway:
     image: 'phamdy/sem4-gateway-server'
     container_name: gateway-server
     ports:
       - '9094:9094'
+    environment:
+      - CONFIG_SERVER_URL=configserver
     depends_on:
-      - configserver
+      configserver:
+        condition: service_healthy
+    networks:
+      - mynetwork
   stadiumservice:
     image: 'phamdy/sem4-stadium-service'
     container_name: stadium-service
     ports:
       - '9001:9001'
+    environment:
+      - CONFIG_SERVER_URL=configserver
+      - DB_HOST=mysql-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=project
     depends_on:
-      - configserver
+      configserver:
+        condition: service_healthy
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - mynetwork
 #  bookingservice:
 #    image: 'phamdy/sem4-booking-service'
 #    container_name: booking-service
@@ -62,5 +109,8 @@ services:
 #    container_name: users-service
 #    ports:
 #      - '9003:9003'
+networks:
+  mynetwork:
 
-
+volumes:
+  mysql_data:

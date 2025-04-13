@@ -10,6 +10,19 @@
   justify-content: center;
   margin-bottom: 10px;
 }
+.main-container{
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  margin-top: 100px;
+}
+.disabled {
+  background-color: #e4e4e4 !important; /* Màu xám */
+  color: #666;
+  pointer-events: none; /* Chặn click */
+  cursor: not-allowed; /* Đổi con trỏ chuột */
+  text-align: center;
+  padding: 8px;
+  border-radius: 5px;
+}
 
 .time-inputs input {
   width: 60px;
@@ -37,3 +50,59 @@
   border: none;
   cursor: pointer;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+th {
+  background-color: #f2f2f2;
+}
+.choose-field:hover{
+   background-color: rgb(237, 237, 237);
+   border-radius: 7px;
+}
+
+.choose-field {
+  cursor: pointer;
+  padding: 8px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ffffff;
+  text-align: center;
+  transition: 0.5s all ease;
+}
+
+.choose-field:hover {
+  background-color: rgb(0, 209, 232);
+  color: #ffffff;
+  transform: scale(1.01);
+}
+
+.choose-field.selected {
+  background-color: rgb(150, 255, 150); /* Màu xanh khi được chọn */
+  font-weight: bold;
+}
+
+.payment-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.payment-btn:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+

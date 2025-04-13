@@ -2,27 +2,54 @@
 <p>tournament works!</p>
 <p>tournament works!</p>
 <p>tournament works!</p>
-<p>tournament works!</p>
-<p>tournament works!</p>
-<p>tournament works!</p>
-<p>tournament works!</p>
-<div class="container">
-  <h3>Thêm Giờ Thi Đấu</h3>
+<p></p>
+<div class="main-container">
+<table>
+  <thead>
+  <tr>
+    <th>Thời gian</th>
+    <th>Sân</th>
+    <th *ngFor="let day of weekSchedule">{{ day.day }}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngFor="let slot of weekSchedule[0].timeslots">
+    <tr *ngFor="let field of slot.fields; let i = index">
+      <!-- Hiển thị thời gian chỉ một lần với rowspan -->
+      <td *ngIf="i === 0" [attr.rowspan]="slot.fields.length">{{ slot.time }}</td>
+      <td>{{ field.name }}</td>
 
-  <form [formGroup]="timeForm">
-    <div class="time-inputs">
-      <input type="number" formControlName="fromHour" placeholder="Giờ bắt đầu" min="0" max="23">
-      <input type="number" formControlName="fromMinute" placeholder="Phút bắt đầu" min="0" max="59">
-      <span> - </span>
-      <input type="number" formControlName="toHour" placeholder="Giờ kết thúc" min="0" max="23">
-      <input type="number" formControlName="toMinute" placeholder="Phút kết thúc" min="0" max="59">
-      <button type="button" (click)="addTimeSlot()">Thêm</button>
-    </div>
-  </form>
+      <!-- Duyệt qua từng ngày để hiển thị giá và trạng thái -->
+      <td *ngFor="let day of weekSchedule">
+        <ng-container *ngFor="let timeslot of day.timeslots">
+          <ng-container *ngIf="timeslot.time === slot.time">
+            <ng-container *ngFor="let f of timeslot.fields">
+              <ng-container *ngIf="f.name === field.name">
+                <div
+                  class="choose-field"
+                  [ngClass]="{ 'selected': isSelected(slot.time, field.name, day.day), 'disabled': f.status === 1 }"
+                  (click)="f.status !== 1 && choose(slot.time, field.name, f.price, day.day)">
+                  {{ f.price }}
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </td>
+    </tr>
+  </ng-container>
+  </tbody>
+</table>
 
-  <ul class="time-list">
-    <li *ngFor="let time of timeSlots; let i = index">
-      {{ time }} <button (click)="removeTimeSlot(i)">X</button>
-    </li>
-  </ul>
+
+<h3>Danh sách sân đã chọn:</h3>
+<ul>
+  <li *ngFor="let field of selectedFields">
+    {{ field.time }} - {{ field.name }} - {{ field.price }} -{{ field.day }}
+  </li>
+</ul>
+<div></div>
+  <button class="payment-btn" (click)="goToPayment()" [disabled]="selectedFields.length === 0">
+    Đi đến thanh toán
+  </button>
 </div>

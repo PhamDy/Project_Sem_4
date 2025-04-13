@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "booking", schema = "project")
+@Table(name = "booking_detail", schema = "project")
 public class BookingDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,10 @@ public class BookingDetail {
     @Column(name = "time_frame")
     private Long timeFrame;
 
-    @Column(name = "field_id")
-    private Long fieldId;
+    @Column(name = "field_type_id")
+    private Long fieldTypeId;
+
+    @Column(name = "quantity")
+    private Long quantity;
 
 }

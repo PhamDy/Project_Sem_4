@@ -42,12 +42,12 @@ public class PaymentService {
 
 
 //        String orderInfo = product.getName();
-        BigDecimal total = booking.getTotalPrice();
+
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        vnp_Params.put("vnp_Amount", String.valueOf(total.multiply(BigDecimal.valueOf(100))));
+        vnp_Params.put("vnp_Amount", String.valueOf(booking.getTotalPrice()));
         vnp_Params.put("vnp_CurrCode", "VND");
 
         vnp_Params.put("vnp_BankCode", bankCode);

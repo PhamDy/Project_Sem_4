@@ -28,8 +28,8 @@ public class BookingPrivateController {
     }
 
     @PostMapping("/create")
-    public void create(@RequestBody CreateBookingRequest booking) {
-        bookingService.createBooking(booking);
+    public String create(@RequestBody CreateBookingRequest booking) {
+        return bookingService.createBooking(booking);
     }
 
     @GetMapping("/find-by-id/{id}")

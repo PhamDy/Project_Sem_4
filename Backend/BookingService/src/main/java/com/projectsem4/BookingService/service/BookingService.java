@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BookingService {
-    void createBooking(CreateBookingRequest request);
+    String createBooking(CreateBookingRequest request);
     CreateBookingRequest findBookingById(Long id);
     Object updateStatusOderByPayment(Integer status, Long orderId);
     List<TimeFrameSchedule> scheduleClient(Long fieldIds, LocalDate date);

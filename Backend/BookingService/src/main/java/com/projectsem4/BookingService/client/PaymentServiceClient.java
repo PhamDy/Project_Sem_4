@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(name = "PaymentServiceClient", url = "${config.url.payment-service-url}", configuration = FeignConfig.class)
 public interface PaymentServiceClient {
 
-    @GetMapping(value = "/public/api/v1", consumes = "application/json")
-    String  linkThanhToan();
+    @GetMapping(value = "/public/api/v1/vn-pay/{id}", consumes = "application/json")
+    String linkThanhToan(Long id);
 
 }

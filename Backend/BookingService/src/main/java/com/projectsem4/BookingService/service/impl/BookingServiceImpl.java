@@ -1,5 +1,6 @@
 package com.projectsem4.BookingService.service.impl;
 
+import com.projectsem4.BookingService.client.PaymentServiceClient;
 import com.projectsem4.BookingService.client.StadiumServiceClient;
 import com.projectsem4.BookingService.entity.Booking;
 import com.projectsem4.BookingService.entity.BookingAccessory;
@@ -27,16 +28,19 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRefereeRepository bookingRefereeRepository;
     private final StadiumServiceClient stadiumServiceClient;
     private final BookingDetailRepository bookingDetailRepository;
+    private final PaymentServiceClient paymentServiceClient;
 
     @Override
-    public void createBooking(CreateBookingRequest request) {
+    public String createBooking(CreateBookingRequest request) {
         Booking booking = new Booking();
         booking.setUserId(request.getUserId());
         booking.setTotalPrice(request.getTotalPrice());
         bookingRepository.save(booking);
+
         bookingDetailRepository.saveAll(request.getBookingDetails());
         bookingAccessoryRepository.saveAll(request.getBookingAccessory());
         bookingRefereeRepository.saveAll(request.getBookingReferees());
+        return paymentServiceClient.linkThanhToan(booking.getId());
     }
 
     @Override

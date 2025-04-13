@@ -29,7 +29,7 @@ public class BookingServiceImpl implements BookingService {
     private final PaymentServiceClient paymentServiceClient;
 
     @Override
-    public String createBooking(CreateBookingRequest request) {
+    public Object createBooking(CreateBookingRequest request) {
         Booking booking = new Booking();
         booking.setUserId(request.getUserId());
         booking.setTotalPrice(request.getTotalPrice());
@@ -46,7 +46,8 @@ public class BookingServiceImpl implements BookingService {
         if(request.getBookingReferees() != null && !request.getBookingReferees().isEmpty()) {
             bookingRefereeRepository.saveAll(request.getBookingReferees());
         }
-         return paymentServiceClient.linkThanhToan(booking.getId());
+        request.setUrl(paymentServiceClient.linkThanhToan(booking.getId()));
+         return request;
     }
 
     @Override

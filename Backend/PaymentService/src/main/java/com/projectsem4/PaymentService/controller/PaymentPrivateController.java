@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,7 +32,10 @@ public class PaymentPrivateController {
             paymentService.updateStatusPayment(true, orderId);
             bookingServiceClient.updateStatusByPayment(Constant.OrderStatus.paid, orderId);
 
-            return ResponseEntity.ok("Giao dịch thành công");
+            return ResponseEntity
+                    .status(HttpStatus.SEE_OTHER)
+                    .location(URI.create("http://localhost:4200"))
+                    .build();
         } else {
             // Giao dịch không thành công
             paymentService.updateStatusPayment(false,orderId);

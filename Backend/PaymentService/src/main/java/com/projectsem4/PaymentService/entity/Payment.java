@@ -15,7 +15,7 @@ public class Payment extends BaseEntity {
     @Column(name = "payment_id", nullable = false)
     private Long id;
     private Long userId;
-    private BigDecimal total;
+    private Long total;
     private Long orderId;
     private Long bookingId;
     private LocalDateTime paidAt;

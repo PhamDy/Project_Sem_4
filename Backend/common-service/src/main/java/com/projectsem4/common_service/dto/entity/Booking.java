@@ -26,7 +26,7 @@ public class Booking extends BaseEntity {
 
     private LocalTime endTime;
 
-    private BigDecimal totalPrice;
+    private Long totalPrice;
 
     private String paymentStatus;
 

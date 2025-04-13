@@ -25,4 +25,5 @@ public class CreateBookingRequest {
     private List<BookingReferee> bookingReferees;
     private List<BookingDetail> bookingDetails;
     private List<BookingPeriod> bookingPeriods;
+    String url;
 }

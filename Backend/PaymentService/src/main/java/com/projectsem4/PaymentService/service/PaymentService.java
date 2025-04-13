@@ -99,7 +99,7 @@ public class PaymentService {
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = ConfigVnPay.vnp_PayUrl + "?" + queryUrl;
         savePayment(orderId);
-        return paymentUrl;
+        return paymentUrl.trim();
     }
 
 //    public Page<Payment> getByUsername(Pageable pageable, Long userId){

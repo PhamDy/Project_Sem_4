@@ -57,6 +57,7 @@ public class BookingServiceImpl implements BookingService {
         CreateBookingRequest createBookingRequest = new CreateBookingRequest();
         createBookingRequest.setBookingId(booking.getId());
         createBookingRequest.setUserId(booking.getUserId());
+        createBookingRequest.setTotalPrice(booking.getTotalPrice());
         createBookingRequest.setBookingAccessory(bookingAccessory);
         createBookingRequest.setBookingReferees(bookingReferee);
         return createBookingRequest;

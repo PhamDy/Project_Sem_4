@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/private/api/v1")
 public class UserPrivateController {
-
     @GetMapping
     public String test() {
         return "User Service";
     }
-
 }

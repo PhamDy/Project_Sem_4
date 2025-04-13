@@ -2,6 +2,7 @@ package com.projectsem4.BookingService.model.request;
 
 import com.projectsem4.BookingService.entity.BookingAccessory;
 import com.projectsem4.BookingService.entity.BookingDetail;
+import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.entity.BookingReferee;
 import lombok.*;
 
@@ -23,4 +24,5 @@ public class CreateBookingRequest {
     private List<BookingAccessory> bookingAccessory;
     private List<BookingReferee> bookingReferees;
     private List<BookingDetail> bookingDetails;
+    private List<BookingPeriod> bookingPeriods;
 }

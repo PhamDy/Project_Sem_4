@@ -7,10 +7,7 @@ import com.projectsem4.BookingService.entity.BookingAccessory;
 import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.entity.BookingReferee;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
-import com.projectsem4.BookingService.repository.BookingAccessoryRepository;
-import com.projectsem4.BookingService.repository.BookingDetailRepository;
-import com.projectsem4.BookingService.repository.BookingRefereeRepository;
-import com.projectsem4.BookingService.repository.BookingRepository;
+import com.projectsem4.BookingService.repository.*;
 import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.constant.Constant;
 import com.projectsem4.common_service.dto.entity.*;
@@ -26,6 +23,7 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final BookingAccessoryRepository bookingAccessoryRepository;
     private final BookingRefereeRepository bookingRefereeRepository;
+    private final BookingPeriodRepository bookingPeriodRepository;
     private final StadiumServiceClient stadiumServiceClient;
     private final BookingDetailRepository bookingDetailRepository;
     private final PaymentServiceClient paymentServiceClient;
@@ -36,8 +34,8 @@ public class BookingServiceImpl implements BookingService {
         booking.setUserId(request.getUserId());
         booking.setTotalPrice(request.getTotalPrice());
         bookingRepository.save(booking);
-
         bookingDetailRepository.saveAll(request.getBookingDetails());
+        bookingPeriodRepository.saveAll(request.getBookingPeriods());
         bookingAccessoryRepository.saveAll(request.getBookingAccessory());
         bookingRefereeRepository.saveAll(request.getBookingReferees());
         return paymentServiceClient.linkThanhToan(booking.getId());

@@ -47,7 +47,7 @@ public class PaymentService {
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        vnp_Params.put("vnp_Amount", String.valueOf(booking.getTotalPrice()));
+        vnp_Params.put("vnp_Amount", String.valueOf(booking.getTotalPrice() != null ? booking.getTotalPrice()*100 : 0));
         vnp_Params.put("vnp_CurrCode", "VND");
 
         vnp_Params.put("vnp_BankCode", bankCode);

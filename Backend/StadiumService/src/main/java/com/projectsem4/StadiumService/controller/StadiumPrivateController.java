@@ -105,7 +105,7 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.search(findAreaRequest,pageable));
     }
 
-    @PostMapping("/calender")
+    @GetMapping("/calender")
     public ResponseEntity<Object> findTimeAvailable(@RequestParam(name = "id") Long id, @RequestParam(name = "index") Long index) {
         return ResponseEntity.ok(areaService.findFieldByIdAndCalender(id,index));
     }

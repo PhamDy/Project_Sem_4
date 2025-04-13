@@ -15,6 +15,7 @@ import java.util.List;
 public class FieldSchedule {
     Long fieldId;
     Long timeFrame;
+    String timeFrameStr;
 //    String fieldName;
     Long quantity;
 //    LocalDate date;

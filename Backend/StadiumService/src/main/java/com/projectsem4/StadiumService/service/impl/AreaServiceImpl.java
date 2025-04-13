@@ -273,6 +273,7 @@ public class AreaServiceImpl implements AreaService {
             for(Constant.TimeFrameEnum item : Constant.TimeFrameEnum.getAllTimeFrames()){
                 FieldSchedule fieldSchedule = new FieldSchedule();
                 fieldSchedule.setTimeFrame(item.getKey());
+                fieldSchedule.setTimeFrameStr(item.getValue());
                 fieldSchedule.setFieldId(field.getFieldTypeId());
                 fieldSchedule.setPrice((long) (fieldType.getPrice() != null ? fieldType.getPrice() * item.getScale() : 0.0));
                 fieldSchedule.setTimeFrame(item.getKey());

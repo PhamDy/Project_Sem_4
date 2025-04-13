@@ -17,8 +17,9 @@ public class User extends BaseEntity {
     private Long userId;
 
     @Basic
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true)
     private String userName;
+
 
     @Basic
     @Column(name = "password")
@@ -45,7 +46,19 @@ public class User extends BaseEntity {
     private String phoneNumber;
 
     @Basic
+    @Column(name = "otp")
+    private String otp;
+
+    @Basic
+    @Column(name = "is_active")
+    private Boolean isActive = false;
+
+    @Basic
     @Column(name = "type", columnDefinition = "INTEGER DEFAULT 1") // 1 là tk user, 0 là khách vãng lai
     private Integer type;
+
+    @Basic
+    @Column(name = "role", columnDefinition = "INTEGER DEFAULT 1") // 1 là role user, 2 role admin
+    private Integer role;
 
 }

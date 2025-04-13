@@ -13,9 +13,5 @@ public interface BookingService {
     void createBooking(CreateBookingRequest request);
     CreateBookingRequest findBookingById(Long id);
     Object updateStatusOderByPayment(Integer status, Long orderId);
-<<<<<<< Updated upstream
     List<TimeFrameSchedule> scheduleClient(Long fieldIds, LocalDate date);
-=======
-    List<TimeFrameDate> scheduleClient(List<Long> fieldIds, LocalDate date);
->>>>>>> Stashed changes
 }

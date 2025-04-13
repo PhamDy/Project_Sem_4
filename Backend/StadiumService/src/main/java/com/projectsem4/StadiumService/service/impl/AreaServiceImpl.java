@@ -263,7 +263,7 @@ public class AreaServiceImpl implements AreaService {
         calender.add(firstDate);
         calender.add(firstDate.plusDays(6));
         for (int i = 0; i < schedule.size(); i++) {
-            LocalDate ngay = LocalDate.now().plusDays(i * index);
+            LocalDate ngay = LocalDate.now().plusDays(i + (index * 7));
             DayOfWeek thu = ngay.getDayOfWeek();
             schedule.get(i).setDate(ngay);
             String thuTiengViet = thu.getDisplayName(java.time.format.TextStyle.FULL, new Locale("vi", "VN"));

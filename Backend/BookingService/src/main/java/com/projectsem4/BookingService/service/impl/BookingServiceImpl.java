@@ -34,11 +34,19 @@ public class BookingServiceImpl implements BookingService {
         booking.setUserId(request.getUserId());
         booking.setTotalPrice(request.getTotalPrice());
         bookingRepository.save(booking);
-        bookingDetailRepository.saveAll(request.getBookingDetails());
-        bookingPeriodRepository.saveAll(request.getBookingPeriods());
-        bookingAccessoryRepository.saveAll(request.getBookingAccessory());
-        bookingRefereeRepository.saveAll(request.getBookingReferees());
-        return paymentServiceClient.linkThanhToan(booking.getId());
+        if(request.getBookingDetails() != null && !request.getBookingDetails().isEmpty()) {
+            bookingDetailRepository.saveAll(request.getBookingDetails());
+        }
+        if(request.getBookingPeriods() != null && !request.getBookingPeriods().isEmpty()) {
+            bookingPeriodRepository.saveAll(request.getBookingPeriods());
+        }
+        if(request.getBookingAccessory() != null && !request.getBookingAccessory().isEmpty()) {
+            bookingAccessoryRepository.saveAll(request.getBookingAccessory());
+        }
+        if(request.getBookingReferees() != null && !request.getBookingReferees().isEmpty()) {
+            bookingRefereeRepository.saveAll(request.getBookingReferees());
+        }
+         return paymentServiceClient.linkThanhToan(booking.getId());
     }
 
     @Override

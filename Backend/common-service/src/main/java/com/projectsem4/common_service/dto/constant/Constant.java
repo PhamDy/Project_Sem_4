@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Constant {
     public static class PaymentStatus {
@@ -117,10 +118,10 @@ public class Constant {
         private String value;
         private Double scale;
 
-        public static String fromValue(int key) {
+        public static Double fromValue(Long key) {
             for (TimeFrameEnum type : TimeFrameEnum.values()) {
-                if (type.getKey() == key) {
-                    return type.getValue();
+                if (Objects.equals(type.getKey(), key)) {
+                    return type.getScale();
                 }
             }
             throw new IllegalArgumentException("Không tìm thấy loại khung giờ với key: " + key);

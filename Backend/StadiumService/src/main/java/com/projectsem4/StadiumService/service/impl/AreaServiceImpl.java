@@ -263,18 +263,18 @@ public class AreaServiceImpl implements AreaService {
             String result = ngay.format(dinhDang) + " - " + thuTiengViet;
             schedule.get(i).setDateString(result);
             List<FieldSchedule> fieldSchedules = new ArrayList<>();
-            for(Constant.TimeFrameEnum item : Constant.TimeFrameEnum.getAllTimeFrames()){
+            for(FieldSchedule item : schedule.get(i).getFieldSchedules()){
                 FieldSchedule fieldSchedule = new FieldSchedule();
-                fieldSchedule.setTimeFrame(item.getKey());
-                fieldSchedule.setTimeFrameStr(item.getValue());
+                fieldSchedule.setTimeFrame(item.getTimeFrame());
+                fieldSchedule.setTimeFrameStr(item.getTimeFrameStr());
                 fieldSchedule.setFieldId(field.getFieldTypeId());
-                fieldSchedule.setPrice((long) (fieldType.getPrice() != null ? fieldType.getPrice() * item.getScale() : 0.0));
-                fieldSchedule.setTimeFrame(item.getKey());
-                fieldSchedule.setQuantity(fieldType.getQuantity() - (fieldSchedule.getQuantity() != null ? fieldSchedule.getQuantity() : 0));
+                fieldSchedule.setPrice((long) (fieldType.getPrice() != null ? fieldType.getPrice() * Constant.TimeFrameEnum.fromValue(item.getTimeFrame()) : 0.0));
+                fieldSchedule.setTimeFrame(item.getTimeFrame());
+                fieldSchedule.setQuantity(fieldType.getQuantity() - (item.getQuantity() != null ? item.getQuantity() : 0));
                 fieldSchedule.setFieldId(field.getFieldTypeId());
                 fieldSchedules.add(fieldSchedule);
-                schedule.get(i).setFieldSchedules(fieldSchedules);
             }
+            schedule.get(i).setFieldSchedules(fieldSchedules);
         }
         list.setCalender(calender);
         list.setTimeFrames(schedule);

@@ -116,15 +116,22 @@ public class BookingServiceImpl implements BookingService {
                 TimeFrameSchedule timeFrameDate = new TimeFrameSchedule();
                 timeFrameDate.setDate(date1);
                 List<FieldSchedule> fieldScheduleList = new ArrayList<>();
-                timeFrameDate.setFieldSchedules(fieldScheduleList);
+//                timeFrameDate.setFieldSchedules(fieldScheduleList);
                 Constant.TimeFrameEnum.getAllTimeFrames().forEach(item->{
                     FieldSchedule fieldSchedule = new FieldSchedule();
                     fieldSchedule.setFieldId(fieldId);
 //                    fieldSchedule.setPrice(item.getScale() * item.getKey());
                     fieldSchedule.setTimeFrame(item.getKey());
-                    fieldSchedule.setQuantity((long) bookingDetailRepository.checkBookingField(fieldId,item.getKey(),date1).size());
-                    timeFrameDate.getFieldSchedules().add(fieldSchedule);
+                    List<BookingDetail> dup =bookingDetailRepository.checkBookingField(fieldId,item.getKey(),date1);
+                    long quantityBooked = 0L;
+                    if(dup != null && !dup.isEmpty()){
+                        for(BookingDetail bookingDetail : dup){
+                            quantityBooked = quantityBooked + bookingDetail.getQuantity();
+                        }
+                    }
+                    fieldSchedule.setQuantity(quantityBooked);
                     fieldScheduleList.add(fieldSchedule);
+//                    fieldScheduleList.add(fieldSchedule);
                 });
                 timeFrameDate.setFieldSchedules(fieldScheduleList);
                 result.add(timeFrameDate);

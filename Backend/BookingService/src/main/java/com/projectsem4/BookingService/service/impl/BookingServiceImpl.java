@@ -69,25 +69,28 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingRepository.findById(orderId).get();
         if(Objects.equals(status, Constant.OrderStatus.fail)){
             booking.setStatus(status);
-        } else booking.setStatus(Constant.OrderStatus.completed);
-//        else if (checkQuantityBooking(findBookingById(orderId))) {
-//            booking.setStatus(Constant.OrderStatus.completed);
-//        } else booking.setStatus(Constant.OrderStatus.refund);
+        }
+        else if (checkQuantityBooking(findBookingById(orderId))) {
+            booking.setStatus(Constant.OrderStatus.completed);
+        } else booking.setStatus(Constant.OrderStatus.refund);
         return null;
     }
 
     public Boolean checkQuantityBooking(CreateBookingRequest booking) {
-        for (BookingDetail bookingDetail : booking.getBookingDetails()) {
-            List<BookingDetail> bookingDup = bookingDetailRepository.checkBookingField(bookingDetail.getFieldTypeId(), bookingDetail.getTimeFrame());
-            Long quantityBooked = 0L;
-            for (BookingDetail bookingDetail1 : bookingDup) {
-                quantityBooked = quantityBooked + bookingDetail1.getQuantity();
-            }
-            FieldType fieldType = stadiumServiceClient.findFieldById(bookingDetail.getFieldTypeId());
-            if(bookingDetail.getQuantity() + quantityBooked > fieldType.getQuantity()){
-                return false;
+        if(booking.getBookingDetails() != null && !booking.getBookingDetails().isEmpty()){
+            for (BookingDetail bookingDetail : booking.getBookingDetails()) {
+                List<BookingDetail> bookingDup = bookingDetailRepository.checkBookingField(bookingDetail.getFieldTypeId(), bookingDetail.getTimeFrame(),bookingDetail.getBookingDate());
+                Long quantityBooked = 0L;
+                for (BookingDetail bookingDetail1 : bookingDup) {
+                    quantityBooked = quantityBooked + bookingDetail1.getQuantity();
+                }
+                FieldType fieldType = stadiumServiceClient.findFieldById(bookingDetail.getFieldTypeId());
+                if(bookingDetail.getQuantity() + quantityBooked > fieldType.getQuantity()){
+                    return false;
+                }
             }
         }
+
 //        FieldType fieldType = stadiumServiceClient.findFieldById(booking.getFieldId());
 //        for (BookingAccessory bookingAccessory : booking.getBookingAccessory()) {
 //            int quantityAccessory = bookingAccessory.getQuantity();
@@ -109,7 +112,7 @@ public class BookingServiceImpl implements BookingService {
     public List<TimeFrameSchedule> scheduleClient(Long fieldId, LocalDate date) {
         List<TimeFrameSchedule> result = new ArrayList<>();
             for(int i = 0; i <7; i++){
-                LocalDate date1 = LocalDate.now().plusDays(i);
+                LocalDate date1 = date.plusDays(i);
                 TimeFrameSchedule timeFrameDate = new TimeFrameSchedule();
                 timeFrameDate.setDate(date1);
                 List<FieldSchedule> fieldScheduleList = new ArrayList<>();
@@ -119,7 +122,7 @@ public class BookingServiceImpl implements BookingService {
                     fieldSchedule.setFieldId(fieldId);
 //                    fieldSchedule.setPrice(item.getScale() * item.getKey());
                     fieldSchedule.setTimeFrame(item.getKey());
-                    fieldSchedule.setQuantity((long) bookingDetailRepository.checkBookingField(fieldId,item.getKey()).size());
+                    fieldSchedule.setQuantity((long) bookingDetailRepository.checkBookingField(fieldId,item.getKey(),date1).size());
                     timeFrameDate.getFieldSchedules().add(fieldSchedule);
                     fieldScheduleList.add(fieldSchedule);
                 });

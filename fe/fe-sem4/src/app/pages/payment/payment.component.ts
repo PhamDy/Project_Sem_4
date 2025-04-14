@@ -54,14 +54,11 @@ export class PaymentComponent {
 
   getTotalPrice(): number {
     const totalPrice = this.bookingDetails.reduce((total, field) => {
-      // Chuyển đổi giá từ string sang number, bỏ dấu chấm nếu có
-      const priceNumber = parseFloat(field.price.replace(/\./g, ''));
-      return total + priceNumber;
+      return total + field.amount;
     }, 0);
-    this.totalPriceOrder = totalPrice
-    return totalPrice * 0.5; // Giảm 50% tổng giá
+    this.totalPriceOrder = totalPrice * 0.5;// Giảm 50%
+    return this.totalPriceOrder;  
   }
-
 
 
   confirmPayment() {
@@ -85,15 +82,12 @@ export class PaymentComponent {
       bookingReferees: [
         // { refereeId: 3 },
       ],
-      bookingDetails: [
-        // this.bookingDetails
-        // {
-        //   fieldId: 5,
-        //   date: '2025-04-14',
-        //   timeStart: '10:00',
-        //   timeEnd: '11:00'
-        // }
-      ],
+      bookingDetails: this.bookingDetails.map(item => ({
+        bookingDate: item.date,
+        timeFrame: item.timeFrame ?? null,
+        fieldTypeId: item.fieldId,
+        quantity: item.quantity
+      })),
       bookingPeriod: [
         // { refereeId: 3 },
       ],

@@ -37,7 +37,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AreaServiceImpl implements AreaService {
     private final AreaRepository areaRepository;
-    private final FieldRepository fieldRepository;
     private final FieldTypeRepository fieldTypeRepository;
     private final AccessoryRepository accessoryRepository;
     private final FileRepository fileRepository;
@@ -57,12 +56,6 @@ public class AreaServiceImpl implements AreaService {
             List<FieldTypeResponse> fieldTypeResponses = new ArrayList<>();
             fieldTypes.forEach(fieldType -> {
                 FieldTypeResponse fieldTypeResponse = modelMapper.map(fieldType, FieldTypeResponse.class);
-                List<FieldType> fields = fieldRepository.findByFieldTypeId(fieldType.getFieldTypeId());
-                List<FieldResponse> fieldResponses = new ArrayList<>();
-                fields.forEach(item->{
-                    FieldResponse fieldResponse = modelMapper.map(item, FieldResponse.class);
-                    fieldResponses.add(fieldResponse);
-                });
                 fieldTypeResponses.add(fieldTypeResponse);
             });
             areaResponse.setFieldTypeResponseList(fieldTypeResponses);
@@ -252,7 +245,7 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Object findFieldByIdAndCalender(Long id, Long index) {
-        FieldType field = fieldRepository.findById(id).get();
+        FieldType field = fieldTypeRepository.findById(id).get();
         List<TimeFrameSchedule> schedule = bookingServiceClient.calenderSchedule(LocalDate.now().plusDays(7 * index), id);
         FieldType fieldType = fieldTypeRepository.findById(id).orElseThrow();
 
@@ -270,18 +263,18 @@ public class AreaServiceImpl implements AreaService {
             String result = ngay.format(dinhDang) + " - " + thuTiengViet;
             schedule.get(i).setDateString(result);
             List<FieldSchedule> fieldSchedules = new ArrayList<>();
-            for(Constant.TimeFrameEnum item : Constant.TimeFrameEnum.getAllTimeFrames()){
+            for(FieldSchedule item : schedule.get(i).getFieldSchedules()){
                 FieldSchedule fieldSchedule = new FieldSchedule();
-                fieldSchedule.setTimeFrame(item.getKey());
-                fieldSchedule.setTimeFrameStr(item.getValue());
+                fieldSchedule.setTimeFrame(item.getTimeFrame());
+                fieldSchedule.setTimeFrameStr(item.getTimeFrameStr());
                 fieldSchedule.setFieldId(field.getFieldTypeId());
-                fieldSchedule.setPrice((long) (fieldType.getPrice() != null ? fieldType.getPrice() * item.getScale() : 0.0));
-                fieldSchedule.setTimeFrame(item.getKey());
-                fieldSchedule.setQuantity(fieldType.getQuantity() - (fieldSchedule.getQuantity() != null ? fieldSchedule.getQuantity() : 0));
+                fieldSchedule.setPrice((long) (fieldType.getPrice() != null ? fieldType.getPrice() * Constant.TimeFrameEnum.fromValue(item.getTimeFrame()) : 0.0));
+                fieldSchedule.setTimeFrame(item.getTimeFrame());
+                fieldSchedule.setQuantity(fieldType.getQuantity() - (item.getQuantity() != null ? item.getQuantity() : 0));
                 fieldSchedule.setFieldId(field.getFieldTypeId());
                 fieldSchedules.add(fieldSchedule);
-                schedule.get(i).setFieldSchedules(fieldSchedules);
             }
+            schedule.get(i).setFieldSchedules(fieldSchedules);
         }
         list.setCalender(calender);
         list.setTimeFrames(schedule);
@@ -340,7 +333,7 @@ public class AreaServiceImpl implements AreaService {
         List<FieldTypeResponse> fieldTypeResponses = new ArrayList<>();
         fieldTypes.forEach(fieldType -> {
             FieldTypeResponse fieldTypeResponse = modelMapper.map(fieldType, FieldTypeResponse.class);
-            List<FieldType> fields = fieldRepository.findByFieldTypeId(fieldType.getFieldTypeId());
+            List<FieldType> fields = fieldTypeRepository.findByFieldTypeId(fieldType.getFieldTypeId());
             List<FieldResponse> fieldResponses = new ArrayList<>();
             fields.forEach(item->{
                 FieldResponse fieldResponse = modelMapper.map(item, FieldResponse.class);

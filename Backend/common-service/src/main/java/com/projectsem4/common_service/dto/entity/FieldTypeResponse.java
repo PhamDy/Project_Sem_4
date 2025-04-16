@@ -29,6 +29,4 @@ public class FieldTypeResponse {
     private Long size;
 
     private Long areaId;
-
-    private List<FieldResponse> fieldResponseList;
 }

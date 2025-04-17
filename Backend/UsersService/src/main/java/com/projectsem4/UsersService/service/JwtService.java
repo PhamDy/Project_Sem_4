@@ -1,5 +1,6 @@
 package com.projectsem4.UsersService.service;
 
+import com.projectsem4.UsersService.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -23,18 +24,20 @@ public class JwtService {
     }
 
 
-    public String generateToken(Long userId, String userName, Integer role) {
+    public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", userId);
-        claims.put("role", role);
-        return createToken(claims, userName);
+        claims.put("userId", user.getUserId());
+        claims.put("role", user.getRole());
+        claims.put("userName", user.getUserName());
+        claims.put("email", user.getEmail());
+        claims.put("phoneNumber", user.getPhoneNumber());
+        return createToken(claims);
     }
 
 
-    private String createToken(Map<String, Object> claims, String userName) {
+    private String createToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();

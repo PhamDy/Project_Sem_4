@@ -2,6 +2,7 @@ package com.projectsem4.UsersService.controller;
 
 import com.projectsem4.UsersService.dto.UserDTO;
 import com.projectsem4.UsersService.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,13 @@ public class UserPublicController {
     @GetMapping("/login")
     public ResponseEntity<?> login(@RequestParam String userName,@RequestParam String password) {
         return ResponseEntity.ok().body(userService.login(userName, password));
+    }
+
+    @GetMapping("/get-token")
+    public ResponseEntity<?> login(HttpServletRequest request) {
+        String authorizationHeader = request.getHeader("Authorization");
+        String token = authorizationHeader.substring(7);
+        return ResponseEntity.ok().body(userService.getUserInforByToken(token));
     }
 
 }

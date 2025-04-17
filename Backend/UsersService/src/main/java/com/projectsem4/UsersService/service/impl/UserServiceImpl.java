@@ -9,6 +9,7 @@ import com.projectsem4.UsersService.repository.UserRepository;
 import com.projectsem4.UsersService.service.JwtService;
 import com.projectsem4.UsersService.service.UserService;
 import com.projectsem4.common_service.dto.UserInfor;
+import com.projectsem4.common_service.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -72,8 +73,13 @@ public class UserServiceImpl implements UserService {
             throw new BadRequestException("Invalid username or password");
         }
 
-        String token = jwtService.generateToken(user.getUserId(), user.getUserName(), user.getRole());
+        String token = jwtService.generateToken(user);
         return new ObjectTokenDTO(token);
+    }
+
+    @Override
+    public UserInfor getUserInforByToken(String token) {
+        return JwtUtil.decodeToken(token);
     }
 
 }

@@ -1,10 +1,12 @@
 package com.projectsem4.UsersService.service.impl;
 
 import com.projectsem4.UsersService.client.NotificationServiceClient;
+import com.projectsem4.UsersService.dto.ObjectTokenDTO;
 import com.projectsem4.UsersService.dto.UserDTO;
 import com.projectsem4.UsersService.entity.User;
 import com.projectsem4.UsersService.exception.BadRequestException;
 import com.projectsem4.UsersService.repository.UserRepository;
+import com.projectsem4.UsersService.service.JwtService;
 import com.projectsem4.UsersService.service.UserService;
 import com.projectsem4.common_service.dto.UserInfor;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final JwtService jwtService;
     private final NotificationServiceClient notificationServiceClient;
     private final ModelMapper modelMapper;
 
@@ -60,6 +63,17 @@ public class UserServiceImpl implements UserService {
         }
         user.setIsActive(true);
         userRepository.save(user);
+    }
+
+    @Override
+    public ObjectTokenDTO login(String userName, String password) {
+        User user = userRepository.findByUserNameAndPasswordAndIsActive(userName, password, true);
+        if(user==null){
+            throw new BadRequestException("Invalid username or password");
+        }
+
+        String token = jwtService.generateToken(user.getUserId(), user.getUserName(), user.getRole());
+        return new ObjectTokenDTO(token);
     }
 
 }

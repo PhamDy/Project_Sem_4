@@ -24,10 +24,15 @@ public class UserPublicController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
+    @PutMapping("/active-user")
     public ResponseEntity<?> activeUser(@RequestParam String otp) {
         userService.activeUser(otp);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<?> login(@RequestParam String userName,@RequestParam String password) {
+        return ResponseEntity.ok().body(userService.login(userName, password));
     }
 
 }

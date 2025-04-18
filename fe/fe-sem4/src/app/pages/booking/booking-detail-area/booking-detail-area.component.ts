@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookingServicesService } from '../../../services/booking-services.service';
 import * as L from 'leaflet';
@@ -11,7 +11,7 @@ import * as AOS from 'aos';
   templateUrl: './booking-detail-area.component.html',
   styleUrl: './booking-detail-area.component.css',
 })
-export class BookingDetailAreaComponent {
+export class BookingDetailAreaComponent implements OnInit{
   bookingType: any;
   searchQuery: string = '';
   dataStadium: any[] = [];
@@ -85,6 +85,24 @@ export class BookingDetailAreaComponent {
     '7': '20:30 - 22:00',
   };
 
+  itemsPerPage: number = 8;
+  currentPage: number = 1;
+
+  get paginatedStadiums(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.dataStadium.slice(startIndex, endIndex);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.dataStadium.length / this.itemsPerPage);
+  }
+
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
   getAllTimeFrames(): number[] {
     return Object.keys(this.timeFramesMap).map((k) => +k);
   }
@@ -125,7 +143,7 @@ export class BookingDetailAreaComponent {
     } else if (field.quantity > field.availableQuantity) {
       field.quantity = field.availableQuantity;
     }
-  
+
     // Cập nhật lại amount
     field.amount = field.quantity * field.price;
   }
@@ -327,4 +345,6 @@ export class BookingDetailAreaComponent {
       queryParams: { selectedFields: JSON.stringify(this.selectedFields) },
     });
   }
+  protected readonly Number = Number;
+
 }

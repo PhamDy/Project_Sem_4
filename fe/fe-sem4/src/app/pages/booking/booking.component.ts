@@ -22,6 +22,8 @@ export class BookingComponent implements OnInit {
   latitudeMap: number | null = null;
   longitudeMap: number | null = null;
   img: any = 'https://imgur.com/JMP9KcJ.png'
+  itemsPerPage: number = 8;
+  currentPage: number = 1;
 
   showDetailPopup: boolean = false;
   stadiumDetail: any = null;
@@ -71,7 +73,21 @@ export class BookingComponent implements OnInit {
       console.log('No search query provided.');
     }
   }
+  get paginatedStadiums(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.dataStadiumSearch.slice(startIndex, endIndex);
+  }
 
+  get totalPages(): number {
+    return Math.ceil(this.dataStadiumSearch.length / this.itemsPerPage);
+  }
+
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
   getAllStadiums(): void {
     this.stadiumService.getAllStadiumPageable().subscribe(
       (res) => {
@@ -153,5 +169,5 @@ export class BookingComponent implements OnInit {
   }
 
 
-
+  protected readonly Number = Number;
 }

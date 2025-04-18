@@ -5,7 +5,9 @@
   gap: 20px;
   padding: 20px;
   justify-content: center;
-  width: 100%; /* Full width of the parent container */
+  width: 100%;
+  max-width: 1500px;
+  margin: auto;
 }
 
 .stadium-card {
@@ -625,5 +627,994 @@ select {
   gap: 5px;
   font-size: 14px;
 }
+/* navbar.component.css */
+.stadium-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  width: 100%; /* Full width of the parent container */
+}
 
+.stadium-card {
+  width: 100%; /* Each card takes up around 48% of the container width, leaving space for two cards per row */
+  margin: 10px; /* Adds space between cards */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stadium-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stadium-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.stadium-info {
+  padding: 15px;
+}
+
+.stadium-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.stadium-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0 15px;
+}
+
+.rating {
+  display: flex;
+  justify-content: start;
+  color: gold;
+}
+
+.rating span {
+  font-size: 16px;
+  margin-right: 3px;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+}
+
+
+.stadium-detail-popup {
+  margin-top: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);  /* Dark overlay with slight transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 1000px;
+  height: 70%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  overflow: hidden;
+  position: relative;
+  transform: translateY(20px); /* Small lift effect on opening */
+  transition: transform 0.3s ease-in-out;
+}
+
+.popup-content:hover {
+  transform: translateY(0); /* Smooth transition when popup appears */
+}
+
+.popup-image {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 2px solid #f0f0f0; /* Subtle separation between image and details */
+}
+
+.popup-image img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for the image */
+}
+
+.popup-details {
+  flex: 1.5;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.popup-details .close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 35px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.popup-details .close:hover {
+  color: #ff4747; /* Change color on hover for the close button */
+}
+
+.popup-details h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: 600;
+}
+
+.popup-details p {
+  font-size: 1rem;
+  margin: 15px 0;
+  line-height: 1.5;
+  color: #555;
+}
+
+.rating {
+  font-size: 1.4rem;
+  margin-top: 10px;
+  color: #f39c12; /* Gold color for rating */
+}
+
+.popup-details p:last-child {
+  margin-bottom: 0;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+}
+
+.close:hover {
+  color: #f00;  /* Change color on hover */
+}
+
+
+
+.btn-map {
+  background-color: #275e28; /* Màu nền xanh */
+  color: white;
+  border: 2px solid #275e28;
+}
+
+.btn-map i {
+  margin-right: 5px; /* Khoảng cách giữa icon và chữ */
+}
+
+/* Hiệu ứng hover cho nút Xem bản đồ */
+.btn-map:hover {
+  background-color: #45a049;
+  border: 2px solid #45a049;
+}
+
+/* Nút Xem chi tiết */
+.btn-detail {
+  background-color: #015cbe; /* Màu nền xanh dương */
+  color: white;
+  border: 2px solid #015cbe;
+}
+
+.btn-detail i {
+  margin-right: 5px;
+}
+
+/* Hiệu ứng hover cho nút Xem chi tiết */
+.btn-detail:hover {
+  background-color: #2c90ff;
+  border-color: #2c90ff;
+}
+
+/* Hiệu ứng cho nút khi bị nhấn */
+button:active {
+  transform: scale(0.98);
+}
+.button-popup{
+  height: 60px;
+  width: 400px;
+  border-radius: 20px;
+  border: 0px;
+  background-color: #2195a4;
+  color: #ddd;
+  transition: ease 0.3s all;
+}
+.button-popup:hover{
+  transform: scale(1.1);
+  background-color: #00c7e1;
+  color: #ffffff;
+}
+
+/* Search results container */
+.search-results-container {
+  max-width: 1500px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Search header styles - enhanced */
+.search-header {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.05));
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  border-left: 5px solid rgb(214, 225, 0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.search-header h2 {
+  color: #4a4a4a;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.search-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: rgb(214, 225, 0);
+}
+
+.search-criteria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.search-criteria p {
+  margin: 5px 0;
+  color: #333;
+  font-size: 17px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: transform 0.2s;
+}
+
+.search-criteria p:hover {
+  transform: translateY(-3px);
+}
+
+.search-criteria strong {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Section title - enhanced */
+.section-title {
+  text-align: center;
+  color: #3a3a3a;
+  font-size: 40px;
+  margin: 50px 0 40px;
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 5px;
+  background: linear-gradient(to right, rgb(214, 225, 0), rgba(214, 225, 0, 0.5));
+  margin: 18px auto 0;
+  border-radius: 3px;
+}
+
+/* Stadium list layout - 4 cards per row with better styling */
+.stadium-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.stadium-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stadium-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.stadium-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.stadium-card:hover img {
+  transform: scale(1.05);
+}
+
+.stadium-info {
+  padding: 20px;
+}
+
+.stadium-info h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.stadium-info p {
+  font-size: 15px;
+  color: #666;
+  margin: 10px 0 15px;
+  line-height: 1.5;
+}
+
+.rating {
+  display: flex;
+  color: rgb(255, 196, 0);
+  margin-bottom: 15px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px 20px;
+}
+
+/* Pagination controls - enhanced */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+  gap: 20px;
+}
+
+.pagination-btn {
+  background-color: rgb(214, 225, 0);
+  border: none;
+  padding: 12px 25px;
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.pagination-btn:hover {
+  background-color: rgb(237, 255, 70);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(214, 225, 0, 0.4);
+}
+
+.pagination-btn:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+  color: #999;
+}
+
+.page-indicator {
+  font-size: 18px;
+  color: #444;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .stadium-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .stadium-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .search-header h2 {
+    font-size: 28px;
+  }
+
+  .section-title {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .stadium-list {
+    grid-template-columns: 1fr;
+  }
+
+  .search-criteria {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .pagination-btn {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+}
+
+/* Search header styles - refined */
+.search-header {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.05));
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  border-left: 5px solid rgba(214, 225, 0, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.search-header h2 {
+  color: #3a3a3a;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.search-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: rgba(214, 225, 0, 0.7);
+}
+
+.search-criteria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.search-criteria p {
+  margin: 5px 0;
+  color: #333;
+  font-size: 17px;
+  background: rgba(245, 245, 245, 0.7);
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.search-criteria p:hover {
+  transform: translateY(-3px);
+  background: rgba(240, 240, 240, 0.9);
+}
+
+.search-criteria strong {
+  color: #444;
+  font-weight: 600;
+}
+
+/* Improved search header styles */
+.search-header {
+  background: linear-gradient(to right, rgba(245, 245, 245, 0.8), rgba(240, 240, 240, 0.5));
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  border-left: 5px solid rgba(0, 171, 209, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.search-header h2 {
+  color: #333;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+/* Fixed underline that doesn't extend on hover */
+.search-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: rgba(0, 171, 209, 0.7);
+  transition: width 0.3s ease;
+}
+
+/* Search criteria styling */
+.search-criteria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.search-criteria p {
+  margin: 0;
+  color: #444;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 171, 209, 0.2);
+  transition: all 0.2s ease;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-criteria p:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(0, 171, 209, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-criteria strong {
+  color: #015cbe;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+/* Search header - green theme */
+.search-header {
+  background: linear-gradient(to right, rgba(245, 252, 245, 0.8), rgba(240, 250, 240, 0.5));
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  border-left: 5px solid rgba(39, 94, 40, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.search-header h2 {
+  color: #333;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+/* Fixed underline that matches the text width */
+.search-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: rgba(39, 94, 40, 0.8);
+  transition: width 0.3s ease;
+}
+
+.search-criteria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.search-criteria p {
+  margin: 0;
+  color: #444;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid rgba(39, 94, 40, 0.2);
+  transition: all 0.2s ease;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-criteria p:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(39, 94, 40, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-criteria strong {
+  color: #275e28; /* Green color for labels */
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+/* Button styles - consistent green theme */
+.btn-map, .btn-detail {
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+  text-align: center;
+  flex: 1;
+  margin: 0 5px;
+  border: none;
+}
+
+.btn-map {
+  background-color: #275e28;
+  color: white;
+}
+
+.btn-map:hover {
+  background-color: #2d6e2e;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn-detail {
+  background-color: #275e28;
+  color: white;
+}
+
+.btn-detail:hover {
+  background-color: #2d6e2e;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Remove scale transform from stadium card hover */
+.stadium-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Button styles - different colors with no scaling effect */
+.btn-map, .btn-detail {
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+  text-align: center;
+  flex: 1;
+  margin: 0 5px;
+  border: none;
+  transform: none;
+}
+
+.btn-map {
+  background-color: #275e28;
+  color: white;
+}
+
+.btn-map:hover {
+  background-color: #2d6e2e;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  border: none;
+  transform: none;
+}
+
+.btn-detail {
+  background-color: #3b5998;
+  color: white;
+}
+
+.btn-detail:hover {
+  background-color: #4c70ba;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transform: none;
+}
+
+.btn-map:active, .btn-detail:active {
+  transform: none;
+}
+
+.stadium-card .action-buttons button:hover {
+  transform: none;
+}
+
+/* Enhanced stadium card styling with animations */
+.stadium-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  background-color: #fff;
+  transition: all 0.4s ease;
+  position: relative;
+  max-width: 350px;
+}
+
+.stadium-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 4px;
+  background: linear-gradient(to right, #275e28, #65b566);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.stadium-card:hover::before {
+  transform: scaleX(1);
+}
+
+.stadium-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(39, 94, 40, 0.2);
+}
+
+.stadium-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: all 0.5s ease;
+  filter: brightness(0.95);
+}
+
+.stadium-card:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+.stadium-info {
+  padding: 20px;
+}
+
+.stadium-info h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  color: #333;
+  position: relative;
+  padding-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.stadium-info h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #275e28;
+  transition: width 0.5s ease;
+}
+
+.stadium-card:hover .stadium-info h3 {
+  color: #275e28;
+}
+
+.stadium-card:hover .stadium-info h3::after {
+  width: 80px;
+}
+
+.stadium-info p {
+  font-size: 15px;
+  color: #666;
+  margin: 10px 0 15px;
+  line-height: 1.5;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px 20px;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.stadium-card:hover .action-buttons {
+  opacity: 1;
+}
+
+.btn-map, .btn-detail {
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  flex: 1;
+  margin: 0 5px;
+  border: none;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-map {
+  background-color: #275e28;
+  color: white;
+}
+
+.btn-map:hover {
+  background-color: #2d6e2e;
+  box-shadow: 0 4px 8px rgba(39, 94, 40, 0.3);
+}
+
+.btn-detail {
+  background-color: #3b5998;
+  color: white;
+}
+
+.btn-detail:hover {
+  background-color: #4c70ba;
+  box-shadow: 0 4px 8px rgba(59, 89, 152, 0.3);
+}
+
+button.btn-map, button.btn-detail,
+.stadium-card .action-buttons button {
+  transform: none !important;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*.stadium-card {*/
+/*  --card-index: 0; !* Default value *!*/
+/*  animation: fadeInUp 0.6s ease forwards;*/
+/*  animation-delay: calc(var(--card-index, 0) * 0.1s);*/
+/*}*/
+
+/* Star rating styling */
+.rating {
+  display: flex;
+  gap: 2px;
+}
+
+.rating .star {
+  color: #ffa600;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.rating .empty-star {
+  color: #ccc;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.stadium-card:hover .rating .star {
+  color: #ecbb65;
+}
+
+.stadium-card:hover .rating .empty-star {
+  color: #ddd;
+}
+/* Clean up the stadium card hover animation */
+.stadium-card {
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+  box-shadow 0.5s ease;
+  transform: translateY(0);
+  box-shadow: 0 5px 15px rgba(39, 94, 40, 0.1);
+}
+
+.stadium-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(39, 94, 40, 0.2);
+  /* Remove the animation property that was causing conflicts */
+  animation: none;
+}
+
+/* Keep the nice border effect on hover */
+.stadium-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #275e28, #65b566);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.stadium-card:hover::after {
+  transform: scaleX(1);
+}
+
+/* Keep the subtle image hover effect */
+.stadium-card img {
+  transition: transform 0.5s ease;
+}
+
+.stadium-card:hover img {
+  transform: scale(1.1);
+}
+
+/* Remove the cardGlow animation since we're not using it anymore */
+@keyframes cardGlow {
+  0% {
+    box-shadow: 0 10px 20px rgba(39, 94, 40, 0.1);
+  }
+  50% {
+    box-shadow: 0 15px 30px rgba(39, 94, 40, 0.2);
+  }
+  100% {
+    box-shadow: 0 10px 20px rgba(39, 94, 40, 0.1);
+  }
+}
 

@@ -231,8 +231,14 @@ p{
   0%{
     transform: translateY(0px);
   }
+  25%{
+    transform: translateY(-5px);
+  }
   50%{
     transform: translateY(-10px);
+  }
+  75%{
+    transform: translateY(-5px);
   }
   100%{
     transform: translateY(0px);
@@ -248,10 +254,74 @@ p{
   0%{
     transform: translateY(0px);
   }
+  25%{
+    transform: translateY(-5px);
+  }
   50%{
+    transform: translateY(-5px);
+  }
+  75%{
     transform: translateY(-5px);
   }
   100%{
     transform: translateY(0px);
   }
+}
+
+/* Header main transition improvements */
+.header-main {
+  background: linear-gradient(to right, #00abd1, #4fffd3);
+  text-align: center;
+  color: aliceblue;
+  margin: 0;
+  max-height: 70px; /* Exact height of your header */
+  padding: 10px 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother easing function */
+  overflow: hidden;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header-hidden {
+  max-height: 0;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(-100%); /* Slide up instead of abrupt disappearance */
+}
+
+/* Ensure the paragraph inside also transitions properly */
+.header-main p {
+  margin: 0;
+  transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-hidden p {
+  padding: 0;
+}
+
+/* Adjust navbar to smoothly adapt to header changes */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.navbar-no-header {
+  transform: translateY(0); /* Smooth adaptation when header is hidden */
+}
+
+/* Container that holds both the header and navbar */
+.container-main {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

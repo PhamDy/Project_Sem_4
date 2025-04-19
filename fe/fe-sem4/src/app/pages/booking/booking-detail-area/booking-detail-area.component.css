@@ -483,12 +483,6 @@ th {
   margin-right: 20px;
 }
 
-.booking-options{
-  padding-top: 30px;
-  padding-bottom: 50px;
-}
-
-
 
 .selected-fields-table {
   width: 100%;
@@ -1618,3 +1612,693 @@ button.btn-map, button.btn-detail,
   }
 }
 
+/* Enhanced Stadium Detail Styling */
+.stadium-container {
+  display: flex;
+  background-color: #f8f9fa;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin: 30px 100px 50px;
+  transition: all 0.3s ease;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.stadium-container:hover {
+  box-shadow: 0 15px 40px rgba(39, 94, 40, 0.2);
+}
+
+.stadium-image {
+  flex: 1;
+  max-width: 50%;
+  overflow: hidden;
+}
+
+.stadium-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.stadium-container:hover .stadium-image img {
+  transform: scale(1.03);
+}
+
+.stadium-infor {
+  flex: 1;
+  padding: 40px;
+  background: linear-gradient(to right bottom, #ffffff, #f8f9fa);
+  position: relative;
+}
+
+.stadium-infor h1 {
+  color: #275e28;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.stadium-infor h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, #275e28, #65b566);
+  border-radius: 2px;
+}
+
+.stadium-infor p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  color: #444;
+  transition: transform 0.3s ease;
+}
+
+.stadium-infor p:hover {
+  transform: translateX(5px);
+}
+
+.stadium-infor p strong {
+  color: #275e28;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.stadium-infor .address {
+  color: #015cbe;
+  font-style: italic;
+}
+
+.stadium-infor .description {
+  border-left: 3px solid #e0e0e0;
+  padding-left: 15px;
+  font-size: 15px;
+  color: #666;
+  margin: 25px 0;
+}
+
+.booking-options {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.radio-check {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 10px 15px;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.radio-check:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.radio-check input {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.radio-check input:checked + .radio-check {
+  background-color: #dcedc8;
+}
+
+.buttonBook {
+  background: linear-gradient(to right, #275e28, #388e3c);
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 15px;
+  box-shadow: 0 4px 15px rgba(39, 94, 40, 0.3);
+  transition: all 0.3s ease;
+}
+
+.buttonBook:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(39, 94, 40, 0.4);
+  background: linear-gradient(to right, #388e3c, #4caf50);
+}
+
+.buttonBook:active {
+  transform: translateY(-2px);
+}
+
+/* Detail title */
+h1.detail-title {
+  color: #275e28;
+  font-size: 38px;
+  font-weight: 700;
+  margin: 40px 0 20px 100px;
+  position: relative;
+  padding-left: 15px;
+  max-width: 1500px;
+  margin: 20px auto;
+}
+
+h1.detail-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 5px;
+  background: linear-gradient(to bottom, #275e28, transparent);
+  border-radius: 5px;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .stadium-container {
+    flex-direction: column;
+    margin: 20px 50px;
+  }
+
+  .stadium-image {
+    max-width: 100%;
+  }
+
+  .stadium-infor {
+    padding: 30px;
+  }
+
+  h1.detail-title {
+    margin-left: 50px;
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 576px) {
+  .stadium-container {
+    margin: 20px;
+  }
+
+  .stadium-infor h1 {
+    font-size: 26px;
+  }
+
+  .booking-options {
+    flex-direction: column;
+    gap: unset!important;
+    padding: 0!important;
+  }
+
+  h1.detail-title {
+    margin-left: 20px;
+    font-size: 28px;
+  }
+
+  .buttonBook {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+/* Enhanced Long-term Booking Popup Styling */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(3px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.popup {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 500px;
+  max-width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: slideUp 0.4s ease;
+  border-top: 5px solid #275e28;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.popup .close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  color: #777;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.popup .close-button:hover {
+  background: #f0f0f0;
+  color: #f44336;
+  transform: rotate(90deg);
+}
+
+.popup h2 {
+  color: #275e28;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f1f1f1;
+}
+
+.popup label {
+  display: block;
+  margin: 15px 0 8px;
+  font-weight: 500;
+  color: #333;
+  font-size: 16px;
+}
+
+.popup input,
+.popup select {
+  width: 93.5%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s;
+  background-color: #f9f9f9;
+}
+
+.popup input:focus,
+.popup select:focus {
+  border-color: #275e28;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(39, 94, 40, 0.1);
+  background-color: #fff;
+}
+
+.popup .checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.popup .checkbox-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  margin: 0;
+  padding: 8px 15px;
+  background: #f5f5f5;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.popup .checkbox-group label:hover {
+  background: #e8f5e9;
+  border-color: #a5d6a7;
+}
+
+.popup .checkbox-group input[type="checkbox"] {
+  accent-color: #275e28;
+  width: 18px;
+  height: 18px;
+}
+
+.popup .checkbox-group input[type="checkbox"]:checked + span {
+  color: #275e28;
+  font-weight: 500;
+}
+
+.popup .button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.popup button {
+  padding: 14px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 48%;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.popup button.submit {
+  background: linear-gradient(to right, #275e28, #388e3c);
+  color: white;
+}
+
+.popup button.submit:hover {
+  background: linear-gradient(to right, #388e3c, #4caf50);
+  box-shadow: 0 4px 12px rgba(39, 94, 40, 0.3);
+  transform: translateY(-2px);
+}
+
+.popup button.cancel {
+  background: linear-gradient(to right, #e53935, #f44336);
+  color: white;
+}
+
+.popup button.cancel:hover {
+  background: linear-gradient(to right, #f44336, #ef5350);
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+  transform: translateY(-2px);
+}
+
+.popup select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 18px;
+  padding-right: 45px;
+}
+
+/* Add these styles for improved responsive behavior */
+@media (max-width: 576px) {
+  .popup {
+    padding: 20px;
+    width: 95%;
+  }
+
+  .popup h2 {
+    font-size: 22px;
+  }
+
+  .popup button {
+    padding: 12px 0;
+  }
+
+  .popup .checkbox-group {
+    justify-content: center;
+  }
+}
+/* Main container styling */
+.booking-detail-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Form elements styling */
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* Days of week container */
+.days-of-week {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+/* Days of week - top row (3 items) */
+.day-item-top {
+  flex-basis: calc(33.333% - 10px);
+  text-align: center;
+}
+
+/* Days of week - bottom row (4 items) */
+.day-item-bottom {
+  flex-basis: calc(25% - 10px);
+  text-align: center;
+}
+
+/* Common styles for day items */
+.day-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.day-item.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Popup styling */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+}
+
+/* Make sure the close button has enough padding for touch targets */
+.close-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Add more specific z-index to ensure clickability */
+.close-button {
+  z-index: 1001;
+}
+
+/* Buttons styling */
+.btn {
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .popup-content {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .day-item-top,
+  .day-item-bottom {
+    flex-basis: calc(50% - 10px);
+  }
+}
+/* Styling for weekdays row */
+.weekdays-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.weekday {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.weekday.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.weekday-name {
+  font-weight: 500;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.weekday-date {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Styling for buttons at the bottom */
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-button {
+  padding: 10px 20px;
+  border: 1px solid #dc3545;
+  background-color: white;
+  color: #dc3545;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #ffebee;
+}
+
+.confirm-button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirm-button:hover {
+  background-color: #0069d9;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.weekday-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.day-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  margin: 0;
+  padding: 8px 15px;
+  background: #f5f5f5;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.day-item:hover {
+  background: #e8f5e9;
+  border-color: #a5d6a7;
+}
+
+.day-item-top {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
+
+.day-item-bottom {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
+
+.day-item input[type="checkbox"] {
+  accent-color: #275e28;
+  width: 18px;
+  height: 18px;
+}
+
+.day-item input[type="checkbox"]:checked + span {
+  color: #275e28;
+  font-weight: 500;
+}
+
+
+.popup .input-label-popup{
+  width: 93.5%;
+  margin: 10px auto;
+}

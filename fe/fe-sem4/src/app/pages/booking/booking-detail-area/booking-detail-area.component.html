@@ -2,7 +2,7 @@
 <p>booking-detail-area works!</p>
 
 <div class="main-containers">
-  <h1 style="color: #5c5c5c; font-size: 50px; margin-left: 100px">
+  <h1 class="detail-title">
     Thông tin chi tiết
   </h1>
   <div class="stadium-container">
@@ -189,33 +189,33 @@
 
   <p></p>
 </div>
-
-<div *ngIf="showLongTermPopup" class="popup-overlay" data-aos="fade-up">
-  <div class="popup">
+<div class="popup-overlay" *ngIf="showLongTermPopup" (click)="closePopup()">
+  <div class="popup" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="closePopup()">&times;</button>
     <h2>Đặt sân dài hạn</h2>
 
     <label
-      >Tên người đặt sân:
-      <input type="text" [(ngModel)]="longTerm.name" />
+    >Tên người đặt sân:
+      <input type="text" class="input-label-popup" [(ngModel)]="longTerm.name" />
     </label>
 
     <label
-      >Số điện thoại:
-      <input type="tel" [(ngModel)]="longTerm.phone" />
+    >Số điện thoại:
+      <input type="tel" class="input-label-popup" [(ngModel)]="longTerm.phone" />
     </label>
 
     <label
-      >Ngày bắt đầu:
-      <input type="date" [(ngModel)]="longTerm.startDate" />
+    >Ngày bắt đầu:
+      <input type="date" class="input-label-popup" [(ngModel)]="longTerm.startDate" />
     </label>
 
     <label
-      >Ngày kết thúc:
-      <input type="date" [(ngModel)]="longTerm.endDate" />
+    >Ngày kết thúc:
+      <input type="date" class="input-label-popup" [(ngModel)]="longTerm.endDate" />
     </label>
 
     <label
-      >Khung giờ đá:
+    >Khung giờ đá:
       <select [(ngModel)]="longTerm.timeSlot">
         <option *ngFor="let time of timeSlots" [value]="time">
           {{ time }}
@@ -225,34 +225,38 @@
 
     <label>Ngày đá trong tuần:</label>
     <div class="checkbox-group">
-      <label
-        ><input type="checkbox" [(ngModel)]="longTerm.days['Thứ 2']" />
-        Mon</label
-      >
-      <label
-        ><input type="checkbox" [(ngModel)]="longTerm.days['Thứ 3']" />
-        Tue</label
-      >
-      <label
-        ><input type="checkbox" [(ngModel)]="longTerm.days['Thứ 4']" />
-        We</label
-      >
-      <label
-        ><input type="checkbox" [(ngModel)]="longTerm.days['Thứ 5']" />
-        Thu</label
-      >
-      <label
-        ><input type="checkbox" [(ngModel)]="longTerm.days['Thứ 6']" />
-        Fri</label
-      >
-      <label
-        ><input type="checkbox" [(ngModel)]="longTerm.days['Thứ 7']" />
-        Sat</label
-      >
-      <label
-        ><input type="checkbox" [(ngModel)]="longTerm.days['Chủ Nhật']" />
-        Sun</label
-      >
+      <div class="weekday-row top-row" style="justify-content: center" >
+        <label class="day-item ">
+          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 2']" />
+          <span>Mon</span>
+        </label>
+        <label class="day-item ">
+          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 3']" />
+          <span>Tue</span>
+        </label>
+        <label class="day-item ">
+          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 4']" />
+          <span>Wed</span>
+        </label>
+      </div>
+      <div class="weekday-row bottom-row" style="justify-content: center">
+        <label class="day-item">
+          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 5']" />
+          <span>Thu</span>
+        </label>
+        <label class="day-item">
+          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 6']" />
+          <span>Fri</span>
+        </label>
+        <label class="day-item">
+          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 7']" />
+          <span>Sat</span>
+        </label>
+        <label class="day-item">
+          <input type="checkbox" [(ngModel)]="longTerm.days['Chủ Nhật']" />
+          <span>Sun</span>
+        </label>
+      </div>
     </div>
     <div class="terms-container">
       <p>
@@ -261,64 +265,75 @@
       </p>
     </div>
 
-    <button (click)="confirmLongTerm()">Xác nhận</button>
-    <button (click)="closePopupLong()">Đóng</button>
+    <div class="button-group">
+      <button class="submit" (click)="confirmLongTerm()">Xác nhận</button>
+      <button class="cancel" (click)="closePopupLong()">Đóng</button>
+    </div>
   </div>
 </div>
+
+<!--<div *ngIf="showLongTermPopup" class="popup-overlay" data-aos="fade-up">-->
+<!--  <div class="popup">-->
+<!--    -->
+<!--  </div>-->
+<!--</div>-->
 
 <!-- Popup đặt giải đấu -->
 <div *ngIf="showTournamentPopup" class="popup-overlay" data-aos="fade-up">
   <div class="popup">
-    <div class="popup-main">
-      <h2>Đặt giải đấu</h2>
+    <h2>Đặt giải đấu</h2>
+    <button class="close-button" (click)="closePopup()">&times;</button>
 
-      <label
-        >Tên giải đấu:
-        <input type="text" [(ngModel)]="tournament.name" />
-      </label>
+    <label class="input-label-popup">
+      Tên giải đấu:
+      <input type="text" [(ngModel)]="tournament.name" class="form-control" />
+    </label>
 
-      <label
-        >Số đội tham gia:
-        <input type="number" [(ngModel)]="tournament.teams" />
-      </label>
+    <label class="input-label-popup">
+      Số đội tham gia:
+      <input type="number" [(ngModel)]="tournament.teams" class="form-control" />
+    </label>
 
-      <label
-        >Số trận đấu dự kiến:
-        <input type="number" [(ngModel)]="tournament.matches" />
-      </label>
+    <label class="input-label-popup">
+      Số trận đấu dự kiến:
+      <input type="number" [(ngModel)]="tournament.matches" class="form-control" />
+    </label>
 
-      <label
-        >Ngày bắt đầu:
-        <input type="date" [(ngModel)]="tournament.startDate" />
-      </label>
+    <label class="input-label-popup">
+      Ngày bắt đầu:
+      <input type="date" [(ngModel)]="tournament.startDate" class="form-control" />
+    </label>
 
-      <label
-        >Ngày kết thúc:
-        <input type="date" [(ngModel)]="tournament.endDate" />
-      </label>
+    <label class="input-label-popup">
+      Ngày kết thúc:
+      <input type="date" [(ngModel)]="tournament.endDate" class="form-control" />
+    </label>
 
-      <label
-        >Tên người đăng ký:
-        <input type="text" [(ngModel)]="tournament.registrantName" />
-      </label>
+    <label class="input-label-popup">
+      Tên người đăng ký:
+      <input type="text" [(ngModel)]="tournament.registrantName" class="form-control" />
+    </label>
 
-      <label
-        >Email:
-        <input type="email" [(ngModel)]="tournament.email" />
-      </label>
+    <label class="input-label-popup">
+      Email:
+      <input type="email" [(ngModel)]="tournament.email" class="form-control" />
+    </label>
 
-      <label
-        >Số điện thoại liên hệ:
-        <input type="tel" [(ngModel)]="tournament.phone" />
-      </label>
-      <div class="terms-container">
-        <p>
-          Xem các điều khoản của sân:
-          <a href="#" (click)="showLongTermPopup = true">Tại đây</a>
-        </p>
-      </div>
-      <button (click)="confirmTournament()">Xác nhận</button>
-      <button (click)="closePopup()">Đóng</button>
+    <label class="input-label-popup">
+      Số điện thoại liên hệ:
+      <input type="tel" [(ngModel)]="tournament.phone" class="form-control" />
+    </label>
+
+    <div class="terms-container">
+      <p>
+        Xem các điều khoản của sân:
+        <a href="#" (click)="showLongTermPopup = true; $event.preventDefault()">Tại đây</a>
+      </p>
+    </div>
+
+    <div class="button-group">
+      <button class="submit" (click)="confirmTournament()">Xác nhận</button>
+      <button class="cancel" (click)="closePopup()">Đóng</button>
     </div>
   </div>
 </div>

@@ -239,12 +239,18 @@ export class BookingDetailAreaComponent implements OnInit{
   openPopup() {
     this.isPopup = true;
   }
-
-  closePopup() {
+  closePopup(): void {
+    // Close the popup
     this.isPopup = false;
+    this.showLongTermPopup = false; // or whatever variable controls your popup
     this.showTournamentPopup = false;
-    this.showLongTermPopup = false;
   }
+  //
+  // closePopup() {
+  //   this.isPopup = false;
+  //   this.showTournamentPopup = false;
+  //   this.showLongTermPopup = false;
+  // }
 
   getFieldsByAreaIds(areaId: any) {
     this.stadiumService.getFieldsByAreaId(areaId).subscribe(

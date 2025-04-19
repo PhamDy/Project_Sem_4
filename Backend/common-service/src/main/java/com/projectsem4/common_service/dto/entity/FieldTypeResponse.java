@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FieldTypeResponse {
-    private Long fieldId;
+    private Long fieldTypeId;
 
     private String name;
 

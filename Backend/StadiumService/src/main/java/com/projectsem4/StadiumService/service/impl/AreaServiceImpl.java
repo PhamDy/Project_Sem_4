@@ -333,12 +333,6 @@ public class AreaServiceImpl implements AreaService {
         List<FieldTypeResponse> fieldTypeResponses = new ArrayList<>();
         fieldTypes.forEach(fieldType -> {
             FieldTypeResponse fieldTypeResponse = modelMapper.map(fieldType, FieldTypeResponse.class);
-            List<FieldType> fields = fieldTypeRepository.findByFieldTypeId(fieldType.getFieldTypeId());
-            List<FieldResponse> fieldResponses = new ArrayList<>();
-            fields.forEach(item->{
-                FieldResponse fieldResponse = modelMapper.map(item, FieldResponse.class);
-                fieldResponses.add(fieldResponse);
-            });
         fieldTypeResponses.add(fieldTypeResponse);
         });
         areaResponse.setFieldTypeResponseList(fieldTypeResponses);

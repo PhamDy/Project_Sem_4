@@ -1,5 +1,6 @@
 package com.projectsem4.BookingService.service;
 
+import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.common_service.dto.entity.Price;
 import com.projectsem4.common_service.dto.entity.TimeFrameDate;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 public interface BookingService {
     Object createBooking(CreateBookingRequest request);
+    Object createBookingPeriod(BookingPeriod request);
     CreateBookingRequest findBookingById(Long id);
     Object updateStatusOderByPayment(Integer status, Long orderId);
     List<TimeFrameSchedule> scheduleClient(Long fieldIds, LocalDate date);

@@ -2,10 +2,8 @@ package com.projectsem4.BookingService.service.impl;
 
 import com.projectsem4.BookingService.client.PaymentServiceClient;
 import com.projectsem4.BookingService.client.StadiumServiceClient;
+import com.projectsem4.BookingService.entity.*;
 import com.projectsem4.BookingService.entity.Booking;
-import com.projectsem4.BookingService.entity.BookingAccessory;
-import com.projectsem4.BookingService.entity.BookingDetail;
-import com.projectsem4.BookingService.entity.BookingReferee;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.repository.*;
 import com.projectsem4.BookingService.service.BookingService;
@@ -14,6 +12,7 @@ import com.projectsem4.common_service.dto.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -48,6 +47,45 @@ public class BookingServiceImpl implements BookingService {
         }
         request.setUrl(paymentServiceClient.linkThanhToan(booking.getId()));
          return request;
+    }
+
+    @Override
+    public Object createBookingPeriod(BookingPeriod request) {
+        List<LocalDate> result = new ArrayList<>();
+
+        LocalDate today = LocalDate.now();
+        LocalDate targetMonth = request.getMonth().withDayOfMonth(1); // lấy ngày đầu tháng
+        int year = targetMonth.getYear();
+        int monthValue = targetMonth.getMonthValue();
+
+        // Nếu tháng nhập nhỏ hơn tháng hiện tại thì tăng năm
+        if (monthValue < today.getMonthValue() || (monthValue == today.getMonthValue() && year < today.getYear())) {
+            year++;
+            targetMonth = LocalDate.of(year, monthValue, 1);
+        }
+
+        int lengthOfMonth = targetMonth.lengthOfMonth();
+
+        DayOfWeek targetDay = DayOfWeek.of(request.getWeekDay().intValue());
+
+        for (int day = 1; day <= lengthOfMonth; day++) {
+            LocalDate date = LocalDate.of(year, monthValue, day);
+            if (date.getDayOfWeek().equals(targetDay) && date.isAfter(today)) {
+                result.add(date);
+            }
+        }
+
+        List<BookingDetail> details = new ArrayList<>();
+        for (LocalDate date : result) {
+            BookingDetail detail = new BookingDetail();
+            detail.setBookingDate(date);
+            detail.setQuantity(request.getQuantity());
+            detail.setTimeFrame(request.getTimeFrame());
+            detail.setFieldTypeId(request.getFieldTypeId());
+            details.add(detail);
+        }
+        bookingDetailRepository.saveAll(details);
+       return bookingPeriodRepository.save(request);
     }
 
     @Override

@@ -53,7 +53,7 @@
         value="MoMo"
         [(ngModel)]="paymentMethod"
       />
-      MoMoo
+      MoMo
       <img class="imgPay" src="/assets/img/imgPayment/momo.png" alt="" />
     </label>
   </div>
@@ -87,15 +87,17 @@
       Tổng tiền đặt cọc: {{ getTotalPrice() | currency : "VND" }}
     </p>
     <p class="total">
-      50% còn lại sẽ thanh toán tại sân,đọc điều khoản :<a href="#">Tại đây</a>
+      50% còn lại sẽ thanh toán tại sân, đọc điều khoản: <a href="#">Tại đây</a>
     </p>
   </div>
 </div>
 
 <!-- Nút xác nhận thanh toán -->
 <div class="button-container">
+  <button class="confirm-button back-btn" (click)="goBack()">⬅ Trở về</button>
   <button class="confirm-button" (click)="confirmPayment()">
     Xác nhận thanh toán
   </button>
+
+
 </div>
-<button class="back-button" (click)="goBack()">⬅ Trở về</button>

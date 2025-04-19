@@ -1926,6 +1926,9 @@ h1.detail-title::before {
   background-color: #f9f9f9;
 }
 
+.popup select{
+  width: 100%;
+}
 .popup input:focus,
 .popup select:focus {
   border-color: #275e28;

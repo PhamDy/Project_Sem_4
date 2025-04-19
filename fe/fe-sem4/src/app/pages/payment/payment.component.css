@@ -1,161 +1,637 @@
+/* Global styles */
 .payment-container {
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  margin-top: 20px;
+  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 30px;
+  background: linear-gradient(to bottom, #f9f9f9, #f0f0f0);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.payment-container::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(135deg, rgba(39, 94, 40, 0.05) 0%, rgba(56, 142, 60, 0.05) 100%);
+  z-index: -1;
+  border-radius: 20px;
+  animation: gradient-shift 15s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .payment-section {
-  flex: 1;
+  flex: 0.5;
   background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.payment-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.payment-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #275e28;
+  transform: scaleY(0);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform-origin: bottom;
+}
+
+.payment-section:hover::before {
+  transform: scaleY(1);
+}
+
+/* Header styles */
+.info-title {
+  margin: 20vh 0 40px;
   text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+  animation: fadeIn 0.8s ease-out;
 }
 
-.user-info input{
-  width: 600px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.user-info{
-  height: 400px;
-}
-
-.pay-card{
-  background: #f9f9f9;
-  padding: 40px;
-  transition: ease 0.3s;
-  border-radius: 20px;
-}
-
-.pay-card:hover{
-  transform: scale(1.05);
-}
-
-h3 {
-  margin-bottom: 15px;
+.info-title h1 {
+  font-family: "Poppins", sans-serif;
   color: #333;
+  font-weight: 700;
+  font-size: 38px;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  letter-spacing: -0.5px;
 }
 
-label {
-  display: block;
-  margin-top: 10px;
-  font-weight: bold;
-  color: #555;
+.info-title h1::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(to right, #275e28, #388e3c);
+  border-radius: 2px;
+  animation: pulse 2.5s infinite;
 }
 
-input[type="text"],
-input[type="email"] {
+@keyframes pulse {
+  0% { opacity: 0.6; width: 60%; }
+  50% { opacity: 1; width: 80%; }
+  100% { opacity: 0.6; width: 60%; }
+}
+
+/* User info section */
+.user-info {
+  min-height: 400px;
+  animation: slideInFromLeft 0.5s ease-out;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.user-info h3 {
+  color: #275e28;
+  font-size: 22px;
+  margin-bottom: 25px;
+  display: inline-block;
+  position: relative;
+}
+
+.user-info h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: #275e28;
+  transition: width 0.5s ease;
+}
+
+.user-info:hover h3::after {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
 }
 
-.payment-methods label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.user-info label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
+  text-align: left;
+  font-size: 14px;
+  transition: color 0.5s ease;
+  letter-spacing: 0.2px;
+}
+
+.user-info input {
+  width: 93.5%;
+  padding: 12px 15px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  background: #fcfcfc;
+}
+
+.user-info input:focus {
+  border-color: #275e28;
+  box-shadow: 0 0 0 3px rgba(39, 94, 40, 0.15);
+  outline: none;
+  background: #fff;
+}
+
+.user-info input:hover {
+  border-color: #aaa;
+}
+
+/* Payment methods section */
+.payment-methods {
+  min-height: 400px;
+  animation: slideInFromRight 0.5s ease-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.payment-methods h3 {
+  color: #275e28;
+  font-size: 22px;
+  margin-bottom: 25px;
+  display: inline-block;
+  position: relative;
+}
+
+.payment-methods h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: #275e28;
+  transition: width 0.5s ease;
+}
+
+.payment-methods:hover h3::after {
+  width: 100%;
+}
+
+.pay-card {
+  display: block;
+  background: #f9f9f9;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 12px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 2px solid transparent;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  height: auto;
+  min-height: 80px;
+}
+
+.pay-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  border-color: rgba(39, 94, 40, 0.2);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to bottom right, #f9f9f9, #f0f7ff);
+}
+
+.pay-card:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.pay-card input[type="radio"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+  accent-color: #275e28;
+  cursor: pointer;
+}
+
+.pay-card input[type="radio"]:checked + .pay-card {
+  border-color: #275e28;
+  background-color: #f0f7ff;
+}
+
+.pay-card input[type="radio"]:checked ~ .imgPay {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+.imgPay {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  margin: 10px auto;
+  display: block;
+  transition: all 0.4s ease;
+  filter: brightness(0.95);
+}
+
+.pay-card:hover .imgPay {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+/* Booked fields section */
+.booked-fields {
+  width: 100%;
+  flex-basis: 100%;
+  margin-top: 25px;
+  animation: slideInFromBottom 0.5s ease-out;
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.booked-fields h3 {
+  color: #275e28;
+  font-size: 22px;
+  margin-bottom: 25px;
+  display: inline-block;
+  position: relative;
+}
+
+.booked-fields h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: #275e28;
+  transition: width 0.5s ease;
+}
+
+.booked-fields:hover h3::after {
+  width: 100%;
 }
 
 table {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
+  padding: 16px;
   text-align: center;
+  border: none;
+  border-bottom: 1px solid #eee;
+  transition: all 0.5s ease;
 }
 
 th {
-  background: #007bff;
+  background: linear-gradient(to right, #275e28, #388e3c);
   color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+tbody tr {
+  transition: all 0.5s ease;
+}
+
+tbody tr:hover {
+  background-color: #f5fff6;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .total {
-  margin-top: 15px;
-  font-weight: bold;
+  margin-top: 25px;
+  font-weight: 600;
   font-size: 18px;
   color: #ff5722;
+  text-align: right;
+  padding-right: 20px;
+  animation: fadeInUp 0.5s ease;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.total a {
+  color: #275e28;
+  text-decoration: none;
+  transition: all 0.5s ease;
+  font-weight: 700;
+  border-bottom: 1px dotted #275e28;
+  padding-bottom: 2px;
+}
+
+.total a:hover {
+  color: #388e3c;
+  border-bottom: 1px solid #388e3c;
+}
+
+/* Buttons */
 .cancel-button {
   background: #ff4d4d;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 14px;
   cursor: pointer;
-  border-radius: 5px;
-}
-
-.info-title{
-  margin-top: 200px;
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  color: #5c5c5c;
-  font-weight: 700;
-  font-size: 30px;
-  text-align: center;
+  border-radius: 6px;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cancel-button:hover {
-  background: #cc0000;
+  background: #e53935;
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 5px 10px rgba(229, 57, 53, 0.3);
+}
+
+.cancel-button:active {
+  transform: translateY(0) scale(0.95);
 }
 
 .button-container {
   display: flex;
   justify-content: center;
-  margin: 60px;
+  margin: 70px 0 80px;
+  animation: bounceIn 1s ease-out 0.2s both;
+  gap: 20px;
 }
 
-.back-button {
-  margin-top: 200px ;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  background-color: #ff5e57;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.back-button:hover {
-  background-color: #e04842;
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .confirm-button {
-  background: #28a745;
+  background: linear-gradient(to right, #275e28, #388e3c);
   color: white;
-  font-size: 16px;
-  padding: 30px 150px;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 18px 130px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: ease all 0.3s;
-
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 15px rgba(39, 94, 40, 0.3);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
 }
 
 .confirm-button:hover {
-  transform: scale(1.1);
-  background: #0fc335;
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(39, 94, 40, 0.4);
 }
 
-.imgPay{
-  width: 350px;
-  margin-left: 50px;
+.confirm-button:active {
+  transform: translateY(2px) scale(0.98);
+}
+
+.confirm-button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(45deg);
+  transition: all 0.7s ease;
+  opacity: 0;
+}
+
+.confirm-button:hover::after {
+  opacity: 1;
+  transform: rotate(45deg) translateX(60%);
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+  .payment-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .payment-section {
+    width: 100%;
+  }
+
+  .imgPay {
+    max-width: 150px;
+  }
+
+  .confirm-button {
+    padding: 15px 80px;
+  }
+
+  .info-title {
+    margin: 8vh 0 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .info-title h1 {
+    font-size: 28px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 10px 8px;
+  }
+
+  .confirm-button {
+    padding: 12px 60px;
+    font-size: 16px;
+  }
+  .user-info input{
+    width: 89.5%;
+  }
+
+
+  .info-title {
+    margin: 10vh 0 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-title h1 {
+    font-size: 24px;
+  }
+  .user-info input{
+    width: 89.5%;
+  }
+
+  .confirm-button {
+    padding: 12px 40px;
+  }
+
+  .info-title {
+    margin: 12vh 0 25px;
+  }
+
+  .payment-container {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .payment-section {
+    padding: 15px;
+  }
+}
+
+/* Loading animation for payment processing */
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.confirm-button.processing {
+  background: linear-gradient(90deg, #275e28, #388e3c, #275e28);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes arrow-bounce {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-5px);
+  }
+}
+
+@keyframes pulse-shadow {
+  0% {
+    box-shadow: 0 5px 15px rgba(39, 94, 40, 0.3);
+  }
+  100% {
+    box-shadow: 0 8px 30px rgba(39, 94, 40, 0.5);
+  }
+}
+
+.back-btn{
+  background: linear-gradient(to right, rgba(63, 197, 65, 0.05), rgba(89, 225, 100, 0.08));
+  transition: all 0.5s ease;
+  box-shadow: 0 8px 30px rgba(39, 94, 40, 0.5);
+  color: #222;
+}
+
+.back-btn:hover{
+
 }

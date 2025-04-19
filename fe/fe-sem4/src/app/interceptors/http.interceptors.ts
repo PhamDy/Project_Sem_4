@@ -14,8 +14,7 @@ import { AuthService } from '../services/auth-service.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private readonly PUBLIC_URLS = [
-    '/auth/login',
-    '/auth/register'
+    '/public'
   ];
 
   constructor(private router: Router, private authService: AuthService){}
@@ -32,6 +31,8 @@ export class AuthInterceptor implements HttpInterceptor {
             Authorization: `Bearer ${token}`
           }
         });
+      } else {
+        this.router.navigate(['/login']);
       }
     }
 

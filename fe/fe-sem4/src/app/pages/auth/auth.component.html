@@ -1,112 +1,220 @@
 <div class="main">
-    <div class="container">
-      <!-- Login Form -->
-      <div class="form-container login-form" *ngIf="isLogin">
-        <p class="title">Đăng nhập</p>
-        <form class="form" (ngSubmit)="onLogin()">
-          <input
-            type="email"
-            class="input"
-            placeholder="Email"
-            [(ngModel)]="loginData.userName"
-            name="loginEmail"
-            required
-          />
-          <input
-            type="password"
-            class="input"
-            placeholder="Password"
-            [(ngModel)]="loginData.password"
-            name="loginPassword"
-            required
-          />
-          <p class="page-link">
-            <span class="page-link-label">Quên mật khẩu?</span>
-          </p>
-          <button type="submit" class="form-btn">Đăng nhập</button>
-        </form>
-        <p class="sign-up-label">
-          Chưa có tài khoản?
-          <span class="sign-up-link" (click)="toggleForm()">Đăng ký</span>
+  <div class="container">
+    <!-- Login Form -->
+    <div class="form-container login-form" *ngIf="isLogin">
+      <p class="title">Đăng nhập</p>
+      <form
+        nz-form
+        class="form"
+        #loginForm="ngForm"
+        (ngSubmit)="onLogin(loginForm)"
+      >
+        <nz-form-item>
+          <nz-form-control
+            [nzErrorTip]="'Không được để trống trường này'"
+            [nzValidateStatus]="loginUsername"
+          >
+            <input
+              nz-input
+              type="text"
+              class="input"
+              placeholder="Username"
+              [(ngModel)]="loginData.userName"
+              name="loginUsername"
+              required
+              #loginUsername="ngModel"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control
+            [nzErrorTip]="'Không được để trống trường này'"
+            [nzValidateStatus]="loginPassword"
+          >
+            <input
+              nz-input
+              type="password"
+              class="input"
+              placeholder="Password"
+              [(ngModel)]="loginData.password"
+              name="loginPassword"
+              required
+              #loginPassword="ngModel"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <p class="page-link">
+          <span class="page-link-label">Quên mật khẩu?</span>
         </p>
-  
-        <div class="buttons-container">
-          <div class="apple-login-button">
-            <i class="apple-icon"></i>
-            <span>Đăng nhập với Apple</span>
-          </div>
-          <div class="google-login-button">
-            <i class="google-icon">G</i>
-            <span>Đăng nhập với Google</span>
-          </div>
+
+        <button
+          [nzLoading]="loading"
+          type="submit"
+          nzSize="large"
+          nzType="primary"
+          class="rounded-2xl"
+          nz-button
+        >
+          Đăng nhập
+        </button>
+      </form>
+
+      <p class="sign-up-label">
+        Chưa có tài khoản?
+        <span class="sign-up-link" (click)="toggleForm()">Đăng ký</span>
+      </p>
+      <div class="buttons-container">
+        <div class="apple-login-button">
+          <i class="apple-icon"></i>
+          <span>Đăng ký với Apple</span>
+        </div>
+        <div class="google-login-button">
+          <i class="google-icon">G</i>
+          <span>Đăng ký với Google</span>
         </div>
       </div>
-  
-      <!-- Sign Up Form -->
-      <div class="form-container sign-up-form" *ngIf="!isLogin">
-        <p class="title">Đăng ký tài khoản</p>
-        <form class="form" (ngSubmit)="onSignup()">
-          <input
-            nz-input
-            type="text"
-            class="input"
-            placeholder="Full Name"
-            [(ngModel)]="signupData.name"
-            name="fullName"
-            required
-          />
-          <input
-            type="email"
-            class="input"
-            placeholder="Email"
-            [(ngModel)]="signupData.userName"
-            name="signupEmail"
-            required
-          />
-          <input
-            type="password"
-            class="input"
-            placeholder="Password"
-            [(ngModel)]="signupData.password"
-            name="signupPassword"
-            required
-          />
-          <input
-            type="password"
-            class="input"
-            placeholder="Confirm Password"
-            [(ngModel)]="signupData.confirmPassword"
-            name="confirmPassword"
-            required
-          />
-          <button type="submit" class="form-btn">
-            <ng-container *ngIf="!loading; else loadingTpl2"
-              >Đăng ký</ng-container
-            >
-            <ng-template #loadingTpl2>
-              <span class="spinner"></span> Đang xử lý...
-            </ng-template>
-          </button>
-        </form>
-        <p class="login-label">
-          Đã có tài khoản?
-          <span class="login-link" (click)="toggleForm()">Đăng nhập</span>
-        </p>
-  
-        <div class="buttons-container">
-          <div class="apple-login-button">
-            <i class="apple-icon"></i>
-            <span>Đăng ký với Apple</span>
-          </div>
-          <div class="google-login-button">
-            <i class="google-icon">G</i>
-            <span>Đăng ký với Google</span>
-          </div>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div class="form-container sign-up-form" *ngIf="!isLogin">
+      <p class="title">Đăng ký tài khoản</p>
+      <form
+        nz-form
+        class="form"
+        #signupForm="ngForm"
+        (ngSubmit)="onSignup(signupForm)"
+      >
+        <nz-form-item>
+          <nz-form-control
+            [nzErrorTip]="'Không được để trống trường này'"
+            [nzValidateStatus]="fullName"
+          >
+            <input
+              nz-input
+              type="text"
+              class="input"
+              placeholder="Full Name"
+              [(ngModel)]="signupData.name"
+              name="fullName"
+              required
+              #fullName="ngModel"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control
+            [nzErrorTip]="emailRef?.errors?.['required']
+            ? 'Không được để trống trường này'
+            : emailRef?.errors?.['email']
+            ? 'Email không đúng định dạng'
+            : ''"
+            [nzValidateStatus]="emailRef"
+          >
+            <input
+              nz-input
+              type="email"
+              class="input"
+              placeholder="Email"
+              [(ngModel)]="signupData.email"
+              name="signupEmail"
+              required
+              email
+              #emailRef="ngModel"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control
+            [nzErrorTip]="'Không được để trống trường này'"
+            [nzValidateStatus]="signupUsername"
+          >
+            <input
+              type="text"
+              nz-input
+              class="input"
+              placeholder="Username"
+              [(ngModel)]="signupData.userName"
+              name="signupUsername"
+              required
+              #signupUsername="ngModel"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control
+            [nzErrorTip]="'Không được để trống trường này'"
+            [nzValidateStatus]="signupPassword"
+          >
+            <input
+              nz-input
+              type="password"
+              class="input"
+              placeholder="Password"
+              [(ngModel)]="signupData.password"
+              name="signupPassword"
+              required
+              #signupPassword="ngModel"
+              (ngModelChange)="validateConfirmPassword(confirmPasswordRef)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control
+            [nzErrorTip]="
+              confirmPasswordRef?.errors?.['required']
+                ? 'Không được để trống trường này'
+                : confirmPasswordRef?.errors?.['notMatch']
+                ? 'Mật khẩu xác nhận không khớp'
+                : ''
+            "
+            [nzValidateStatus]="confirmPasswordRef"
+          >
+            <input
+              nz-input
+              type="password"
+              class="input"
+              placeholder="Confirm Password"
+              [(ngModel)]="signupData.confirmPassword"
+              name="confirmPassword"
+              required
+              #confirmPasswordRef="ngModel"
+              (ngModelChange)="validateConfirmPassword(confirmPasswordRef)"
+            />
+          </nz-form-control>
+        </nz-form-item>
+
+        <button
+          [nzLoading]="loading"
+          type="submit"
+          nzSize="large"
+          nzType="primary"
+          class="rounded-2xl"
+          nz-button
+        >
+          Đăng ký
+        </button>
+      </form>
+
+      <p class="login-label">
+        Đã có tài khoản?
+        <span class="login-link" (click)="toggleForm()">Đăng nhập</span>
+      </p>
+      <div class="buttons-container">
+        <div class="apple-login-button">
+          <i class="apple-icon"></i>
+          <span>Đăng ký với Apple</span>
+        </div>
+        <div class="google-login-button">
+          <i class="google-icon">G</i>
+          <span>Đăng ký với Google</span>
         </div>
       </div>
     </div>
   </div>
-  <!-- <ng-otp-input 
-  [config]="otpConfig"
-  (onInputChange)="onOtpChange($event)">
-</ng-otp-input> -->
+</div>

@@ -16,7 +16,6 @@ export class AuthService {
       }
     }).pipe(
       tap(res => {
-        console.log("ress: ", res);
         localStorage.setItem('token', res.token);
       })
     );
@@ -36,5 +35,21 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  genOtp(email: string): Observable<any> {
+    return this.http.get<{ token: string }>(`${this.apiUrl}/public/api/v1/regenerate-otp`, {
+      params: {
+        email: email
+      }
+    })
+  } 
+
+  verfifyOtp(otp: string): Observable<any> {
+    return this.http.put<{ token: string }>(`${this.apiUrl}/public/api/v1/active-user`, {
+      params: {
+        otp: otp
+      }
+    })
   }
 }

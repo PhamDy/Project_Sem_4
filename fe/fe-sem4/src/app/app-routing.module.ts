@@ -9,6 +9,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/booking-detail-area.component';
 import {PaymentComponent} from './pages/payment/payment.component';
 import { AuthGuard } from './guard/auth.guard';
+import { VerifyOtpComponent } from './pages/auth/verify-otp/verify-otp.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
     component: AuthComponent
   },
 
+  {
+    path: 'verify-otp',
+    component: VerifyOtpComponent
+  },
   {
     path: 'tournament',
     component: TournamentComponent

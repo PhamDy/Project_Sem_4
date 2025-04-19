@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
+import { NgForm, NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-auth',
@@ -11,14 +12,15 @@ import { AuthService } from '../../services/auth-service.service';
 export class AuthComponent {
   isLogin = true;
   loading = false;
-  errorMessage: string | null = null;
 
   showOtp = false;
   otpCode = '';
 
+  //refactor formbuilder & detach component login, signup
+
   loginData = {
     userName: '',
-    password: ''
+    password: '',
   };
 
   signupData = {
@@ -26,81 +28,91 @@ export class AuthComponent {
     userName: '',
     password: '',
     confirmPassword: '',
-    email: 'tiennguyenhienvx1@gmail.com'
+    email: '',
   };
 
-  constructor(private authService: AuthService, private location: Location, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private message: NzMessageService
+  ) {}
 
   toggleForm() {
     this.isLogin = !this.isLogin;
-    this.errorMessage = null;
   }
 
-  onLogin() {
-    this.loading = true;
-    this.errorMessage = null;
-
-    this.authService.login(this.loginData).subscribe({
-      next: () => {
-        this.loading = true;
-        const prevUrl = this.router.getCurrentNavigation()?.previousNavigation?.finalUrl?.toString();
-        this.router.navigateByUrl(prevUrl || '/');
-      },
-      error: err => {
-        this.loading = false;
-        this.errorMessage = err.error?.message || 'Đăng nhập thất bại';
-      }
-    });
-  }
-
-  onSignup() {
-    this.loading = true;
-    this.errorMessage = null;
-
-    if (this.signupData.password !== this.signupData.confirmPassword) {
-      this.loading = false;
-      alert('Mật khẩu xác nhận không khớp ')
+  onLogin(form: NgForm) {
+    if (form.invalid) {
+      this.markFormControlsTouched(form);
       return;
     }
 
+    this.authService.login(this.loginData).subscribe({
+      next: () => {
+        this.loading = false;
+        const prevUrl = this.router
+          .getCurrentNavigation()
+          ?.previousNavigation?.finalUrl?.toString();
+        this.router.navigateByUrl(prevUrl || '/');
+      },
+      error: (err) => {
+        this.loading = false;
+        this.message.error('Tài khoản hoặc mật khẩu không đúng');
+      },
+    });
+  }
+
+  onSignup(form: NgForm) {
+    if (form.invalid) {
+      this.markFormControlsTouched(form);
+      return;
+    }
+
+    if (this.signupData.password !== this.signupData.confirmPassword) {
+      form.controls['confirmPassword']?.setErrors({ notMatch: true });
+      return;
+    }
+    this.loading = true;
     const { name, userName, password, email } = this.signupData;
 
     this.authService.signup({ name, userName, password, email }).subscribe({
       next: () => {
         this.loading = false;
         this.toggleForm();
+        this.authService.genOtp(email).subscribe({
+          next: () => {
+            console.log('genOtp success');
+            this.router.navigate(['/verify-otp']);
+          },
+          error: () => {
+            this.message.error('Hệ thống xảy ra lỗi, vui lòng thử lại sau!');
+          },
+        });
       },
-      error: err => {
+      error: (err) => {
         this.loading = false;
-        this.errorMessage = err.error?.message || 'Đăng ký thất bại';
-      }
+        this.message.error(
+          err?.response?.message || err?.message || 'Đăng ký thất bại'
+        );
+      },
     });
   }
 
-  verifyOtp() {
-    this.loading = true;
-    // this.authService.verifyOtp(this.otpCode).subscribe({
-    //   next: () => {
-    //     this.loading = false;
-    //     alert('Xác minh OTP thành công');
-    //     this.showOtp = false;
-    //     this.toggleForm(); // Cho phép đăng nhập sau khi xác minh
-    //   },
-    //   error: err => {
-    //     this.loading = false;
-    //     alert('Xác minh OTP thất bại');
-    //   }
-    // });
+  validateConfirmPassword(confirmModel: NgModel) {
+    if (
+      this.signupData.confirmPassword &&
+      this.signupData.confirmPassword !== this.signupData.password
+    ) {
+      confirmModel.control.setErrors({ notMatch: true });
+    } else {
+      confirmModel.control.setErrors(null);
+    }
   }
 
-  otpConfig = {
-    length: 6,
-    inputClass: 'otp-input',
-    allowNumbersOnly: true
-  };
-
-  onOtpChange(otp: string) {
-    this.otpCode = otp;
-    console.log('OTP entered:', otp);
+  private markFormControlsTouched(form: NgForm) {
+    Object.values(form.controls).forEach((control) => {
+      control.markAsTouched();
+      control.updateValueAndValidity();
+    });
   }
 }

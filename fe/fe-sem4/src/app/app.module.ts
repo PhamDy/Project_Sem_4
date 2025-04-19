@@ -32,6 +32,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AuthInterceptor } from './interceptors/http.interceptors';
 import { NgZorroAntdModule } from './shared/ng-zorro-antd.module';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { VerifyOtpComponent } from './pages/auth/verify-otp/verify-otp.component';
 
 registerLocaleData(en);
 
@@ -57,6 +58,7 @@ registerLocaleData(en);
     ContentBooking1Component,
     BookingDetailAreaComponent,
     PaymentComponent,
+    VerifyOtpComponent
   ],
   imports: [
     BrowserModule,

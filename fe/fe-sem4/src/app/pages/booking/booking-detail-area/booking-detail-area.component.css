@@ -1860,13 +1860,17 @@ h1.detail-title::before {
   overflow-y: auto;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   position: relative;
+  top: 5%;
+  scale: 0.8;
   animation: slideUp 0.4s ease;
   border-top: 5px solid #275e28;
 }
 
 @keyframes slideUp {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(50px); opacity: 0; }
+  to {
+    transform: translateY(0); opacity: 1; }
 }
 
 .popup .close-button {

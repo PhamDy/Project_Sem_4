@@ -21,4 +21,7 @@ public interface BookingServiceClient {
 
     @PostMapping(value = "/private/api/v1/calender", consumes = "application/json")
     List<TimeFrameSchedule> calenderSchedule(@RequestParam("date") String date, @RequestParam Long fieldId);
+
+    @PostMapping(value = "/private/api/v1/validate-period", consumes = "application/json")
+    List<TimeFrameSchedule> validatePeriod(@RequestParam("date") List<String> date, @RequestParam Long fieldId);
 }

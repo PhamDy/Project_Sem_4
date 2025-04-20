@@ -20,4 +20,6 @@ public interface BookingDetailRepository extends JpaRepository<BookingDetail, Lo
     List<BookingDetail> checkBookingField(@Param("fieldTypeId") Long fieldTypeId,
                                     @Param("timeFrame") Long timeFrame,
                                           @Param("dateBooking") LocalDate dateBooking);
+
+    List<BookingDetail> findByBookingId(Long bookingId);
 }

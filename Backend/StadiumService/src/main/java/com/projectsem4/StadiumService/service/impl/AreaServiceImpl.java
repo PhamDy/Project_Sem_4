@@ -252,7 +252,7 @@ public class AreaServiceImpl implements AreaService {
         ResponseSchedule list = new ResponseSchedule();
         DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         List<LocalDate> calender = new ArrayList<>();
-        LocalDate firstDate = LocalDate.now();
+        LocalDate firstDate = LocalDate.now().plusDays(index * 7);
         calender.add(firstDate);
         calender.add(firstDate.plusDays(6));
         for (int i = 0; i < schedule.size(); i++) {
@@ -341,8 +341,43 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public Object findTimeFrame(Long weekDay, Long month, Long quantity) {
+    public Object findTimeFrame(Long weekDay, LocalDate month, Long quantity, Long fieldTypeId) {
+        List<String> result = new ArrayList<>();
+        FieldType fieldType = fieldTypeRepository.findById(fieldTypeId).get();
+        LocalDate today = LocalDate.now();
+        LocalDate targetMonth = month.withDayOfMonth(1); // lấy ngày đầu tháng
+        int year = targetMonth.getYear();
+        int monthValue = targetMonth.getMonthValue();
 
-        return null;
+        // Nếu tháng nhập nhỏ hơn tháng hiện tại thì tăng năm
+        if (monthValue < today.getMonthValue() || (monthValue == today.getMonthValue() && year < today.getYear())) {
+            year++;
+            targetMonth = LocalDate.of(year, monthValue, 1);
+        }
+
+        int lengthOfMonth = targetMonth.lengthOfMonth();
+
+        DayOfWeek targetDay = DayOfWeek.of(weekDay.intValue());
+
+        for (int day = 1; day <= lengthOfMonth; day++) {
+            LocalDate date = LocalDate.of(year, monthValue, day);
+            if (date.getDayOfWeek().equals(targetDay) && date.isAfter(today)) {
+                result.add(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            }
+        }
+        List<TimeFrameSchedule> schedule = bookingServiceClient.validatePeriod(result, fieldTypeId);
+        Set<Long> timeFrameAvailable = Constant.TimeFrameEnum.getAllTimeFrames().stream().map(Constant.TimeFrameEnum::getKey).collect(Collectors.toSet());
+        Constant.TimeFrameEnum.getAllTimeFrames().forEach(item->{
+            schedule.forEach(item1->{
+                item1.getFieldSchedules().forEach(item2 ->{
+                    if(Objects.equals(item2.getTimeFrame(), item.getKey())){
+                        if(fieldType.getQuantity() - item2.getQuantity() < quantity){
+                            timeFrameAvailable.remove(item.getKey());
+                        }
+                    }
+                });
+            });
+        });
+        return timeFrameAvailable;
     }
 }

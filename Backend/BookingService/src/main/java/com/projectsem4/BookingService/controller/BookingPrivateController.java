@@ -1,5 +1,6 @@
 package com.projectsem4.BookingService.controller;
 
+import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.service.BookingService;
@@ -54,5 +55,16 @@ public class BookingPrivateController {
     @PostMapping("/calender")
     public List<TimeFrameSchedule> calenderSchedule(@RequestParam Long fieldId, @RequestParam String date) {
         return bookingService.scheduleClient(fieldId, date);
+    }
+
+    @GetMapping("/bookingDetail/{bookingId}")
+    public List<BookingDetail> findByBookingId(@PathVariable Long bookingId) {
+        return bookingService.findByBookingId(bookingId);
+    }
+
+
+    @PostMapping("/validate-period")
+    public List<TimeFrameSchedule> validatePeriod(@RequestParam Long fieldId, @RequestParam List<String> date) {
+        return bookingService.scheduleClientPeriod(fieldId, date);
     }
 }

@@ -16,7 +16,8 @@ public class NotificationPublicController {
 
     @GetMapping
     public Object test(HttpServletRequest request) {
-        return JwtUtil.decodeToken(request);
+        return null;
+//        return JwtUtil.decodeToken(request);
     }
 
     @PostMapping("/sen-otp-mail")

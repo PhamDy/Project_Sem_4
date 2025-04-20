@@ -1,5 +1,6 @@
 package com.projectsem4.BookingService.service;
 
+import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.common_service.dto.entity.Price;
@@ -16,4 +17,7 @@ public interface BookingService {
     CreateBookingRequest findBookingById(Long id);
     Object updateStatusOderByPayment(Integer status, Long orderId);
     List<TimeFrameSchedule> scheduleClient(Long fieldIds, String date);
+    List<TimeFrameSchedule> scheduleClientPeriod(Long fieldId, List<String> dateString);
+
+    List<BookingDetail> findByBookingId(Long bookingId);
 }

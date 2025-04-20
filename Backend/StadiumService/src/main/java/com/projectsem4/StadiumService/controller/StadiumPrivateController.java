@@ -5,6 +5,7 @@ import com.projectsem4.StadiumService.entity.FieldType;
 import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
+import com.projectsem4.StadiumService.request.ValidatePeriodRequest;
 import com.projectsem4.StadiumService.service.AreaService;
 
 import lombok.RequiredArgsConstructor;
@@ -115,6 +116,10 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findAreaById(id));
     }
 
+    @GetMapping("/validate-period")
+    public ResponseEntity<Object> findTimeAvailablePeriod(@RequestBody ValidatePeriodRequest request) {
+        return ResponseEntity.ok(areaService.findTimeFrame(request.getWeekDay(), request.getDate(), request.getQuantity(), request.getFieldId()));
+    }
 
 //    @PostMapping("/update-area")
 //    public ResponseEntity<Object> updateArea(@ModelAttribute Area area,

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface AreaService {
@@ -35,5 +36,5 @@ public interface AreaService {
     Object findAllField(Pageable pageable);
     Object search(FindAreaRequest findAreaRequest,Pageable pageable);
     Object findAllFieldInArea(Long areaId);
-    Object findTimeFrame(Long weekDay, Long month, Long quantity);
+    Object findTimeFrame(Long weekDay, LocalDate month, Long quantity, Long fieldType);
 }

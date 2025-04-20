@@ -8,20 +8,30 @@ export class AuthService {
   private http = inject(HttpClient);
   private apiUrl = environment.ApiUrl;
 
-  login(params: { userName: string; password: string }): Observable<{ token: string }> {
-    return this.http.get<{ token: string }>(`${this.apiUrl}/public/api/v1/login`, {
-      params: {
-        userName: params.userName,
-        password: params.password
-      }
-    }).pipe(
-      tap(res => {
-        localStorage.setItem('token', res.token);
+  login(params: {
+    userName: string;
+    password: string;
+  }): Observable<{ token: string }> {
+    return this.http
+      .get<{ token: string }>(`${this.apiUrl}/public/api/v1/login`, {
+        params: {
+          userName: params.userName,
+          password: params.password,
+        },
       })
-    );
+      .pipe(
+        tap((res) => {
+          localStorage.setItem('token', res.token);
+        })
+      );
   }
 
-  signup(data: { name: string; userName: string; password: string, email: string }): Observable<any> {
+  signup(data: {
+    name: string;
+    userName: string;
+    password: string;
+    email: string;
+  }): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/public/api/v1`, data);
   }
 
@@ -38,18 +48,25 @@ export class AuthService {
   }
 
   genOtp(email: string): Observable<any> {
-    return this.http.get<{ token: string }>(`${this.apiUrl}/public/api/v1/regenerate-otp`, {
-      params: {
-        email: email
+    return this.http.get<{ token: string }>(
+      `${this.apiUrl}/public/api/v1/regenerate-otp`,
+      {
+        params: {
+          email: email,
+        },
       }
-    })
+    );
   }
 
   verfifyOtp(otp: string): Observable<any> {
-    return this.http.put<{ token: string }>(`${this.apiUrl}/public/api/v1/active-user`, {
-      params: {
-        otp: otp
+    return this.http.put<{ token: string }>(
+      `${this.apiUrl}/public/api/v1/active-user`,
+      {},
+      {
+        params: {
+          otp: otp,
+        },
       }
-    })
+    );
   }
 }

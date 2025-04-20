@@ -7,6 +7,7 @@ import { weekSchedule } from './schedule-data';
 import * as AOS from 'aos';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { throwIfEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-booking-detail-field',
@@ -90,7 +91,7 @@ export class BookingDetailFieldComponent implements OnInit{
   };
 
   itemsPerPage: number = 8;
-  currentPage: number = 1;
+  currentPage: number = 0;
 
   get paginatedStadiums(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -103,8 +104,9 @@ export class BookingDetailFieldComponent implements OnInit{
   }
 
   changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
+    if (page >= 0 && this.bookingId) {
       this.currentPage = page;
+      this.getFieldTypeByAreaId(this.bookingId, this.currentPage);
     }
   }
   getAllTimeFrames(): number[] {
@@ -214,11 +216,13 @@ export class BookingDetailFieldComponent implements OnInit{
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.bookingId = params.get('id');
-      this.getAllStadiums();
-      this.getBookingAreaById(this.bookingId);
-      this.getFieldsByAreaIds(this.bookingId);
+      if(this.bookingId) {
+        this.getAllStadiums();
+        this.getBookingAreaById(this.bookingId);
+        this.getFieldsByAreaIds(this.bookingId);
+        this.getFieldTypeByAreaId(this.bookingId, this.currentPage);
+      }
     });
-    this.getFieldTypeByAreaId(1, 0);
     AOS.init({
       duration: 500,
       easing: 'ease-in-out',
@@ -256,6 +260,9 @@ export class BookingDetailFieldComponent implements OnInit{
   //   this.showLongTermPopup = false;
   // }
 
+  currentIndex = 0;
+
+
   getFieldsByAreaIds(areaId: any) {
     this.stadiumService.getFieldsByAreaId(areaId).subscribe(
       (res) => {
@@ -291,8 +298,8 @@ export class BookingDetailFieldComponent implements OnInit{
     );
   }
 
-  getFieldTypeByAreaId(id: number, index: number): void {
-    this.bookingService.getfieldTypeByArea(1, index).subscribe(
+  getFieldTypeByAreaId(id: string, index: number): void {
+    this.bookingService.getfieldTypeByArea(id, index).subscribe(
       (res) => {
         this.scheduleData = res;
       },

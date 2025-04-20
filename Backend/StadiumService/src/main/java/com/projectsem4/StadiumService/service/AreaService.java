@@ -35,4 +35,5 @@ public interface AreaService {
     Object findAllField(Pageable pageable);
     Object search(FindAreaRequest findAreaRequest,Pageable pageable);
     Object findAllFieldInArea(Long areaId);
+    Object findTimeFrame(Long weekDay, Long month, Long quantity);
 }

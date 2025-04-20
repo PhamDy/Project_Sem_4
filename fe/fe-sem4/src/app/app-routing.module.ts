@@ -10,6 +10,7 @@ import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/
 import {PaymentComponent} from './pages/payment/payment.component';
 import { AuthGuard } from './guard/auth.guard';
 import { VerifyOtpComponent } from './pages/auth/verify-otp/verify-otp.component';
+import { BookingDetailFieldComponent } from './pages/booking/booking-detail-field/booking-detail-field.component';
 
 const routes: Routes = [
   {

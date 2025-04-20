@@ -15,7 +15,7 @@ export class BookingServicesService {
     return this.http.get<any>(`${this.getAreaById}?id=${id}`);
   }
 
-  getfieldTypeByArea(id: number, index: number) {
+  getfieldTypeByArea(id: string, index: number) {
     return this.http.get<any>(`${this.getFieldTypeByArea}?id=${id}&index=${index}`);
   }
 

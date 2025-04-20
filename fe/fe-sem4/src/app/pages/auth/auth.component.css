@@ -172,3 +172,133 @@
   .ant-form-item {
     margin-bottom: 0px !important;
   }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 15px;
+}
+
+.input {
+  border-radius: 20px;
+  border: 1px solid #c0c0c0;
+  outline: 0;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.page-link {
+  text-decoration: underline;
+  margin: 0;
+  color: #747474;
+  margin-left: 10px;
+}
+
+.page-link-label {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  color: #b9b9b9;
+}
+
+.page-link-label:hover {
+  color: #000;
+}
+
+.form-btn {
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 0;
+  background: teal;
+  color: white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.form-btn:active {
+  box-shadow: none;
+}
+
+.sign-up-label,
+.login-label {
+  margin: 0;
+  font-size: 13px;
+  color: #b9b9b9;
+  margin-left: 10px;
+}
+
+.sign-up-link,
+.login-link {
+  margin-left: 1px;
+  font-size: 13px;
+  text-decoration: underline;
+  color: rgb(0, 48, 48);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.apple-login-button,
+.google-login-button {
+  border-radius: 20px;
+  padding: 10px 15px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  gap: 5px;
+}
+
+.apple-login-button {
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #000;
+}
+
+.google-login-button {
+  border: 2px solid #747474;
+  background: #fff;
+  color: #000;
+}
+
+.apple-icon,
+.google-icon {
+  font-size: 18px;
+  margin-bottom: 1px;
+}
+
+
+.spinner {
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #333;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    animation: spin 0.8s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .error {
+    color: red;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }

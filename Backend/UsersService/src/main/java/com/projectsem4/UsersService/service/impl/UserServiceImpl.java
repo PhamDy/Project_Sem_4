@@ -16,7 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
+import java.security.SecureRandom;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +49,9 @@ public class UserServiceImpl implements UserService {
         if(user==null){
             throw new BadRequestException("Email not found");
         }
-        String otp = UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
+        SecureRandom random = new SecureRandom();
+        int otpInt = 100000 + random.nextInt(900000);
+        String otp = String.valueOf(otpInt);
         user.setOtp(otp);
         userRepository.save(user);
         UserInfor userInfor = modelMapper.map(user, UserInfor.class);

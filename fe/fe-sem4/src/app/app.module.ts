@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,7 @@ import { RouterModule } from '@angular/router';
 import { ContentBooking1Component } from './pages/booking/content-booking1/content-booking1.component';
 import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/booking-detail-area.component';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { AuthInterceptor } from './interceptors/http.interceptors';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,14 @@ import { PaymentComponent } from './pages/payment/payment.component';
     RouterModule,
     ReactiveFormsModule
   ],
-  providers: [provideHttpClient()],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

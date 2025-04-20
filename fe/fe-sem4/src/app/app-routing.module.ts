@@ -8,12 +8,14 @@ import { TournamentComponent } from './pages/tournament/tournament.component';
 import { LoginComponent } from './pages/login/login.component';
 import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/booking-detail-area.component';
 import {PaymentComponent} from './pages/payment/payment.component';
+import { AuthGuard } from './guard/auth.guard';
 import { BookingDetailFieldComponent } from './pages/booking/booking-detail-field/booking-detail-field.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomePageComponent
+    component: HomePageComponent,
+    // canActivate: [AuthGuard],
   },
   {
     path: 'booking',
@@ -37,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: AuthComponent
   },
   {
     path: 'auth',
@@ -47,7 +49,12 @@ const routes: Routes = [
   {
     path: 'tournament',
     component: TournamentComponent
-  }
+  },
+  {
+    path: '**',
+    redirectTo: '/',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

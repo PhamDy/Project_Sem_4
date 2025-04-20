@@ -5,14 +5,14 @@ import * as L from 'leaflet';
 import { StadiumService } from '../../../services/stadium-service.service';
 import { weekSchedule } from './schedule-data';
 import * as AOS from 'aos';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { throwIfEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-booking-detail-field',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './booking-detail-field.component.html',
   styleUrl: './booking-detail-field.component.css',
 })
@@ -44,6 +44,24 @@ export class BookingDetailFieldComponent implements OnInit{
 
   showLongTermPopup = false;
   showTournamentPopup = false;
+
+  longTermForm!: FormGroup;
+
+  daysInWeek = [
+    { label: 'Thứ 2', value: 2 },
+    { label: 'Thứ 3', value: 3 },
+    { label: 'Thứ 4', value: 4 },
+    { label: 'Thứ 5', value: 5 },
+    { label: 'Thứ 6', value: 6 },
+    { label: 'Thứ 7', value: 7 },
+    { label: 'Chủ Nhật', value: 1 }
+  ];
+
+  timeFrames = [
+    { label: '06:00 - 07:00', value: 1 },
+    { label: '18:00 - 19:00', value: 2 },
+    { label: '19:00 - 20:00', value: 3 }
+  ];
 
   // Thông tin đặt giải đấu
   tournament = {
@@ -208,6 +226,7 @@ export class BookingDetailFieldComponent implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
+    private fb: FormBuilder,
     private bookingService: BookingServicesService,
     private stadiumService: StadiumService,
     private router: Router
@@ -228,6 +247,38 @@ export class BookingDetailFieldComponent implements OnInit{
       easing: 'ease-in-out',
       once: true,
     });
+
+    this.longTermForm = this.fb.group({
+      month: [null, Validators.required],
+      quantity: [null, [Validators.required, Validators.min(1)]],
+      weekDay: [null, Validators.required],
+      timeFrame: [{ value: null, disabled: true }, Validators.required]
+    });
+
+    this.handleEnableTimeFrame();
+  }
+
+  handleEnableTimeFrame() {
+    this.longTermForm.valueChanges.subscribe(values => {
+      const { month, quantity, weekDay } = values;
+      const timeFrameControl = this.longTermForm.get('timeFrame');
+
+      if (month && quantity && weekDay !== null && timeFrameControl?.disabled) {
+        timeFrameControl.enable();
+      } else if ((!month || !quantity || weekDay === null) && timeFrameControl?.enabled) {
+        timeFrameControl.disable();
+        timeFrameControl.reset();
+      }
+    });
+  }
+
+  onSubmit() {
+    if (this.longTermForm.valid) {
+      const payload = this.longTermForm.value;
+      console.log('Sending payload:', payload);
+
+      
+    }
   }
 
   openDate() {

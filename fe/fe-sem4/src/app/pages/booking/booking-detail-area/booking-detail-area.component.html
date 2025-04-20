@@ -1,9 +1,6 @@
-<p>booking-detail-area works!</p>
-<p>booking-detail-area works!</p>
-
 <div class="main-containers">
   <h1 class="detail-title">
-    Thông tin chi tiết
+    Thông tin chi tiết khu vực
   </h1>
   <div class="stadium-container">
     <!-- Ảnh sân vận động -->
@@ -11,145 +8,26 @@
       <img [src]="img" alt="Stadium Image" />
     </div>
     <div class="stadium-infor">
-      <h1>{{ stadiumDetail.name }}</h1>
+      <h1>{{ areaDetail.name }}</h1>
       <p class="address">
-        <strong>📍 Địa chỉ:</strong> {{ stadiumDetail.address }}
+        <strong>📍 Địa chỉ:</strong> {{ areaDetail.address }}
       </p>
       <p class="description">
-        <strong>ℹ️ Mô tả:</strong> {{ stadiumDetail.description }}
+        <strong>ℹ️ Mô tả:</strong> {{ areaDetail.description }}
       </p>
-      <p><strong>📧 Email:</strong> {{ stadiumDetail.email }}</p>
-      <p><strong>📞 Số điện thoại:</strong> {{ stadiumDetail.phoneNumber }}</p>
-      <div class="booking-options">
-        <label class="radio-check">
-          <input
-            type="radio"
-            name="bookingType"
-            value="single"
-            [(ngModel)]="bookingType"
-          />
-          Đặt sân lẻ
-        </label>
-        <label class="radio-check">
-          <input
-            type="radio"
-            name="bookingType"
-            value="longTerm"
-            [(ngModel)]="bookingType"
-          />
-          Đặt dài hạn
-        </label>
-        <label class="radio-check">
-          <input
-            type="radio"
-            name="bookingType"
-            value="tournament"
-            [(ngModel)]="bookingType"
-          />
-          Đặt giải đấu
-        </label>
-      </div>
-      <div>
-        <button class="buttonBook" (click)="openDate()">Đặt sân ngay</button>
-      </div>
+      <p><strong>📧 Email:</strong> {{ areaDetail.email }}</p>
+      <p><strong>📞 Số điện thoại:</strong> {{ areaDetail.phoneNumber }}</p>
     </div>
   </div>
-  <div class="main-container" *ngIf="isPopup">
-    <div class="main-container" *ngIf="scheduleData">
-      <div style="display: flex; justify-content: space-between">
-        <h2>Đặt lịch sân đấu</h2>
-        <h3>
-          Từ {{ scheduleData.calender[0] | date : "dd/MM/yyyy" }} đến
-          {{ scheduleData.calender[1] | date : "dd/MM/yyyy" }}
-        </h3>
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Khung giờ</th>
-            <th *ngFor="let frame of scheduleData.timeFrames">
-              {{ frame.dateString }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let tf of getAllTimeFrames()">
-            <td>{{ timeFramesMap[tf] }}</td>
-            <td *ngFor="let frame of scheduleData.timeFrames">
-              <ng-container
-                *ngIf="getScheduleForTimeFrame(frame, tf) as schedule"
-              >
-                <div
-                  class="choose-field"
-                  [ngClass]="{
-                selected: isSelected(schedule, frame.date),
-              }"
-                  (click)="choose(schedule, frame.date)"
-                >
-                  {{ schedule.price }} (còn {{ schedule.quantity }} sân)
-                </div>
-              </ng-container>
-              <ng-container *ngIf="!getScheduleForTimeFrame(frame, tf)">
-                <span>Không có dữ liệu</span>
-              </ng-container>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="selected-fields-container" *ngIf="selectedFields.length > 0">
-        <h3>Danh sách sân đã chọn:</h3>
-        <table class="selected-fields-table">
-          <thead>
-            <tr>
-              <th>Thời gian</th>
-              <th>Số lượng</th>
-              <th>Giá</th>
-              <th>Ngày</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let field of selectedFields">
-              <td>{{ field.timeFrameStr }}</td>
-              <!-- <td>{{ field.quantity }}</td> -->
-              <td>
-                <input
-                  type="number"
-                  [(ngModel)]="field.quantity"
-                  [min]="1"
-                  [max]="field.availableQuantity"
-                  (ngModelChange)="onQuantityChange(field)"
-                  class="form-control"
-                />
-              </td>
-              <td>{{ field.amount }}</td>
-              <td>{{ field.date }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <button
-          class="payment-btn mt-5"
-          (click)="goToPayment()"
-          [disabled]="selectedFields.length === 0"
-        >
-          Đi đến thanh toán
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- Stadium cards with pagination -->
-  <h1 class="section-title mt-5">Các sân bóng gần đây</h1>
+  <h1 class="section-title mt-5">Các sân bóng trong khu vực</h1>
 
   <div class="stadium-list">
-    <div *ngFor="let stadium of paginatedStadiums" class="stadium-card">
+    <div *ngFor="let stadium of areaDetail.fieldTypeResponseList" class="stadium-card">
       <img [src]="img" alt="ok" />
       <div class="stadium-info">
         <h3>{{ stadium.name }}</h3>
-        <p>{{ stadium.address }}</p>
-        <!--        <div class="rating">-->
-        <!--          <span *ngFor="let star of [].constructor(stadium.rating)">{{ '★★★★' }}</span>-->
-        <!--        </div>-->
+        <p>{{ stadium.description }}</p>
         <div class="rating">
           <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
             <span class="star" *ngIf="i <= stadium.rating">★</span>
@@ -158,182 +36,14 @@
         </div>
       </div>
       <div class="action-buttons">
-        <button class="btn-map" (click)="openMapWithCoordinates(stadium.latitude, stadium.longitude)">
+        <!-- <button class="btn-map" (click)="openMapWithCoordinates(stadium.latitude, stadium.longitude)">
           <i class="fas fa-eye"></i> Xem bản đồ
-        </button>
+        </button> -->
         <button class="btn-detail" (click)="viewDetail(stadium.areaId)">
-          <i class="fas fa-info-circle"></i> Xem chi tiết
+          <i class="fas fa-info-circle"></i> Đặt ngay
         </button>
       </div>
     </div>
   </div>
-
-  <!-- Pagination controls -->
-  <div class="pagination-controls" *ngIf="dataStadium.length > itemsPerPage">
-    <button
-      [disabled]="currentPage === 1"
-      (click)="changePage(currentPage - 1)"
-      class="pagination-btn"
-    >
-      &laquo; Previous
-    </button>
-    <span class="page-indicator">Page {{ currentPage }} of {{ totalPages }}</span>
-    <button
-      [disabled]="currentPage === totalPages"
-      (click)="changePage(currentPage + 1)"
-      class="pagination-btn"
-    >
-      Next &raquo;
-    </button>
-  </div>
-
   <p></p>
-</div>
-<div class="popup-overlay" *ngIf="showLongTermPopup" (click)="closePopup()">
-  <div class="popup" (click)="$event.stopPropagation()">
-    <button class="close-button" (click)="closePopup()">&times;</button>
-    <h2>Đặt sân dài hạn</h2>
-
-    <label
-    >Tên người đặt sân:
-      <input type="text" class="input-label-popup" [(ngModel)]="longTerm.name" />
-    </label>
-
-    <label
-    >Số điện thoại:
-      <input type="tel" class="input-label-popup" [(ngModel)]="longTerm.phone" />
-    </label>
-
-    <label
-    >Ngày bắt đầu:
-      <input type="date" class="input-label-popup" [(ngModel)]="longTerm.startDate" />
-    </label>
-
-    <label
-    >Ngày kết thúc:
-      <input type="date" class="input-label-popup" [(ngModel)]="longTerm.endDate" />
-    </label>
-
-    <label
-    >Khung giờ đá:
-      <select [(ngModel)]="longTerm.timeSlot">
-        <option *ngFor="let time of timeSlots" [value]="time">
-          {{ time }}
-        </option>
-      </select>
-    </label>
-
-    <label>Ngày đá trong tuần:</label>
-    <div class="checkbox-group">
-      <div class="weekday-row top-row" style="justify-content: center" >
-        <label class="day-item ">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 2']" />
-          <span>Mon</span>
-        </label>
-        <label class="day-item ">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 3']" />
-          <span>Tue</span>
-        </label>
-        <label class="day-item ">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 4']" />
-          <span>Wed</span>
-        </label>
-      </div>
-      <div class="weekday-row bottom-row" style="justify-content: center">
-        <label class="day-item">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 5']" />
-          <span>Thu</span>
-        </label>
-        <label class="day-item">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 6']" />
-          <span>Fri</span>
-        </label>
-        <label class="day-item">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 7']" />
-          <span>Sat</span>
-        </label>
-        <label class="day-item">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Chủ Nhật']" />
-          <span>Sun</span>
-        </label>
-      </div>
-    </div>
-    <div class="terms-container">
-      <p>
-        Xem các điều khoản của sân:
-        <a href="#" (click)="showLongTermPopup = true">Tại đây</a>
-      </p>
-    </div>
-
-    <div class="button-group">
-      <button class="submit" (click)="confirmLongTerm()">Xác nhận</button>
-      <button class="cancel" (click)="closePopupLong()">Đóng</button>
-    </div>
-  </div>
-</div>
-
-<!--<div *ngIf="showLongTermPopup" class="popup-overlay" data-aos="fade-up">-->
-<!--  <div class="popup">-->
-<!--    -->
-<!--  </div>-->
-<!--</div>-->
-
-<!-- Popup đặt giải đấu -->
-<div *ngIf="showTournamentPopup" class="popup-overlay" data-aos="fade-up">
-  <div class="popup">
-    <h2>Đặt giải đấu</h2>
-    <button class="close-button" (click)="closePopup()">&times;</button>
-
-    <label class="input-label-popup">
-      Tên giải đấu:
-      <input type="text" [(ngModel)]="tournament.name" class="form-control" />
-    </label>
-
-    <label class="input-label-popup">
-      Số đội tham gia:
-      <input type="number" [(ngModel)]="tournament.teams" class="form-control" />
-    </label>
-
-    <label class="input-label-popup">
-      Số trận đấu dự kiến:
-      <input type="number" [(ngModel)]="tournament.matches" class="form-control" />
-    </label>
-
-    <label class="input-label-popup">
-      Ngày bắt đầu:
-      <input type="date" [(ngModel)]="tournament.startDate" class="form-control" />
-    </label>
-
-    <label class="input-label-popup">
-      Ngày kết thúc:
-      <input type="date" [(ngModel)]="tournament.endDate" class="form-control" />
-    </label>
-
-    <label class="input-label-popup">
-      Tên người đăng ký:
-      <input type="text" [(ngModel)]="tournament.registrantName" class="form-control" />
-    </label>
-
-    <label class="input-label-popup">
-      Email:
-      <input type="email" [(ngModel)]="tournament.email" class="form-control" />
-    </label>
-
-    <label class="input-label-popup">
-      Số điện thoại liên hệ:
-      <input type="tel" [(ngModel)]="tournament.phone" class="form-control" />
-    </label>
-
-    <div class="terms-container">
-      <p>
-        Xem các điều khoản của sân:
-        <a href="#" (click)="showLongTermPopup = true; $event.preventDefault()">Tại đây</a>
-      </p>
-    </div>
-
-    <div class="button-group">
-      <button class="submit" (click)="confirmTournament()">Xác nhận</button>
-      <button class="cancel" (click)="closePopup()">Đóng</button>
-    </div>
-  </div>
 </div>

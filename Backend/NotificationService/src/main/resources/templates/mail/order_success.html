@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Success</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f9f9f9; padding: 20px;">
+
+<div style="max-width: 700px; margin: auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h2 style="color: #2c3e50;">Xin chào <span th:text="${userName}">User</span>,</h2>
+    <p>Chúng tôi đã nhận được đơn đặt sân của bạn. Dưới đây là thông tin chi tiết:</p>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+        <tr style="background-color: #2980b9; color: white;">
+            <th style="padding: 10px; border: 1px solid #ddd;">STT</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Ngày đặt</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Khung giờ</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Loại sân</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Số lượng</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">Mã đơn</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="detail, iter : ${bookingDetails}"
+            th:class="${iter.index % 2 == 0} ? 'even' : 'odd'"
+            style="background-color: #f2f2f2;">
+            <td style="padding: 10px; border: 1px solid #ddd;" th:text="${iter.index + 1}"></td>
+            <td style="padding: 10px; border: 1px solid #ddd;" th:text="${detail.bookingDate}"></td>
+            <td style="padding: 10px; border: 1px solid #ddd;" th:text="${detail.timeFrame}"></td>
+            <td style="padding: 10px; border: 1px solid #ddd;" th:text="${detail.fieldTypeId}"></td>
+            <td style="padding: 10px; border: 1px solid #ddd;" th:text="${detail.quantity}"></td>
+            <td style="padding: 10px; border: 1px solid #ddd;" th:text="${detail.bookingId}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p style="margin-top: 20px;">Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>
+</div>
+</body>
+</html>

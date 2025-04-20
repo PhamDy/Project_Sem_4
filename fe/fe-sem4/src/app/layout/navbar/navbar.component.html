@@ -1,11 +1,11 @@
 <div class="container-main">
-  <div class="header-main">
+  <div class="header-main" [ngClass]="{'header-hidden': !isHeaderVisible}">
     <p>Satisfy your sports needs to have the best experience!!!! Booking now ⚽️ ⚽️ ⚽️</p>
   </div>
 
-  <nav class="navbar">
+  <nav class="navbar" [ngClass]="{'navbar-no-header': !isHeaderVisible}">
+    <!-- Rest of the navbar remains unchanged -->
     <ul class="navbar-content">
-
       <!-- Logo và thanh tìm kiếm -->
       <div class="navbar-left">
         <li class="navbar-logo">
@@ -45,7 +45,6 @@
           <a  [routerLink]="['/login']" style="font-weight: 700;color: rgb(2, 83, 99);">LOGIN</a>
         </li>
       </div>
-
     </ul>
   </nav>
 </div>

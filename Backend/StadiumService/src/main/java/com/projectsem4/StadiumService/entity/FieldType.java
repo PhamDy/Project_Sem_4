@@ -39,4 +39,8 @@ public class FieldType extends BaseEntity {
     @Column(name = "price")
     private Long price;
 
+    @Basic
+    @Column(name = "Rating")
+    private Double rating;
+
 }

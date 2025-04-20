@@ -7,6 +7,6 @@ public interface EmailService {
 
     void sendOtpMail(UserInfor userInfor);
 
-    void sendOtpMail(SendEmailBookingDTO sendEmailBookingDTO);
+    void sendMailOrderSuccess(SendEmailBookingDTO sendEmailBookingDTO);
 
 }

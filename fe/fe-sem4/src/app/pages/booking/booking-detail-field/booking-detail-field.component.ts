@@ -58,10 +58,15 @@ export class BookingDetailFieldComponent implements OnInit{
   ];
 
   timeFrames = [
-    { label: '06:00 - 07:00', value: 1 },
-    { label: '18:00 - 19:00', value: 2 },
-    { label: '19:00 - 20:00', value: 3 }
+    { id: 1, label: '10h00 - 11h30' },
+    { id: 2, label: '15h00 - 16h30' },
+    { id: 3, label: '15h00 - 16h30' },
+    { id: 4, label: '17h00 - 18h30' },
+    { id: 5, label: '19h00 - 20h30' },
+    { id: 6, label: '21h00 - 22h30' }
   ];
+  
+  availableTimeFrames: any[] = []; 
 
   // Thông tin đặt giải đấu
   tournament = {
@@ -265,6 +270,15 @@ export class BookingDetailFieldComponent implements OnInit{
 
       if (month && quantity && weekDay !== null && timeFrameControl?.disabled) {
         timeFrameControl.enable();
+        const payload = {
+          quantity: Number(this.longTermForm.value.quantity),
+          weekDay: Number(this.longTermForm.value.weekDay),
+          date: this.longTermForm.value.month + '-01',
+          fieldId: Number(this.bookingId)
+        };
+        this.bookingService.validatePeriod(payload).subscribe((response: number[]) => {
+          this.availableTimeFrames = this.timeFrames.filter(tf => response.includes(tf.id));
+        });
       } else if ((!month || !quantity || weekDay === null) && timeFrameControl?.enabled) {
         timeFrameControl.disable();
         timeFrameControl.reset();

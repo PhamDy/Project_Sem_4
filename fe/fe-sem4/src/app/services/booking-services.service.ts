@@ -9,6 +9,7 @@ export class BookingServicesService {
   private getAreaById = "http://localhost:9001/stadium-service/private/api/v1/area"
   private getFieldTypeByArea = "http://localhost:9001/stadium-service/private/api/v1/calender"
   private createBookingApi = "http://localhost:9002/booking-service/private/api/v1/create"
+  private validatePeriodApi = "http://localhost:9001/stadium-service/private/api/v1/validate-period"
   constructor(private http: HttpClient) { }
 
   bookingGetAreaById(id: any): Observable<any> {
@@ -21,6 +22,10 @@ export class BookingServicesService {
 
   createBooking(CreateBookingRequest: any): Observable<any> {
     return this.http.post<any>(`${this.createBookingApi}`,CreateBookingRequest);
+  }
+
+  validatePeriod(validate: any): Observable<any> {
+    return this.http.post<any>(`${this.validatePeriodApi}`,validate);
   }
 
 }

@@ -182,7 +182,7 @@
       </label>
       <label>Khung giờ:
         <select formControlName="timeFrame" [disabled]="!!longTermForm.get('timeFrame')?.disabled">
-          <option *ngFor="let time of timeFrames" [value]="time.value">{{ time.label }}</option>
+          <option *ngFor="let tf of availableTimeFrames" [value]="tf.id">{{ tf.label }}</option>
         </select>
       </label>
     </form>

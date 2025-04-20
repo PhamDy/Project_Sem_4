@@ -1,6 +1,6 @@
 package com.projectsem4.common_service.dto;
 
-import com.projectsem4.common_service.dto.entity.BookingDetail;
+import com.projectsem4.common_service.dto.entity.BookingDetailResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SendEmailBookingDTO {
-    private List<BookingDetail> bookingDetails;
+    private List<BookingDetailResponse> bookingDetailResponses;
     private UserInfor userInfor;
 }

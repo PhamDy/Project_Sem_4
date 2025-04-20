@@ -11,11 +11,12 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookingDetail {
+public class BookingDetailResponse {
     private Long id;
     private LocalDate bookingDate;
     private Long timeFrame;
     private Long fieldTypeId;
     private Long quantity;
     private Long bookingId;
+    private Long price;
 }

@@ -17,6 +17,8 @@ public class FieldType extends BaseEntity {
 
     private Double rating;
 
+    private Long price;
+
     private String description;
 
     private String phoneNumber;

@@ -11,6 +11,7 @@ import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.constant.Constant;
 import com.projectsem4.common_service.dto.entity.*;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -28,6 +29,7 @@ public class BookingServiceImpl implements BookingService {
     private final StadiumServiceClient stadiumServiceClient;
     private final BookingDetailRepository bookingDetailRepository;
     private final PaymentServiceClient paymentServiceClient;
+    private final ModelMapper modelMapper;
 
     @Override
     public Object createBooking(CreateBookingRequest request) {
@@ -94,12 +96,13 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public CreateBookingRequest findBookingById(Long id) {
         Booking booking = bookingRepository.findById(id).get();
-        List<BookingDetail> details = bookingDetailRepository.findByBookingId(id);
+        List<BookingDetailResponse> details = bookingDetailRepository.findByBookingId(id).stream().map(item->modelMapper.map(item, BookingDetailResponse.class)).toList();
+        List<BookingDetailResponse> responses = details.stream().peek(item-> item.setPrice((long) (stadiumServiceClient.findFieldById(item.getFieldTypeId()).getPrice() * Constant.TimeFrameEnum.fromValue(item.getTimeFrame())))).toList();
         CreateBookingRequest createBookingRequest = new CreateBookingRequest();
         createBookingRequest.setBookingId(booking.getId());
         createBookingRequest.setUserId(booking.getUserId());
         createBookingRequest.setTotalPrice(booking.getTotalPrice());
-        createBookingRequest.setBookingDetails(details);
+        createBookingRequest.setBookingDetailResponses(responses);
         return createBookingRequest;
     }
 

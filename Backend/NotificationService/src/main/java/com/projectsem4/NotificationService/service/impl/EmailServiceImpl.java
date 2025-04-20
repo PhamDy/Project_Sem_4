@@ -1,5 +1,6 @@
 package com.projectsem4.NotificationService.service.impl;
 
+import com.projectsem4.common_service.dto.SendEmailBookingDTO;
 import com.projectsem4.common_service.dto.UserInfor;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -50,5 +51,11 @@ public class EmailServiceImpl implements EmailService {
             log.error("Failed to send email", e);
             throw new IllegalStateException("Failed to send email");
         }
+    }
+
+    @Override
+    public void sendOtpMail(SendEmailBookingDTO sendEmailBookingDTO) {
+
+
     }
 }

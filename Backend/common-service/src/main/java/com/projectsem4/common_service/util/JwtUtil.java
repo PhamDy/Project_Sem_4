@@ -15,6 +15,11 @@ public class JwtUtil {
 
     public final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
 
+    public String genStringToken(HttpServletRequest request) {
+        String authorizationHeader = request.getHeader("Authorization");
+        return authorizationHeader.substring(7);
+    }
+
     public UserInfor decodeToken(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSignKey())

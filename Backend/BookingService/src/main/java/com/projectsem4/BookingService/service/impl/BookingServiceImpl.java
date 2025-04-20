@@ -4,6 +4,7 @@ import com.projectsem4.BookingService.client.PaymentServiceClient;
 import com.projectsem4.BookingService.client.StadiumServiceClient;
 import com.projectsem4.BookingService.entity.*;
 import com.projectsem4.BookingService.entity.Booking;
+import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.repository.*;
 import com.projectsem4.BookingService.service.BookingService;
@@ -178,5 +179,10 @@ public class BookingServiceImpl implements BookingService {
                 result.add(timeFrameDate);
             }
         return result;
+    }
+
+    @Override
+    public List<BookingDetail> findByBookingId(Long bookingId) {
+        return bookingDetailRepository.findByBookingId(bookingId);
     }
 }

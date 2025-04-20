@@ -1,7 +1,7 @@
 
-<app-navbar *ngIf="!isLoginPage"></app-navbar>
+<app-navbar *ngIf="!isShowLayout"></app-navbar>
 <div>
     <router-outlet></router-outlet>
 </div>
 <!-- <app-map [latitude]="latitude" [longitude]="longitude"></app-map> -->
-<app-footer *ngIf="!isLoginPage"></app-footer>
+<app-footer *ngIf="!isShowLayout"></app-footer>

@@ -11,12 +11,12 @@ export class AppComponent {
   latitude: number = 21.0285;
   longitude: number = 105.8542;
 
-  isLoginPage = false;
+  isShowLayout = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        this.isLoginPage = event.url === '/login';
+        this.isShowLayout = event.url === '/login' || event.url === '/verify-otp';
       }
     });
   }

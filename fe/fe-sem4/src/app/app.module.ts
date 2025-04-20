@@ -24,7 +24,17 @@ import { RouterModule } from '@angular/router';
 import { ContentBooking1Component } from './pages/booking/content-booking1/content-booking1.component';
 import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/booking-detail-area.component';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US } from 'ng-zorro-antd/i18n';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AuthInterceptor } from './interceptors/http.interceptors';
+import { NgZorroAntdModule } from './shared/ng-zorro-antd.module';
+import { NgOtpInputModule } from 'ng-otp-input';
+import { VerifyOtpComponent } from './pages/auth/verify-otp/verify-otp.component';
+
+registerLocaleData(en);
 
 @NgModule({
   declarations: [
@@ -48,13 +58,17 @@ import { AuthInterceptor } from './interceptors/http.interceptors';
     ContentBooking1Component,
     BookingDetailAreaComponent,
     PaymentComponent,
+    VerifyOtpComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule,
+    NgZorroAntdModule,
+    NgOtpInputModule
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
@@ -62,7 +76,9 @@ import { AuthInterceptor } from './interceptors/http.interceptors';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    }
+    },
+    { provide: NZ_I18N, useValue: en_US },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,6 @@
 package com.projectsem4.BookingService.controller;
 
+import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.entity.Price;
@@ -31,6 +32,12 @@ public class BookingPrivateController {
         @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> create(@RequestBody CreateBookingRequest booking) {
         return ResponseEntity.ok(bookingService.createBooking(booking));
+    }
+
+    @PostMapping("/create-period")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<?> create(@RequestBody BookingPeriod booking) {
+        return ResponseEntity.ok(bookingService.createBookingPeriod(booking));
     }
 
     @GetMapping("/find-by-id/{id}")

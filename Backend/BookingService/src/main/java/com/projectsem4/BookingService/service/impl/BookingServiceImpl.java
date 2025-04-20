@@ -34,8 +34,9 @@ public class BookingServiceImpl implements BookingService {
         booking.setUserId(request.getUserId());
         booking.setTotalPrice(request.getTotalPrice());
         bookingRepository.save(booking);
+        List<BookingDetail> detail = request.getBookingDetails().stream().peek(item -> item.setBookingId(booking.getId())).toList();
         if(request.getBookingDetails() != null && !request.getBookingDetails().isEmpty()) {
-            bookingDetailRepository.saveAll(request.getBookingDetails());
+            bookingDetailRepository.saveAll(detail);
         }
         if(request.getBookingPeriods() != null && !request.getBookingPeriods().isEmpty()) {
             bookingPeriodRepository.saveAll(request.getBookingPeriods());

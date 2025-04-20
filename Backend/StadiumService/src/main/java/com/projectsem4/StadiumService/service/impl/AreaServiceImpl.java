@@ -340,5 +340,9 @@ public class AreaServiceImpl implements AreaService {
 //        return true;
     }
 
+    @Override
+    public Object findTimeFrame(Long weekDay, Long month, Long quantity) {
 
+        return null;
+    }
 }

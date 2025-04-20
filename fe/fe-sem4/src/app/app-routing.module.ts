@@ -10,7 +10,8 @@ import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/
 import {PaymentComponent} from './pages/payment/payment.component';
 import { AuthGuard } from './guard/auth.guard';
 import { VerifyOtpComponent } from './pages/auth/verify-otp/verify-otp.component';
-import { BookingDetailFieldComponent } from './pages/booking/booking-detail-field/booking-detail-field.component';
+import {BookingDetailFieldComponent} from './pages/booking/booking-detail-field/booking-detail-field.component';
+import {BookingTournamentComponent} from './pages/booking/booking-tournament/booking-tournament.component';
 
 const routes: Routes = [
   {
@@ -46,7 +47,10 @@ const routes: Routes = [
     path: 'auth',
     component: AuthComponent
   },
-
+  {
+    path: 'tournament/:id',
+    component: BookingTournamentComponent
+  },
   {
     path: 'verify-otp',
     component: VerifyOtpComponent

@@ -39,7 +39,7 @@ export class BookingComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.fieldSize = params['fieldSize'] || 'Chưa chọn';
+      this.fieldSize = params['fieldSize'] || '';
       this.city = params['city'] || 'Chưa chọn';
       this.district = params['district'] || 'Chưa chọn';
       this.searchQuery = params['query'] || '';
@@ -62,6 +62,8 @@ export class BookingComponent implements OnInit {
       distance: 3,
       latitude:  this.latitude,
       longitude: this.longitude,
+      //
+      size: this.fieldSize
     }
     this.getAreaByCondition(findAreaRequest);
   }

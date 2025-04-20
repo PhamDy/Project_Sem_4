@@ -8,7 +8,13 @@
       <img [src]="img" alt="Stadium Image" />
     </div>
     <div class="stadium-infor">
-      <h1>{{ areaDetail.name }}</h1>
+      <div class="tournament-header">
+        <h1>{{ areaDetail.name }}</h1>
+        <button class="btn-tournament" (click)="viewTournament(areaId)">
+          <i class="fas fa-trophy"></i> Đặt giải đấu
+        </button>
+      </div>
+
       <p class="address">
         <strong>📍 Địa chỉ:</strong> {{ areaDetail.address }}
       </p>

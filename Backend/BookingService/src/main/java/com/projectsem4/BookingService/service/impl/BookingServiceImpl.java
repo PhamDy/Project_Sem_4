@@ -94,14 +94,12 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public CreateBookingRequest findBookingById(Long id) {
         Booking booking = bookingRepository.findById(id).get();
-        List<BookingAccessory> bookingAccessory = bookingAccessoryRepository.findByBookingId(id);
-        List<BookingReferee> bookingReferee = bookingRefereeRepository.findByBookingId(id);
+        List<BookingDetail> details = bookingDetailRepository.findByBookingId(id);
         CreateBookingRequest createBookingRequest = new CreateBookingRequest();
         createBookingRequest.setBookingId(booking.getId());
         createBookingRequest.setUserId(booking.getUserId());
         createBookingRequest.setTotalPrice(booking.getTotalPrice());
-        createBookingRequest.setBookingAccessory(bookingAccessory);
-        createBookingRequest.setBookingReferees(bookingReferee);
+        createBookingRequest.setBookingDetails(details);
         return createBookingRequest;
     }
 
@@ -184,5 +182,38 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDetail> findByBookingId(Long bookingId) {
         return bookingDetailRepository.findByBookingId(bookingId);
+    }
+
+    public List<TimeFrameSchedule> scheduleClientPeriod(Long fieldId, List<String> dateString) {
+        List<LocalDate> date = dateString.stream()
+                .map(item -> LocalDate.parse(item, DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .toList();
+        List<TimeFrameSchedule> result = new ArrayList<>();
+        for(int i = 0; i <date.size(); i++){
+            LocalDate date1 = date.get(i);
+            TimeFrameSchedule timeFrameDate = new TimeFrameSchedule();
+            timeFrameDate.setDate(date1);
+            List<FieldSchedule> fieldScheduleList = new ArrayList<>();
+//                timeFrameDate.setFieldSchedules(fieldScheduleList);
+            Constant.TimeFrameEnum.getAllTimeFrames().forEach(item->{
+                FieldSchedule fieldSchedule = new FieldSchedule();
+                fieldSchedule.setFieldId(fieldId);
+//                    fieldSchedule.setPrice(item.getScale() * item.getKey());
+                fieldSchedule.setTimeFrame(item.getKey());
+                List<BookingDetail> dup =bookingDetailRepository.checkBookingField(fieldId,item.getKey(),date1);
+                long quantityBooked = 0L;
+                if(dup != null && !dup.isEmpty()){
+                    for(BookingDetail bookingDetail : dup){
+                        quantityBooked = quantityBooked + bookingDetail.getQuantity();
+                    }
+                }
+                fieldSchedule.setQuantity(quantityBooked);
+                fieldScheduleList.add(fieldSchedule);
+//                    fieldScheduleList.add(fieldSchedule);
+            });
+            timeFrameDate.setFieldSchedules(fieldScheduleList);
+            result.add(timeFrameDate);
+        }
+        return result;
     }
 }

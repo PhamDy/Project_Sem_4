@@ -62,4 +62,9 @@ public class BookingPrivateController {
         return bookingService.findByBookingId(bookingId);
     }
 
+
+    @PostMapping("/validate-period")
+    public List<TimeFrameSchedule> validatePeriod(@RequestParam Long fieldId, @RequestParam List<String> date) {
+        return bookingService.scheduleClientPeriod(fieldId, date);
+    }
 }

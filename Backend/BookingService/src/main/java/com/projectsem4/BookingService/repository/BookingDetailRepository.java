@@ -22,5 +22,4 @@ public interface BookingDetailRepository extends JpaRepository<BookingDetail, Lo
                                           @Param("dateBooking") LocalDate dateBooking);
 
     List<BookingDetail> findByBookingId(Long bookingId);
-
 }

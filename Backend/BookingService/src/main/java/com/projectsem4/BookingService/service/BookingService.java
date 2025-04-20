@@ -17,6 +17,7 @@ public interface BookingService {
     CreateBookingRequest findBookingById(Long id);
     Object updateStatusOderByPayment(Integer status, Long orderId);
     List<TimeFrameSchedule> scheduleClient(Long fieldIds, String date);
+    List<TimeFrameSchedule> scheduleClientPeriod(Long fieldId, List<String> dateString);
 
     List<BookingDetail> findByBookingId(Long bookingId);
 }

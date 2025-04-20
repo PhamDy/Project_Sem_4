@@ -8,8 +8,11 @@ import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.repository.*;
 import com.projectsem4.BookingService.service.BookingService;
+import com.projectsem4.common_service.dto.UserInfor;
 import com.projectsem4.common_service.dto.constant.Constant;
 import com.projectsem4.common_service.dto.entity.*;
+import com.projectsem4.common_service.util.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -185,6 +189,17 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDetail> findByBookingId(Long bookingId) {
         return bookingDetailRepository.findByBookingId(bookingId);
+    }
+
+    @Override
+    public List<CreateBookingRequest> findAllBookings(HttpServletRequest request) {
+        UserInfor userInfor = JwtUtil.decodeToken(JwtUtil.genStringToken(request));
+        List<Long> bookingId = bookingRepository.findByUserId(userInfor.getUserId()).stream().map(Booking::getUserId).toList();
+        List<CreateBookingRequest> result = new ArrayList<>();
+        bookingId.forEach(item ->{
+            result.add(this.findBookingById(item));
+        });
+        return result;
     }
 
     public List<TimeFrameSchedule> scheduleClientPeriod(Long fieldId, List<String> dateString) {

@@ -7,6 +7,7 @@ import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.entity.Price;
 import com.projectsem4.common_service.dto.entity.TimeFrameDate;
 import com.projectsem4.common_service.dto.entity.TimeFrameSchedule;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,6 +61,11 @@ public class BookingPrivateController {
     @GetMapping("/bookingDetail/{bookingId}")
     public List<BookingDetail> findByBookingId(@PathVariable Long bookingId) {
         return bookingService.findByBookingId(bookingId);
+    }
+
+    @GetMapping("/booking")
+    public ResponseEntity<?> findAllByUser(HttpServletRequest request) {
+        return ResponseEntity.ok(bookingService.findAllBookings(request));
     }
 
 

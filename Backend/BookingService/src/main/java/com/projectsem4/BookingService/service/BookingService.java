@@ -6,6 +6,7 @@ import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.common_service.dto.entity.Price;
 import com.projectsem4.common_service.dto.entity.TimeFrameDate;
 import com.projectsem4.common_service.dto.entity.TimeFrameSchedule;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +19,6 @@ public interface BookingService {
     Object updateStatusOderByPayment(Integer status, Long orderId);
     List<TimeFrameSchedule> scheduleClient(Long fieldIds, String date);
     List<TimeFrameSchedule> scheduleClientPeriod(Long fieldId, List<String> dateString);
-
+    List<CreateBookingRequest> findAllBookings(HttpServletRequest request);
     List<BookingDetail> findByBookingId(Long bookingId);
 }

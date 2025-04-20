@@ -45,7 +45,7 @@ public class BookingPrivateController {
     }
 
     @PostMapping("/calender")
-    public List<TimeFrameSchedule> calenderSchedule(@RequestParam Long fieldId, @RequestParam String date) {
+    public List<TimeFrameSchedule> calenderSchedule(@RequestParam Long fieldId, @RequestParam LocalDate date) {
         return bookingService.scheduleClient(fieldId, date);
     }
 }

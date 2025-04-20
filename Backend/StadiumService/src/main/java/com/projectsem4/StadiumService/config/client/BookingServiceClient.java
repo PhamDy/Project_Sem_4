@@ -20,5 +20,5 @@ import java.util.Map;
 public interface BookingServiceClient {
 
     @PostMapping(value = "/private/api/v1/calender", consumes = "application/json")
-    List<TimeFrameSchedule> calenderSchedule(@RequestParam("date") String date, @RequestParam Long fieldId);
+    List<TimeFrameSchedule> calenderSchedule(@RequestParam("date") LocalDate date, @RequestParam Long fieldId);
 }

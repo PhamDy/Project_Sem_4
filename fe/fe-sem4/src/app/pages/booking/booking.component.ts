@@ -138,7 +138,7 @@ export class BookingComponent implements OnInit {
   }
 
   onClickBooking(id: any) {
-    this.router.navigate([`/detail-area/${id}`]);
+    this.router.navigate(['/booking-area'], { queryParams: { id: id } });
   }
 
   initMap(): void {

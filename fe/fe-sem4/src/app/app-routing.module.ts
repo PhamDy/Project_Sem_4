@@ -8,7 +8,6 @@ import { TournamentComponent } from './pages/tournament/tournament.component';
 import { LoginComponent } from './pages/login/login.component';
 import { BookingDetailAreaComponent } from './pages/booking/booking-detail-area/booking-detail-area.component';
 import {PaymentComponent} from './pages/payment/payment.component';
-import { BookingDetailFieldComponent } from './pages/booking/booking-detail-field/booking-detail-field.component';
 
 const routes: Routes = [
   {
@@ -24,12 +23,8 @@ const routes: Routes = [
     component: PaymentComponent
   },
   {
-    path: 'detail-area/:id',
+    path: 'booking-area',
     component: BookingDetailAreaComponent
-  },
-  {
-    path: 'booking-area/:id',
-    component: BookingDetailFieldComponent
   },
   {
     path: 'aboutUs',

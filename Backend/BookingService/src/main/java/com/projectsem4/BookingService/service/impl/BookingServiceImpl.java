@@ -97,11 +97,12 @@ public class BookingServiceImpl implements BookingService {
     public CreateBookingRequest findBookingById(Long id) {
         Booking booking = bookingRepository.findById(id).get();
         List<BookingDetailResponse> details = bookingDetailRepository.findByBookingId(id).stream().map(item->modelMapper.map(item, BookingDetailResponse.class)).toList();
+        List<BookingDetailResponse> responses = details.stream().peek(item-> item.setPrice((long) (stadiumServiceClient.findFieldById(item.getFieldTypeId()).getPrice() * Constant.TimeFrameEnum.fromValue(item.getTimeFrame())))).toList();
         CreateBookingRequest createBookingRequest = new CreateBookingRequest();
         createBookingRequest.setBookingId(booking.getId());
         createBookingRequest.setUserId(booking.getUserId());
         createBookingRequest.setTotalPrice(booking.getTotalPrice());
-        createBookingRequest.setBookingDetailResponses(details);
+        createBookingRequest.setBookingDetailResponses(responses);
         return createBookingRequest;
     }
 

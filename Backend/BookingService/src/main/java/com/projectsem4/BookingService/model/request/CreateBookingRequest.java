@@ -4,6 +4,7 @@ import com.projectsem4.BookingService.entity.BookingAccessory;
 import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.entity.BookingReferee;
+import com.projectsem4.common_service.dto.entity.BookingDetailResponse;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -24,6 +25,7 @@ public class CreateBookingRequest {
     private List<BookingAccessory> bookingAccessory;
     private List<BookingReferee> bookingReferees;
     private List<BookingDetail> bookingDetails;
+    private List<BookingDetailResponse> bookingDetailResponses;
     private List<BookingPeriod> bookingPeriods;
     String url;
 }

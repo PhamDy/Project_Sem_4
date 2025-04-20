@@ -4,7 +4,7 @@ import com.projectsem4.PaymentService.client.BookingServiceClient;
 import com.projectsem4.PaymentService.service.PaymentService;
 import com.projectsem4.common_service.dto.UserInfor;
 import com.projectsem4.common_service.dto.constant.Constant;
-import com.projectsem4.common_service.dto.entity.BookingDetail;
+import com.projectsem4.common_service.dto.entity.BookingDetailResponse;
 import com.projectsem4.common_service.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,7 @@ public class PaymentPrivateController {
             paymentService.updateStatusPayment(true, orderId);
             bookingServiceClient.updateStatusByPayment(Constant.OrderStatus.paid, orderId);
 
-            List<BookingDetail> bookingDetails = bookingServiceClient.findByBookingId(orderId);
+            List<BookingDetailResponse> bookingDetailResponses = bookingServiceClient.findByBookingId(orderId);
             String token = JwtUtil.genStringToken(request);
             UserInfor userInfor = JwtUtil.decodeToken(token);
 

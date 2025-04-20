@@ -2,7 +2,7 @@ package com.projectsem4.PaymentService.client;
 
 import com.projectsem4.PaymentService.config.FeignConfig;
 import com.projectsem4.common_service.dto.entity.Booking;
-import com.projectsem4.common_service.dto.entity.BookingDetail;
+import com.projectsem4.common_service.dto.entity.BookingDetailResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,5 +21,5 @@ public interface BookingServiceClient {
     Booking updateStatusByPayment(@RequestParam("status") Integer status, @RequestParam("orderId") Long id);
 
     @GetMapping(value = "/private/api/v1/bookingDetail/{bookingId}", consumes = "application/json")
-    List<BookingDetail> findByBookingId(@PathVariable("bookingId") Long bookingId);
+    List<BookingDetailResponse> findByBookingId(@PathVariable("bookingId") Long bookingId);
 }

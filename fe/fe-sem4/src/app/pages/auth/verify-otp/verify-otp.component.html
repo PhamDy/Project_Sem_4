@@ -1,0 +1,36 @@
+<nz-card class="max-w-md mx-auto mt-20 p-6 rounded-2xl shadow-lg">
+  <div class="text-center">
+    <h2 nz-typography class="text-xl font-semibold mb-4">Xác thực OTP</h2>
+    <p nz-typography class="text-sm text-gray-500 mb-6">
+      Vui lòng nhập mã OTP đã được gửi đến số điện thoại/email của bạn.
+    </p>
+  </div>
+
+  <div class="flex justify-center mb-6">
+    <ng-otp-input [config]="otpConfig" (onInputChange)="onOtpChange($event)">
+    </ng-otp-input>
+  </div>
+
+  <div class="flex justify-center gap-4">
+    <button
+      nz-button
+      nzType="primary"
+      class="px-5"
+      [disabled]="otpCode.length !== 6"
+      (click)="verifyOtp()"
+      [nzLoading]="loading"
+    >
+      Xác nhận
+    </button>
+    <button
+      nz-button
+      class="px-5"
+      (click)="reSendOtp()"
+    >
+      Gửi lại
+    </button>
+    <button nz-button nzType="default" nzDanger class="px-5" (click)="cancel()">
+      Thoát
+    </button>
+  </div>
+</nz-card>

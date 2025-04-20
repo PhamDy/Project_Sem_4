@@ -1,75 +1,118 @@
 import { Component } from '@angular/core';
+import { NgForm, NgModel } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service.service';
-import { Location } from '@angular/common';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent {
   isLogin = true;
   loading = false;
-  errorMessage: string | null = null;
+
+  showOtp = false;
+  otpCode = '';
+
+  //refactor formbuilder & detach component login, signup
 
   loginData = {
-    username: '',
-    password: ''
+    userName: '',
+    password: '',
   };
 
   signupData = {
-    fullName: '',
-    username: '',
+    name: '',
+    userName: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    email: '',
   };
 
-  constructor(private authService: AuthService, private location: Location) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private message: NzMessageService
+  ) {}
 
   toggleForm() {
     this.isLogin = !this.isLogin;
-    this.errorMessage = null;
   }
 
-  onLogin() {
-    this.loading = true;
-    this.errorMessage = null;
-
-    this.authService.login(this.loginData).subscribe({
-      next: () => {
-        this.loading = true;
-        console.log('Login successful');
-        this.location.back();
-      },
-      error: err => {
-        this.loading = true;
-        this.errorMessage = err.error?.message || 'Đăng nhập thất bại';
-      }
-    });
-  }
-
-  onSignup() {
-    this.loading = true;
-    this.errorMessage = null;
-
-    if (this.signupData.password !== this.signupData.confirmPassword) {
-      this.loading = false;
-      this.errorMessage = 'Mật khẩu xác nhận không khớp';
+  onLogin(form: NgForm) {
+    if (form.invalid) {
+      this.markFormControlsTouched(form);
       return;
     }
 
-    const { fullName, username, password } = this.signupData;
-
-    this.authService.signup({ fullName, username, password }).subscribe({
+    this.authService.login(this.loginData).subscribe({
       next: () => {
         this.loading = false;
-        console.log('Signup successful');
-        this.toggleForm();
+        const prevUrl = this.router
+          .getCurrentNavigation()
+          ?.previousNavigation?.finalUrl?.toString();
+        this.router.navigateByUrl(prevUrl || '/');
       },
-      error: err => {
+      error: (err) => {
         this.loading = false;
-        this.errorMessage = err.error?.message || 'Đăng ký thất bại';
-      }
+        this.message.error('Tài khoản hoặc mật khẩu không đúng');
+      },
+    });
+  }
+
+  onSignup(form: NgForm) {
+    if (form.invalid) {
+      this.markFormControlsTouched(form);
+      return;
+    }
+
+    if (this.signupData.password !== this.signupData.confirmPassword) {
+      form.controls['confirmPassword']?.setErrors({ notMatch: true });
+      return;
+    }
+    this.loading = true;
+    const { name, userName, password, email } = this.signupData;
+
+    this.authService.signup({ name, userName, password, email }).subscribe({
+      next: () => {
+        this.loading = false;
+        this.toggleForm();
+        this.authService.genOtp(email).subscribe({
+          next: () => {
+            console.log('genOtp success');
+            this.router.navigate(['/verify-otp']);
+          },
+          error: () => {
+            this.message.error('Hệ thống xảy ra lỗi, vui lòng thử lại sau!');
+          },
+        });
+      },
+      error: (err) => {
+        this.loading = false;
+        this.message.error(
+          err?.response?.message || err?.message || 'Đăng ký thất bại'
+        );
+      },
+    });
+  }
+
+  validateConfirmPassword(confirmModel: NgModel) {
+    if (
+      this.signupData.confirmPassword &&
+      this.signupData.confirmPassword !== this.signupData.password
+    ) {
+      confirmModel.control.setErrors({ notMatch: true });
+    } else {
+      confirmModel.control.setErrors(null);
+    }
+  }
+
+  private markFormControlsTouched(form: NgForm) {
+    Object.values(form.controls).forEach((control) => {
+      control.markAsTouched();
+      control.updateValueAndValidity();
     });
   }
 }

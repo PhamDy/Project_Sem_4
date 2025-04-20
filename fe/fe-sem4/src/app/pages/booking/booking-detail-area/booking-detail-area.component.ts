@@ -38,4 +38,8 @@ export class BookingDetailAreaComponent implements OnInit {
   viewDetail(idField: string) {
     this.router.navigate([`/booking-area/${idField}`]);
   }
+
+  viewTournament(idArea: any) {
+    this.router.navigate([`/tournament/${idArea}`]);
+  }
 }

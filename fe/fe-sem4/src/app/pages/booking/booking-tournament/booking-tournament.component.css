@@ -33,84 +33,21 @@
   object-fit: cover;
 }
 
-.stadium-infor {
-  background-color: #ffffff;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-  max-width: 700px;
-  margin: 20px auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 1px solid #e5e7eb;
+.stadium-info {
+  padding: 15px;
 }
 
-.stadium-infor h1 {
-  font-size: 28px;
-  color: #16a34a;
-  margin-bottom: 16px;
-  font-weight: 700;
+.stadium-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
 }
 
-.stadium-infor p {
-  font-size: 16px;
-  color: #374151;
-  margin: 8px 0;
-}
-
-.stadium-infor strong {
-  color: #111827;
-}
-
-.address,
-.description {
-  line-height: 1.6;
-}
-
-.booking-options {
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.radio-check {
-  background-color: #f3f4f6;
-  padding: 10px 16px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 15px;
-  color: #111827;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.radio-check:hover {
-  background-color: #e0f2fe;
-  color: #0284c7;
-}
-
-.radio-check input[type='radio'] {
-  accent-color: #16a34a;
-  cursor: pointer;
-}
-
-.buttonBook {
-  margin-top: 24px;
-  background-color: #16a34a;
-  color: #fff;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-.buttonBook:hover {
-  background-color: #15803d;
+.stadium-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0 15px;
 }
 
 .rating {
@@ -381,13 +318,12 @@ button:active {
 
 .stadium-container{
 
-  background-color: #ffffff;
+  background-color: #e8e8e8;
   display: flex;
 }
 
 .stadium-image img{
   width:1000px;
-  border-radius: 20px;
 }
 
 
@@ -1990,9 +1926,6 @@ h1.detail-title::before {
   background-color: #f9f9f9;
 }
 
-.popup select{
-  width: 100%;
-}
 .popup input:focus,
 .popup select:focus {
   border-color: #275e28;
@@ -2374,44 +2307,205 @@ h1.detail-title::before {
   margin: 10px auto;
 }
 
-.btn-tournament {
-  background: linear-gradient(to right, #f39c12, #e67e22);
-  border: none;
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-  padding: 12px 20px;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
-  transition: all 0.3s ease;
+.tournament-form {
+  max-width: 1000px;
+  margin: auto;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 16px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.form-group {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
 }
 
-.btn-tournament i {
-  font-size: 18px;
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
 }
 
-.btn-tournament:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(243, 156, 18, 0.6);
+.form-control {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.2s ease-in-out;
 }
 
-.tournament-header {
+.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.form-terms {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.form-terms a {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.stadium-info {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+}
+
+.info-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
 }
 
-.tournament-header h1 {
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
+.info-header h3 {
+  font-size: 20px;
+  font-weight: 600;
   margin: 0;
 }
+
+.stadium-info p {
+  margin: 0;
+  font-size: 15px;
+  color: #333;
+}
+
+.action-buttons {
+  margin-top: 12px;
+}
+
+.btn-detail {
+  background-color: #005dbf;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-detail:hover {
+  background-color: #0056b3;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.image-wrapper img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.selected-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: rgba(40, 167, 69, 0.9); /* xanh lá hơi trong */
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.service-item {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-item label {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.service-input {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.checkbox-container {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-label {
+  font-size: 16px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.checkbox-label a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.checkbox-label a:hover {
+  text-decoration: underline;
+}
+
+.btn-detail {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-detail i {
+  margin-right: 8px;
+}
+
+.btn-detail:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-detail:hover:enabled {
+  background-color: #2980b9;
+}
+
+
+

@@ -56,8 +56,8 @@ export class PaymentComponent {
     const totalPrice = this.bookingDetails.reduce((total, field) => {
       return total + field.amount;
     }, 0);
-    this.totalPriceOrder = totalPrice * 0.5;// Giảm 50%
-    return this.totalPriceOrder;  
+    this.totalPriceOrder = totalPrice;// Giảm 50%
+    return this.totalPriceOrder;
   }
 
 

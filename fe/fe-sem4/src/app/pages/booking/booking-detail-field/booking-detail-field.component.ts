@@ -1,13 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookingServicesService } from '../../../services/booking-services.service';
 import * as L from 'leaflet';
 import { StadiumService } from '../../../services/stadium-service.service';
 import { weekSchedule } from './schedule-data';
 import * as AOS from 'aos';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { throwIfEmpty } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-booking-detail-field',
@@ -16,7 +23,7 @@ import { throwIfEmpty } from 'rxjs';
   templateUrl: './booking-detail-field.component.html',
   styleUrl: './booking-detail-field.component.css',
 })
-export class BookingDetailFieldComponent implements OnInit{
+export class BookingDetailFieldComponent implements OnInit {
   bookingType: any;
   searchQuery: string = '';
   dataStadium: any[] = [];
@@ -54,7 +61,7 @@ export class BookingDetailFieldComponent implements OnInit{
     { label: 'Thứ 5', value: 5 },
     { label: 'Thứ 6', value: 6 },
     { label: 'Thứ 7', value: 7 },
-    { label: 'Chủ Nhật', value: 1 }
+    { label: 'Chủ Nhật', value: 1 },
   ];
 
   timeFrames = [
@@ -63,10 +70,10 @@ export class BookingDetailFieldComponent implements OnInit{
     { id: 3, label: '15h00 - 16h30' },
     { id: 4, label: '17h00 - 18h30' },
     { id: 5, label: '19h00 - 20h30' },
-    { id: 6, label: '21h00 - 22h30' }
+    { id: 6, label: '21h00 - 22h30' },
   ];
-  
-  availableTimeFrames: any[] = []; 
+
+  availableTimeFrames: any[] = [];
 
   // Thông tin đặt giải đấu
   tournament = {
@@ -150,7 +157,7 @@ export class BookingDetailFieldComponent implements OnInit{
       date: date,
       quantity: 1,
       availableQuantity: data.quantity,
-      amount: data.price
+      amount: data.price,
     };
     if (index === -1) {
       this.selectedFields.push(item);
@@ -234,13 +241,14 @@ export class BookingDetailFieldComponent implements OnInit{
     private fb: FormBuilder,
     private bookingService: BookingServicesService,
     private stadiumService: StadiumService,
-    private router: Router
+    private router: Router,
+    private message: NzMessageService
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.bookingId = params.get('id');
-      if(this.bookingId) {
+      if (this.bookingId) {
         this.getAllStadiums();
         this.getBookingAreaById(this.bookingId);
         this.getFieldsByAreaIds(this.bookingId);
@@ -257,14 +265,14 @@ export class BookingDetailFieldComponent implements OnInit{
       month: [null, Validators.required],
       quantity: [null, [Validators.required, Validators.min(1)]],
       weekDay: [null, Validators.required],
-      timeFrame: [{ value: null, disabled: true }, Validators.required]
+      timeFrame: [{ value: null, disabled: true }, Validators.required],
     });
 
     this.handleEnableTimeFrame();
   }
 
   handleEnableTimeFrame() {
-    this.longTermForm.valueChanges.subscribe(values => {
+    this.longTermForm.valueChanges.subscribe((values) => {
       const { month, quantity, weekDay } = values;
       const timeFrameControl = this.longTermForm.get('timeFrame');
 
@@ -274,12 +282,19 @@ export class BookingDetailFieldComponent implements OnInit{
           quantity: Number(this.longTermForm.value.quantity),
           weekDay: Number(this.longTermForm.value.weekDay),
           date: this.longTermForm.value.month + '-01',
-          fieldId: Number(this.bookingId)
+          fieldId: Number(this.bookingId),
         };
-        this.bookingService.validatePeriod(payload).subscribe((response: number[]) => {
-          this.availableTimeFrames = this.timeFrames.filter(tf => response.includes(tf.id));
-        });
-      } else if ((!month || !quantity || weekDay === null) && timeFrameControl?.enabled) {
+        this.bookingService
+          .validatePeriod(payload)
+          .subscribe((response: number[]) => {
+            this.availableTimeFrames = this.timeFrames.filter((tf) =>
+              response.includes(tf.id)
+            );
+          });
+      } else if (
+        (!month || !quantity || weekDay === null) &&
+        timeFrameControl?.enabled
+      ) {
         timeFrameControl.disable();
         timeFrameControl.reset();
       }
@@ -288,10 +303,27 @@ export class BookingDetailFieldComponent implements OnInit{
 
   onSubmit() {
     if (this.longTermForm.valid) {
-      const payload = this.longTermForm.value;
-      console.log('Sending payload:', payload);
+      const formValue = this.longTermForm.value;
 
-      
+      const payload = {
+        quantity: Number(formValue.quantity),
+        weekDay: Number(formValue.weekDay),
+        month: formValue.month + '-01',
+        fieldTypeId: Number(this.bookingId),
+        timeFrame: Number(formValue.timeFrame),
+      };
+
+      this.bookingService.createPeriod(payload).subscribe({
+        next: () => {
+          this.message.success('Đặt sân thành công!');
+          this.showLongTermPopup = false;
+          this.longTermForm.reset();
+          this.longTermForm.get('timeFrame')?.disable();
+        },
+        error: () => {
+          this.message.error('Đặt sân thất bại!');
+        }
+      });
     }
   }
 
@@ -326,7 +358,6 @@ export class BookingDetailFieldComponent implements OnInit{
   // }
 
   currentIndex = 0;
-
 
   getFieldsByAreaIds(areaId: any) {
     this.stadiumService.getFieldsByAreaId(areaId).subscribe(
@@ -428,5 +459,4 @@ export class BookingDetailFieldComponent implements OnInit{
     });
   }
   protected readonly Number = Number;
-
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import * as L from 'leaflet';
 import * as AOS from 'aos';
@@ -16,6 +16,8 @@ export class NavbarComponent {
   showMap: boolean = false;
   map: any;
   selectedLatLng: { lat: number, lng: number } | null = null;
+  isHeaderVisible: boolean = true;
+  lastScrollPosition: number = 0;
 
   latitude: any | null = null;
   longitude: any | null = null;
@@ -41,10 +43,29 @@ export class NavbarComponent {
     window.addEventListener('scroll', () => {
       AOS.refresh();
     });
-
   }
 
-  // Hàm tìm kiếm
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const currentScrollPos = window.scrollY;
+
+    // Show header when scrolling up or at the top
+    if (currentScrollPos <= 0) {
+      this.isHeaderVisible = true;
+    }
+    // Hide header when scrolling down
+    else if (currentScrollPos > this.lastScrollPosition) {
+      this.isHeaderVisible = false;
+    }
+    // Show header when scrolling up
+    else {
+      this.isHeaderVisible = true;
+    }
+
+    this.lastScrollPosition = currentScrollPos;
+  }
+
+  // Existing methods remain unchanged
   onSearch() {
     if (this.searchQuery.trim() === '') {
       this.filteredResults = [];
@@ -67,5 +88,4 @@ export class NavbarComponent {
       this.router.navigate(['/booking'], { queryParams: { query: this.finalSearch } });
     }
   }
-
 }

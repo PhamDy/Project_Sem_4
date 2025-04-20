@@ -31,6 +31,9 @@ public class BookingPeriod {
     @Column(name = "week_day")
     private Long weekDay;
 
+    @Column(name = "quantity")
+    private Long quantity;
+
     @Column(name = "month")
     private LocalDate month;
 }

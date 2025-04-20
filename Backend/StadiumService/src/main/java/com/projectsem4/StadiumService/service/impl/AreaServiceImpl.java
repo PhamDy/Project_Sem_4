@@ -246,7 +246,7 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public Object findFieldByIdAndCalender(Long id, Long index) {
         FieldType field = fieldTypeRepository.findById(id).get();
-        List<TimeFrameSchedule> schedule = bookingServiceClient.calenderSchedule(LocalDate.now().plusDays(7 * index), id);
+        List<TimeFrameSchedule> schedule = bookingServiceClient.calenderSchedule(LocalDate.now().plusDays(7 * index).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), id);
         FieldType fieldType = fieldTypeRepository.findById(id).orElseThrow();
 
         ResponseSchedule list = new ResponseSchedule();
@@ -333,12 +333,6 @@ public class AreaServiceImpl implements AreaService {
         List<FieldTypeResponse> fieldTypeResponses = new ArrayList<>();
         fieldTypes.forEach(fieldType -> {
             FieldTypeResponse fieldTypeResponse = modelMapper.map(fieldType, FieldTypeResponse.class);
-            List<FieldType> fields = fieldTypeRepository.findByFieldTypeId(fieldType.getFieldTypeId());
-            List<FieldResponse> fieldResponses = new ArrayList<>();
-            fields.forEach(item->{
-                FieldResponse fieldResponse = modelMapper.map(item, FieldResponse.class);
-                fieldResponses.add(fieldResponse);
-            });
         fieldTypeResponses.add(fieldTypeResponse);
         });
         areaResponse.setFieldTypeResponseList(fieldTypeResponses);

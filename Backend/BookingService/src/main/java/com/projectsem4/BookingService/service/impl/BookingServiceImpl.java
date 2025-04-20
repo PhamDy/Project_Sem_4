@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -147,7 +148,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<TimeFrameSchedule> scheduleClient(Long fieldId, LocalDate date) {
+    public List<TimeFrameSchedule> scheduleClient(Long fieldId, String dateString) {
+        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         List<TimeFrameSchedule> result = new ArrayList<>();
             for(int i = 0; i <7; i++){
                 LocalDate date1 = date.plusDays(i);

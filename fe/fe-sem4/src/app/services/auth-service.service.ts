@@ -11,9 +11,9 @@ export class AuthService {
   login(params: {
     userName: string;
     password: string;
-  }): Observable<{ token: string }> {
+  }): Observable<{ token: string, userInfor: any }> {
     return this.http
-      .get<{ token: string }>(`${this.apiUrl}/public/api/v1/login`, {
+      .get<{ token: string, userInfor: any }>(`${this.apiUrl}/public/api/v1/login`, {
         params: {
           userName: params.userName,
           password: params.password,
@@ -22,6 +22,8 @@ export class AuthService {
       .pipe(
         tap((res) => {
           localStorage.setItem('token', res.token);
+          localStorage.setItem('userInfor', JSON.stringify(res.userInfor));
+
         })
       );
   }
@@ -37,6 +39,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userInfor');
   }
 
   isLoggedIn(): boolean {
@@ -45,6 +48,11 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  getUserInfor(): any | null {
+    const data = localStorage.getItem('userInfor');
+    return data ? JSON.parse(data) : null;
   }
 
   genOtp(email: string): Observable<any> {

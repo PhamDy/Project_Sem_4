@@ -8,15 +8,19 @@
       <img [src]="img" alt="Stadium Image" />
     </div>
     <div class="stadium-infor">
-      <h1>{{ stadiumDetail.name }}</h1>
+      <h1>{{ stadiumDetail?.name }}</h1>
       <p class="address">
-        <strong>📍 Địa chỉ:</strong> {{ stadiumDetail.address }}
+        <strong>📍 Giá :</strong> {{ stadiumDetail?.price }}đ
       </p>
       <p class="description">
-        <strong>ℹ️ Mô tả:</strong> {{ stadiumDetail.description }}
+        <strong>ℹ️ Mô tả:</strong> {{ stadiumDetail?.description }}
       </p>
-      <p><strong>📧 Email:</strong> {{ stadiumDetail.email }}</p>
-      <p><strong>📞 Số điện thoại:</strong> {{ stadiumDetail.phoneNumber }}</p>
+      <div class="rating">
+        <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+          <span class="star" *ngIf="i <= stadiumDetail?.rating">★</span>
+          <span class="empty-star" *ngIf="i > stadiumDetail?.rating">★</span>
+        </ng-container>
+      </div>
       <div class="booking-options">
         <label class="radio-check">
           <input
@@ -185,6 +189,10 @@
           <option *ngFor="let tf of availableTimeFrames" [value]="tf.id">{{ tf.label }}</option>
         </select>
       </label>
+
+      <div *ngIf="selectedPrice !== null" class="price-info">
+        Giá sân: <strong>{{ selectedPrice | number }} VND</strong>
+      </div>
     </form>
     <div class="terms-container">
       <p>

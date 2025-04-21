@@ -33,6 +33,7 @@ import { AuthInterceptor } from './interceptors/http.interceptors';
 import { NgZorroAntdModule } from './shared/ng-zorro-antd.module';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { VerifyOtpComponent } from './pages/auth/verify-otp/verify-otp.component';
+import {UserProfileComponent} from './pages/user-profile/user-profile.component';
 
 registerLocaleData(en);
 
@@ -58,7 +59,8 @@ registerLocaleData(en);
     ContentBooking1Component,
     BookingDetailAreaComponent,
     PaymentComponent,
-    VerifyOtpComponent
+    VerifyOtpComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,8 @@ registerLocaleData(en);
     ReactiveFormsModule,
     CommonModule,
     NgZorroAntdModule,
-    NgOtpInputModule
+    NgOtpInputModule,
+
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),

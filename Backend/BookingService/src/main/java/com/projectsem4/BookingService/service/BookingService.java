@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface BookingService {
-    Object createBooking(CreateBookingRequest request);
-    Object createBookingPeriod(BookingPeriod request);
+    Object createBooking(CreateBookingRequest request, HttpServletRequest httpServletRequest);
+    Object createBookingPeriod(BookingPeriod request, HttpServletRequest httpServletRequest);
     CreateBookingRequest findBookingById(Long id);
     Object updateStatusOderByPayment(Integer status, Long orderId);
     List<TimeFrameSchedule> scheduleClient(Long fieldIds, String date);

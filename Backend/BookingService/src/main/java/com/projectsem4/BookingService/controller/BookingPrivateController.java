@@ -32,14 +32,14 @@ public class BookingPrivateController {
 
     @PostMapping("/create")
         @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<?> create(@RequestBody CreateBookingRequest booking) {
-        return ResponseEntity.ok(bookingService.createBooking(booking));
+    public ResponseEntity<?> create(@RequestBody CreateBookingRequest booking, HttpServletRequest httpServletRequest) {
+        return ResponseEntity.ok(bookingService.createBooking(booking, httpServletRequest));
     }
 
     @PostMapping("/create-period")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<?> create(@RequestBody BookingPeriod booking) {
-        return ResponseEntity.ok(bookingService.createBookingPeriod(booking));
+    public ResponseEntity<?> create(@RequestBody BookingPeriod booking, HttpServletRequest httpServletRequest) {
+        return ResponseEntity.ok(bookingService.createBookingPeriod(booking, httpServletRequest));
     }
 
     @GetMapping("/find-by-id/{id}")

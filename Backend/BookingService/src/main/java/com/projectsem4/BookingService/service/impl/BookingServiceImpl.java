@@ -36,11 +36,12 @@ public class BookingServiceImpl implements BookingService {
     private final ModelMapper modelMapper;
 
     @Override
-    public Object createBooking(CreateBookingRequest request) {
+    public Object createBooking(CreateBookingRequest request, HttpServletRequest httpServletRequest) {
         Booking booking = new Booking();
         booking.setUserId(request.getUserId());
         booking.setTotalPrice(request.getTotalPrice());
         booking.setStatus(Constant.OrderStatus.pending);
+        booking.setUserId(JwtUtil.decodeToken(JwtUtil.genStringToken(httpServletRequest)).getUserId());
         bookingRepository.save(booking);
         List<BookingDetail> detail = request.getBookingDetails().stream().peek(item -> item.setBookingId(booking.getId())).toList();
         if(request.getBookingDetails() != null && !request.getBookingDetails().isEmpty()) {
@@ -60,7 +61,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Object createBookingPeriod(BookingPeriod request) {
+    public Object createBookingPeriod(BookingPeriod request, HttpServletRequest httpServletRequest) {
         List<LocalDate> result = new ArrayList<>();
 
         LocalDate today = LocalDate.now();
@@ -84,10 +85,11 @@ public class BookingServiceImpl implements BookingService {
                 result.add(date);
             }
         }
-
+        bookingPeriodRepository.save(request);
         Booking booking = new Booking();
         booking.setStatus(Constant.OrderStatus.pending);
-        booking.setTotalPrice(null);
+        booking.setTotalPrice(request.getPrice());
+        booking.setUserId(JwtUtil.decodeToken(JwtUtil.genStringToken(httpServletRequest)).getUserId());
         bookingRepository.save(booking);
         List<BookingDetail> details = new ArrayList<>();
         for (LocalDate date : result) {
@@ -100,7 +102,9 @@ public class BookingServiceImpl implements BookingService {
             details.add(detail);
         }
         bookingDetailRepository.saveAll(details);
-       return bookingPeriodRepository.save(request);
+        bookingPeriodRepository.save(request);
+
+        return (paymentServiceClient.linkThanhToan(booking.getId()));
     }
 
     @Override

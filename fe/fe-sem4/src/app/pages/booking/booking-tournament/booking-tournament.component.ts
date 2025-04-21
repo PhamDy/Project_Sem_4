@@ -428,5 +428,7 @@ export class BookingTournamentComponent implements OnInit{
   isSelected2(index: number): boolean {
     return this.selectedDates.includes(this.days[index]);
   }
-
+  removeFile(fileToRemove: File): void {
+    this.selectedFiles = this.selectedFiles.filter(file => file !== fileToRemove);
+  }
 }

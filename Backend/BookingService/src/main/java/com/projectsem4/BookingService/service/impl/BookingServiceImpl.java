@@ -40,6 +40,7 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = new Booking();
         booking.setUserId(request.getUserId());
         booking.setTotalPrice(request.getTotalPrice());
+        booking.setStatus(Constant.OrderStatus.pending);
         bookingRepository.save(booking);
         List<BookingDetail> detail = request.getBookingDetails().stream().peek(item -> item.setBookingId(booking.getId())).toList();
         if(request.getBookingDetails() != null && !request.getBookingDetails().isEmpty()) {
@@ -84,6 +85,10 @@ public class BookingServiceImpl implements BookingService {
             }
         }
 
+        Booking booking = new Booking();
+        booking.setStatus(Constant.OrderStatus.pending);
+        booking.setTotalPrice(null);
+        bookingRepository.save(booking);
         List<BookingDetail> details = new ArrayList<>();
         for (LocalDate date : result) {
             BookingDetail detail = new BookingDetail();
@@ -91,6 +96,7 @@ public class BookingServiceImpl implements BookingService {
             detail.setQuantity(request.getQuantity());
             detail.setTimeFrame(request.getTimeFrame());
             detail.setFieldTypeId(request.getFieldTypeId());
+            detail.setBookingId(booking.getId());
             details.add(detail);
         }
         bookingDetailRepository.saveAll(details);

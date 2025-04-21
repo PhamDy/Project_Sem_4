@@ -1,29 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookingServicesService } from '../../../services/booking-services.service';
 import * as L from 'leaflet';
 import { StadiumService } from '../../../services/stadium-service.service';
 import { weekSchedule } from './schedule-data';
 import * as AOS from 'aos';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { throwIfEmpty } from 'rxjs';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import {AreaServicesService} from '../../../services/area-services.service';
 
 @Component({
-  selector: 'app-booking-detail-field',
+  selector: 'app-booking-tournament',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './booking-detail-field.component.html',
-  styleUrl: './booking-detail-field.component.css',
+  imports: [CommonModule, FormsModule],
+  templateUrl: './booking-tournament.component.html',
+  styleUrl: './booking-tournament.component.css',
 })
-export class BookingDetailFieldComponent implements OnInit {
+export class BookingTournamentComponent implements OnInit{
   bookingType: any;
   searchQuery: string = '';
   dataStadium: any[] = [];
@@ -52,39 +45,18 @@ export class BookingDetailFieldComponent implements OnInit {
   showLongTermPopup = false;
   showTournamentPopup = false;
 
-  longTermForm!: FormGroup;
-
-  daysInWeek = [
-    { label: 'Thứ 2', value: 2 },
-    { label: 'Thứ 3', value: 3 },
-    { label: 'Thứ 4', value: 4 },
-    { label: 'Thứ 5', value: 5 },
-    { label: 'Thứ 6', value: 6 },
-    { label: 'Thứ 7', value: 7 },
-    { label: 'Chủ Nhật', value: 1 },
-  ];
-
-  timeFrames = [
-    { id: 1, label: '10h00 - 11h30' },
-    { id: 2, label: '15h00 - 16h30' },
-    { id: 3, label: '15h00 - 16h30' },
-    { id: 4, label: '17h00 - 18h30' },
-    { id: 5, label: '19h00 - 20h30' },
-    { id: 6, label: '21h00 - 22h30' },
-  ];
-
-  availableTimeFrames: any[] = [];
-
   // Thông tin đặt giải đấu
+
   tournament = {
+    registrantName: '',
     name: '',
-    teams: null,
-    matches: null,
+    teams: 0,
+    matches: 0,
     startDate: '',
     endDate: '',
-    registrantName: '',
     email: '',
     phone: '',
+    shirtCount: 1
   };
 
   longTerm = {
@@ -121,7 +93,7 @@ export class BookingDetailFieldComponent implements OnInit {
   };
 
   itemsPerPage: number = 8;
-  currentPage: number = 0;
+  currentPage: number = 1;
 
   get paginatedStadiums(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -134,9 +106,8 @@ export class BookingDetailFieldComponent implements OnInit {
   }
 
   changePage(page: number): void {
-    if (page >= 0 && this.bookingId) {
+    if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.getFieldTypeByAreaId(this.bookingId, this.currentPage);
     }
   }
   getAllTimeFrames(): number[] {
@@ -157,7 +128,7 @@ export class BookingDetailFieldComponent implements OnInit {
       date: date,
       quantity: 1,
       availableQuantity: data.quantity,
-      amount: data.price,
+      amount: data.price
     };
     if (index === -1) {
       this.selectedFields.push(item);
@@ -235,96 +206,32 @@ export class BookingDetailFieldComponent implements OnInit {
   }
 
   bookingId: string | null = '';
+  areaDetail: any = null;
+  areaId: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private fb: FormBuilder,
     private bookingService: BookingServicesService,
     private stadiumService: StadiumService,
     private router: Router,
-    private message: NzMessageService
+    private areaServicesService: AreaServicesService,
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
-      this.bookingId = params.get('id');
-      if (this.bookingId) {
-        this.getAllStadiums();
-        this.getBookingAreaById(this.bookingId);
-        this.getFieldsByAreaIds(this.bookingId);
-        this.getFieldTypeByAreaId(this.bookingId, this.currentPage);
+      this.areaId = params.get('id');
+      if (this.areaId) {
+        this.getAreaById(this.areaId);
       }
     });
+    this.getAreaById(this.areaId);
+    this.getFieldTypeByAreaId(1, 0);
     AOS.init({
       duration: 500,
       easing: 'ease-in-out',
       once: true,
     });
-
-    this.longTermForm = this.fb.group({
-      month: [null, Validators.required],
-      quantity: [null, [Validators.required, Validators.min(1)]],
-      weekDay: [null, Validators.required],
-      timeFrame: [{ value: null, disabled: true }, Validators.required],
-    });
-
-    this.handleEnableTimeFrame();
-  }
-
-  handleEnableTimeFrame() {
-    this.longTermForm.valueChanges.subscribe((values) => {
-      const { month, quantity, weekDay } = values;
-      const timeFrameControl = this.longTermForm.get('timeFrame');
-
-      if (month && quantity && weekDay !== null && timeFrameControl?.disabled) {
-        timeFrameControl.enable();
-        const payload = {
-          quantity: Number(this.longTermForm.value.quantity),
-          weekDay: Number(this.longTermForm.value.weekDay),
-          date: this.longTermForm.value.month + '-01',
-          fieldId: Number(this.bookingId),
-        };
-        this.bookingService
-          .validatePeriod(payload)
-          .subscribe((response: number[]) => {
-            this.availableTimeFrames = this.timeFrames.filter((tf) =>
-              response.includes(tf.id)
-            );
-          });
-      } else if (
-        (!month || !quantity || weekDay === null) &&
-        timeFrameControl?.enabled
-      ) {
-        timeFrameControl.disable();
-        timeFrameControl.reset();
-      }
-    });
-  }
-
-  onSubmit() {
-    if (this.longTermForm.valid) {
-      const formValue = this.longTermForm.value;
-
-      const payload = {
-        quantity: Number(formValue.quantity),
-        weekDay: Number(formValue.weekDay),
-        month: formValue.month + '-01',
-        fieldTypeId: Number(this.bookingId),
-        timeFrame: Number(formValue.timeFrame),
-      };
-
-      this.bookingService.createPeriod(payload).subscribe({
-        next: () => {
-          this.message.success('Đặt sân thành công!');
-          this.showLongTermPopup = false;
-          this.longTermForm.reset();
-          this.longTermForm.get('timeFrame')?.disable();
-        },
-        error: () => {
-          this.message.error('Đặt sân thất bại!');
-        }
-      });
-    }
+    console.log("id is",this.areaId);
   }
 
   openDate() {
@@ -357,8 +264,6 @@ export class BookingDetailFieldComponent implements OnInit {
   //   this.showLongTermPopup = false;
   // }
 
-  currentIndex = 0;
-
   getFieldsByAreaIds(areaId: any) {
     this.stadiumService.getFieldsByAreaId(areaId).subscribe(
       (res) => {
@@ -369,6 +274,14 @@ export class BookingDetailFieldComponent implements OnInit {
         console.error('Error fetching stadium data:', error);
       }
     );
+  }
+
+  getAreaById(id: any) {
+    this.areaServicesService.getDetailById(id).subscribe((data) => {
+      if (data) {
+        this.areaDetail = data;
+      }
+    });
   }
 
   getAllStadiums(): void {
@@ -394,8 +307,8 @@ export class BookingDetailFieldComponent implements OnInit {
     );
   }
 
-  getFieldTypeByAreaId(id: string, index: number): void {
-    this.bookingService.getfieldTypeByArea(id, index).subscribe(
+  getFieldTypeByAreaId(id: number, index: number): void {
+    this.bookingService.getfieldTypeByArea("1", index).subscribe(
       (res) => {
         this.scheduleData = res;
       },
@@ -405,28 +318,6 @@ export class BookingDetailFieldComponent implements OnInit {
     );
   }
 
-  openMapWithCoordinates(lat: number, lng: number): void {
-    this.latitudeMap = lat;
-    this.longitudeMap = lng;
-    this.showMap = true;
-    console.log('Tọa độ của sân là', lat, lng);
-    this.showMap = true;
-    setTimeout(() => {
-      if (!this.map) {
-        this.map = L.map('map').setView(
-          [(this.longitude = lng), (this.longitudeMap = lat)],
-          13
-        );
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(this.map);
-      }
-    }, 0);
-
-    // this.showMap = true;
-    // this.initMap();
-  }
 
   viewDetail(stadiumId: number): void {
     this.stadiumDetail = this.dataStadium.find(
@@ -437,21 +328,20 @@ export class BookingDetailFieldComponent implements OnInit {
     console.log('Detail of Stadium:', this.stadiumDetail);
   }
 
-  // choose(time: string, name: string, price: string, day: string) {
-  //   const index = this.selectedFields.findIndex(
-  //     field => field.time === time && field.name === name && field.day === day
-  //   );
+  selectedStadiumIds: number[] = [];
 
-  //   if (index === -1) {
-  //     this.selectedFields.push({ time, name, price, day }); // Chọn sân
-  //   } else {
-  //     this.selectedFields.splice(index, 1); // Bỏ chọn nếu đã chọn trước đó
-  //   }
-  // }
+  onCheckboxChange(stadiumId: number, event: Event) {
+    const checked = (event.target as HTMLInputElement).checked;
 
-  // isSelected(time: string, name: string, day: string): boolean {
-  //   return this.selectedFields.some(field => field.time === time && field.name === name && field.day === day);
-  // }
+    if (checked) {
+      this.selectedStadiumIds.push(stadiumId);
+    } else {
+      this.selectedStadiumIds = this.selectedStadiumIds.filter(id => id !== stadiumId);
+    }
+
+    console.log('Danh sách sân được chọn:', this.selectedStadiumIds);
+  }
+
 
   goToPayment() {
     this.router.navigate(['/payment'], {
@@ -459,4 +349,86 @@ export class BookingDetailFieldComponent implements OnInit {
     });
   }
   protected readonly Number = Number;
+
+  availableServices = [
+    { id: 1, name: 'Thuê trọng tài' },
+    { id: 2, name: 'Làm băng rôn / banner' },
+    { id: 3, name: 'Chụp ảnh / quay video' },
+    { id: 4, name: 'Thuê áo dự bị' },
+    { id: 5, name: 'Mua nước uống' },
+    { id: 6, name: 'Thuê loa / âm thanh' },
+    { id: 7, name: 'Tổ chức MC / Bình luận viên' },
+    { id: 8, name: 'Tổ chức lễ khai mạc / bế mạc' }
+  ];
+
+  selectedServices: number[] = [];
+
+  toggleService(id: number, event: any): void {
+    if (event.target.checked) {
+      this.selectedServices.push(id);
+    } else {
+      this.selectedServices = this.selectedServices.filter(serviceId => serviceId !== id);
+    }
+  }
+  showInput1 = false;
+  showInput2 = false;
+  showInput3 = false;
+  showInput4 = false;
+  showInput5 = false;
+  showInput6 = false;
+  showInput7 = false;
+  showInput8 = false;
+  showInputPoli = false;
+  showInputTou = false;
+
+  selectedDates: string[] = [];
+
+  selectedFiles: File[] = [];
+
+  onFilesSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input?.files) {
+      this.selectedFiles = Array.from(input.files); // Lưu các file đã chọn
+    }
+  }
+
+  pricePerMatch: {
+    [key in 'referee' | 'photography' | 'water' | 'soundSystem' | 'mc']: number;
+  } = {
+    referee: 200000, // Thuê trọng tài
+    photography: 100000, // Chụp ảnh / quay video
+    water: 100000, // Mua nước lạnh
+    soundSystem: 150000, // Thuê loa / âm thanh
+    mc: 100000 // Thuê MC / Bình luận viên
+  };
+
+  // Hàm tính tổng số tiền cho từng dịch vụ
+  calculateTotal(service: 'referee' | 'photography' | 'water' | 'soundSystem' | 'mc'): number {
+    return this.tournament.matches * this.pricePerMatch[service];
+  }
+
+  pricePerShirt: number = 20000;
+
+
+  days: string[] = ['2025-04-20', '2025-04-21', '2025-04-22', '2025-04-23']; // Ví dụ danh sách ngày
+
+  onDateChange(index: number, event: any) {
+    if (this.selectedDates.includes(event.target.value)) {
+      // Nếu ngày này đã được chọn, giữ lại
+    } else {
+      // Nếu không có trong mảng, thêm ngày vào
+      this.selectedDates.push(event.target.value);
+    }
+  }
+
+  calculateShirtCost(): number {
+    return this.pricePerShirt * this.tournament.shirtCount * this.tournament.matches;
+  }
+
+  isSelected2(index: number): boolean {
+    return this.selectedDates.includes(this.days[index]);
+  }
+  removeFile(fileToRemove: File): void {
+    this.selectedFiles = this.selectedFiles.filter(file => file !== fileToRemove);
+  }
 }

@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
           }
         });
       } else {
-        this.router.navigate(['/login']);
+        // this.router.navigate(['/login']);
       }
     }
 
@@ -55,7 +55,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private handleUnauthorized(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    // this.authService.logout();
+    // this.router.navigate(['/login']);
   }
 }

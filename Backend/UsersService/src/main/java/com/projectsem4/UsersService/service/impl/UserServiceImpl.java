@@ -76,7 +76,6 @@ public class UserServiceImpl implements UserService {
         }
         String token = jwtService.generateToken(user);
         UserInfor userInfor = modelMapper.map(user, UserInfor.class);
-
         return new ObjectTokenDTO(token, userInfor);
     }
 

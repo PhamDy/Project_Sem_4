@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import * as L from 'leaflet';
 import * as AOS from 'aos';
 import { LocationService } from '../../services/location-service.service';
+import { AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
   searchQuery: string = '';
@@ -15,21 +16,32 @@ export class NavbarComponent {
   finalSearch: string = '';
   showMap: boolean = false;
   map: any;
-  selectedLatLng: { lat: number, lng: number } | null = null;
+  selectedLatLng: { lat: number; lng: number } | null = null;
   isHeaderVisible: boolean = true;
   lastScrollPosition: number = 0;
 
   latitude: any | null = null;
   longitude: any | null = null;
 
-  selectedCoordinates: { lat: number, lng: number } = { lat: 0, lng: 0 };
+  selectedCoordinates: { lat: number; lng: number } = { lat: 0, lng: 0 };
   isCoordinatesSelected: boolean = false;
 
   fakeData: any[] = [
     { name: 'Sân bóng Thanh Xuân', address: 'Thanh Xuân, Hà Nội' },
   ];
 
-  constructor(private router: Router, private locationService: LocationService) {
+  isLoggedIn: boolean = false;
+  showDropdown = false;
+  user = {
+    name: 'Trịnh Văn Trung',
+    email: 'trung@example.com',
+  };
+
+  constructor(
+    private router: Router,
+    private locationService: LocationService,
+    private authService: AuthService,
+  ) {
     this.filteredResults = this.fakeData;
   }
 
@@ -37,12 +49,14 @@ export class NavbarComponent {
     AOS.init({
       duration: 2000,
       easing: 'ease-in-out',
-      once: false
+      once: false,
     });
 
     window.addEventListener('scroll', () => {
       AOS.refresh();
     });
+
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   @HostListener('window:scroll', [])
@@ -70,9 +84,10 @@ export class NavbarComponent {
     if (this.searchQuery.trim() === '') {
       this.filteredResults = [];
     } else {
-      this.filteredResults = this.fakeData.filter(item =>
-        item.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        item.address.toLowerCase().includes(this.searchQuery.toLowerCase())
+      this.filteredResults = this.fakeData.filter(
+        (item) =>
+          item.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          item.address.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
   }
@@ -85,7 +100,16 @@ export class NavbarComponent {
   search() {
     this.finalSearch = this.searchQuery.trim();
     if (this.finalSearch !== '') {
-      this.router.navigate(['/booking'], { queryParams: { query: this.finalSearch } });
+      this.router.navigate(['/booking'], {
+        queryParams: { query: this.finalSearch },
+      });
     }
+  }
+
+  logout() {
+    this.authService.logout();
+    this.isLoggedIn = false;
+    // this.user = null;
+    this.router.navigate(['/login']);
   }
 }

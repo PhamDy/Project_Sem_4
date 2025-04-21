@@ -1,8 +1,8 @@
-<div class="main-containers">
-  <h1 class="detail-title">Đăng ký thông tin giải đấu</h1>
+<div class="main-containers" style="margin-top:100px">
+  <h1 class="detail-title" data-aos="fade-left">Đăng ký thông tin giải đấu</h1>
 
   <!-- Stadium Information Section -->
-  <div class="stadium-container">
+  <div class="stadium-container" data-aos="fade-up">
     <!-- Ảnh sân vận động -->
     <div class="stadium-image">
       <img [src]="img" alt="Stadium Image" />
@@ -21,8 +21,8 @@
   </div>
 
   <!-- Registration Form Section -->
-  <h1 class="section-title">Thông tin đăng ký</h1>
-  <div class="tournament-form">
+  <h1 class="section-title" data-aos="fade-left">Thông tin đăng ký</h1>
+  <div class="tournament-form" data-aos="fade-up">
     <div class="form-grid">
       <div class="form-group">
         <label>Tên người đăng ký:</label>
@@ -67,12 +67,12 @@
   </div>
 
   <!-- Available Fields Section -->
-  <h1 class="section-title">Thông tin các sân đấu trong khu vực</h1>
-  <div class="stadium-list">
+  <h1 class="section-title" data-aos="fade-left">Thông tin các sân đấu trong khu vực</h1>
+  <div class="stadium-list" data-aos="fade-up">
     <div *ngFor="let stadium of areaDetail?.fieldTypeResponseList" class="stadium-card">
       <div class="image-wrapper">
         <img [src]="img" alt="Stadium image" />
-        <div class="selected-tag" *ngIf="selectedStadiumIds.includes(stadium?.fieldTypeId)">
+        <div class="selected-tag" *ngIf="selectedStadiumIds.includes(stadium?.fieldTypeId)" data-aos="fade-down">
           ✓ Đã chọn
         </div>
       </div>
@@ -98,15 +98,15 @@
   </div>
 
   <!-- Additional Services Section -->
-  <h1 class="section-title">Các dịch vụ kèm theo</h1>
+  <h1 class="section-title" data-aos="fade-right">Các dịch vụ kèm theo</h1>
 
   <!-- Referee Service -->
-  <div class="service-item">
+  <div class="service-item" data-aos="fade-up">
     <label>
       <input type="checkbox" [(ngModel)]="showInput1" />
       Thuê trọng tài <span>200.000/ trận</span>
     </label>
-    <div *ngIf="showInput1">
+    <div *ngIf="showInput1" data-aos="fade-left">
       <p>Trọng tài thuê toàn bộ giải đấu</p>
       <p>Số trận: {{ tournament.matches }}</p>
       <p>Tổng số tiền: {{ calculateTotal('referee') | currency }}</p>
@@ -114,12 +114,12 @@
   </div>
 
   <!-- Banner Service -->
-  <div class="service-item">
+  <div class="service-item" data-aos="fade-up">
     <label>
       <input type="checkbox" [(ngModel)]="showInput2" />
       Làm băng rôn / banner <span></span>
     </label>
-    <div *ngIf="showInput2">
+    <div *ngIf="showInput2" data-aos="fade-left">
       <input
         type="text"
         class="service-input"
@@ -133,7 +133,7 @@
         (change)="onFilesSelected($event)"
         multiple
       />
-      <div *ngIf="selectedFiles.length > 0" class="file-preview">
+      <div *ngIf="selectedFiles.length > 0" class="file-preview" >
         <p>Ảnh đã chọn:</p>
         <ul>
           <li *ngFor="let file of selectedFiles">{{ file.name }}
@@ -145,12 +145,12 @@
   </div>
 
   <!-- Photography Service -->
-  <div class="service-item">
+  <div class="service-item" data-aos="fade-up">
     <label>
-      <input type="checkbox" [(ngModel)]="showInput2" />
+      <input type="checkbox" [(ngModel)]="showInput3" />
       Chụp ảnh / quay video <span>100.000/ trận</span>
     </label>
-    <div *ngIf="showInput2">
+    <div *ngIf="showInput3" data-aos="fade-left">
       <p>Chụp ảnh / quay video toàn bộ giải đấu</p>
       <p>Số trận: {{ tournament.matches }}</p>
       <p>Tổng số tiền: {{ calculateTotal('photography') | currency }}</p>
@@ -158,14 +158,15 @@
   </div>
 
   <!-- Jersey Rental Service -->
-  <div class="service-item">
+  <div class="service-item" data-aos="fade-up">
     <label>
       <input type="checkbox" [(ngModel)]="showInput4" />
       Thuê áo dự bị <span>20.000/áo</span>
     </label>
 
-    <div *ngIf="showInput4">
+    <div *ngIf="showInput4" data-aos="fade-up">
       <label for="shirtCount">Số lượng áo thuê mỗi trận:</label>
+      <div data-aos="fade-left">
       <input
         id="shirtCount"
         type="number"
@@ -178,16 +179,17 @@
       <p>
         Tổng số tiền cho áo tập: {{ calculateShirtCost() }} VNĐ
       </p>
+      </div>
     </div>
   </div>
 
   <!-- Water Service -->
-  <div class="service-item">
+  <div class="service-item" data-aos="fade-up">
     <label>
       <input type="checkbox" [(ngModel)]="showInput3" />
       Mua nước lạnh <span>100.000/ trận</span>
     </label>
-    <div *ngIf="showInput3">
+    <div *ngIf="showInput3" data-aos="fade-left">
       <p>Mua nước lạnh cho giải đấu</p>
       <p>Số trận: {{ tournament.matches }}</p>
       <p>Tổng số tiền: {{ calculateTotal('water') | currency }}</p>
@@ -195,12 +197,12 @@
   </div>
 
   <!-- Sound System Service -->
-  <div class="service-item">
+  <div class="service-item" data-aos="fade-up">
     <label>
       <input type="checkbox" [(ngModel)]="showInput4" />
       Thuê loa / âm thanh <span>150.000/ trận</span>
     </label>
-    <div *ngIf="showInput4">
+    <div *ngIf="showInput4" data-aos="fade-left">
       <p>Thuê loa / âm thanh cho giải đấu</p>
       <p>Số trận: {{ tournament.matches }}</p>
       <p>Tổng số tiền: {{ calculateTotal('soundSystem') | currency }}</p>
@@ -208,12 +210,12 @@
   </div>
 
   <!-- MC Service -->
-  <div class="service-item">
+  <div class="service-item" data-aos="fade-up">
     <label>
       <input type="checkbox" [(ngModel)]="showInput5" />
       Thuê MC / Bình luận viên <span>100.000/ trận</span>
     </label>
-    <div *ngIf="showInput5">
+    <div *ngIf="showInput5" data-aos="fade-left">
       <p>Thuê MC / Bình luận viên cho giải đấu</p>
       <p>Số trận: {{ tournament.matches }}</p>
       <p>Tổng số tiền: {{ calculateTotal('mc') | currency }}</p>
@@ -221,7 +223,7 @@
   </div>
 
   <!-- Ceremony Service -->
-  <div class="service-item">
+  <div class="service-item" data-aos="fade-up">
     <label>
       <input type="checkbox" [(ngModel)]="showInput8" />
       Tổ chức lễ khai mạc / bế mạc <span>500.000/giải</span>
@@ -229,16 +231,16 @@
   </div>
 
   <!-- Terms and Checkout -->
-  <div class="checkbox-container">
-    <label class="checkbox-label">
+  <div class="checkbox-container" data-aos="fade-up">
+    <label class="checkbox-label" data-aos="fade-left">
       <input type="checkbox" [(ngModel)]="showInputPoli" />
       Tôi đã đọc kỹ điều khoản <a href="#">Tại đây</a>
     </label>
-    <label class="checkbox-label">
+    <label class="checkbox-label" data-aos="fade-left">
       <input type="checkbox" [(ngModel)]="showInputTou" />
       Tôi đã xem lại tất cả các thông tin đặt giải đấu
     </label>
-    <button class="btn-detail" (click)="goToPayment()" [disabled]="!showInputTou || !showInputPoli">
+    <button class="btn-detail" (click)="goToPayment()" [disabled]="!showInputTou || !showInputPoli" data-aos="fade-up">
       Đi đến thanh toán
     </button>
   </div>

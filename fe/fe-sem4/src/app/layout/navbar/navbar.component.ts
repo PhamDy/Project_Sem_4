@@ -33,7 +33,7 @@ export class NavbarComponent {
   isLoggedIn: boolean = false;
   showDropdown = false;
   user = {
-    name: 'Trịnh Văn Trung',
+    name: 'User1',
     email: 'trung@example.com',
   };
 

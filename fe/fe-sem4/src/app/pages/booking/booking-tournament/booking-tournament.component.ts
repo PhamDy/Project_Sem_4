@@ -218,6 +218,12 @@ export class BookingTournamentComponent implements OnInit{
   ) {}
 
   ngOnInit() {
+    AOS.init({
+      duration: 500,
+      easing: 'ease-in-out',
+      once: true
+    })
+
     this.route.paramMap.subscribe((params) => {
       this.areaId = params.get('id');
       if (this.areaId) {

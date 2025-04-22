@@ -28,6 +28,6 @@ public class BookingDetail {
     @Column(name = "quantity")
     private Long quantity;
 
-    @Column(name = "booking_id", nullable = false)
+    @Column(name = "booking_id")
     private Long bookingId;
 }

@@ -42,7 +42,7 @@ public class PaymentPrivateController {
             List<BookingDetailResponse> bookingDetailResponses = bookingServiceClient.findByBookingId(orderId);
             String token = JwtUtil.genStringToken(request);
             UserInfor userInfor = JwtUtil.decodeToken(token);
-            SendEmailBookingDTO sendEmailBookingDTO = new SendEmailBookingDTO(bookingDetails, userInfor);
+//            SendEmailBookingDTO sendEmailBookingDTO = new SendEmailBookingDTO(bookingDetails, userInfor);
 
             return ResponseEntity
                     .status(HttpStatus.SEE_OTHER)

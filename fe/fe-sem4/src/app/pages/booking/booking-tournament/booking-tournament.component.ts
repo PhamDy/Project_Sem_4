@@ -218,6 +218,12 @@ export class BookingTournamentComponent implements OnInit{
   ) {}
 
   ngOnInit() {
+    AOS.init({
+      duration: 500,
+      easing: 'ease-in-out',
+      once: true
+    })
+
     this.route.paramMap.subscribe((params) => {
       this.areaId = params.get('id');
       if (this.areaId) {
@@ -428,5 +434,7 @@ export class BookingTournamentComponent implements OnInit{
   isSelected2(index: number): boolean {
     return this.selectedDates.includes(this.days[index]);
   }
-
+  removeFile(fileToRemove: File): void {
+    this.selectedFiles = this.selectedFiles.filter(file => file !== fileToRemove);
+  }
 }

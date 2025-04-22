@@ -1,8 +1,8 @@
-<div class="main-containers">
-  <h1 class="detail-title">
-    Đăng ký thông tin giải đấu
-  </h1>
-  <div class="stadium-container">
+<div class="main-containers" style="margin-top:100px">
+  <h1 class="detail-title" data-aos="fade-left">Đăng ký thông tin giải đấu</h1>
+
+  <!-- Stadium Information Section -->
+  <div class="stadium-container" data-aos="fade-up">
     <!-- Ảnh sân vận động -->
     <div class="stadium-image">
       <img [src]="img" alt="Stadium Image" />
@@ -17,33 +17,31 @@
       </p>
       <p><strong>📧 Email:</strong> {{ stadiumDetail?.email }}</p>
       <p><strong>📞 Số điện thoại:</strong> {{ stadiumDetail?.phoneNumber }}</p>
-      <div>
-        <button class="buttonBook" (click)="openDate()">Đặt sân ngay</button>
-      </div>
     </div>
   </div>
-  <!-- Stadium cards with pagination -->
-  <h1 class="section-title mt-5">Thông tin đăng ký</h1>
-  <div class="tournament-form">
+
+  <!-- Registration Form Section -->
+  <h1 class="section-title" data-aos="fade-left">Thông tin đăng ký</h1>
+  <div class="tournament-form" data-aos="fade-up">
     <div class="form-grid">
       <div class="form-group">
         <label>Tên người đăng ký:</label>
-        <input type="text" [(ngModel)]="tournament.registrantName" class="form-control" />
+        <input type="text" [(ngModel)]="tournament.registrantName" class="form-control" placeholder="Nhập tên người đăng ký" />
       </div>
 
       <div class="form-group">
         <label>Tên giải đấu:</label>
-        <input type="text" [(ngModel)]="tournament.name" class="form-control" />
+        <input type="text" [(ngModel)]="tournament.name" class="form-control" placeholder="Nhập tên giải đấu" />
       </div>
 
       <div class="form-group">
         <label>Số đội tham gia:</label>
-        <input type="number" [(ngModel)]="tournament.teams" class="form-control" />
+        <input type="number" [(ngModel)]="tournament.teams" class="form-control" min="2" />
       </div>
 
       <div class="form-group">
         <label>Số trận đấu dự kiến:</label>
-        <input type="number" [(ngModel)]="tournament.matches" class="form-control" />
+        <input type="number" [(ngModel)]="tournament.matches" class="form-control" min="1" />
       </div>
 
       <div class="form-group">
@@ -58,176 +56,194 @@
 
       <div class="form-group">
         <label>Email:</label>
-        <input type="email" [(ngModel)]="tournament.email" class="form-control" />
+        <input type="email" [(ngModel)]="tournament.email" class="form-control" placeholder="example@email.com" />
       </div>
 
       <div class="form-group">
         <label>Số điện thoại liên hệ:</label>
-        <input type="tel" [(ngModel)]="tournament.phone" class="form-control" />
+        <input type="tel" [(ngModel)]="tournament.phone" class="form-control" placeholder="+84" />
       </div>
     </div>
   </div>
-</div>
-<h1 class="section-title mt-5">Thông tin các sân đấu trong khu vực</h1>
-<div class="stadium-list">
-  <div *ngFor="let stadium of areaDetail?.fieldTypeResponseList" class="stadium-card">
 
-    <div class="image-wrapper">
-      <img [src]="img" alt="ok" />
-      <div class="selected-tag" *ngIf="selectedStadiumIds.includes(stadium?.fieldTypeId)">
-        ✔ Đã chọn
+  <!-- Available Fields Section -->
+  <h1 class="section-title" data-aos="fade-left">Thông tin các sân đấu trong khu vực</h1>
+  <div class="stadium-list" data-aos="fade-up">
+    <div *ngFor="let stadium of areaDetail?.fieldTypeResponseList" class="stadium-card">
+      <div class="image-wrapper">
+        <img [src]="img" alt="Stadium image" />
+        <div class="selected-tag" *ngIf="selectedStadiumIds.includes(stadium?.fieldTypeId)" data-aos="fade-down">
+          ✓ Đã chọn
+        </div>
+      </div>
+
+      <div class="stadium-info" [class.selected]="selectedStadiumIds.includes(stadium?.fieldTypeId)">
+        <div class="info-header">
+          <h3>{{ stadium?.name }}</h3>
+          <input
+            type="checkbox"
+            [checked]="selectedStadiumIds.includes(stadium?.fieldTypeId)"
+            (change)="onCheckboxChange(stadium?.fieldTypeId, $event)"
+          />
+        </div>
+        <p>{{ stadium?.description }}</p>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn-detail" (click)="viewDetail(stadium.areaId)">
+          <i class="fas fa-info-circle"></i> Chi tiết sân đấu
+        </button>
       </div>
     </div>
+  </div>
 
-    <div class="stadium-info" [class.selected]="selectedStadiumIds.includes(stadium?.fieldTypeId)">
-      <div class="info-header">
-        <h3>{{ stadium?.name }}</h3>
-        <input
-          type="checkbox"
-          [checked]="selectedStadiumIds.includes(stadium?.fieldTypeId)"
-          (change)="onCheckboxChange(stadium?.fieldTypeId, $event)"
-        />
+  <!-- Additional Services Section -->
+  <h1 class="section-title" data-aos="fade-right">Các dịch vụ kèm theo</h1>
+
+  <!-- Referee Service -->
+  <div class="service-item" data-aos="fade-up">
+    <label>
+      <input type="checkbox" [(ngModel)]="showInput1" />
+      Thuê trọng tài <span>200.000/ trận</span>
+    </label>
+    <div *ngIf="showInput1" data-aos="fade-left">
+      <p>Trọng tài thuê toàn bộ giải đấu</p>
+      <p>Số trận: {{ tournament.matches }}</p>
+      <p>Tổng số tiền: {{ calculateTotal('referee') | currency }}</p>
+    </div>
+  </div>
+
+  <!-- Banner Service -->
+  <div class="service-item" data-aos="fade-up">
+    <label>
+      <input type="checkbox" [(ngModel)]="showInput2" />
+      Làm băng rôn / banner <span></span>
+    </label>
+    <div *ngIf="showInput2" data-aos="fade-left">
+      <input
+        type="text"
+        class="service-input"
+        placeholder="Yêu cầu về kích thước banner"
+      />
+      <label for="fileInput" class="file-label">Chọn ảnh banner</label>
+      <input
+        type="file"
+        id="fileInput"
+        class="file-input"
+        (change)="onFilesSelected($event)"
+        multiple
+      />
+      <div *ngIf="selectedFiles.length > 0" class="file-preview" >
+        <p>Ảnh đã chọn:</p>
+        <ul>
+          <li *ngFor="let file of selectedFiles">{{ file.name }}
+            <button type="button" class="delete-file-btn" (click)="removeFile(file)"><i class="fas fa-times"></i></button>
+          </li>
+        </ul>
       </div>
-      <p>{{ stadium?.description }}</p>
-    </div>
-
-    <div class="action-buttons">
-      <button class="btn-detail" (click)="viewDetail(stadium.areaId)">
-        <i class="fas fa-info-circle"></i> Chi tiết sân đấu
-      </button>
-    </div>
-
-  </div>
-</div>
-<h1 class="section-title mt-5">Các dịch vụ kèm theo</h1>
-<div class="service-item">
-  <label>
-    <input type="checkbox" [(ngModel)]="showInput1" />
-    Thuê trọng tài <span>200.000/ trận</span>
-  </label>
-  <div *ngIf="showInput1">
-    <p>Trọng tài thuê toàn bộ giải đấu</p>
-    <p>Số trận: {{ tournament.matches }}</p>
-    <p>Tổng số tiền: {{ calculateTotal('referee') | currency }}</p>
-  </div>
-</div>
-<div class="service-item">
-  <label>
-    <input type="checkbox" [(ngModel)]="showInput2" />
-    Làm băng rôn / banner
-  </label>
-  <input
-    *ngIf="showInput2"
-    type="text"
-    class="service-input"
-    placeholder="Yêu cầu về kích thước banner"
-  />
-  <div *ngIf="showInput2">
-    <label for="fileInput" class="file-label">Chọn ảnh banner</label>
-    <input
-      type="file"
-      id="fileInput"
-      class="file-input"
-      (change)="onFilesSelected($event)"
-      multiple
-    />
-    <div *ngIf="selectedFiles.length > 0" class="file-preview">
-      <p>Ảnh đã chọn:</p>
-      <ul>
-        <li *ngFor="let file of selectedFiles">{{ file.name }}</li>
-      </ul>
     </div>
   </div>
-</div>
 
-<div class="service-item">
-  <label>
-    <input type="checkbox" [(ngModel)]="showInput2" />
-    Chụp ảnh / quay video <span>100.000/ trận</span>
-  </label>
-  <div *ngIf="showInput2">
-    <p>Chụp ảnh / quay video toàn bộ giải đấu</p>
-    <p>Số trận: {{ tournament.matches }}</p>
-    <p>Tổng số tiền: {{ calculateTotal('photography') | currency }}</p>
+  <!-- Photography Service -->
+  <div class="service-item" data-aos="fade-up">
+    <label>
+      <input type="checkbox" [(ngModel)]="showInput3" />
+      Chụp ảnh / quay video <span>100.000/ trận</span>
+    </label>
+    <div *ngIf="showInput3" data-aos="fade-left">
+      <p>Chụp ảnh / quay video toàn bộ giải đấu</p>
+      <p>Số trận: {{ tournament.matches }}</p>
+      <p>Tổng số tiền: {{ calculateTotal('photography') | currency }}</p>
+    </div>
   </div>
-</div>
 
-<div class="service-item">
-  <label>
-    <input type="checkbox" [(ngModel)]="showInput4" />
-    Thuê áo dự bị 20.000/áo
-  </label>
+  <!-- Jersey Rental Service -->
+  <div class="service-item" data-aos="fade-up">
+    <label>
+      <input type="checkbox" [(ngModel)]="showInput4" />
+      Thuê áo dự bị <span>20.000/áo</span>
+    </label>
 
-  <div *ngIf="showInput4">
-    <label for="shirtCount">Số lượng áo thuê mỗi trận:</label>
-    <input
-      id="shirtCount"
-      type="number"
-      [(ngModel)]="tournament.shirtCount"
-      class="form-control"
-      placeholder="Nhập số lượng áo"
-      min="1"
-    />
+    <div *ngIf="showInput4" data-aos="fade-up">
+      <label for="shirtCount">Số lượng áo thuê mỗi trận:</label>
+      <div data-aos="fade-left">
+      <input
+        id="shirtCount"
+        type="number"
+        [(ngModel)]="tournament.shirtCount"
+        class="form-control"
+        placeholder="Nhập số lượng áo"
+        min="1"
+      />
 
-    <p>
-      Tổng số tiền cho áo tập: {{ calculateShirtCost() }} VNĐ
-    </p>
+      <p>
+        Tổng số tiền cho áo tập: {{ calculateShirtCost() }} VNĐ
+      </p>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="service-item">
-  <label>
-    <input type="checkbox" [(ngModel)]="showInput3" />
-    Mua nước lạnh <span>100.000/ trận</span>
-  </label>
-  <div *ngIf="showInput3">
-    <p>Mua nước lạnh cho giải đấu</p>
-    <p>Số trận: {{ tournament.matches }}</p>
-    <p>Tổng số tiền: {{ calculateTotal('water') | currency }}</p>
+  <!-- Water Service -->
+  <div class="service-item" data-aos="fade-up">
+    <label>
+      <input type="checkbox" [(ngModel)]="showInput3" />
+      Mua nước lạnh <span>100.000/ trận</span>
+    </label>
+    <div *ngIf="showInput3" data-aos="fade-left">
+      <p>Mua nước lạnh cho giải đấu</p>
+      <p>Số trận: {{ tournament.matches }}</p>
+      <p>Tổng số tiền: {{ calculateTotal('water') | currency }}</p>
+    </div>
   </div>
-</div>
 
-<div class="service-item">
-  <label>
-    <input type="checkbox" [(ngModel)]="showInput4" />
-    Thuê loa / âm thanh <span>150.000/ trận</span>
-  </label>
-  <div *ngIf="showInput4">
-    <p>Thuê loa / âm thanh cho giải đấu</p>
-    <p>Số trận: {{ tournament.matches }}</p>
-    <p>Tổng số tiền: {{ calculateTotal('soundSystem') | currency }}</p>
+  <!-- Sound System Service -->
+  <div class="service-item" data-aos="fade-up">
+    <label>
+      <input type="checkbox" [(ngModel)]="showInput4" />
+      Thuê loa / âm thanh <span>150.000/ trận</span>
+    </label>
+    <div *ngIf="showInput4" data-aos="fade-left">
+      <p>Thuê loa / âm thanh cho giải đấu</p>
+      <p>Số trận: {{ tournament.matches }}</p>
+      <p>Tổng số tiền: {{ calculateTotal('soundSystem') | currency }}</p>
+    </div>
   </div>
-</div>
 
-<div class="service-item">
-  <label>
-    <input type="checkbox" [(ngModel)]="showInput5" />
-    Thuê MC / Bình luận viên <span>100.000/ trận</span>
-  </label>
-  <div *ngIf="showInput5">
-    <p>Thuê MC / Bình luận viên cho giải đấu</p>
-    <p>Số trận: {{ tournament.matches }}</p>
-    <p>Tổng số tiền: {{ calculateTotal('mc') | currency }}</p>
+  <!-- MC Service -->
+  <div class="service-item" data-aos="fade-up">
+    <label>
+      <input type="checkbox" [(ngModel)]="showInput5" />
+      Thuê MC / Bình luận viên <span>100.000/ trận</span>
+    </label>
+    <div *ngIf="showInput5" data-aos="fade-left">
+      <p>Thuê MC / Bình luận viên cho giải đấu</p>
+      <p>Số trận: {{ tournament.matches }}</p>
+      <p>Tổng số tiền: {{ calculateTotal('mc') | currency }}</p>
+    </div>
   </div>
-</div>
-<div class="service-item">
-  <label>
-    <input type="checkbox" [(ngModel)]="showInput8" />
-    Tổ chức lễ khai mạc / bế mạc <span>500.000/giải</span>
-  </label>
-</div>
-<div class="checkbox-container">
-  <label class="checkbox-label">
-    <input type="checkbox" [(ngModel)]="showInputPoli" />
-    Tôi đã đọc kỹ điều khoản <a href="#">Tại đây</a>
-  </label>
-  <label class="checkbox-label">
-    <input type="checkbox" [(ngModel)]="showInputTou" />
-    Tôi đã xem lại tất cả các thông tin đặt giải đấu
-  </label>
-  <button class="btn-detail" (click)="goToPayment()" [disabled]="!showInputTou">
-     Đi đến thanh toán
-  </button>
+
+  <!-- Ceremony Service -->
+  <div class="service-item" data-aos="fade-up">
+    <label>
+      <input type="checkbox" [(ngModel)]="showInput8" />
+      Tổ chức lễ khai mạc / bế mạc <span>500.000/giải</span>
+    </label>
+  </div>
+
+  <!-- Terms and Checkout -->
+  <div class="checkbox-container" data-aos="fade-up">
+    <label class="checkbox-label" data-aos="fade-left">
+      <input type="checkbox" [(ngModel)]="showInputPoli" />
+      Tôi đã đọc kỹ điều khoản <a href="#">Tại đây</a>
+    </label>
+    <label class="checkbox-label" data-aos="fade-left">
+      <input type="checkbox" [(ngModel)]="showInputTou" />
+      Tôi đã xem lại tất cả các thông tin đặt giải đấu
+    </label>
+    <button class="btn-detail" (click)="goToPayment()" [disabled]="!showInputTou || !showInputPoli" data-aos="fade-up">
+      Đi đến thanh toán
+    </button>
+  </div>
 </div>
 
 

@@ -64,7 +64,7 @@ public class EmailServiceImpl implements EmailService {
             UserInfor user = sendEmailBookingDTO.getUserInfor();
 
             context.setVariable("userName", user.getName());
-            context.setVariable("bookingDetails", sendEmailBookingDTO.getBookingDetails());
+//            context.setVariable("bookingDetails", sendEmailBookingDTO.getBookingDetails());
 
             String htmlContent = templateEngine.process("mail/order_success.html", context);
 

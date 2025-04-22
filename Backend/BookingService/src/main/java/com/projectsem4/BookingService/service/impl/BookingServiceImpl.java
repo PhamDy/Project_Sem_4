@@ -103,15 +103,16 @@ public class BookingServiceImpl implements BookingService {
         }
         bookingDetailRepository.saveAll(details);
         bookingPeriodRepository.save(request);
-
-        return (paymentServiceClient.linkThanhToan(booking.getId()));
+        CreateBookingRequest createBookingRequest = new CreateBookingRequest();
+        createBookingRequest.setUrl((paymentServiceClient.linkThanhToan(booking.getId())));
+        return createBookingRequest;
     }
 
     @Override
     public CreateBookingRequest findBookingById(Long id) {
         Booking booking = bookingRepository.findById(id).get();
         List<BookingDetailResponse> details = bookingDetailRepository.findByBookingId(id).stream().map(item->modelMapper.map(item, BookingDetailResponse.class)).toList();
-        List<BookingDetailResponse> responses = details.stream().peek(item-> item.setPrice((long) (stadiumServiceClient.findFieldById(item.getFieldTypeId()).getPrice() * Constant.TimeFrameEnum.fromValue(item.getTimeFrame())))).toList();
+        List<BookingDetailResponse> responses = details.stream().peek(item-> item.setPrice((long) (Objects.requireNonNullElse(stadiumServiceClient.findFieldById(item.getFieldTypeId()).getPrice(),0L) * Constant.TimeFrameEnum.fromValue(item.getTimeFrame())))).toList();
         CreateBookingRequest createBookingRequest = new CreateBookingRequest();
         createBookingRequest.setBookingId(booking.getId());
         createBookingRequest.setUserId(booking.getUserId());

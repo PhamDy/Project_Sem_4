@@ -5,6 +5,7 @@ import com.projectsem4.BookingService.client.StadiumServiceClient;
 import com.projectsem4.BookingService.entity.*;
 import com.projectsem4.BookingService.entity.Booking;
 import com.projectsem4.BookingService.entity.BookingDetail;
+import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.repository.*;
 import com.projectsem4.BookingService.service.BookingService;
@@ -112,7 +113,7 @@ public class BookingServiceImpl implements BookingService {
     public CreateBookingRequest findBookingById(Long id) {
         Booking booking = bookingRepository.findById(id).get();
         List<BookingDetailResponse> details = bookingDetailRepository.findByBookingId(id).stream().map(item->modelMapper.map(item, BookingDetailResponse.class)).toList();
-        List<BookingDetailResponse> responses = details.stream().peek(item-> item.setPrice((long) (Objects.requireNonNullElse(stadiumServiceClient.findFieldById(item.getFieldTypeId()).getPrice(),0L) * Constant.TimeFrameEnum.fromValue(item.getTimeFrame())))).toList();
+        List<BookingDetailResponse> responses = details.stream().peek(item-> item.setPrice((long) (Objects.requireNonNullElse(stadiumServiceClient.findFieldById(item.getFieldTypeId()).getBody().getPrice(),0L) * Constant.TimeFrameEnum.fromValue(item.getTimeFrame())))).toList();
         CreateBookingRequest createBookingRequest = new CreateBookingRequest();
         createBookingRequest.setBookingId(booking.getId());
         createBookingRequest.setUserId(booking.getUserId());
@@ -141,7 +142,7 @@ public class BookingServiceImpl implements BookingService {
                 for (BookingDetail bookingDetail1 : bookingDup) {
                     quantityBooked = quantityBooked + bookingDetail1.getQuantity();
                 }
-                FieldType fieldType = stadiumServiceClient.findFieldById(bookingDetail.getFieldTypeId());
+                FieldType fieldType = stadiumServiceClient.findFieldById(bookingDetail.getFieldTypeId()).getBody();
                 if(bookingDetail.getQuantity() + quantityBooked > fieldType.getQuantity()){
                     return false;
                 }

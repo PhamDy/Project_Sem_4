@@ -271,19 +271,38 @@ export class BookingDetailFieldComponent implements OnInit {
     this.handleEnableTimeFrame();
   }
 
+  selectedPrice: number | null = null;
+  previousFormValues: any = {};
   handleEnableTimeFrame() {
-    this.longTermForm.valueChanges.subscribe((values) => {
-      const { month, quantity, weekDay } = values;
+    this.longTermForm.valueChanges.subscribe((currentValues) => {
+      const { month, quantity, weekDay } = currentValues;
       const timeFrameControl = this.longTermForm.get('timeFrame');
+      const isValid =
+        month &&
+        quantity &&
+        quantity >= 1 &&
+        weekDay !== null &&
+        weekDay !== undefined;
 
-      if (month && quantity && weekDay !== null && timeFrameControl?.disabled) {
-        timeFrameControl.enable();
+      if (
+        isValid &&
+        (this.previousFormValues.month !== month ||
+          this.previousFormValues.quantity !== quantity ||
+          this.previousFormValues.weekDay !== weekDay)
+      ) {
+        this.previousFormValues = { ...currentValues };
+        const totalWeekdays = this.countWeekdaysInMonth(month, Number(weekDay));
+        this.selectedPrice = totalWeekdays * quantity * this.stadiumDetail.price;
+        if (timeFrameControl?.disabled) {
+          timeFrameControl.enable();
+        }
         const payload = {
-          quantity: Number(this.longTermForm.value.quantity),
-          weekDay: Number(this.longTermForm.value.weekDay),
-          date: this.longTermForm.value.month + '-01',
+          quantity: Number(quantity),
+          weekDay: Number(weekDay),
+          date: month + '-01',
           fieldId: Number(this.bookingId),
         };
+
         this.bookingService
           .validatePeriod(payload)
           .subscribe((response: number[]) => {
@@ -291,14 +310,27 @@ export class BookingDetailFieldComponent implements OnInit {
               response.includes(tf.id)
             );
           });
-      } else if (
-        (!month || !quantity || weekDay === null) &&
-        timeFrameControl?.enabled
-      ) {
+      } else if (!isValid && timeFrameControl?.enabled) {
         timeFrameControl.disable();
         timeFrameControl.reset();
       }
     });
+  }
+
+  countWeekdaysInMonth(monthString: string, weekday: number): number {
+    const [year, month] = monthString.split('-').map(Number);
+    const firstDay = new Date(year, month - 1, 1);
+    const lastDay = new Date(year, month, 0);
+
+    let count = 0;
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+      const date = new Date(year, month - 1, day);
+      if (date.getDay() === weekday) {
+        count++;
+      }
+    }
+
+    return count;
   }
 
   onSubmit() {
@@ -311,18 +343,24 @@ export class BookingDetailFieldComponent implements OnInit {
         month: formValue.month + '-01',
         fieldTypeId: Number(this.bookingId),
         timeFrame: Number(formValue.timeFrame),
+        price: this.selectedPrice || 0,
       };
 
       this.bookingService.createPeriod(payload).subscribe({
-        next: () => {
+        next: (res) => {
           this.message.success('Đặt sân thành công!');
           this.showLongTermPopup = false;
           this.longTermForm.reset();
           this.longTermForm.get('timeFrame')?.disable();
+          if (res.url) {
+            window.location.href = res.url;
+          } else {
+            console.error('Không có URL thanh toán hợp lệ!');
+          }
         },
         error: () => {
           this.message.error('Đặt sân thất bại!');
-        }
+        },
       });
     }
   }

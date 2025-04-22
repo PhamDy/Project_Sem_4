@@ -116,7 +116,7 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findAreaById(id));
     }
 
-    @GetMapping("/validate-period")
+    @PostMapping("/validate-period")
     public ResponseEntity<Object> findTimeAvailablePeriod(@RequestBody ValidatePeriodRequest request) {
         return ResponseEntity.ok(areaService.findTimeFrame(request.getWeekDay(), request.getDate(), request.getQuantity(), request.getFieldId()));
     }

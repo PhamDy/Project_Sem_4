@@ -1,0 +1,199 @@
+<div class="profile-container">
+  <!-- Profile Header with Cover Photo and User Avatar -->
+  <div class="profile-header">
+    <div class="cover-photo"></div>
+    <div class="profile-info">
+      <div class="profile-avatar">
+        <div class="avatar-placeholder">NG</div>
+      </div>
+      <div class="user-basic-info">
+        <h1>Nguyễn Văn Nam</h1>
+        <div>
+          <span class="user-role">Member</span>
+          <span class="user-status active">Active</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Navigation Tabs -->
+  <div class="profile-navigation">
+    <div class="nav-tabs">
+      <div
+        class="tab"
+        [ngClass]="{'active': activeTab === 'info'}"
+        (click)="changeTab('info')">
+        <i class="fas fa-user"></i> Personal Info
+      </div>
+      <div
+        class="tab"
+        [ngClass]="{'active': activeTab === 'bookings'}"
+        (click)="changeTab('bookings')">
+        <i class="fas fa-calendar-alt"></i> My Bookings
+      </div>
+      <div
+        class="tab"
+        [ngClass]="{'active': activeTab === 'tournaments'}"
+        (click)="changeTab('tournaments')">
+        <i class="fas fa-trophy"></i> Tournaments
+      </div>
+      <div
+        class="tab"
+        [ngClass]="{'active': activeTab === 'security'}"
+        (click)="changeTab('security')">
+        <i class="fas fa-shield-alt"></i> Security
+      </div>
+    </div>
+    <button class="edit-btn" *ngIf="activeTab === 'info' && !isEditing" (click)="toggleEdit()">
+      <i class="fas fa-edit"></i> Edit Profile
+    </button>
+  </div>
+
+  <!-- Profile Content Area -->
+  <div class="profile-content">
+    <!-- Personal Info Tab -->
+    <div class="tab-content" *ngIf="activeTab === 'info'">
+      <div class="content-section" [ngClass]="{'is-editing': isEditing}">
+        <div class="section-header">
+          <h2><i class="fas fa-id-card"></i> Basic Information</h2>
+        </div>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Full Name</label>
+            <input type="text" [value]="'Nguyễn Văn Nam'" [disabled]="!isEditing">
+          </div>
+          <div class="info-item">
+            <label>Username</label>
+            <input type="text" [value]="'nguyennam123'" [disabled]="true">
+          </div>
+          <div class="info-item">
+            <label>Email</label>
+            <input type="email" [value]="'nguyennam123@gmail.com'" [disabled]="!isEditing">
+          </div>
+          <div class="info-item">
+            <label>Phone Number</label>
+            <input type="tel" [value]="'0912345678'" [disabled]="!isEditing">
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section" [ngClass]="{'is-editing': isEditing}">
+        <div class="section-header">
+          <h2><i class="fas fa-map-marker-alt"></i> Address Information</h2>
+        </div>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>City</label>
+            <input type="text" [value]="'Ho Chi Minh'" [disabled]="!isEditing">
+          </div>
+          <div class="info-item">
+            <label>District</label>
+            <input type="text" [value]="'District 1'" [disabled]="!isEditing">
+          </div>
+          <div class="info-item wide">
+            <label>Address</label>
+            <input type="text" [value]="'123 Nguyen Hue Street'" [disabled]="!isEditing">
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section" [ngClass]="{'is-editing': isEditing}" *ngIf="isEditing">
+        <div class="action-buttons">
+          <button class="cancel-btn" (click)="toggleEdit()">Cancel</button>
+          <button class="save-btn" (click)="saveChanges()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Bookings Tab -->
+    <div class="tab-content" *ngIf="activeTab === 'bookings'">
+      <div class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-calendar-check"></i> Upcoming Bookings</h2>
+        </div>
+        <!-- Placeholder for no bookings -->
+        <div class="placeholder-content">
+          <div class="placeholder-icon">
+            <i class="fas fa-calendar-times"></i>
+          </div>
+          <h3>No upcoming bookings</h3>
+          <p>You don't have any upcoming bookings. Make a new booking to see it here.</p>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-history"></i> Booking History</h2>
+        </div>
+        <!-- Placeholder for booking history -->
+        <div class="placeholder-content">
+          <div class="placeholder-icon">
+            <i class="fas fa-history"></i>
+          </div>
+          <h3>No booking history</h3>
+          <p>Your past bookings will appear here once you have completed some bookings.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tournaments Tab -->
+    <div class="tab-content" *ngIf="activeTab === 'tournaments'">
+      <div class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-trophy"></i> My Tournaments</h2>
+        </div>
+        <!-- Placeholder for no tournaments -->
+        <div class="placeholder-content">
+          <div class="placeholder-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <h3>No tournament participation yet</h3>
+          <p>Join a tournament to see your participation details here.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Tab -->
+    <div class="tab-content" *ngIf="activeTab === 'security'">
+      <div class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-lock"></i> Account Security</h2>
+        </div>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Current Password</label>
+            <input type="password" placeholder="Enter current password">
+          </div>
+          <div class="info-item">
+            <label>New Password</label>
+            <input type="password" placeholder="Enter new password">
+          </div>
+          <div class="info-item">
+            <label>Confirm New Password</label>
+            <input type="password" placeholder="Confirm new password">
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button class="save-btn">Update Password</button>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-shield-alt"></i> Two-Factor Authentication</h2>
+        </div>
+        <div class="info-grid">
+          <div class="info-item wide">
+            <label>Status</label>
+            <div style="padding: 12px 15px; background-color: #f5f5f5; border-radius: 8px;">
+              <span style="color: #d32f2f;">Not Enabled</span>
+            </div>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button class="save-btn">Enable 2FA</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

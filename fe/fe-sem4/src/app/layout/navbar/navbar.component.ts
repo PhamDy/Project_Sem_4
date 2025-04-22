@@ -32,10 +32,7 @@ export class NavbarComponent {
 
   isLoggedIn: boolean = false;
   showDropdown = false;
-  user = {
-    name: 'User1',
-    email: 'trung@example.com',
-  };
+  user: any;
 
   constructor(
     private router: Router,
@@ -57,6 +54,7 @@ export class NavbarComponent {
     });
 
     this.isLoggedIn = this.authService.isLoggedIn();
+    this.user = this.authService.getUserInfor();
   }
 
   @HostListener('window:scroll', [])
@@ -109,7 +107,7 @@ export class NavbarComponent {
   logout() {
     this.authService.logout();
     this.isLoggedIn = false;
-    // this.user = null;
+    this.user = null;
     this.router.navigate(['/login']);
   }
 }

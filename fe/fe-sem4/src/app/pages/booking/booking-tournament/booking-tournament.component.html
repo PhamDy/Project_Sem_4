@@ -186,10 +186,10 @@
   <!-- Water Service -->
   <div class="service-item" data-aos="fade-up">
     <label>
-      <input type="checkbox" [(ngModel)]="showInput3" />
+      <input type="checkbox" [(ngModel)]="showInput5" />
       Mua nước lạnh <span>100.000/ trận</span>
     </label>
-    <div *ngIf="showInput3" data-aos="fade-left">
+    <div *ngIf="showInput5" data-aos="fade-left">
       <p>Mua nước lạnh cho giải đấu</p>
       <p>Số trận: {{ tournament.matches }}</p>
       <p>Tổng số tiền: {{ calculateTotal('water') | currency }}</p>
@@ -199,10 +199,10 @@
   <!-- Sound System Service -->
   <div class="service-item" data-aos="fade-up">
     <label>
-      <input type="checkbox" [(ngModel)]="showInput4" />
+      <input type="checkbox" [(ngModel)]="showInput6" />
       Thuê loa / âm thanh <span>150.000/ trận</span>
     </label>
-    <div *ngIf="showInput4" data-aos="fade-left">
+    <div *ngIf="showInput6" data-aos="fade-left">
       <p>Thuê loa / âm thanh cho giải đấu</p>
       <p>Số trận: {{ tournament.matches }}</p>
       <p>Tổng số tiền: {{ calculateTotal('soundSystem') | currency }}</p>
@@ -212,10 +212,10 @@
   <!-- MC Service -->
   <div class="service-item" data-aos="fade-up">
     <label>
-      <input type="checkbox" [(ngModel)]="showInput5" />
+      <input type="checkbox" [(ngModel)]="showInput7" />
       Thuê MC / Bình luận viên <span>100.000/ trận</span>
     </label>
-    <div *ngIf="showInput5" data-aos="fade-left">
+    <div *ngIf="showInput7" data-aos="fade-left">
       <p>Thuê MC / Bình luận viên cho giải đấu</p>
       <p>Số trận: {{ tournament.matches }}</p>
       <p>Tổng số tiền: {{ calculateTotal('mc') | currency }}</p>

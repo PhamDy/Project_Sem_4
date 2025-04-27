@@ -304,7 +304,7 @@ export class BookingTournamentComponent implements OnInit{
   getBookingAreaById(id: any): void {
     this.bookingService.bookingGetAreaById(id).subscribe(
       (res) => {
-        this.allFieldArea = res.fields;
+        this.allFieldArea = res?.fields;
         console.log('data is', this.allFieldArea);
       },
       (error) => {

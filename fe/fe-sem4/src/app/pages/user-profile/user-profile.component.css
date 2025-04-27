@@ -402,3 +402,145 @@
     grid-column: span 1;
   }
 }
+
+.booking-history {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.booking-history h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.booking-details {
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f1f1f1;
+}
+
+.table td {
+  background-color: #fff;
+}
+
+.stadium-container{
+
+  background-color: #ffffff;
+  display: flex;
+}
+
+.stadium-image img{
+  width:500px;
+}
+
+
+.stadium-infor {
+  font-style: italic;
+  height: 190px;
+  width: 100%;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.stadium-info h1 {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.stadium-info p {
+  font-size: 18px;
+  color: #555;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.stadium-info .address {
+  font-weight: bold;
+  color: #007BFF;
+}
+
+.stadium-info strong {
+  color: #2c3e50;
+}
+
+/* Hiệu ứng hover */
+.stadium-info p:hover {
+  color: #007BFF;
+  transition: 0.3s;
+}
+
+.detail-book{
+  padding: 20px;
+  background-image: linear-gradient(to right, #20aeba, #9bffae);
+  color: white;
+  border-radius: 15px 15px 0px 0px;
+}
+
+.booking-details {
+  margin-top: 20px;
+  background-image: linear-gradient(to right, #20aeba, #9bffae);
+  padding: 20px;
+  color: black;
+  border-radius: 0px 0px 12px 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.booking-details h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  background-image: linear-gradient(to left, #20aeba, #9bffae);
+}
+
+.table thead {
+  background: linear-gradient(to right, #20aeba, #2fc5b4);
+  color: white;
+  font-weight: bold;
+}
+
+.table th,
+.table td {
+  padding: 14px 16px;
+  text-align: center;
+  font-size: 14px;
+  border-bottom: 1px solid #888888;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background-color: #e0f7f9;
+  transition: background-color 0.3s ease;
+}

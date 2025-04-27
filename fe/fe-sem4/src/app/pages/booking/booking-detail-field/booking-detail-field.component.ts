@@ -235,6 +235,7 @@ export class BookingDetailFieldComponent implements OnInit {
   }
 
   bookingId: string | null = '';
+  urlPayment:any;
 
   constructor(
     private route: ActivatedRoute,
@@ -334,6 +335,7 @@ export class BookingDetailFieldComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log("dsds",this.bookingId);
     if (this.longTermForm.valid) {
       const formValue = this.longTermForm.value;
 
@@ -423,7 +425,7 @@ export class BookingDetailFieldComponent implements OnInit {
   getBookingAreaById(id: any): void {
     this.bookingService.bookingGetAreaById(id).subscribe(
       (res) => {
-        this.allFieldArea = res.fields;
+        this.allFieldArea = res?.fields;
         console.log('data is', this.allFieldArea);
       },
       (error) => {

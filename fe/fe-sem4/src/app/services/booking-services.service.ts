@@ -24,11 +24,11 @@ export class BookingServicesService {
   createBooking(CreateBookingRequest: any): Observable<any> {
     return this.http.post<any>(`${this.createBookingApi}`,CreateBookingRequest);
   }
-  
+
   validatePeriod(validate: any): Observable<any> {
     return this.http.post<any>(`${this.validatePeriodApi}`,validate);
   }
-  
+
   createPeriod(CreatePeriodRequest: any): Observable<any> {
     return this.http.post<any>(`${this.createPeriodApi}`,CreatePeriodRequest);
   }

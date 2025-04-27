@@ -28,7 +28,6 @@ export class PaymentComponent {
   createOrder(CreateBookingRequest: any) {
     this.bookingService.createBooking(CreateBookingRequest).subscribe(
       (res) => {
-        console.log("Dâ ",res)
         this.urlPayment = res.url
         console.log("is",this.urlPayment);
         if (this.urlPayment) {
@@ -70,6 +69,15 @@ export class PaymentComponent {
     //   alert('Vui lòng chọn phương thức thanh toán!');
     //   return;
     // }
+    const now = new Date();
+    const today = now.toISOString().split('T')[0]; // Định dạng: YYYY-MM-DD
+
+    const bookingData = {
+      date: today,
+      details: this.bookingDetails
+    };
+    localStorage.setItem('bookingDetails', JSON.stringify(bookingData));
+
     const createBookingPayload = {
       bookingId: null, // hoặc để backend tự sinh nếu không cần truyền
       userId: null, // lấy từ token/localStorage nếu cần

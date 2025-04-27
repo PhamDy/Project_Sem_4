@@ -48,7 +48,7 @@
         <li class="page user-info" *ngIf="isLoggedIn" (mouseenter)="showDropdown = true" (mouseleave)="showDropdown = false">
           <a [routerLink]="['/user-profile']">
           <span style="font-weight: 700; color: rgb(2, 83, 99)">
-            👤 {{ user.name || '' }}
+            👤 {{ user?.name || '' }}
           </span>
           </a>
           <ul class="dropdown-menu" *ngIf="showDropdown">

@@ -107,8 +107,8 @@ public class Constant {
     @AllArgsConstructor
     public enum TimeFrameEnum {
 
-        TF_1(1L, "10h00 - 11h30",1.0),
-        TF_2(2L, "15h00 - 16h30",1.0),
+        TF_1(1L, "8h00 - 9h30",1.0),
+        TF_2(2L, "10h00 - 11h30",1.0),
         TF_3(3L, "15h00 - 16h30",1.0),
         TF_4(4L, "17h00 - 18h30",1.0),
         TF_5(5L, "19h00 - 20h30",1.0),

@@ -13,6 +13,7 @@ import { VerifyOtpComponent } from './pages/auth/verify-otp/verify-otp.component
 import {BookingDetailFieldComponent} from './pages/booking/booking-detail-field/booking-detail-field.component';
 import {BookingTournamentComponent} from './pages/booking/booking-tournament/booking-tournament.component';
 import {UserProfileComponent} from './pages/user-profile/user-profile.component';
+import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,10 @@ const routes: Routes = [
   {
     path: 'tournament',
     component: TournamentComponent
+  },
+  {
+    path: 'thank-you',
+    component: ThankYouComponent
   },
   {
     path: '**',

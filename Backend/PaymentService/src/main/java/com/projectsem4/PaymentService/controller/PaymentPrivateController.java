@@ -46,7 +46,7 @@ public class PaymentPrivateController {
 
             return ResponseEntity
                     .status(HttpStatus.SEE_OTHER)
-                    .location(URI.create("http://localhost:4200"))
+                    .location(URI.create("http://localhost:4200/thank-you"))
                     .build();
         } else {
             // Giao dịch không thành công

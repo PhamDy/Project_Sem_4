@@ -4,7 +4,7 @@ import { NavigationStart, Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'fe-sem4';
@@ -14,9 +14,12 @@ export class AppComponent {
   isShowLayout = false;
 
   constructor(private router: Router) {
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        this.isShowLayout = event.url === '/login' || event.url === '/verify-otp';
+        this.isShowLayout =
+          event.url === '/login' ||
+          event.url === '/verify-otp' ||
+          event.url === '/thank-you';
       }
     });
   }

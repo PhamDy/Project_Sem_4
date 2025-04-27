@@ -34,6 +34,7 @@ import { NgZorroAntdModule } from './shared/ng-zorro-antd.module';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { VerifyOtpComponent } from './pages/auth/verify-otp/verify-otp.component';
 import {UserProfileComponent} from './pages/user-profile/user-profile.component';
+import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 
 registerLocaleData(en);
 
@@ -60,7 +61,8 @@ registerLocaleData(en);
     BookingDetailAreaComponent,
     PaymentComponent,
     VerifyOtpComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ThankYouComponent
   ],
   imports: [
     BrowserModule,

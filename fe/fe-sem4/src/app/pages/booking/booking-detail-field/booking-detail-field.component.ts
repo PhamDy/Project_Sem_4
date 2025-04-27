@@ -111,13 +111,12 @@ export class BookingDetailFieldComponent implements OnInit {
 
   scheduleData: any;
   timeFramesMap: { [key: string]: string } = {
-    '1': '6:00 - 7:30',
-    '2': '7:30 - 9:00',
-    '3': '9:00 - 10:30',
-    '4': '16:00 - 17:30',
-    '5': '17:30 - 19:00',
-    '6': '19:00 - 20:30',
-    '7': '20:30 - 22:00',
+    '1': '8h00 - 9h30',
+    '2': '10h00 - 11h30',
+    '3': '15h00 - 16h30',
+    '4': '17h00 - 18h30',
+    '5': '19h00 - 20h30',
+    '6': '21h00 - 22h30',
   };
 
   itemsPerPage: number = 8;
@@ -147,6 +146,16 @@ export class BookingDetailFieldComponent implements OnInit {
     return frame.fieldSchedules.find((s: any) => s.timeFrame === timeFrameId);
   }
 
+  timeFrameMapping: { [key: number]: string } = {
+    1: "8h00 - 9h30",
+    2: "10h00 - 11h30",
+    3: "15h00 - 16h30",
+    4: "17h00 - 18h30",
+    5: "19h00 - 20h30",
+    6: "21h00 - 22h30"
+  };
+  
+
   choose(data: any, date: string) {
     const index = this.selectedFields.findIndex(
       (field) => field.timeFrame === data.timeFrame && field.date === date
@@ -158,6 +167,7 @@ export class BookingDetailFieldComponent implements OnInit {
       quantity: 1,
       availableQuantity: data.quantity,
       amount: data.price,
+      timeFrameStr: this.timeFrameMapping[data.timeFrame] || null
     };
     if (index === -1) {
       this.selectedFields.push(item);

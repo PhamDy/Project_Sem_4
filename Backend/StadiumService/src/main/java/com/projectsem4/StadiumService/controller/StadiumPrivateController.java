@@ -73,6 +73,7 @@ public class StadiumPrivateController {
         return ResponseEntity.ok(areaService.findById(id));
     }
 
+    @CrossOrigin(origins = "http://10.0.2.2")
     @GetMapping("/area/{id}/field")
     public ResponseEntity<Object> getFieldByAreaId(@PathVariable Long id) {
         return ResponseEntity.ok(areaService.findAllFieldInArea(id));

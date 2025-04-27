@@ -8,15 +8,19 @@
       <img [src]="img" alt="Stadium Image" />
     </div>
     <div class="stadium-infor">
-      <h1>{{ stadiumDetail.name }}</h1>
+      <h1>{{ stadiumDetail?.name }}</h1>
       <p class="address">
-        <strong>📍 Địa chỉ:</strong> {{ stadiumDetail.address }}
+        <strong>📍 Giá :</strong> {{ stadiumDetail?.price }}đ
       </p>
       <p class="description">
-        <strong>ℹ️ Mô tả:</strong> {{ stadiumDetail.description }}
+        <strong>ℹ️ Mô tả:</strong> {{ stadiumDetail?.description }}
       </p>
-      <p><strong>📧 Email:</strong> {{ stadiumDetail.email }}</p>
-      <p><strong>📞 Số điện thoại:</strong> {{ stadiumDetail.phoneNumber }}</p>
+      <div class="rating">
+        <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+          <span class="star" *ngIf="i <= stadiumDetail?.rating">★</span>
+          <span class="empty-star" *ngIf="i > stadiumDetail?.rating">★</span>
+        </ng-container>
+      </div>
       <div class="booking-options">
         <label class="radio-check">
           <input
@@ -164,97 +168,32 @@
       </div>
     </div>
   </div>
-
-  <!-- Pagination controls -->
-  <div class="pagination-controls" *ngIf="dataStadium.length > itemsPerPage">
-    <button
-      [disabled]="currentPage === 1"
-      (click)="changePage(currentPage - 1)"
-      class="pagination-btn"
-    >
-      &laquo; Previous
-    </button>
-    <span class="page-indicator">Page {{ currentPage }} of {{ totalPages }}</span>
-    <button
-      [disabled]="currentPage === totalPages"
-      (click)="changePage(currentPage + 1)"
-      class="pagination-btn"
-    >
-      Next &raquo;
-    </button>
-  </div>
-
-  <p></p>
 </div>
 <div class="popup-overlay" *ngIf="showLongTermPopup" (click)="closePopup()">
   <div class="popup" (click)="$event.stopPropagation()">
     <button class="close-button" (click)="closePopup()">&times;</button>
-    <h2>Đặt sân dài hạn</h2>
+    <form [formGroup]="longTermForm" (ngSubmit)="onSubmit()">
+      <label>Tháng:
+        <input type="month" formControlName="month" class="input-label-popup" />
+      </label>
+      <label>Số lượng sân:
+        <input type="number" formControlName="quantity" class="input-label-popup" min="1" />
+      </label>
+      <label>Ngày trong tuần:
+        <select formControlName="weekDay" class="input-label-popup">
+          <option *ngFor="let day of daysInWeek" [value]="day.value">{{ day.label }}</option>
+        </select>
+      </label>
+      <label>Khung giờ:
+        <select formControlName="timeFrame" [disabled]="!!longTermForm.get('timeFrame')?.disabled">
+          <option *ngFor="let tf of availableTimeFrames" [value]="tf.id">{{ tf.label }}</option>
+        </select>
+      </label>
 
-    <label
-    >Tên người đặt sân:
-      <input type="text" class="input-label-popup" [(ngModel)]="longTerm.name" />
-    </label>
-
-    <label
-    >Số điện thoại:
-      <input type="tel" class="input-label-popup" [(ngModel)]="longTerm.phone" />
-    </label>
-
-    <label
-    >Ngày bắt đầu:
-      <input type="date" class="input-label-popup" [(ngModel)]="longTerm.startDate" />
-    </label>
-
-    <label
-    >Ngày kết thúc:
-      <input type="date" class="input-label-popup" [(ngModel)]="longTerm.endDate" />
-    </label>
-
-    <label
-    >Khung giờ đá:
-      <select [(ngModel)]="longTerm.timeSlot">
-        <option *ngFor="let time of timeSlots" [value]="time">
-          {{ time }}
-        </option>
-      </select>
-    </label>
-
-    <label>Ngày đá trong tuần:</label>
-    <div class="checkbox-group">
-      <div class="weekday-row top-row" style="justify-content: center" >
-        <label class="day-item ">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 2']" />
-          <span>Mon</span>
-        </label>
-        <label class="day-item ">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 3']" />
-          <span>Tue</span>
-        </label>
-        <label class="day-item ">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 4']" />
-          <span>Wed</span>
-        </label>
+      <div *ngIf="selectedPrice !== null" class="price-info">
+        Giá sân: <strong>{{ selectedPrice | number }} VND</strong>
       </div>
-      <div class="weekday-row bottom-row" style="justify-content: center">
-        <label class="day-item">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 5']" />
-          <span>Thu</span>
-        </label>
-        <label class="day-item">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 6']" />
-          <span>Fri</span>
-        </label>
-        <label class="day-item">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Thứ 7']" />
-          <span>Sat</span>
-        </label>
-        <label class="day-item">
-          <input type="checkbox" [(ngModel)]="longTerm.days['Chủ Nhật']" />
-          <span>Sun</span>
-        </label>
-      </div>
-    </div>
+    </form>
     <div class="terms-container">
       <p>
         Xem các điều khoản của sân:
@@ -263,7 +202,7 @@
     </div>
 
     <div class="button-group">
-      <button class="submit" (click)="confirmLongTerm()">Xác nhận</button>
+      <button class="submit" (click)="onSubmit()">Xác nhận</button>
       <button class="cancel" (click)="closePopupLong()">Đóng</button>
     </div>
   </div>

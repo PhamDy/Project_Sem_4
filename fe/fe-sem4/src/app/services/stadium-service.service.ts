@@ -25,6 +25,6 @@ export class StadiumService {
 
   // 🔥 API mới: Lấy danh sách sân theo `id` của `area`
   getFieldsByAreaId(areaId: any): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/find-area-by-id?id=${areaId}`);
+    return this.http.get<any>(`${this.baseUrl}/field/${areaId}`);
   }
 }

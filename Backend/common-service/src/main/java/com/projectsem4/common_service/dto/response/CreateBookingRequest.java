@@ -1,15 +1,11 @@
-package com.projectsem4.BookingService.model.request;
+package com.projectsem4.common_service.dto.response;
 
-import com.projectsem4.BookingService.entity.BookingAccessory;
-import com.projectsem4.BookingService.entity.BookingDetail;
-import com.projectsem4.BookingService.entity.BookingPeriod;
-import com.projectsem4.BookingService.entity.BookingReferee;
-import com.projectsem4.common_service.dto.entity.BookingDetailResponse;
-import lombok.*;
+import com.projectsem4.common_service.dto.entity.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Getter

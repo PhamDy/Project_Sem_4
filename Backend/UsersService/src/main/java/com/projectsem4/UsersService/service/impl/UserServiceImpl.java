@@ -74,9 +74,9 @@ public class UserServiceImpl implements UserService {
         if(user==null){
             throw new BadRequestException("Invalid username or password");
         }
-
         String token = jwtService.generateToken(user);
-        return new ObjectTokenDTO(token);
+        UserInfor userInfor = modelMapper.map(user, UserInfor.class);
+        return new ObjectTokenDTO(token, userInfor);
     }
 
     @Override

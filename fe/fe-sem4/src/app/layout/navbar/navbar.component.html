@@ -41,8 +41,20 @@
         <li class="page">
           <a  [routerLink]="['/auth']" style="font-weight: 700;color: rgb(2, 83, 99);">MANAGEMENT</a>
         </li>
-        <li class="page">
-          <a  [routerLink]="['/login']" style="font-weight: 700;color: rgb(2, 83, 99);">LOGIN</a>
+        <li class="page" *ngIf="!isLoggedIn">
+          <a [routerLink]="['/login']" style="font-weight: 700; color: rgb(2, 83, 99)">LOGIN</a>
+        </li>
+
+        <li class="page user-info" *ngIf="isLoggedIn" (mouseenter)="showDropdown = true" (mouseleave)="showDropdown = false">
+          <a [routerLink]="['/user-profile']">
+          <span style="font-weight: 700; color: rgb(2, 83, 99)">
+            👤 {{ user.name || '' }}
+          </span>
+          </a>
+          <ul class="dropdown-menu" *ngIf="showDropdown">
+            <li><a [routerLink]="['/orders']">🧾 Lịch sử đơn hàng</a></li>
+            <li><a (click)="logout()">🚪 Logout</a></li>
+          </ul>
         </li>
       </div>
     </ul>

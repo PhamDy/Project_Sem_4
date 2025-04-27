@@ -6,6 +6,7 @@ import com.projectsem4.PaymentService.entity.Payment;
 import com.projectsem4.PaymentService.repository.PaymentRepository;
 import com.projectsem4.common_service.dto.constant.Constant;
 import com.projectsem4.common_service.dto.entity.Booking;
+import com.projectsem4.common_service.dto.response.CreateBookingRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class PaymentService {
     private final BookingServiceClient bookingServiceClient;
 
     public String creatPayment( String urlReturn, Long orderId) throws UnsupportedEncodingException {
-        Booking booking = bookingServiceClient.findById(orderId);
+        CreateBookingRequest booking = bookingServiceClient.findById(orderId);
 //        Order order = restTemplate.getForObject("http://orderService/api/v1/order/"+ orderId, Order.class);
 //        Product product = restTemplate.getForObject("http://localhost:8083/api/v1/product/"+ order.getProductId(), Product.class);
 
@@ -107,7 +108,7 @@ public class PaymentService {
 //    }
 
     public void savePayment(Long orderId){
-        Booking booking = bookingServiceClient.findById(orderId);
+        CreateBookingRequest booking = bookingServiceClient.findById(orderId);
         Payment payment = new Payment();
         payment.setUserId(booking.getUserId());
         payment.setPaidAt(now());

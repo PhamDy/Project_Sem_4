@@ -79,10 +79,10 @@ export class AuthComponent {
       next: () => {
         this.loading = false;
         this.toggleForm();
-        this.router.navigate(['/verify-otp']);
         this.authService.genOtp(email).subscribe({
           next: () => {
             console.log('genOtp success');
+            this.router.navigate(['/verify-otp']);
           },
           error: () => {
             this.message.error('Hệ thống xảy ra lỗi, vui lòng thử lại sau!');

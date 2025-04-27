@@ -36,4 +36,7 @@ public class BookingPeriod {
 
     @Column(name = "month")
     private LocalDate month;
+
+    @Column(name = "price")
+    private Long price;
 }

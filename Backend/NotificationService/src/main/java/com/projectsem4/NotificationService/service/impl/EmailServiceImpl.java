@@ -1,5 +1,6 @@
 package com.projectsem4.NotificationService.service.impl;
 
+import com.projectsem4.common_service.dto.SendEmailBookingDTO;
 import com.projectsem4.common_service.dto.UserInfor;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -51,4 +52,32 @@ public class EmailServiceImpl implements EmailService {
             throw new IllegalStateException("Failed to send email");
         }
     }
+
+    @Override
+    public void sendMailOrderSuccess(SendEmailBookingDTO sendEmailBookingDTO) {
+        try {
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+            // Prepare context
+            Context context = new Context();
+            UserInfor user = sendEmailBookingDTO.getUserInfor();
+
+            context.setVariable("userName", user.getName());
+//            context.setVariable("bookingDetails", sendEmailBookingDTO.getBookingDetails());
+
+            String htmlContent = templateEngine.process("mail/order_success.html", context);
+
+            helper.setFrom(fromMail);
+            helper.setTo(user.getEmail());
+            helper.setSubject("Đơn đặt sân của bạn đã được xác nhận!");
+            helper.setText(htmlContent, true);
+
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            log.error("Failed to send order success email", e);
+            throw new IllegalStateException("Failed to send email");
+        }
+    }
+
 }

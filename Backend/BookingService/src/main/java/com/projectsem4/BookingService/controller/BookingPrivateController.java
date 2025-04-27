@@ -1,11 +1,13 @@
 package com.projectsem4.BookingService.controller;
 
+import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
 import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.entity.Price;
 import com.projectsem4.common_service.dto.entity.TimeFrameDate;
 import com.projectsem4.common_service.dto.entity.TimeFrameSchedule;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,14 +32,14 @@ public class BookingPrivateController {
 
     @PostMapping("/create")
         @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<?> create(@RequestBody CreateBookingRequest booking) {
-        return ResponseEntity.ok(bookingService.createBooking(booking));
+    public ResponseEntity<?> create(@RequestBody CreateBookingRequest booking, HttpServletRequest httpServletRequest) {
+        return ResponseEntity.ok(bookingService.createBooking(booking, httpServletRequest));
     }
 
     @PostMapping("/create-period")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<?> create(@RequestBody BookingPeriod booking) {
-        return ResponseEntity.ok(bookingService.createBookingPeriod(booking));
+    public ResponseEntity<?> create(@RequestBody BookingPeriod booking, HttpServletRequest httpServletRequest) {
+        return ResponseEntity.ok(bookingService.createBookingPeriod(booking, httpServletRequest));
     }
 
     @GetMapping("/find-by-id/{id}")
@@ -54,5 +56,21 @@ public class BookingPrivateController {
     @PostMapping("/calender")
     public List<TimeFrameSchedule> calenderSchedule(@RequestParam Long fieldId, @RequestParam String date) {
         return bookingService.scheduleClient(fieldId, date);
+    }
+
+    @GetMapping("/bookingDetail/{bookingId}")
+    public List<BookingDetail> findByBookingId(@PathVariable Long bookingId) {
+        return bookingService.findByBookingId(bookingId);
+    }
+
+    @GetMapping("/booking")
+    public ResponseEntity<?> findAllByUser(HttpServletRequest request) {
+        return ResponseEntity.ok(bookingService.findAllBookings(request));
+    }
+
+
+    @PostMapping("/validate-period")
+    public List<TimeFrameSchedule> validatePeriod(@RequestParam Long fieldId, @RequestParam List<String> date) {
+        return bookingService.scheduleClientPeriod(fieldId, date);
     }
 }

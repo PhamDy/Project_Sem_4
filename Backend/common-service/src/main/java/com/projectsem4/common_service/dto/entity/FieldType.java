@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FieldType extends BaseEntity {
 
-    private Long fieldId;
+    private Long fieldTypeId;
 
     private String name;
 

@@ -4,7 +4,10 @@ import com.projectsem4.BookingService.entity.BookingAccessory;
 import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.entity.BookingReferee;
+import com.projectsem4.common_service.dto.entity.AreaResponse;
 import com.projectsem4.common_service.dto.entity.BookingDetailResponse;
+import com.projectsem4.common_service.dto.entity.FieldType;
+import com.projectsem4.common_service.dto.entity.FieldTypeResponse;
 import lombok.*;
 
 import java.math.BigDecimal;

@@ -5,6 +5,7 @@ import com.projectsem4.StadiumService.constant.TypeFileEnum;
 import com.projectsem4.StadiumService.entity.*;
 import com.projectsem4.StadiumService.entity.Accessory;
 import com.projectsem4.StadiumService.entity.FieldType;
+import com.projectsem4.StadiumService.entity.FileDb;
 import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.model.request.AreaDetailAdmin;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;

@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -113,7 +114,19 @@ public class BookingServiceImpl implements BookingService {
     public CreateBookingRequest findBookingById(Long id) {
         Booking booking = bookingRepository.findById(id).get();
         List<BookingDetailResponse> details = bookingDetailRepository.findByBookingId(id).stream().map(item->modelMapper.map(item, BookingDetailResponse.class)).toList();
-        List<BookingDetailResponse> responses = details.stream().peek(item-> item.setPrice((long) (Objects.requireNonNullElse(stadiumServiceClient.findFieldById(item.getFieldTypeId()).getBody().getPrice(),0L) * Constant.TimeFrameEnum.fromValue(item.getTimeFrame())))).toList();
+        Map<Long, FieldType> fieldTypes = details.stream()
+                .map(item -> stadiumServiceClient.findFieldById(item.getFieldTypeId()).getBody())
+                .collect(Collectors.toMap(
+                        FieldType::getFieldTypeId,      // Key: fieldTypeId
+                        fieldType -> fieldType,          // Value: chính FieldType
+                        (existing, replacement) -> existing // Nếu trùng key, giữ lại bản ghi đầu tiên
+                ));
+        List<BookingDetailResponse> responses = details.stream().peek(item-> {
+            item.setPrice((long) (Objects.requireNonNullElse(fieldTypes.get(item.getFieldTypeId()).getPrice(),0L) * Constant.TimeFrameEnum.fromValue(item.getTimeFrame())));
+            FieldTypeResponse fieldTypeResponse = (modelMapper.map(fieldTypes.get(item.getFieldTypeId()), FieldTypeResponse.class));
+            item.setFieldType(fieldTypeResponse);
+            item.setAreaResponse(stadiumServiceClient.findAreaById(fieldTypeResponse.getAreaId()).getBody());
+        }).toList();
         CreateBookingRequest createBookingRequest = new CreateBookingRequest();
         createBookingRequest.setBookingId(booking.getId());
         createBookingRequest.setUserId(booking.getUserId());
@@ -206,7 +219,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<CreateBookingRequest> findAllBookings(HttpServletRequest request) {
         UserInfor userInfor = JwtUtil.decodeToken(JwtUtil.genStringToken(request));
-        List<Long> bookingId = bookingRepository.findByUserId(userInfor.getUserId()).stream().map(Booking::getUserId).toList();
+        Set<Long> bookingId = bookingRepository.findByUserId(userInfor.getUserId()).stream().map(Booking::getId).collect(Collectors.toSet());
         List<CreateBookingRequest> result = new ArrayList<>();
         bookingId.forEach(item ->{
             result.add(this.findBookingById(item));

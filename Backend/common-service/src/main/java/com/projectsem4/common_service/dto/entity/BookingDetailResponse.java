@@ -19,4 +19,6 @@ public class BookingDetailResponse {
     private Long quantity;
     private Long bookingId;
     private Long price;
+    private FieldTypeResponse fieldType;
+    private AreaCreateRequest areaResponse;
 }

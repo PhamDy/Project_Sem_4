@@ -83,6 +83,6 @@ public class BookingPrivateController {
 
     @PostMapping("/validate-tournament")
     public List<TimeFrameSchedule> validateTournament(@RequestParam List<Long> fieldId, @RequestParam List<String> date) {
-        return bookingService.scheduleClientPeriod(fieldId, date);
+        return bookingService.scheduleClientTournament(fieldId, date);
     }
 }

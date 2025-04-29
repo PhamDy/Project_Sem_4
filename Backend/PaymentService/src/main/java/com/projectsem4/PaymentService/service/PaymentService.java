@@ -30,8 +30,6 @@ public class PaymentService {
 
     public String creatPayment( String urlReturn, Long orderId) throws UnsupportedEncodingException {
         CreateBookingRequest booking = bookingServiceClient.findById(orderId);
-//        Order order = restTemplate.getForObject("http://orderService/api/v1/order/"+ orderId, Order.class);
-//        Product product = restTemplate.getForObject("http://localhost:8083/api/v1/product/"+ order.getProductId(), Product.class);
 
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";

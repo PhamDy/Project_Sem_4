@@ -381,4 +381,24 @@ public class AreaServiceImpl implements AreaService {
         });
         return timeFrameAvailable;
     }
+
+    public Object findTimeFrameTournament(LocalDate startDate, LocalDate endDate, Long quantity, List<Long> fieldTypeId) {
+        List<String> result = new ArrayList<>();
+        List<FieldType> fieldType = fieldTypeRepository.findFieldTypeByFieldTypeIdIn(fieldTypeId);
+        result = startDate.datesUntil(endDate.plusDays(1)).map(item->item.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))).toList();
+        List<TimeFrameSchedule> schedule = bookingServiceClient.validatePeriod(result, fieldTypeId);
+        Set<Long> timeFrameAvailable = Constant.TimeFrameEnum.getAllTimeFrames().stream().map(Constant.TimeFrameEnum::getKey).collect(Collectors.toSet());
+        Constant.TimeFrameEnum.getAllTimeFrames().forEach(item->{
+            schedule.forEach(item1->{
+                item1.getFieldSchedules().forEach(item2 ->{
+                    if(Objects.equals(item2.getTimeFrame(), item.getKey())){
+                        if(fieldType.getQuantity() - item2.getQuantity() < quantity){
+                            timeFrameAvailable.remove(item.getKey());
+                        }
+                    }
+                });
+            });
+        });
+        return timeFrameAvailable;
+    }
 }

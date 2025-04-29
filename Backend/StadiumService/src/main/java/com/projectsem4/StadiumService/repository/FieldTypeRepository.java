@@ -24,6 +24,6 @@ public interface FieldTypeRepository extends JpaRepository<FieldType, Long>, Jpa
             @Param("district") Integer district,
             @Param("price") Long price
     );
-    List<FieldType> findByFieldTypeId(Long id);
+    List<FieldType> findFieldTypeByFieldTypeIdIn(List<Long> id);
 
 }

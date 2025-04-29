@@ -7,6 +7,7 @@ import com.projectsem4.BookingService.entity.Booking;
 import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
+import com.projectsem4.BookingService.model.request.CreateBookingTournament;
 import com.projectsem4.BookingService.repository.*;
 import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.UserInfor;
@@ -35,6 +36,9 @@ public class BookingServiceImpl implements BookingService {
     private final StadiumServiceClient stadiumServiceClient;
     private final BookingDetailRepository bookingDetailRepository;
     private final PaymentServiceClient paymentServiceClient;
+    private final BookingTournamentRepository bookingTournamentRepository;
+    private final BookingTournamentDetailRepository bookingTournamentDetailRepository;
+    private final BookingTournamentDetailTimeRepository bookingTournamentDetailTimeRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -256,6 +260,84 @@ public class BookingServiceImpl implements BookingService {
             });
             timeFrameDate.setFieldSchedules(fieldScheduleList);
             result.add(timeFrameDate);
+        }
+        return result;
+    }
+
+    @Override
+    public Object createTournament(CreateBookingTournament createBookingTournament, HttpServletRequest request) {
+        Booking booking = new Booking();
+        booking.setStatus(Constant.OrderStatus.pending);
+        booking.setTotalPrice(createBookingTournament.getPrice());
+        booking.setUserId(JwtUtil.decodeToken(JwtUtil.genStringToken(request)).getUserId());
+        bookingRepository.save(booking);
+        BookingTournament bookingTournament = new BookingTournament();
+        bookingTournament.setRegisterName(createBookingTournament.getRegisterName());
+        bookingTournament.setTournamentName(createBookingTournament.getTournamentName());
+        bookingTournament.setNumberTeam(createBookingTournament.getNumberTeam());
+        bookingTournament.setNumberMatch(createBookingTournament.getNumberMatch());
+        bookingTournament.setStartDay(createBookingTournament.getStartDay());
+        bookingTournament.setEndDay(createBookingTournament.getEndDay());
+        bookingTournament.setEmail(createBookingTournament.getEmail());
+        bookingTournament.setPhoneNumber(createBookingTournament.getPhoneNumber());
+        bookingTournament.setReferee(createBookingTournament.getReferee());
+        bookingTournament.setBanner(createBookingTournament.getBanner());
+        bookingTournament.setPhoto(createBookingTournament.getPhoto());
+        bookingTournament.setQuantity(createBookingTournament.getQuantity());
+        bookingTournament.setJersey(createBookingTournament.getJersey());
+        bookingTournament.setWater(createBookingTournament.getWater());
+        bookingTournament.setSpeaker(createBookingTournament.getSpeaker());
+        bookingTournament.setMc(createBookingTournament.getMc());
+        bookingTournament.setOpening(createBookingTournament.getOpening());
+        bookingTournament.setBookingId(createBookingTournament.getBookingId());
+        bookingTournament.setPrice(createBookingTournament.getPrice());
+        bookingTournamentRepository.save(bookingTournament);
+        for (Long i : createBookingTournament.getTimeFrames()){
+            BookingTournamentDetailTime bookingTournamentDetailTime = new BookingTournamentDetailTime();
+            bookingTournamentDetailTime.setBookingTournamentId(bookingTournament.getId());
+            bookingTournamentDetailTime.setTimeFrame(i);
+            bookingTournamentDetailTimeRepository.save(bookingTournamentDetailTime);
+        }
+
+        for (Long j : createBookingTournament.getFieldIds()){
+            BookingTournamentDetail bookingTournamentDetail = new BookingTournamentDetail();
+            bookingTournamentDetail.setBookingTournamentId(bookingTournament.getId());
+            bookingTournamentDetail.setFieldTypeId(j);
+            bookingTournamentDetailRepository.save(bookingTournamentDetail);
+        }
+        createBookingTournament.setUrl(paymentServiceClient.linkThanhToan(booking.getId()));
+        return createBookingTournament;
+    }
+
+    public List<TimeFrameSchedule> scheduleClientTournament(List<Long> fieldId, List<String> dateString) {
+        List<LocalDate> date = dateString.stream()
+                .map(item -> LocalDate.parse(item, DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .toList();
+        List<TimeFrameSchedule> result = new ArrayList<>();
+        for(int i = 0; i <date.size(); i++){
+            for (int j = 0; j < fieldId.size(); j++) {
+                LocalDate date1 = date.get(i);
+                TimeFrameSchedule timeFrameDate = new TimeFrameSchedule();
+                timeFrameDate.setDate(date1);
+                List<FieldSchedule> fieldScheduleList = new ArrayList<>();
+//                timeFrameDate.setFieldSchedules(fieldScheduleList);
+                for(Constant.TimeFrameEnum timeFrameEnum : Constant.TimeFrameEnum.getAllTimeFrames()){
+                    FieldSchedule fieldSchedule = new FieldSchedule();
+                    fieldSchedule.setFieldId(fieldId.get(j));
+                    fieldSchedule.setTimeFrame(timeFrameEnum.getKey());
+                    List<BookingDetail> dup =bookingDetailRepository.checkBookingField(fieldId.get(j),timeFrameEnum.getKey(),date1);
+                    long quantityBooked = 0L;
+                    if(dup != null && !dup.isEmpty()){
+                        for(BookingDetail bookingDetail : dup){
+                            quantityBooked = quantityBooked + bookingDetail.getQuantity();
+                        }
+                    }
+                    fieldSchedule.setQuantity(quantityBooked);
+                    fieldScheduleList.add(fieldSchedule);
+                }
+                timeFrameDate.setFieldSchedules(fieldScheduleList);
+                result.add(timeFrameDate);
+            }
         }
         return result;
     }

@@ -3,6 +3,7 @@ package com.projectsem4.BookingService.service;
 import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
+import com.projectsem4.BookingService.model.request.CreateBookingTournament;
 import com.projectsem4.common_service.dto.entity.Price;
 import com.projectsem4.common_service.dto.entity.TimeFrameDate;
 import com.projectsem4.common_service.dto.entity.TimeFrameSchedule;
@@ -19,6 +20,8 @@ public interface BookingService {
     Object updateStatusOderByPayment(Integer status, Long orderId);
     List<TimeFrameSchedule> scheduleClient(Long fieldIds, String date);
     List<TimeFrameSchedule> scheduleClientPeriod(Long fieldId, List<String> dateString);
+    List<TimeFrameSchedule> scheduleClientTournament(List<Long> fieldId, List<String> dateString);
     List<CreateBookingRequest> findAllBookings(HttpServletRequest request);
     List<BookingDetail> findByBookingId(Long bookingId);
+    Object createTournament(CreateBookingTournament createBookingTournament, HttpServletRequest request);
 }

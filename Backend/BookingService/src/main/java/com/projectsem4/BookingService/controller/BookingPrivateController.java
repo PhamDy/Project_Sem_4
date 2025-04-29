@@ -3,6 +3,7 @@ package com.projectsem4.BookingService.controller;
 import com.projectsem4.BookingService.entity.BookingDetail;
 import com.projectsem4.BookingService.entity.BookingPeriod;
 import com.projectsem4.BookingService.model.request.CreateBookingRequest;
+import com.projectsem4.BookingService.model.request.CreateBookingTournament;
 import com.projectsem4.BookingService.service.BookingService;
 import com.projectsem4.common_service.dto.entity.Price;
 import com.projectsem4.common_service.dto.entity.TimeFrameDate;
@@ -71,6 +72,17 @@ public class BookingPrivateController {
 
     @PostMapping("/validate-period")
     public List<TimeFrameSchedule> validatePeriod(@RequestParam Long fieldId, @RequestParam List<String> date) {
+        return bookingService.scheduleClientPeriod(fieldId, date);
+    }
+
+    @PostMapping("/create-tournament")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<?> createTournament(@RequestBody CreateBookingTournament booking, HttpServletRequest httpServletRequest) {
+        return ResponseEntity.ok(bookingService.createTournament(booking, httpServletRequest));
+    }
+
+    @PostMapping("/validate-tournament")
+    public List<TimeFrameSchedule> validateTournament(@RequestParam List<Long> fieldId, @RequestParam List<String> date) {
         return bookingService.scheduleClientPeriod(fieldId, date);
     }
 }

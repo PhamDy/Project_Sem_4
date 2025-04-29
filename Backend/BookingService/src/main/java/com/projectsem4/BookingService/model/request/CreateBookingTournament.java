@@ -1,6 +1,5 @@
 package com.projectsem4.BookingService.model.request;
 
-import com.projectsem4.BookingService.entity.BookingTournamentDetail;
 import com.projectsem4.BookingService.entity.BookingTournamentDetailTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,8 +35,7 @@ public class CreateBookingTournament {
     private Boolean opening;
     private Long bookingId;     //ko cần truyền
     private List<Long> timeFrames;
-    private List<Long> fieldIds;
-    List<BookingTournamentDetail> bookingFields;    //ko cần truyền
+    private Long fieldIds;
     List<BookingTournamentDetailTime> bookingTimeFrames;    //ko cần truyền
     private String url; //ko cần truyền
 }

@@ -6,6 +6,7 @@ import com.projectsem4.StadiumService.model.request.AreaCreateRequest;
 import com.projectsem4.StadiumService.model.request.FieldTypeRequest;
 import com.projectsem4.StadiumService.model.request.FindAreaRequest;
 import com.projectsem4.StadiumService.request.ValidatePeriodRequest;
+import com.projectsem4.StadiumService.request.ValidateTournamentRequest;
 import com.projectsem4.StadiumService.service.AreaService;
 
 import lombok.RequiredArgsConstructor;
@@ -120,6 +121,11 @@ public class StadiumPrivateController {
     @PostMapping("/validate-period")
     public ResponseEntity<Object> findTimeAvailablePeriod(@RequestBody ValidatePeriodRequest request) {
         return ResponseEntity.ok(areaService.findTimeFrame(request.getWeekDay(), request.getDate(), request.getQuantity(), request.getFieldId()));
+    }
+
+    @PostMapping("/validate-tournament")
+    public ResponseEntity<Object> findTimeAvailableTournament(@RequestBody ValidateTournamentRequest request) {
+        return ResponseEntity.ok(areaService.findTimeFrameTournament(request.getStartDate(), request.getEndDate(), request.getQuantity(), request.getFieldId()));
     }
 
 //    @PostMapping("/update-area")

@@ -20,7 +20,7 @@ public interface BookingService {
     Object updateStatusOderByPayment(Integer status, Long orderId);
     List<TimeFrameSchedule> scheduleClient(Long fieldIds, String date);
     List<TimeFrameSchedule> scheduleClientPeriod(Long fieldId, List<String> dateString);
-    List<TimeFrameSchedule> scheduleClientTournament(List<Long> fieldId, List<String> dateString);
+    List<TimeFrameSchedule> scheduleClientTournament(Long fieldId, List<String> dateString);
     List<CreateBookingRequest> findAllBookings(HttpServletRequest request);
     List<BookingDetail> findByBookingId(Long bookingId);
     Object createTournament(CreateBookingTournament createBookingTournament, HttpServletRequest request);

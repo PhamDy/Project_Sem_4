@@ -37,4 +37,5 @@ public interface AreaService {
     Object search(FindAreaRequest findAreaRequest,Pageable pageable);
     Object findAllFieldInArea(Long areaId);
     Object findTimeFrame(Long weekDay, LocalDate month, Long quantity, Long fieldType);
+    public Object findTimeFrameTournament(LocalDate startDate, LocalDate endDate, Long quantity, Long fieldTypeId);
 }

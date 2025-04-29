@@ -26,5 +26,5 @@ public interface BookingServiceClient {
     List<TimeFrameSchedule> validatePeriod(@RequestParam("date") List<String> date, @RequestParam Long fieldId);
 
     @PostMapping(value = "/private/api/v1/validate-tournament", consumes = "application/json")
-    List<TimeFrameSchedule> validateTournament(@RequestParam("date") List<String> date, @RequestParam List<Long> fieldId);
+    List<TimeFrameSchedule> validateTournament(@RequestParam("date") List<String> date, @RequestParam Long fieldId);
 }

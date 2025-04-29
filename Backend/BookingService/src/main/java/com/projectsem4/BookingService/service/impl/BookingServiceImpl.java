@@ -37,7 +37,6 @@ public class BookingServiceImpl implements BookingService {
     private final BookingDetailRepository bookingDetailRepository;
     private final PaymentServiceClient paymentServiceClient;
     private final BookingTournamentRepository bookingTournamentRepository;
-    private final BookingTournamentDetailRepository bookingTournamentDetailRepository;
     private final BookingTournamentDetailTimeRepository bookingTournamentDetailTimeRepository;
     private final ModelMapper modelMapper;
 
@@ -298,24 +297,16 @@ public class BookingServiceImpl implements BookingService {
             bookingTournamentDetailTime.setTimeFrame(i);
             bookingTournamentDetailTimeRepository.save(bookingTournamentDetailTime);
         }
-
-        for (Long j : createBookingTournament.getFieldIds()){
-            BookingTournamentDetail bookingTournamentDetail = new BookingTournamentDetail();
-            bookingTournamentDetail.setBookingTournamentId(bookingTournament.getId());
-            bookingTournamentDetail.setFieldTypeId(j);
-            bookingTournamentDetailRepository.save(bookingTournamentDetail);
-        }
         createBookingTournament.setUrl(paymentServiceClient.linkThanhToan(booking.getId()));
         return createBookingTournament;
     }
 
-    public List<TimeFrameSchedule> scheduleClientTournament(List<Long> fieldId, List<String> dateString) {
+    public List<TimeFrameSchedule> scheduleClientTournament(Long fieldId, List<String> dateString) {
         List<LocalDate> date = dateString.stream()
                 .map(item -> LocalDate.parse(item, DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .toList();
         List<TimeFrameSchedule> result = new ArrayList<>();
         for(int i = 0; i <date.size(); i++){
-            for (int j = 0; j < fieldId.size(); j++) {
                 LocalDate date1 = date.get(i);
                 TimeFrameSchedule timeFrameDate = new TimeFrameSchedule();
                 timeFrameDate.setDate(date1);
@@ -323,9 +314,9 @@ public class BookingServiceImpl implements BookingService {
 //                timeFrameDate.setFieldSchedules(fieldScheduleList);
                 for(Constant.TimeFrameEnum timeFrameEnum : Constant.TimeFrameEnum.getAllTimeFrames()){
                     FieldSchedule fieldSchedule = new FieldSchedule();
-                    fieldSchedule.setFieldId(fieldId.get(j));
+                    fieldSchedule.setFieldId(fieldId);
                     fieldSchedule.setTimeFrame(timeFrameEnum.getKey());
-                    List<BookingDetail> dup =bookingDetailRepository.checkBookingField(fieldId.get(j),timeFrameEnum.getKey(),date1);
+                    List<BookingDetail> dup =bookingDetailRepository.checkBookingField(fieldId,timeFrameEnum.getKey(),date1);
                     long quantityBooked = 0L;
                     if(dup != null && !dup.isEmpty()){
                         for(BookingDetail bookingDetail : dup){
@@ -337,7 +328,6 @@ public class BookingServiceImpl implements BookingService {
                 }
                 timeFrameDate.setFieldSchedules(fieldScheduleList);
                 result.add(timeFrameDate);
-            }
         }
         return result;
     }

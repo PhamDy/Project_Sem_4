@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-//@Entity
+@Entity
 @Table(name = "booking_tournament_detail_time", schema = "project")
 public class BookingTournamentDetailTime {
     @Id

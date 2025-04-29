@@ -118,35 +118,35 @@
           <h2><i class="fas fa-history"></i> Booking History</h2>
         </div>
         <!-- Placeholder for booking history -->
-        <div class="placeholder-content" *ngIf="!areaDetail">
+        <div class="placeholder-content" *ngIf="!bookings || bookings.length === 0">
           <div class="placeholder-icon">
             <i class="fas fa-history"></i>
           </div>
           <h3>No booking history</h3>
           <p>Your past bookings will appear here once you have completed some bookings.</p>
         </div>
-        <div class="booking-history" *ngIf="areaDetail">
+        <div class="booking-history" *ngFor="let booking of bookings">
           <div class="booking-date" (click)="toggleDetails()">
             <div class="detail-book">
-            <strong>Ngày đặt hàng: </strong> {{ bookingDate }}
+            <strong>Ngày đặt hàng: </strong> {{ booking.bookingDetailResponses[0]?.bookingDate }}
             </div>
           </div>
 
           <div class="stadium-container">
             <!-- Ảnh sân vận động -->
             <div class="stadium-image">
-              <img [src]="img" alt="Stadium Image" />
+              <img style="height: 100%;" [src]="img" alt="Stadium Image" />
             </div>
             <div class="stadium-infor">
-              <h1 style="font-weight: 600;font-size: 20px">{{areaDetail?.name}}</h1>
-              <p class="address">
-                <strong>📍 Địa chỉ:</strong> {{ areaDetail.address }}
-              </p>
+              <h1 style="font-weight: 600;font-size: 20px">{{ booking.bookingDetailResponses[0]?.fieldType?.name }}</h1>
               <p class="description">
-                <strong>ℹ️ Mô tả:</strong> {{ areaDetail.description }}
+                <strong>ℹ️ Mô tả:</strong> {{ booking.bookingDetailResponses[0]?.areaResponse?.description }}
               </p>
-              <p><strong>📧 Email:</strong> {{ areaDetail.email }}</p>
-              <p><strong>📞 Số điện thoại:</strong> {{ areaDetail.phoneNumber }}</p>
+              <p class="address">
+                <strong>📍 Địa chỉ:</strong> {{ booking.bookingDetailResponses[0]?.areaResponse?.address }}
+              </p>
+              <p><strong>📧 Email:</strong> {{ booking.bookingDetailResponses[0]?.areaResponse?.email }}</p>
+              <p><strong>📞 Số điện thoại:</strong> {{ booking.bookingDetailResponses[0]?.areaResponse?.phoneNumber }}</p>
             </div>
           </div>
 
@@ -157,17 +157,17 @@
               <thead style="color: #00b4d0">
               <tr>
                 <th>STT</th>
-                <th>Field ID</th>
+                <th>Ngày</th>
                 <th>Thời gian</th>
                 <th>Số lượng</th>
                 <th>Giá</th>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let item of bookingDetails; let i = index">
+              <tr *ngFor="let item of booking.bookingDetailResponses; let i = index">
                 <td>{{ i + 1 }}</td>
-                <td>{{ item.fieldId }}</td>
-                <td>{{ item.timeFrame }}</td>
+                <td>{{ item.bookingDate }}</td>
+                <td>{{ timeFrameMapping[item.timeFrame] }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.price | currency: 'VND' }}</td>
               </tr>

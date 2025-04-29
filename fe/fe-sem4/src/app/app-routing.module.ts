@@ -54,8 +54,7 @@ const routes: Routes = [
     component: AuthComponent
   },
   {
-    path: '' +
-      '/:id',
+    path: 'tournament/:id',
     component: BookingTournamentComponent
   },
   {

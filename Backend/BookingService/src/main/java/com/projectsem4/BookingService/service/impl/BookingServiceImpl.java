@@ -46,14 +46,15 @@ public class BookingServiceImpl implements BookingService {
         booking.setUserId(request.getUserId());
         booking.setTotalPrice(request.getTotalPrice());
         booking.setStatus(Constant.OrderStatus.pending);
+        booking.setType(1L);
         booking.setUserId(JwtUtil.decodeToken(JwtUtil.genStringToken(httpServletRequest)).getUserId());
         bookingRepository.save(booking);
         List<BookingDetail> detail = request.getBookingDetails().stream().peek(item -> item.setBookingId(booking.getId())).toList();
         if(request.getBookingDetails() != null && !request.getBookingDetails().isEmpty()) {
             bookingDetailRepository.saveAll(detail);
         }
-        if(request.getBookingPeriods() != null && !request.getBookingPeriods().isEmpty()) {
-            bookingPeriodRepository.saveAll(request.getBookingPeriods());
+        if(request.getBookingPeriods() != null) {
+            bookingPeriodRepository.save(request.getBookingPeriods());
         }
         if(request.getBookingAccessory() != null && !request.getBookingAccessory().isEmpty()) {
             bookingAccessoryRepository.saveAll(request.getBookingAccessory());
@@ -92,6 +93,7 @@ public class BookingServiceImpl implements BookingService {
         }
         bookingPeriodRepository.save(request);
         Booking booking = new Booking();
+        booking.setType(2L);
         booking.setStatus(Constant.OrderStatus.pending);
         booking.setTotalPrice(request.getPrice());
         booking.setUserId(JwtUtil.decodeToken(JwtUtil.genStringToken(httpServletRequest)).getUserId());
@@ -135,6 +137,18 @@ public class BookingServiceImpl implements BookingService {
         createBookingRequest.setUserId(booking.getUserId());
         createBookingRequest.setTotalPrice(booking.getTotalPrice());
         createBookingRequest.setBookingDetailResponses(responses);
+        if(booking.getType() != null && booking.getType() == 2){
+            BookingPeriod bookingPeriod = bookingPeriodRepository.findByBookingId(booking.getId());
+            if(bookingPeriod != null){
+                createBookingRequest.setBookingPeriods(bookingPeriod);
+            }
+        }
+        if(booking.getType() != null && booking.getType() == 3){
+            BookingTournament bookingTournament = bookingTournamentRepository.findBookingTournamentByBookingId(booking.getId());
+            if(bookingTournament != null){
+                createBookingRequest.setBookingTournament(bookingTournament);
+            }
+        }
         return createBookingRequest;
     }
 
@@ -268,6 +282,7 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = new Booking();
         booking.setStatus(Constant.OrderStatus.pending);
         booking.setTotalPrice(createBookingTournament.getPrice());
+        booking.setType(3L);
         booking.setUserId(JwtUtil.decodeToken(JwtUtil.genStringToken(request)).getUserId());
         bookingRepository.save(booking);
         BookingTournament bookingTournament = new BookingTournament();

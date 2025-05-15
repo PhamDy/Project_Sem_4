@@ -1,9 +1,6 @@
 package com.projectsem4.BookingService.model.request;
 
-import com.projectsem4.BookingService.entity.BookingAccessory;
-import com.projectsem4.BookingService.entity.BookingDetail;
-import com.projectsem4.BookingService.entity.BookingPeriod;
-import com.projectsem4.BookingService.entity.BookingReferee;
+import com.projectsem4.BookingService.entity.*;
 import com.projectsem4.common_service.dto.entity.AreaResponse;
 import com.projectsem4.common_service.dto.entity.BookingDetailResponse;
 import com.projectsem4.common_service.dto.entity.FieldType;
@@ -29,6 +26,7 @@ public class CreateBookingRequest {
     private List<BookingReferee> bookingReferees;
     private List<BookingDetail> bookingDetails;
     private List<BookingDetailResponse> bookingDetailResponses;
-    private List<BookingPeriod> bookingPeriods;
+    private BookingPeriod bookingPeriods;
+    private BookingTournament bookingTournament;
     String url;
 }

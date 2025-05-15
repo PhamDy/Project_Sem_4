@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class FieldType extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "field_id")
+    @Column(name = "field_type_id")
     private Long fieldTypeId;
 
     @Basic

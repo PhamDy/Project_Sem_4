@@ -32,4 +32,6 @@ public class Booking extends BaseEntity {
 
     private Integer paymentMethod;
 
+    private Long type;
+
 }

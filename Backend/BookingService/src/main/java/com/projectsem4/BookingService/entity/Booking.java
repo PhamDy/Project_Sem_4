@@ -32,4 +32,6 @@ public class Booking extends BaseEntity {
     @Column(name = "payment_method")
     private Integer paymentMethod;
 
+    @Column(name = "type")
+    private Long type;
 }
